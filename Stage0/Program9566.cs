@@ -5,7 +5,7 @@ Console.WriteLine("Hello, World!");
 
 namespace Stage0
 {
-    partial class program {
+    partial class Program {
         static void main(string[]arge)
         {
             Wellcome9566();
