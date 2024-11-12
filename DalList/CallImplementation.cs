@@ -4,41 +4,37 @@ using DalApi;
 
 public class CallImplementation : ICall
 {
-   // private List<Call> calls = new List<Call>();
+  
 
 
     public void Create(Call item)
     {
         // יצירת מזהה חדש על בסיס המספר הרץ הבא
         int newId = Config.NextCallId;
+        //Call newItem = new Call 
+        //{
+        //    Id = newId,
+        //     Type=item.Type,
+        //     Description=item.Description,
+        //     FullAddress=item.FullAddress,
+        //     Latitude=item.Latitude,
+        //     Longitude=item.Longitude,
+        //     TimeOpened = item.TimeOpened,
+        //     MaxTimeToClose = item.MaxTimeToClose    
 
-        
-        Call newItem = new Call 
-        {
-            Id = newId,
-            
-             Type=item.Type,
-             Description=item.Description,
-             FullAddress=item.FullAddress,
-             Latitude=item.Latitude,
-             Longitude=item.Longitude,
-             TimeOpened = item.TimeOpened,
-             MaxTimeToClose = item.MaxTimeToClose    
-         
-        };
-       if (DataSource.Calls.Exists(c => c.Id == item.Id))
-        {
-            throw new ArgumentException("Call with the same ID already exists.");
-        }
-        DataSource.Calls.Add(item);
+        //};
+        Call copy = item with { Id = newId };
+
+        DataSource.Calls.Add(copy);
      //   return newItem.Id;
     }
 
     public void Delete(int id)
     {
-        Call call = DataSource.Calls.Find(c => c.Id == id)
-            ?? throw new KeyNotFoundException("Call not found.");
-        DataSource.Calls.Remove(call);
+        Call? call1 = DataSource.Calls.Find(c => c.Id == id);
+        if (call1 == null)
+              throw new Exception($"Call with ID={id} not exists");
+        DataSource.Calls.Remove(call1);
     }
 
     public void DeleteAll()
@@ -50,10 +46,8 @@ public class CallImplementation : ICall
     {
        var findCall =DataSource.Calls.Find(c => c.Id == id);
         if (findCall != null) 
-         return findCall; 
-
-        return null;
-           
+         return findCall;
+        return null;   
            
     }
 
@@ -66,17 +60,9 @@ public class CallImplementation : ICall
     {
         int index = DataSource.Calls.FindIndex(c => c.Id == item.Id);
         if (index == -1)
-        {
-            throw new KeyNotFoundException("Call not found.");
-        }
+            throw new Exception($"Call with ID={item.Id} does not exist.");
+
+        
         DataSource.Calls[index] = item;
-
-        // הסרה של האובייקט הישן
-       // calls.RemoveAt(index);
-
-        // הוספה של האובייקט המעודכן
-      //  calls.Add(item);
-
-
     }
 }

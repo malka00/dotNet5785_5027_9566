@@ -8,7 +8,13 @@ public record Assignment
    DateTime? TimeEnd = null, // זמן סיום הטיפול בפועל (תאריך ושעה)
    TypeEnd? TypeEndTreat = null// סוג סיום הטיפול (טופלה, ביטול עצמי, ביטול מנהל, ביטול פג תוקף)
 )
-{ public Assignment() : this(0, 0, 0, default(DateTime)) { } }
+{ public Assignment() : this(0, 0, 0, default(DateTime)) { }
+
+    //public static implicit operator int(Assignment v)
+    //{
+    //    throw new NotImplementedException();
+    //}
+}
 
 
 

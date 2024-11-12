@@ -9,22 +9,21 @@ public class AssignmentImplementation : IAssignment
    
     public void Create(Assignment item)
     {
-        // בדיקה שהאובייקט אינו null
-        if (item == null)
-            throw new ArgumentNullException(nameof(item), "item is null");
+
 
         // יצירת עותק עמוק של הפריט
-       Assignment newAssignment = new Assignment
-        {
-            Id= Config.NextAssignmenteID,          
-            CallId=item.CallId,       
-            VolunteerId=item.VolunteerId,   
-            TimeStart=item.TimeStart,
-            TimeEnd =item.TimeEnd , 
-            TypeEndTreat =item.TypeEndTreat,   
-        };
+        int newId =Config.NextAssignmenteID ;
+        // {
+        //     Id= Config.NextAssignmenteID,          
+        //     CallId=item.CallId,       
+        //     VolunteerId=item.VolunteerId,   
+        //     TimeStart=item.TimeStart,
+        //     TimeEnd =item.TimeEnd , 
+        //     TypeEndTreat =item.TypeEndTreat,   
+        // };
+       Assignment copy = item with { Id = newId };
+        DataSource.Assignments.Add(copy);
 
-        DataSource.Assignments.Add(newAssignment); // הוספה לרשימה
      //   return ID;
     }
 
@@ -33,7 +32,7 @@ public class AssignmentImplementation : IAssignment
       
         var assignment = DataSource.Assignments.FirstOrDefault(a => a.Id == id);
         if (assignment == null)
-            throw new KeyNotFoundException($"Assignment עם המזהה {id} לא נמצא");
+            throw new Exception($"Assignment with ID={id} not exists");
 
        DataSource.Assignments.Remove(assignment); 
     }
@@ -61,13 +60,12 @@ public class AssignmentImplementation : IAssignment
 
     public void Update(Assignment item)
     {
-        if (item == null)
-            throw new ArgumentNullException(nameof(item)," assigment item is null");
+      
 
         int index = DataSource.Assignments.FindIndex(c => c.Id == item.Id);
         if (index == -1)
         {
-            throw new KeyNotFoundException("assigmant not found.");
+            throw new Exception($"Assignment with ID={item.Id} not exists");
         }
         DataSource.Assignments[index] = item;
     }

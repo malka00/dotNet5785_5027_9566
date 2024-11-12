@@ -14,13 +14,13 @@ public class VolunteerlImplementation : IVolunteer
         // בדיקה אם קיים אובייקט עם אותו מזהה
         if (DataSource.Volunteers.Any(v => v.Id == item.Id))
         {
-            throw new ArgumentException("item whith this ID already exsist");
+            throw new Exception($"Volenteer with ID={item.Id} already exists"); ;
         }
+        
 
-        // הוספת האובייקט לרשימה ישירות
+      
         DataSource.Volunteers.Add(item);
 
-        // החזרת ה-ID של האובייקט החדש
        // return item.Id;
     }
 
@@ -46,7 +46,7 @@ public class VolunteerlImplementation : IVolunteer
         
 
         var index = DataSource.Volunteers.FindIndex(v => v.Id == item.Id);
-        if (index == -1) throw new ArgumentException("Volunteer with this ID not found");
+        if (index == -1) throw new Exception($"Volteer with ID={item.Id} not exists");
 
         DataSource.Volunteers[index] = new Volunteer
         {
@@ -69,7 +69,7 @@ public class VolunteerlImplementation : IVolunteer
     public void Delete(int id)
     {
         var volunteer = DataSource.Volunteers.FirstOrDefault(v => v.Id == id);
-        if (volunteer == null) throw new ArgumentException("Volunteer not found", nameof(id));
+        if (volunteer == null) throw new Exception($"Volunteer with ID={id} not exists");
 
         DataSource.Volunteers.Remove(volunteer);
     }
