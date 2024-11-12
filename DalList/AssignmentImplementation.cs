@@ -77,8 +77,8 @@ public class AssignmentImplementation : IAssignment
             throw new KeyNotFoundException($"Assignment not found");
 
         // עדכון הפריט הקיים
-        assignment.Name = item.Name;
-        assignment.Description = item.Description;
-        assignment.DueDate = item.DueDate;
+        //assignment.Name = item.Name;
+        //assignment.Description = item.Description;
+        //assignment.DueDate = item.DueDate;
     }
 }
