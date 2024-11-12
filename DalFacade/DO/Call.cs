@@ -2,16 +2,34 @@
 
 using Microsoft.VisualBasic;
 
+// Module Call.cs
 namespace DO;
+
+/// <summary>
+/// Course Entity
+/// </summary>
+/// <param name="Id">Unique readable identifier</param>
+/// <param name="CallType Type">the type of reading</param>
+/// <param name="Description">Verbal description of the reading</param>
+/// <param name="FullAddress">Full address of the call</param>
+/// <param name="Latitude">Latitude of reading location</param>
+/// <param name="Longitude">Longitude of reading location</param>
+/// <param name="TimeOpened">Reading opening time</param>
+/// <param name="Credits">Maximum time to finish reading (if any)</param>
 
 public class Call
 {
-    public int Id { get; set; }                  // מזהה ייחודי לקריאה
-    public CallType Type { get; set; }            // סוג הקריאה
-    public string Description { get; set; }       // תיאור מילולי של הקריאה
-    public string FullAddress { get; set; }       // כתובת מלאה של הקריאה
-    public double Latitude { get; set; }          // קו רוחב של מיקום הקריאה
-    public double Longitude { get; set; }         // קו אורך של מיקום הקריאה
-    public DateTime TimeOpened { get; set; }      // זמן פתיחת הקריאה
-    public DateTime? MaxTimeToClose { get; set; } // זמן מקסימלי לסיום הקריאה (אם יש)
+    public int Id { get; set; }
+    public CallType Type { get; set; }
+    public string Description { get; set; }
+    public string FullAddress { get; set; }
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+    public DateTime TimeOpened { get; set; }
+    public DateTime? MaxTimeToClose { get; set; }
+
+
+    /// <summary>
+    /// Default constructor for Call
+    /// </summary>
 }
