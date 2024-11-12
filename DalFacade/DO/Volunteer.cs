@@ -1,6 +1,6 @@
 ﻿
 
-using System.Data;
+
 
 namespace DO;
 
@@ -26,9 +26,5 @@ public record class Volunteer
 
 
     // פונקציה לעדכון מיקום המתנדב
-    public void UpdateLocation(double latitude, double longitude)
-    {
-        Latitude = latitude;
-        Longitude = longitude;
-    }
+  
 }
