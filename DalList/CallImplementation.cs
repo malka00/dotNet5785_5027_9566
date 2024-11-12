@@ -48,8 +48,13 @@ public class CallImplementation : ICall
 
     public Call? Read(int id)
     {
-        return DataSource.Calls.Find(c => c.Id == id)
-            ?? throw new KeyNotFoundException("Call not found.");
+       var findCall =DataSource.Calls.Find(c => c.Id == id);
+        if (findCall != null) 
+         return findCall; 
+
+        return null;
+           
+           
     }
 
     public List<Call> ReadAll()

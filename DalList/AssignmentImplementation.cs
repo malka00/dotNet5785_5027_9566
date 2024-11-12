@@ -48,21 +48,14 @@ public class AssignmentImplementation : IAssignment
         // חיפוש פריט לפי מזהה
         var assignment = DataSource.Assignments.FirstOrDefault(a => a.Id == id);
         if (assignment == null)
-            throw new KeyNotFoundException($"Assignment עם המזהה {id} לא נמצא");
+           return null;
         return assignment;
 
     }
 
     public List<Assignment> ReadAll()
     {
-        // החזרת עותקים של כל האובייקטים כדי להגן על הנתונים המקוריים
-        //return assignments.Select(a => new Assignment
-        //{
-        //    Id = a.Id,
-        //    Name = a.Name,
-        //    Description = a.Description,
-        //    DueDate = a.DueDate
-        //}).ToList();
+       
         return new List<Assignment>(DataSource.Assignments);
     }
 
@@ -71,14 +64,11 @@ public class AssignmentImplementation : IAssignment
         if (item == null)
             throw new ArgumentNullException(nameof(item)," assigment item is null");
 
-        // חיפוש פריט לפי מזהה
-        var assignment = DataSource.Assignments.FirstOrDefault(a => a.Id == item.Id);
-        if (assignment == null)
-            throw new KeyNotFoundException($"Assignment not found");
-
-        // עדכון הפריט הקיים
-        //assignment.Name = item.Name;
-        //assignment.Description = item.Description;
-        //assignment.DueDate = item.DueDate;
+        int index = DataSource.Assignments.FindIndex(c => c.Id == item.Id);
+        if (index == -1)
+        {
+            throw new KeyNotFoundException("assigmant not found.");
+        }
+        DataSource.Assignments[index] = item;
     }
 }
