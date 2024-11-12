@@ -4,7 +4,8 @@ using DalApi;
 
 public class CallImplementation : ICall
 {
-    private List<Call> calls = new List<Call>();
+   // private List<Call> calls = new List<Call>();
+
 
     public void Create(Call item)
     {
@@ -25,45 +26,45 @@ public class CallImplementation : ICall
              MaxTimeToClose = item.MaxTimeToClose    
          
         };
-        if (calls.Exists(c => c.Id == item.Id))
+       if (DataSource.Calls.Exists(c => c.Id == item.Id))
         {
             throw new ArgumentException("Call with the same ID already exists.");
         }
-        calls.Add(item);
+        DataSource.Calls.Add(item);
      //   return newItem.Id;
     }
 
     public void Delete(int id)
     {
-        Call call = calls.Find(c => c.Id == id)
+        Call call = DataSource.Calls.Find(c => c.Id == id)
             ?? throw new KeyNotFoundException("Call not found.");
-        calls.Remove(call);
+        DataSource.Calls.Remove(call);
     }
 
     public void DeleteAll()
     {
-        calls.Clear();
+        DataSource.Calls.Clear();
     }
 
     public Call? Read(int id)
     {
-        return calls.Find(c => c.Id == id)
+        return DataSource.Calls.Find(c => c.Id == id)
             ?? throw new KeyNotFoundException("Call not found.");
     }
 
     public List<Call> ReadAll()
     {
-        return new List<Call>(calls);
+        return new List<Call>(DataSource.Calls);
     }
 
     public void Update(Call item)
     {
-        int index = calls.FindIndex(c => c.Id == item.Id);
+        int index = DataSource.Calls.FindIndex(c => c.Id == item.Id);
         if (index == -1)
         {
             throw new KeyNotFoundException("Call not found.");
         }
-         calls[index] = item;
+        DataSource.Calls[index] = item;
 
         // הסרה של האובייקט הישן
        // calls.RemoveAt(index);
