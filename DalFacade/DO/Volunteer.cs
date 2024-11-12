@@ -8,7 +8,7 @@ public record Volunteer
      string FullName,
      string PhoneNumber,
      string Email,
-       Distance TypeDistance,
+     Distance TypeDistance,
      Role Job,
      bool Active,
      string? Password = null,
@@ -22,7 +22,7 @@ public record Volunteer
     /// <summary>
     /// Default constructor for stage 3
     /// </summary>
-    public Volunteer() : this(0, "", "", "", default(Role), default(Distance), false) { }
+    public Volunteer() : this(0, "", "", "", default(Distance), default(Role), false) { }
 }
 
 
