@@ -2,9 +2,8 @@
 namespace DalTest;
 using DalApi;
 using DO;
-using global::DO;
 using System;
-using System.Data.Common;
+
 
 public static class Initialization
 {
@@ -182,19 +181,64 @@ public static class Initialization
                 }
             }
 
-            // זמן סיום לפני זמן ההתחלה
-
-
-
-
-
-
-
+            // נשאר להתעסק עם הכתובות...
             //  s_call.Add(new Call( description, address, latitude, longitude, timeOpened, maxTimeToClose));
         }
 
     }
+    private static void CreateAssignment()
+    {
+        for(int i = 0; i < 50; i++)
+        {
+            var Calls = s_call.ReadAll();
+            Random RandomC = new Random();
+            int RandomNumberC = RandomC.Next(0, 51);
+            int CallId = Calls[RandomNumberC].Id;
+           
+            //DateTime? EndTime= Calls[RandomNumberC].MaxTimeToClose;
+            //TypeEnd TypeEnd;
+            //DateTime? NTimeEnd;
+            //if (EndTime < s_dalConfig.Clock)
+            //{//אם זה קטן מזמן מערכת אז עבר הזמן ולא טופל
+            //    TypeEnd = TypeEnd.ExpiredCancel;
+            //  NTimeEnd = null;
+            //}
+
+            //else if (i % 4 == 0)
+            //{
+            //    TypeEnd = TypeEnd.SelfCancel;
+            //    NTimeEnd = null;
+            //}
+            //else if (i % 5 == 0)
+            //{
+            //    TypeEnd = TypeEnd.ManagerCancel;
+            //    NTimeEnd = null;
+            //}
+            //else if (i % 3 == 0)
+            //{ 
+             
+            //TypeEnd = TypeEnd.Treated;
+            //    {
+                    
+            //        TimeSpan TimeRange = EndTime - TimeStart;
+            //        NTimeEnd = TimeStart.AddMinutes(Random.Next(0,(int)TimeRange.TotalMinutes));
+
+
+                    var Vol = s_volunteer.ReadAll();
+            Random RandomV = new Random();
+            int RandomNumberV;
+            do
+                RandomNumberV = RandomV.Next(0, 17);
+
+            while (RandomNumberV == 14 || RandomNumberV == 5);  /// מתנדבים שלו טיפלו בכלל
+            int VolId = Vol[RandomNumberV].Id;
+
+
+        }
+    }
+
 }
+
 
    
 

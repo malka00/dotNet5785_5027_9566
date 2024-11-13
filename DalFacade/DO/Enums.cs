@@ -21,12 +21,13 @@ public enum CallType
 {
     Puncture,
 Cables,
-LockedCar   // שינוע אוכל
-             // ניתן להוסיף סוגים נוספים לפי הצורך
+LockedCar   
 }
 public enum TypeEnd
 {
-    Treated,          // טופלה
+
+    Treated,//טופל
+   // NotYetTreet//לא טופל
     SelfCancel,       // ביטול עצמי
     ManagerCancel,    // ביטול מנהל
     ExpiredCancel     // ביטול פג תוקף
