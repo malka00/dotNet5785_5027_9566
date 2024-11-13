@@ -51,8 +51,8 @@ public static class Initialization
 
         s_volunteer!.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "password123"));
     }
-   
-    
+
+
 
 
 
@@ -162,7 +162,7 @@ public static class Initialization
             }
 
 
-           
+
             //DateTime? maxTimeToClose =
             DateTime Start = s_dalConfig.Clock.AddDays(-1); // זמן התחלה יהיה לפני 24 שעות מהשעון הנוכחי
             int Range = (s_dalConfig.Clock - Start).Minutes; // חישוב מספר הדקות מאז זמן ההתחלה
@@ -172,7 +172,8 @@ public static class Initialization
 
                 RandomEnd = RndomStart.AddMinutes(new Random().Next(1, (int)(s_dalConfig.Clock - RndomStart).TotalMinutes));
             // כעת, ניצור זמן סיום מקסימלי בהתאם לזמן הפתיחה:
-            else {
+            else
+            {
                 // ערך ברירת מחדל, אין זמן סיום
                 if (s_rand.Next(2) == 1) // החלטה רנדומלית אם לכלול זמן סיום או לא
                 {
@@ -185,14 +186,15 @@ public static class Initialization
 
 
 
-            
 
 
 
-          //  s_call.Add(new Call( description, address, latitude, longitude, timeOpened, maxTimeToClose));
+
+            //  s_call.Add(new Call( description, address, latitude, longitude, timeOpened, maxTimeToClose));
         }
+
     }
-        
+}
 
    
 
