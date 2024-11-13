@@ -19,9 +19,10 @@ public enum Distance
 }
 public enum CallType
 {
-    FoodPreparation,  // הכנת אוכל
-    FoodTransport,    // שינוע אוכל
-                      // ניתן להוסיף סוגים נוספים לפי הצורך
+    Puncture,
+Cables,
+LockedCar   // שינוע אוכל
+             // ניתן להוסיף סוגים נוספים לפי הצורך
 }
 public enum TypeEnd
 {
