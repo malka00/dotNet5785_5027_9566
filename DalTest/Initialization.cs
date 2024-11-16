@@ -22,6 +22,43 @@ public static class Initialization
         string[] Emails = { "ruth@example.com", "yossi@example.com", "oren@example.com", "meirav@example.com", "dan@example.com", "ayelet@example.com", "dana@example.com",
                         "noam@example.com", "ofer@example.com", "ron@example.com", "liron@example.com", "omer@example.com", "ronit@example.com", "ilan@example.com", "galit@example.com" };
 
+        // מערך כתובות
+       /* public static readonly*/ string[] Addresses = 
+        {
+        "King George St 20, Jerusalem, Israel",
+        "Jaffa St 45, Jerusalem, Israel",
+        "Agripas St 10, Jerusalem, Israel",
+        "HaPalmach St 25, Jerusalem, Israel",
+        "Emek Refaim St 43, Jerusalem, Israel",
+        "Shlomzion HaMalka St 18, Jerusalem, Israel",
+        "Hillel St 7, Jerusalem, Israel",
+        "Derech Hebron 105, Jerusalem, Israel",
+        "Bezalel St 12, Jerusalem, Israel",
+        "HaNeviim St 29, Jerusalem, Israel",
+        "Shivtei Israel St 15, Jerusalem, Israel",
+        "Azza St 50, Jerusalem, Israel",
+        "Yitzhak Kariv St 4, Jerusalem, Israel",
+        "Prophets St 23, Jerusalem, Israel",
+        "Ben Yehuda St 1, Jerusalem, Israel"
+        };
+
+        // מערך קווי האורך
+     /*   public static readonly*/ double[] Longitudes = new double[]
+        {
+        35.2193, 35.2137, 35.2129, 35.2065, 35.2117,
+        35.2205, 35.2142, 35.2156, 35.2150, 35.2175,
+        35.2214, 35.2123, 35.2241, 35.2191, 35.2203
+        };
+
+        // מערך קווי הרוחב
+        /*public static readonly*/ double[] Latitudes = new double[]
+        {
+        31.7784, 31.7834, 31.7801, 31.7642, 31.7655,
+        31.7798, 31.7809, 31.7515, 31.7812, 31.7837,
+        31.7849, 31.7698, 31.7714, 31.7815, 31.7822
+        };
+    
+
         // יצירת מתנדבים רגילים
         for (int i = 0; i < VolunteerNames.Length; i++)
         {
@@ -34,12 +71,15 @@ public static class Initialization
             string Name = VolunteerNames[i];
             string Phone = PhoneNumbers[i];
             string Email = Emails[i];
+            string Address = Addresses[i];
+            double  NLatitude = Latitudes[i];
+     double NLongitude = Longitudes[i];
             Distance DistanceType = Distance.Aerial; // מרחק ברירת מחדל
             Role Nrole = Role.Volunteer; // ברירת מחדל - מתנדב רגיל
             bool Active = true; // המתנדב פעיל כברירת מחדל
             double MaxReading = s_rand.Next(5, 100); // מרחק מקסימלי אקראי בין 5 ל-100
 
-            s_volunteer!.Create(new Volunteer(Id, Name, Phone, Email, DistanceType, Nrole, Active, null, null, null, null, MaxReading));
+            s_volunteer!.Create(new Volunteer(Id, Name, Phone, Email, DistanceType, Nrole, Active, null, Address, NLatitude, NLongitude, MaxReading));
         }
 
         // הוספת מנהל אחד לפחות
