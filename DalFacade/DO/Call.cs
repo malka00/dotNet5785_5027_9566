@@ -1,6 +1,5 @@
 ﻿
 
-using Microsoft.VisualBasic;
 
 // Module Call.cs
 namespace DO;
@@ -18,6 +17,18 @@ namespace DO;
 /// <param name="Credits">Maximum time to finish reading (if any)</param>
 
 public class Call
+public record Call
+(
+
+        int Id,
+        CallType Type,
+        string Description,
+        string FullAddress,
+        double Latitude,
+        double Longitude,
+        DateTime TimeOpened,
+        DateTime? MaxTimeToClose = null
+   )
 {
     public int Id { get; set; }
     public CallType Type { get; set; }
@@ -32,4 +43,12 @@ public class Call
     /// <summary>
     /// Default constructor for Call
     /// </summary>
+    /// <summary>
+    /// Default constructor for Call with default values
+    /// </summary>
+    public Call() : this(0, default(CallType), "", "", 0, 0, DateTime.MinValue) { }
 }
+
+
+
+
