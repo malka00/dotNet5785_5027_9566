@@ -62,13 +62,15 @@ public enum CLOCKCHOICE
 
 internal class Program
 {
-    private static IVolunteer? s_dalVolunteer = new VolunteerImplementation(); //stage 1
-    private static ICall? s_dalCall = new CallImplementation(); //stage 1
-    private static IAssignment? s_dalAssignment = new AssignmentImplementation(); //stage 1
-    private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
-     /// <summary>
-     /// main program
-     /// </summary>
+    //private static IVolunteer? s_dal.Volunteer = new VolunteerImplementation(); //stage 1
+    //private static ICall? s_dal.Call = new CallImplementation(); //stage 1
+    //private static IAssignment? s_dal.Assignment = new AssignmentImplementation(); //stage 1
+    //private static IConfig? s_dal = new ConfigImplementation(); //stage 1
+    static readonly IDal s_dal = new DalList(); //stage 2
+
+    /// <summary>
+    /// main program
+    /// </summary>
     static void Main(string[] args)
     {
         try //If there are any exceptions
@@ -79,13 +81,16 @@ internal class Program
                 switch (option)
                 {
                     case OPTION.RESET_DB:
-                        s_dalVolunteer.DeleteAll(); //stage 1
-                        s_dalCall.DeleteAll(); //stage 1 
-                        s_dalAssignment.DeleteAll();//stage 1 
-                        s_dalConfig.Reset(); //stage 1
+                        //s_dal.Volunteer.DeleteAll(); //stage 1
+                        //s_dal.Call.DeleteAll(); //stage 1 
+                        //s_dal.Assignment.DeleteAll();//stage 1 
+                        //s_dal.Reset(); //stage 1
+                        s_dal.Config.Reset();
                         break;
                     case OPTION.INIT_DB:  //initialize the variables
-                        Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
+                                          //Initialization.Do(s_dal.Volunteer, s_dal.Call, s_dal.Assignment, s_dal);
+                        Initialization.Do(s_dal); //stage 2
+
                         break;
                     case OPTION.CONFIG_MENU:   //Clock options
                         handleConfigOptions();
@@ -155,32 +160,32 @@ internal class Program
             {
                 case CONFIG.FORWARD_CLOCK_ONE_MINUTE:   //Added a minute
                     {
-                        s_dalConfig.Clock = new (s_dalConfig.Clock.Minute+1);
+                        s_dal.Config.Clock = new (s_dal.Config.Clock.Minute+1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_HOUR:     //Add an hour
                     {
-                        s_dalConfig.Clock = s_dalConfig.Clock.AddHours(1);
+                        s_dal.Config.Clock = s_dal.Config.Clock.AddHours(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_DAY:    //Add an day
                     {
-                        s_dalConfig.Clock = s_dalConfig.Clock.AddDays(1);
+                        s_dal.Config.Clock = s_dal.Config.Clock.AddDays(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_MONTH:    //Add an month
                     {
-                        s_dalConfig.Clock = s_dalConfig.Clock.AddMonths(1);
+                        s_dal.Config.Clock = s_dal.Config.Clock.AddMonths(1);
                         break;
                     }
                 case CONFIG.FORWARD_CLOCK_ONE_YEAR:     //Add an year
                     {
-                        s_dalConfig.Clock = s_dalConfig.Clock.AddYears(1);
+                        s_dal.Config.Clock = s_dal.Config.Clock.AddYears(1);
                         break;
                     }
                 case CONFIG.GET_CLOCK:      //show clock
                     {
-                        Console.WriteLine(s_dalConfig.Clock);
+                        Console.WriteLine(s_dal.Config.Clock);
                         break;
                     }
                 case CONFIG.UPDATE:       //update the clock
@@ -195,14 +200,14 @@ internal class Program
                                 string newClock= Console.ReadLine();
                                 if (!DateTime.TryParse(newClock, out DateTime dateTimeValue))
                                     throw new FormatException("Wrong input");
-                                s_dalConfig.Clock = dateTimeValue;
+                                s_dal.Config.Clock = dateTimeValue;
                                 break;
                             case CLOCKCHOICE.RISK_RANGE:
                                 Console.Write("enter Range: ");
                                 if (!int.TryParse(Console.ReadLine(), out int maxRange))
                                     throw new FormatException("Wrong input");
                                 int newRisk = Console.Read();
-                                s_dalConfig.RiskRange = new(newRisk);
+                                s_dal.Config.RiskRange = new(newRisk);
                                 break;
                             default:
                                 throw new FormatException("Wrong input");
@@ -211,11 +216,11 @@ internal class Program
                     }
                 case CONFIG.GET_MAX_RANGE:     //get risk range
                     {
-                        Console.WriteLine(s_dalConfig.RiskRange);
+                        Console.WriteLine(s_dal.Config.RiskRange);
                         break;
                     }
                 case CONFIG.RESET_CONFIG:     //reset the clock
-                    s_dalConfig.Reset();
+                    s_dal.Config.Reset();
                     break;
                 default:
                     return;
@@ -297,15 +302,15 @@ Config Options:
         {
             case OPTION.VOLUNTEER:
                 createVolunteer(out Volunteer st);
-                s_dalVolunteer.Create(st);
+                s_dal.Volunteer.Create(st);
                 break;
             case OPTION.CALL:
                 createCall(out Call cr);
-                s_dalCall.Create(cr);
+                s_dal.Call.Create(cr);
                 break;
             case OPTION.ASSIGNMENT:
                 createAssigmnet(out Assignment assi);
-                s_dalAssignment.Create(assi);
+                s_dal.Assignment.Create(assi);
                 break;
             default:
                 break;
@@ -324,13 +329,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dalVolunteer.Read(id));
+                Console.WriteLine(s_dal.Volunteer.Read(id));
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dalCall.Read(id));
+                Console.WriteLine(s_dal.Call.Read(id));
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dalAssignment.Read(id));
+                Console.WriteLine(s_dal.Assignment.Read(id));
                 break;
             default:
                 break;
@@ -344,15 +349,15 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                foreach (var item in s_dalVolunteer.ReadAll())
+                foreach (var item in s_dal.Volunteer.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.CALL:
-                foreach (var item in s_dalCall.ReadAll())
+                foreach (var item in s_dal.Call.ReadAll())
                     Console.WriteLine(item);
                 break;
             case OPTION.ASSIGNMENT:
-                foreach (var item in s_dalAssignment.ReadAll())
+                foreach (var item in s_dal.Assignment.ReadAll())
                     Console.WriteLine(item);
                 break;
             default:
@@ -372,19 +377,19 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                Console.WriteLine(s_dalVolunteer.Read(id));
+                Console.WriteLine(s_dal.Volunteer.Read(id));
                 createVolunteer(out Volunteer st, id);
-                s_dalVolunteer.Update(st);
+                s_dal.Volunteer.Update(st);
                 break;
             case OPTION.CALL:
-                Console.WriteLine(s_dalCall.Read(id));
+                Console.WriteLine(s_dal.Call.Read(id));
                 createCall(out Call cr, id);
-                s_dalCall.Update(cr);
+                s_dal.Call.Update(cr);
                 break;
             case OPTION.ASSIGNMENT:
-                Console.WriteLine(s_dalAssignment.Read(id));
+                Console.WriteLine(s_dal.Assignment.Read(id));
                 createAssigmnet(out Assignment lk, id);
-                s_dalAssignment.Update(lk);
+                s_dal.Assignment.Update(lk);
                 break;
             default:
                 break;
@@ -403,13 +408,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dalVolunteer.Delete(id);
+                s_dal.Volunteer.Delete(id);
                 break;
             case OPTION.CALL:
-                s_dalCall.Delete(id);
+                s_dal.Call.Delete(id);
                 break;
             case OPTION.ASSIGNMENT:
-                s_dalAssignment.Delete(id);
+                s_dal.Assignment.Delete(id);
                 break;
             default:
                 break;
@@ -424,13 +429,13 @@ Config Options:
         switch (entity)
         {
             case OPTION.VOLUNTEER:
-                s_dalVolunteer.DeleteAll();
+                s_dal.Volunteer.DeleteAll();
                 break;
             case OPTION.CALL:
-                s_dalCall.DeleteAll();
+                s_dal.Call.DeleteAll();
                 break;
             case OPTION.ASSIGNMENT:
-                s_dalAssignment.DeleteAll();
+                s_dal.Assignment.DeleteAll();
                 break;
             default:
                 break;
@@ -442,19 +447,19 @@ Config Options:
     private static void showAllDB()    
     {
         Console.WriteLine("--------------- List of Calls ------------------------------------------");
-        foreach (var item in s_dalCall.ReadAll())
+        foreach (var item in s_dal.Call.ReadAll())
         {
             Console.WriteLine(item);
         }
 
         Console.WriteLine("--------------- List of Volunteers ------------------------------------------");
-        foreach (var item in s_dalVolunteer.ReadAll())
+        foreach (var item in s_dal.Volunteer.ReadAll())
         {
             Console.WriteLine(item);
         }
 
         Console.WriteLine("--------------- List of Assignments ------------------------------------------");
-        foreach (var item in s_dalAssignment.ReadAll())
+        foreach (var item in s_dal.Assignment.ReadAll())
         {
             Console.WriteLine(item);
         }
@@ -474,7 +479,7 @@ Config Options:
 
         Console.WriteLine("");
 
-        assi = new Assignment(id, volId, cId, s_dalConfig.Clock);
+        assi = new Assignment(id, volId, cId, s_dal.Config.Clock);
     }
 
     /// <summary>
@@ -493,7 +498,7 @@ Config Options:
         Console.Write("enter FullAddress of the Call: ");
         string address= Console.ReadLine() ?? throw new FormatException("Wrong input");
         
-        cr = new Call(0, type, description, address, 0,0,s_dalConfig.Clock);
+        cr = new Call(0, type, description, address, 0,0,s_dal.Config.Clock);
     }
 
     /// <summary>
