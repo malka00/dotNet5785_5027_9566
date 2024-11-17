@@ -8,13 +8,13 @@ namespace DO;
 /// Course Entity
 /// </summary>
 /// <param name="Id">Unique readable identifier</param>
-/// <param name="CallType Type">the type of reading</param>
+/// <param name="Type">the type of reading</param>
 /// <param name="Description">Verbal description of the reading</param>
 /// <param name="FullAddress">Full address of the call</param>
 /// <param name="Latitude">Latitude of reading location</param>
 /// <param name="Longitude">Longitude of reading location</param>
 /// <param name="TimeOpened">Reading opening time</param>
-/// <param name="Credits">Maximum time to finish reading (if any)</param>
+/// <param name="MaxTimeToClose">Maximum time to finish reading (if any)</param>
 
 public record Call
 (

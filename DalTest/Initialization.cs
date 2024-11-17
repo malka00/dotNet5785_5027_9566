@@ -18,46 +18,6 @@ public static class Initialization
     private static IAssignment? s_dalAssignment; //stage 1
     private static IConfig? s_dalConfig; //stage 1
     private static readonly Random s_rand = new();
-//    public static readonly string[] addresses = new string[]
-// {
-//     "Pick Street 2, Jerusalem, Israel",
-//     "Gat Street 17, Jerusalem, Israel",
-//     "Yitzhak Rabin Boulevard, Jerusalem, Israel",
-//     "Rav Tza'eir Street 11, Jerusalem, Israel",
-//     "Hayyim Nahman Byalik Street 3, Jerusalem, Israel",
-//     "He'halutz Street 38, Jerusalem, Israel",
-//     "Ha'kham Shim'on Agassi Street 25, Jerusalem, Israel",
-//     "HaRav Aron Kotler Street 12, Jerusalem, Israel",
-//     "Hame'iri Boulevard 9–17, Jerusalem, Israel",
-//     "Ma'lot Sar Shalom, Jerusalem, Israel",
-//     "Herzl Boulevard 18, Jerusalem, Israel",
-//     "Shoshana Polaikov Street 2, Jerusalem, Israel",
-//     "Zev Vilnay Street 4, Jerusalem, Israel",
-//     "Kiryat Moshe Street 3, Jerusalem, Israel",
-//     "HaRav H I Kosovski Street 6, Jerusalem, Israel",
-//     "Ma'agal Bet HaMidrash 20, Jerusalem, Israel",
-//     "Karmon Street 6, Jerusalem, Israel",
-//     "HaBanay Street 34, Jerusalem, Israel",
-//     "HaSolelim 6, Jerusalem, Israel",
-//     "Eli'ezer HaLevi Street 21, Jerusalem, Israel",
-//     "Ben Ziyon Street 17, Jerusalem, Israel",
-// };
-
-
-//    //array of latitudes
-//    public static readonly double[] latitudes = new double[]
-//{
-//     31.7854, 31.7865, 31.7834, 31.7796, 31.7786, 31.7829, 31.7906, 31.7841, 31.7866, 31.7859,
-//     31.7858, 31.7848, 31.7857, 31.7846, 31.7809, 31.7798, 31.7778, 31.7764, 31.7861, 31.7895
-//};
-
-//    //array of longitudes
-//    public static readonly double[] longitudes = new double[]
-//    {
-//     31.7854, 35.1969, 35.1931, 35.1897, 35.1898, 35.1749, 35.1942, 35.1947, 35.1944, 35.1979,
-//     35.1954, 35.1978, 35.1968, 35.1950, 35.1903, 35.1931, 35.1919, 35.1910, 35.1932, 35.1941
-//    };
-
     private static void CreateVolunteers()
     {
         string[] VolunteerNames = { "Ruth Cohen", "Yossi Levy", "Oren Alon", "Meirav Israeli", "Dan Mizrahi", "Ayelet Israeli", "Dana Cohen",
@@ -371,57 +331,57 @@ public static class Initialization
         }
 
     }
+    //private static void CreateAssignment()
+    //{
+    //    for (int i = 0; i < 50; i++)
+    //    {
+    //        var Calls = s_dalCall.ReadAll();
+    //        Random RandomC = new Random();
+    //        int RandomNumberC = RandomC.Next(0, 51);
+    //        int CallId = Calls[RandomNumberC].Id;
+
+    //        //DateTime? EndTime= Calls[RandomNumberC].MaxTimeToClose;
+    //        //TypeEnd TypeEnd;
+    //        //DateTime? NTimeEnd;
+    //        //if (EndTime < s_dalConfig.Clock)
+    //        //{//אם זה קטן מזמן מערכת אז עבר הזמן ולא טופל
+    //        //    TypeEnd = TypeEnd.ExpiredCancel;
+    //        //  NTimeEnd = null;
+    //        //}
+
+    //        //else if (i % 4 == 0)
+    //        //{
+    //        //    TypeEnd = TypeEnd.SelfCancel;
+    //        //    NTimeEnd = null;
+    //        //}
+    //        //else if (i % 5 == 0)
+    //        //{
+    //        //    TypeEnd = TypeEnd.ManagerCancel;
+    //        //    NTimeEnd = null;
+    //        //}
+    //        //else if (i % 3 == 0)
+    //        //{ 
+
+    //        //TypeEnd = TypeEnd.Treated;
+    //        //    {
+
+    //        //        TimeSpan TimeRange = EndTime - TimeStart;
+    //        //        NTimeEnd = TimeStart.AddMinutes(Random.Next(0,(int)TimeRange.TotalMinutes));
+
+
+    //        var Vol = s_dalVolunteer.ReadAll();
+    //        Random RandomV = new Random();
+    //        int RandomNumberV;
+    //        do
+    //            RandomNumberV = RandomV.Next(0, 17);
+
+    //    while (RandomNumberV == 14 || RandomNumberV == 5);  /// מתנדבים שלו טיפלו בכלל
+    //    int VolId = Vol[RandomNumberV].Id;
+
+
+    //    }
+    //}
     private static void CreateAssignment()
-    {
-        for (int i = 0; i < 50; i++)
-        {
-            var Calls = s_dalCall.ReadAll();
-            Random RandomC = new Random();
-            int RandomNumberC = RandomC.Next(0, 51);
-            int CallId = Calls[RandomNumberC].Id;
-
-            //DateTime? EndTime= Calls[RandomNumberC].MaxTimeToClose;
-            //TypeEnd TypeEnd;
-            //DateTime? NTimeEnd;
-            //if (EndTime < s_dalConfig.Clock)
-            //{//אם זה קטן מזמן מערכת אז עבר הזמן ולא טופל
-            //    TypeEnd = TypeEnd.ExpiredCancel;
-            //  NTimeEnd = null;
-            //}
-
-            //else if (i % 4 == 0)
-            //{
-            //    TypeEnd = TypeEnd.SelfCancel;
-            //    NTimeEnd = null;
-            //}
-            //else if (i % 5 == 0)
-            //{
-            //    TypeEnd = TypeEnd.ManagerCancel;
-            //    NTimeEnd = null;
-            //}
-            //else if (i % 3 == 0)
-            //{ 
-
-            //TypeEnd = TypeEnd.Treated;
-            //    {
-
-            //        TimeSpan TimeRange = EndTime - TimeStart;
-            //        NTimeEnd = TimeStart.AddMinutes(Random.Next(0,(int)TimeRange.TotalMinutes));
-
-
-            var Vol = s_dalVolunteer.ReadAll();
-            Random RandomV = new Random();
-            int RandomNumberV;
-            do
-                RandomNumberV = RandomV.Next(0, 17);
-
-        while (RandomNumberV == 14 || RandomNumberV == 5);  /// מתנדבים שלו טיפלו בכלל
-        int VolId = Vol[RandomNumberV].Id;
-
-
-        }
-    }
-    private static void createAssignment()
     {
         for (int i = 0; i < 60; i++)
         {
@@ -484,4 +444,3 @@ public static class Initialization
 
 
 
-        

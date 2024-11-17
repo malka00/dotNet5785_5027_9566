@@ -10,7 +10,7 @@ public enum OPTION
     EXIT,
     VOLUNTEER,
     CALL,
-   ASSIGNMENT,
+    ASSIGNMENT,
     INIT_DB,
     SHOW_ALL_DB,
     CONFIG_MENU,
@@ -47,37 +47,34 @@ internal class Program
     private static IAssignment? s_dalAssignment = new AssignmentImplementation(); //stage 1
     private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
 
-
-
     static void Main(string[] args)
     {
         try
         {
             OPTION option = showMainMenu();
-
             while (OPTION.EXIT != option)
             {
-                if (OPTION.RESET_DB == option)
+                switch (option)
                 {
-                    s_dalVolunteer.DeleteAll(); //stage 1
-                    ////...
-                    s_dalCall.DeleteAll(); //stage 1 
-                    s_dalAssignment.DeleteAll();//stage 1 
-                    s_dalConfig.Reset(); //stage 1 
-                                         //      s_dal.ResetDB();
+                    case OPTION.RESET_DB:
+                        s_dalVolunteer.DeleteAll(); //stage 1
+                        s_dalCall.DeleteAll(); //stage 1 
+                        s_dalAssignment.DeleteAll();//stage 1 
+                        s_dalConfig.Reset(); //stage 1
+                        break;
+                    case OPTION.INIT_DB:
+                        Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
+                        break;
+                    case OPTION.CONFIG_MENU:
+                        handleConfigOptions();
+                        break;
+                    case OPTION.SHOW_ALL_DB:
+                        showAllDB();
+                        break;
+                    default:
+                        handleCRUDOptions(option);
+                        break;
                 }
-                else if (OPTION.INIT_DB == option)
-                    Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig); //stage 1
-
-                else if (OPTION.CONFIG_MENU == option)
-                    handleConfigOptions();
-                else if (OPTION.SHOW_ALL_DB == option)
-                {
-                    showAllDB();
-                }
-                else
-                    handleCRUDOptions(option);
-
                 option = showMainMenu();
             }
         }
@@ -91,11 +88,6 @@ internal class Program
     {
         try
         {
-            //if (OPTION.SHOW_ALL_DB == option)
-            //{
-            //    showAllDB();
-            //    return;
-            //}
             switch (showCrudMenu(entity))
             {
                 case CRUD.CREATE:
@@ -161,9 +153,9 @@ internal class Program
                 case CONFIG.SET_MAX_RANGE:
                     {
                         Console.Write("enter Max Range: ");
-                        if (!int.TryParse(Console.ReadLine(), out int riskRange))
+                        if (!int.TryParse(Console.ReadLine(), out int maxRange))
                             throw new FormatException("Wrong input");
-                        s_dalConfig.RiskRange = riskRange;
+                        s_dalConfig.RiskRange = maxRange;
                         break;
                     }
                 case CONFIG.GET_MAX_RANGE:
@@ -256,7 +248,7 @@ Config Options:
                 break;
             case OPTION.ASSIGNMENT:
                 createAssigmnet(out Assignment assi);
-               s_dalAssignment.Create(assi);
+                s_dalAssignment.Create(assi);
                 break;
             default:
                 break;
@@ -277,11 +269,6 @@ Config Options:
                 Console.WriteLine(s_dalCall.Read(id));
                 break;
             case OPTION.ASSIGNMENT:
-                //removed - from 2025
-                //Console.WriteLine("Enter the next id");
-                //if (false == int.TryParse(Console.ReadLine(), out int id2))
-                //    Console.WriteLine("Wrong input");
-                //Console.WriteLine(s_dal!.Assignment.Read(id, id2));
                 Console.WriteLine(s_dalAssignment.Read(id));
                 break;
             default:
@@ -376,19 +363,19 @@ Config Options:
     }
     private static void showAllDB()
     {
-        Console.WriteLine("--------------- List of Courses ------------------------------------------");
+        Console.WriteLine("--------------- List of Calls ------------------------------------------");
         foreach (var item in s_dalCall.ReadAll())
         {
             Console.WriteLine(item);
         }
 
-        Console.WriteLine("--------------- List of Students ------------------------------------------");
+        Console.WriteLine("--------------- List of Volunteer ------------------------------------------");
         foreach (var item in s_dalVolunteer.ReadAll())
         {
             Console.WriteLine(item);
         }
 
-        Console.WriteLine("--------------- List of Links ------------------------------------------");
+        Console.WriteLine("--------------- List of Assignment ------------------------------------------");
         foreach (var item in s_dalAssignment.ReadAll())
         {
             Console.WriteLine(item);
@@ -408,8 +395,8 @@ Config Options:
 
         assi = new Assignment(id, volId, cId, s_dalConfig.Clock);
     }
-    private static void createCall(out Call cr, int id = 0)
-    {
+    //private static void createCall(out Call cr, int id = 0)
+    //{
         //Console.Write("enter Type of the Call: ");
         //CallType? Type = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
@@ -424,7 +411,7 @@ Config Options:
         //if (!Enum.TryParse(Console.ReadLine(), out SemesterNames sem))
         //    throw new FormatException("Wrong input");
 
-       
+
 
         //Console.WriteLine("enter the StartHour of the Call (in format hh:mm:ss): ");
         //if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan sh)) throw new FormatException("StartHour is invalid!");
@@ -440,7 +427,7 @@ Config Options:
     {
         if (id == 0)
         {
-            Console.Write("enter volunterr Id: ");
+            Console.Write("enter volunteer Id: ");
             if (!int.TryParse(Console.ReadLine(), out int _id))
                 throw new FormatException("Wrong input");
             else
@@ -457,7 +444,7 @@ Config Options:
         string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
         Console.Write("enter Role of the Volunteer: ");
-        Role? job = Console.ReadLine() if(Console.ReadLine() !) { }
+        Role job = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
 
         Console.Write("enter true/false if the Volunteer is active: ");
@@ -467,11 +454,11 @@ Config Options:
         Console.Write("enter adress of the Volunteer: ");
         string? adrress = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-   
+
 
         Console.WriteLine("");
 
         //st = new Volunteer(id, DateTime.Now, name, alias, active, bdt);
-        st = new Volunteer(id, name, phoneNumber, email, Distance.Aerial,job, active, adrress);
+        st = new Volunteer(id, name, phoneNumber, email, Distance.Aerial, job, active, adrress);
     }
 }

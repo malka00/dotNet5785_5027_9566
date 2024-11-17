@@ -36,9 +36,6 @@ public record Volunteer
 /// <summary>
 /// Default constructor Volunteer
 /// </summary>
-
-
-
 {
     public Volunteer() : this(0, "", "", "", default(Distance), default(Role), false) { }
 };
