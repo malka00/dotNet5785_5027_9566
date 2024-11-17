@@ -4,7 +4,7 @@ using DalApi;
 using System;
 
 
-public class VolunteerImplementation : IVolunteer
+internal class VolunteerImplementation : IVolunteer
 {
 
     public void Create(Volunteer item)

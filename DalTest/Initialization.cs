@@ -14,15 +14,20 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public static class Initialization
 {
-    private static IVolunteer? s_dalVolunteer; //stage 1
-    private static ICall? s_dalCall; //stage 1
-    private static IAssignment? s_dalAssignment; //stage 1
-    private static IConfig? s_dalConfig; //stage 1
+    //private static IVolunteer? s_dal.Volunteer; //stage 1
+    //private static ICall? s_dal.Call; //stage 1
+    //private static IAssignment? s_dalAssignment; //stage 1
+    //private static IConfig? s_dal!.Config; //stage 1
     private static readonly Random s_rand = new();
+    private static IDal? s_dal; //stage 2
+    private const int MIN_ID = 200000000;
+    private const int MAX_ID = 400000000;
+
+
     /// <summary>
     ///func for adding 15 volunteers and a manager
-   ///In the function we added an array for names, a cell phone and addresses
-   ///(with longitude and street lines) to create a swing we each time take the appropriate values ​​from the exponents
+    ///In the function we added an array for names, a cell phone and addresses
+    ///(with longitude and street lines) to create a swing we each time take the appropriate values ​​from the exponents
     /// </summary>
     private static void CreateVolunteers()
     {
@@ -76,7 +81,7 @@ public static class Initialization
             int Id;
             do
                 Id = s_rand.Next(700000000, 1000000000); //Random 9-digit id code
-            while (s_dalVolunteer!.Read(Id) != null); // Checking the uniqueness of id
+            while (s_dal!.Volunteer.Read(Id) != null); // Checking the uniqueness of id
 
             string Name = VolunteerNames[i];
             string Phone = PhoneNumbers[i];
@@ -89,16 +94,16 @@ public static class Initialization
             bool Active = true; //The volunteer is active by default
             double MaxReading = s_rand.Next(5, 100); //Random maximum distance between 5 and 100
 
-            s_dalVolunteer!.Create(new Volunteer(Id, Name, Phone, Email, DistanceType, Nrole, Active, null, Address, NLatitude, NLongitude, MaxReading));
+            s_dal!.Volunteer.Create(new Volunteer(Id, Name, Phone, Email, DistanceType, Nrole, Active, null, Address, NLatitude, NLongitude, MaxReading));
         }
 
         // Added at least one manager
         int managerId;
         do
             managerId = s_rand.Next(100000000, 1000000000);
-        while (s_dalVolunteer!.Read(managerId) != null);
+        while (s_dal!.Volunteer.Read(managerId) != null);
 
-        s_dalVolunteer!.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "password123", "HaPega Street 16, Jerusalem, Israel", 31.771959, 35.217018));
+        s_dal!.Volunteer.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "password123", "HaPega Street 16, Jerusalem, Israel", 31.771959, 35.217018));
     }
     /// <summary>
     /// A function that creates 50 diverse readings according to the requirements.
@@ -283,10 +288,10 @@ public static class Initialization
                 ndescription = DescriptionsP[c];
                 c++;
             }
-            DateTime start = s_dalConfig.Clock.AddDays(-1);
+            DateTime start = s_dal!.Config.Clock.AddDays(-1);
 
             // Calculate the number of minutes since the start time until now
-            int totalMinutesInLastDay = (int)(s_dalConfig.Clock - start).TotalMinutes;
+            int totalMinutesInLastDay = (int)(s_dal!.Config.Clock - start).TotalMinutes;
             // Random opening time within the last 24 hours
             DateTime RndomStart = start.AddMinutes(s_rand.Next(0, totalMinutesInLastDay));
             DateTime? RandomEnd = null;
@@ -294,7 +299,7 @@ public static class Initialization
             if (i % 10 == 0)
             {
                 //calls that have passed the time
-                int maxRange = (int)(s_dalConfig.Clock - RndomStart).TotalMinutes;
+                int maxRange = (int)(s_dal!.Config.Clock - RndomStart).TotalMinutes;
                 if (maxRange > 0) 
                     RandomEnd = RndomStart.AddMinutes(s_rand.Next(1, maxRange + 1));
             }
@@ -308,7 +313,7 @@ public static class Initialization
                     RandomEnd = RndomStart.AddMinutes(maxDurationMinutes);
                 }
             }
-            s_dalCall.Create(new Call(0, ctype, ndescription, addresses[i], latitudes[i], longitudes[i], RndomStart, RandomEnd));
+            s_dal.Call.Create(new Call(0, ctype, ndescription, addresses[i], latitudes[i], longitudes[i], RndomStart, RandomEnd));
         }
 
     }
@@ -320,19 +325,19 @@ public static class Initialization
         for (int i = 0; i < 60; i++)
         {
             //Assigning a volunteer to a task
-            int randVolunteer = s_rand.Next(s_dalVolunteer!.ReadAll().Count);
-            Volunteer volunteerToAssig = s_dalVolunteer.ReadAll()[randVolunteer];
+            int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count);
+            Volunteer volunteerToAssig = s_dal.Volunteer.ReadAll()[randVolunteer];
             //call number ID
-            int randCAll = s_rand.Next(s_dalCall!.ReadAll().Count - 15);
-            Call callToAssig = s_dalCall.ReadAll()[randCAll];
-            while (callToAssig.TimeOpened > s_dalConfig!.Clock)
+            int randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count - 15);
+            Call callToAssig = s_dal.Call.ReadAll()[randCAll];
+            while (callToAssig.TimeOpened > s_dal!.Config!.Clock)
             {
-                randCAll = s_rand.Next(s_dalCall!.ReadAll().Count - 15);
-                callToAssig = s_dalCall.ReadAll()[randCAll];
+                randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count - 15);
+                callToAssig = s_dal.Call.ReadAll()[randCAll];
             }
             TypeEnd? finish = null;
             DateTime? finishTime = null;
-            if (callToAssig.MaxTimeToClose != null && callToAssig.MaxTimeToClose >= s_dalConfig?.Clock)
+            if (callToAssig.MaxTimeToClose != null && callToAssig.MaxTimeToClose >= s_dal!.Config?.Clock)
             {
                 finish = TypeEnd.ExpiredCancel;
             }
@@ -343,29 +348,32 @@ public static class Initialization
                 {
                     case 0:
                         finish = TypeEnd.Treated;
-                        finishTime = s_dalConfig!.Clock;
+                        finishTime = s_dal!.Config!.Clock;
                         break;
                     case 1: finish = TypeEnd.SelfCancel; break;
                     case 2: finish = TypeEnd.ManagerCancel; break;
 
                 }
             }
-            s_dalAssignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssig.Id, s_dalConfig!.Clock, finishTime, finish));
+            s_dal.Assignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssig.Id, s_dal!.Config!.Clock, finishTime, finish));
         }
     }
-    //method that do all the initializations
-    public static void Do(IVolunteer? dal_volunteer, ICall? dal_call, IAssignment? dal_assignment, IConfig? dal_Config)
+    //public static void Do(IStudent? dalStudent, ICourse? dalCourse, ILink? dalStudentInCourse, IConfig? dalConfig) // stage 1
+    public static void Do(IDal dal )  //stage 2
     {
-        s_dalVolunteer = dal_volunteer ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalCall = dal_call ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalAssignment = dal_assignment ?? throw new NullReferenceException("DAL object can not be null!");
-        s_dalConfig = dal_Config ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dal.Volunteer = dal_volunteer ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dal.Call = dal_call ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dalAssignment = dal_assignment ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dal!.Config = dal_Config ?? throw new NullReferenceException("DAL object can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); // stage 2
 
         Console.WriteLine("Reset Configuration values and List values...");
-        s_dalConfig.Reset(); //stage 1
-        s_dalVolunteer.DeleteAll(); //stage 1
-        s_dalCall.DeleteAll(); //stage 1
-        s_dalAssignment.DeleteAll(); //stage 1
+        //s_dal!.Config.Reset(); //stage 1
+        //s_dal.Volunteer.DeleteAll(); //stage 1
+        //s_dal.Call.DeleteAll(); //stage 1
+        //s_dalAssignment.DeleteAll(); //stage 1
+
+        s_dal.ResetDB();//stage 2
 
         Console.WriteLine("Initializing Volunteers list");
         CreateVolunteers();
@@ -375,7 +383,6 @@ public static class Initialization
         CreateAssignment();
     }
 }
-
 
 
 
