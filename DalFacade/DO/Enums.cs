@@ -20,8 +20,8 @@ public enum Distance
 public enum CallType
 {
     Puncture,
-Cables,
-LockedCar   
+    Cables,
+    LockedCar   
 }
 public enum TypeEnd
 {

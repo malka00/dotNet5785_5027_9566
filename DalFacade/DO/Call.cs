@@ -4,6 +4,17 @@
 // Module Call.cs
 namespace DO;
 
+public record Call
+(
+        int Id,
+        CallType Type,
+        string Description,
+        string FullAddress,
+        double Latitude,
+        double Longitude,
+        DateTime TimeOpened,
+        DateTime? MaxTimeToClose = null
+  );
 /// <summary>
 /// Course Entity
 /// </summary>
@@ -17,32 +28,7 @@ namespace DO;
 /// <param name="Credits">Maximum time to finish reading (if any)</param>
 
 public class Call
-public record Call
-(
-
-        int Id,
-        CallType Type,
-        string Description,
-        string FullAddress,
-        double Latitude,
-        double Longitude,
-        DateTime TimeOpened,
-        DateTime? MaxTimeToClose = null
-   )
 {
-    public int Id { get; set; }
-    public CallType Type { get; set; }
-    public string Description { get; set; }
-    public string FullAddress { get; set; }
-    public double Latitude { get; set; }
-    public double Longitude { get; set; }
-    public DateTime TimeOpened { get; set; }
-    public DateTime? MaxTimeToClose { get; set; }
-
-
-    /// <summary>
-    /// Default constructor for Call
-    /// </summary>
     /// <summary>
     /// Default constructor for Call with default values
     /// </summary>
