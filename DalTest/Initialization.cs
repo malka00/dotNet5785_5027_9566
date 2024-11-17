@@ -284,92 +284,21 @@ public static class Initialization
         35.2342, 35.2149, 35.2236, 35.2087, 35.2381,
         35.2201, 35.2357, 35.2289, 35.2325, 35.2291
    };
-
-        // מערך כתובות
-        string[] addresses = new string[]
-        {
-        "King David St 15, Jerusalem, Israel",
-        "Keren Hayesod St 24, Jerusalem, Israel",
-        "HaRav Kook St 8, Jerusalem, Israel",
-        "Strauss St 3, Jerusalem, Israel",
-        "Radak St 9, Jerusalem, Israel",
-        "Bezalel St 30, Jerusalem, Israel",
-        "Shmuel HaNagid St 16, Jerusalem, Israel",
-        "David HaMelech St 4, Jerusalem, Israel",
-        "Shivtei Israel St 28, Jerusalem, Israel",
-        "HaMesila Park, Jerusalem, Israel",
-        "Rabbi Akiva St 12, Jerusalem, Israel",
-        "Haneviim St 47, Jerusalem, Israel",
-        "Yemin Moshe St 10, Jerusalem, Israel",
-        "Yoel Moshe Salomon St 18, Jerusalem, Israel",
-        "HaOren St 5, Jerusalem, Israel",
-        "Beit Hakerem St 20, Jerusalem, Israel",
-        "Givat Shaul St 19, Jerusalem, Israel",
-        "Shlomo Zalman Shragai St 8, Jerusalem, Israel",
-        "Emek Refaim St 9, Jerusalem, Israel",
-        "Azza St 45, Jerusalem, Israel",
-        "Derech Har HaTsofim 15, Jerusalem, Israel",
-        "Mount Scopus Campus, Jerusalem, Israel",
-        "Nablus Rd 15, Jerusalem, Israel",
-        "Hebron Rd 76, Jerusalem, Israel",
-        "HaPalmach St 15, Jerusalem, Israel",
-        "Lincoln St 7, Jerusalem, Israel",
-        "Duvdevani St 6, Jerusalem, Israel",
-        "Diskin St 16, Jerusalem, Israel",
-        "Alkalai St 10, Jerusalem, Israel",
-        "Ramban St 13, Jerusalem, Israel",
-        "Mordechai Ben Hillel St 10, Jerusalem, Israel",
-        "HaRav Herzog St 52, Jerusalem, Israel",
-        "Gershon Agron St 10, Jerusalem, Israel",
-        "Givon St 3, Jerusalem, Israel",
-        "Golda Meir Blvd 75, Jerusalem, Israel",
-        "Lev Ram Blvd 2, Jerusalem, Israel",
-        "Harav Shach St 9, Jerusalem, Israel",
-        "Kiryat HaLeom, Jerusalem, Israel",
-        "Shaarei Tsedek St 1, Jerusalem, Israel",
-        "Givat Mordechai St 12, Jerusalem, Israel",
-        "Bayit Vegan St 8, Jerusalem, Israel",
-        "Sanhedria St 14, Jerusalem, Israel",
-        "Bar Ilan St 27, Jerusalem, Israel",
-        "Shmuel Hanavi St 50, Jerusalem, Israel",
-        "Malha Rd 7, Jerusalem, Israel",
-        "Pisgat Ze'ev Blvd 6, Jerusalem, Israel",
-        "Teddy Stadium, Jerusalem, Israel",
-        "Zahal St 5, Jerusalem, Israel",
-        "Ha'Arazim Blvd 3, Jerusalem, Israel",
-        "Ramot Forest, Jerusalem, Israel",
-        "Eliyahu Bashan St 4, Jerusalem, Israel"
-        };
-
-        // מערך קווי האורך
-        double[] longitudes = new double[]
-       {
-        35.2252, 35.2168, 35.2150, 35.2174, 35.2132,
-        35.2165, 35.2138, 35.2245, 35.2241, 35.2206,
-        35.2123, 35.2202, 35.2214, 35.2155, 35.2198,
-        35.2025, 35.1965, 35.1942, 35.2151, 35.2124,
-        35.2387, 35.2421, 35.2315, 35.2092, 35.2064,
-        35.2237, 35.2208, 35.2103, 35.2127, 35.2081,
-        35.2079, 35.2145, 35.2045, 35.2120, 35.1963,
-        35.2112, 35.2008, 35.2159, 35.2235, 35.2210,
-        35.2342, 35.2149, 35.2236, 35.2087, 35.2381,
-        35.2201, 35.2357, 35.2289, 35.2325, 35.2291
-       };
-
         // מערך קווי הרוחב
         double[] latitudes = new double[]
        {
-        31.7767, 31.7745, 31.7839, 31.7843, 31.7785,
-        31.7803, 31.7809, 31.7763, 31.7825, 31.7694,
-        31.7812, 31.7828, 31.7695, 31.7823, 31.7604,
-        31.7687, 31.7945, 31.7893, 31.7684, 31.7699,
-        31.8005, 31.8017, 31.7915, 31.7473, 31.7687,
-        31.7802, 31.7805, 31.7772, 31.7794, 31.7801,
-        31.7821, 31.7741, 31.7897, 31.7685, 31.7784,
-        31.7695, 31.7982, 31.7623, 31.7598, 31.7981,
-        31.7742, 31.8012, 31.7591, 31.7545, 31.7695,
-        31.7901, 31.7947, 31.8014, 31.7903, 31.7885
+      31.7767, 31.7745, 31.7839, 31.7843, 31.7785,
+      31.7803, 31.7809, 31.7763, 31.7825, 31.7694,
+      31.7812, 31.7828, 31.7695, 31.7823, 31.7604,
+      31.7687, 31.7945, 31.7893, 31.7684, 31.7699,
+      31.8005, 31.8017, 31.7915, 31.7473, 31.7687,
+      31.7802, 31.7805, 31.7772, 31.7794, 31.7801,
+      31.7821, 31.7741, 31.7897, 31.7685, 31.7784,
+      31.7695, 31.7982, 31.7623, 31.7598, 31.7981,
+      31.7742, 31.8012, 31.7591, 31.7545, 31.7695,
+      31.7901, 31.7947, 31.8014, 31.7903, 31.7885
        };
+
 
 
 
@@ -403,25 +332,7 @@ public static class Initialization
 
 
 
-            //DateTime? maxTimeToClose =
-            //DateTime start = s_dalConfig.Clock.AddDays(-1); // זמן התחלה יהיה לפני 24 שעות מהשעון הנוכחי
-            //int range = (s_dalConfig.Clock - start).Minutes; // חישוב מספר הדקות מאז זמן ההתחלה
-            //DateTime RndomStart = start.AddMinutes(s_rand.Next(range)); // הגרלת זמן פתיחה רנדומלי בתוך ה-24 שעות האחרונות
-            //DateTime? RandomEnd = null; 
-            //if (i % 10 == 0)//5 that endtime- pag tokef
-
-            //    RandomEnd = RndomStart.AddMinutes(new Random().Next(, (int)(s_dalConfig.Clock - RndomStart).TotalMinutes));
-            //// כעת, ניצור זמן סיום מקסימלי בהתאם לזמן הפתיחה:
-            //else
-            //{
-            //    // ערך ברירת מחדל, אין זמן סיום
-            //    if (s_rand.Next(2) == 1) // החלטה רנדומלית אם לכלול זמן סיום או לא
-            //    {
-            //        int maxDurationMinutes = s_rand.Next(1, 1441); // הגדרת טווח זמן סיום מקסימלי (עד 1440 דקות = 24 שעות)
-            //        RandomEnd = RndomStart.AddMinutes(maxDurationMinutes); // זמן סיום הוא זמן פתיחה + מספר דקות רנדומלי
-            //    }
-            //}
-            // הגדרת זמן התחלה - 24 שעות אחורה מהשעה הנוכחית
+          
             DateTime start = s_dalConfig.Clock.AddDays(-1);
 
             // חישוב מספר הדקות מאז זמן ההתחלה ועד עכשיו
@@ -542,9 +453,6 @@ public static class Initialization
                     case 1: finish = TypeEnd.SelfCancel; break;
                     case 2: finish = TypeEnd.ManagerCancel; break;
 
-
-
-
                 }
             }
             s_dalAssignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssig.Id, s_dalConfig!.Clock, finishTime, finish));
@@ -577,29 +485,3 @@ public static class Initialization
 
 
         
-
-            }
-        }
-        s_dalAssignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssig.Id, s_dalConfig!.Clock, finishTime, finish));
-    }
-}
-//method that do all the initializations
-public static void Do(IVolunteer? dal_volunteer, ICall? dal_call, IAssignment? dal_assignment, IConfig? dal_Config)
-{
-    s_dalVolunteer = dal_volunteer ?? throw new NullReferenceException("DAL object can not be null!");
-    s_dalCall = dal_call ?? throw new NullReferenceException("DAL object can not be null!");
-    s_dalAssignment = dal_assignment ?? throw new NullReferenceException("DAL object can not be null!");
-    s_dalConfig = dal_Config ?? throw new NullReferenceException("DAL object can not be null!");
-
-    Console.WriteLine("Reset Configuration values and List values...");
-    s_dalConfig.Reset(); //stage 1
-    s_dalVolunteer.DeleteAll(); //stage 1
-    s_dalCall.DeleteAll(); //stage 1
-    s_dalAssignment.DeleteAll(); //stage 1
-
-
-
-
-
-
-
