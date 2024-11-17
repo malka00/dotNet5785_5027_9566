@@ -1,7 +1,6 @@
 ﻿
 namespace DO;
-
-/// <summary>
+// <summary>
 /// Volunteer Entity represents a volunteer with all its props
 /// </summary>
 
