@@ -9,6 +9,7 @@ using System.Data;
 using System.Net;
 using System.Numerics;
 using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 public static class Initialization
@@ -18,6 +19,11 @@ public static class Initialization
     private static IAssignment? s_dalAssignment; //stage 1
     private static IConfig? s_dalConfig; //stage 1
     private static readonly Random s_rand = new();
+    /// <summary>
+    ///func for adding 15 volunteers and a manager
+   ///In the function we added an array for names, a cell phone and addresses
+   ///(with longitude and street lines) to create a swing we each time take the appropriate values ​​from the exponents
+    /// </summary>
     private static void CreateVolunteers()
     {
         string[] VolunteerNames = { "Ruth Cohen", "Yossi Levy", "Oren Alon", "Meirav Israeli", "Dan Mizrahi", "Ayelet Israeli", "Dana Cohen",
@@ -27,8 +33,7 @@ public static class Initialization
         string[] Emails = { "ruth@example.com", "yossi@example.com", "oren@example.com", "meirav@example.com", "dan@example.com", "ayelet@example.com", "dana@example.com",
                         "noam@example.com", "ofer@example.com", "ron@example.com", "liron@example.com", "omer@example.com", "ronit@example.com", "ilan@example.com", "galit@example.com" };
 
-        // מערך כתובות
-        /* public static readonly*/
+        
         string[] addresses =
 {
         "King George St 20, Jerusalem, Israel",
@@ -48,8 +53,6 @@ public static class Initialization
         "Ben Yehuda St 1, Jerusalem, Israel"
         };
 
-        // מערך קווי האורך
-        /*   public static readonly*/
         double[] Longitudes = new double[]
 {
         35.2193, 35.2137, 35.2129, 35.2065, 35.2117,
@@ -57,8 +60,7 @@ public static class Initialization
         35.2214, 35.2123, 35.2241, 35.2191, 35.2203
 };
 
-        // מערך קווי הרוחב
-        /*public static readonly*/
+      
         double[] Latitudes = new double[]
 {
         31.7784, 31.7834, 31.7801, 31.7642, 31.7655,
@@ -67,14 +69,14 @@ public static class Initialization
 };
 
 
-        // יצירת מתנדבים רגילים
+     
         for (int i = 0; i<VolunteerNames.Length; i++)
         {
 
             int Id;
             do
-                Id = s_rand.Next(700000000, 1000000000); // ת.ז אקראית עם 9 ספרות
-            while (s_dalVolunteer!.Read(Id) != null); // בדיקת ייחודיות של ת.ז.
+                Id = s_rand.Next(700000000, 1000000000); //Random 9-digit id code
+            while (s_dalVolunteer!.Read(Id) != null); // Checking the uniqueness of id
 
             string Name = VolunteerNames[i];
             string Phone = PhoneNumbers[i];
@@ -82,15 +84,15 @@ public static class Initialization
             string Address = addresses[i];
             double NLatitude = Latitudes[i];
             double NLongitude = Longitudes[i];
-            Distance DistanceType = Distance.Aerial; // מרחק ברירת מחדל
-            Role Nrole = Role.Volunteer; // ברירת מחדל - מתנדב רגיל
-            bool Active = true; // המתנדב פעיל כברירת מחדל
-            double MaxReading = s_rand.Next(5, 100); // מרחק מקסימלי אקראי בין 5 ל-100
+            Distance DistanceType = Distance.Aerial; // default distance
+            Role Nrole = Role.Volunteer; //Default - regular volunteer
+            bool Active = true; //The volunteer is active by default
+            double MaxReading = s_rand.Next(5, 100); //Random maximum distance between 5 and 100
 
             s_dalVolunteer!.Create(new Volunteer(Id, Name, Phone, Email, DistanceType, Nrole, Active, null, Address, NLatitude, NLongitude, MaxReading));
         }
 
-        // הוספת מנהל אחד לפחות
+        // Added at least one manager
         int managerId;
         do
             managerId = s_rand.Next(100000000, 1000000000);
@@ -98,11 +100,11 @@ public static class Initialization
 
         s_dalVolunteer!.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "password123", "HaPega Street 16, Jerusalem, Israel", 31.771959, 35.217018));
     }
-
-
-
-
-
+    /// <summary>
+    /// A function that creates 50 diverse readings according to the requirements.
+    ///In the function we created arrays for addresses, longitudes and street, as well as arrays for describing the case according to the type of case
+    ///For each reading we took variables accordingly
+    /// </summary>
     private static void CreateCalls()
 {
     string[] DescriptionsP = {
@@ -171,10 +173,7 @@ public static class Initialization
             "Battery needs a jump-start, parked near a train station.",
             "Engine won’t start in a heavy rainstorm, requires jump-start cables."
         };
-
-
-
-    // מערך כתובות
+  
     string[] addresses = new string[]
     {
         "King David St 15, Jerusalem, Israel",
@@ -229,8 +228,7 @@ public static class Initialization
         "Ramot Forest, Jerusalem, Israel",
         "Eliyahu Bashan St 4, Jerusalem, Israel"
     };
-
-    // מערך קווי האורך
+    
     double[] longitudes = new double[]
    {
         35.2252, 35.2168, 35.2150, 35.2174, 35.2132,
@@ -244,8 +242,8 @@ public static class Initialization
         35.2342, 35.2149, 35.2236, 35.2087, 35.2381,
         35.2201, 35.2357, 35.2289, 35.2325, 35.2291
    };
-        // מערך קווי הרוחב
-        double[] latitudes = new double[]
+     
+    double[] latitudes = new double[]
        {
       31.7767, 31.7745, 31.7839, 31.7843, 31.7785,
       31.7803, 31.7809, 31.7763, 31.7825, 31.7694,
@@ -260,16 +258,12 @@ public static class Initialization
        };
 
 
-
-
-        // יצירת קריאות
+        ///created 50 readings
         for (int i = 0; i < 50; i++)
         {
-
-
-
-            CallType ctype;  // הכרזה על המשתנה פעם אחת
+            CallType ctype; 
             string ndescription;
+            //The rest of the division is a dish that came out diverse..
             int p = 0, l = 0, c = 0;
             if (i % 3 == 0)
             {
@@ -289,37 +283,27 @@ public static class Initialization
                 ndescription = DescriptionsP[c];
                 c++;
             }
-
-
-
-          
             DateTime start = s_dalConfig.Clock.AddDays(-1);
 
-            // חישוב מספר הדקות מאז זמן ההתחלה ועד עכשיו
+            // Calculate the number of minutes since the start time until now
             int totalMinutesInLastDay = (int)(s_dalConfig.Clock - start).TotalMinutes;
-
-            // זמן פתיחה רנדומלי בתוך ה-24 שעות האחרונות
+            // Random opening time within the last 24 hours
             DateTime RndomStart = start.AddMinutes(s_rand.Next(0, totalMinutesInLastDay));
-
-            // זמן סיום אופציונלי
             DateTime? RandomEnd = null;
 
-            // אם i מתחלק ב-10
             if (i % 10 == 0)
             {
-                // זמן סיום רנדומלי בתוך החלון בין RndomStart לזמן הנוכחי
+                //calls that have passed the time
                 int maxRange = (int)(s_dalConfig.Clock - RndomStart).TotalMinutes;
-                if (maxRange > 0) // רק אם יש טווח אפשרי
-                {
+                if (maxRange > 0) 
                     RandomEnd = RndomStart.AddMinutes(s_rand.Next(1, maxRange + 1));
-                }
             }
             else
             {
-                // הסתברות של 50% לכלול זמן סיום
+               
                 if (s_rand.Next(2) == 1)
                 {
-                    // זמן סיום יהיה בין דקה אחת ל-24 שעות (1440 דקות) אחרי זמן הפתיחה
+     
                     int maxDurationMinutes = s_rand.Next(1, 1441);
                     RandomEnd = RndomStart.AddMinutes(maxDurationMinutes);
                 }
@@ -328,14 +312,17 @@ public static class Initialization
         }
 
     }
-    
+    /// <summary>
+    /// Function for creating readings We have created diverse readings as required
+    /// </summary>
     private static void CreateAssignment()
     {
         for (int i = 0; i < 60; i++)
         {
-
+            //Assigning a volunteer to a task
             int randVolunteer = s_rand.Next(s_dalVolunteer!.ReadAll().Count);
             Volunteer volunteerToAssig = s_dalVolunteer.ReadAll()[randVolunteer];
+            //call number ID
             int randCAll = s_rand.Next(s_dalCall!.ReadAll().Count - 15);
             Call callToAssig = s_dalCall.ReadAll()[randCAll];
             while (callToAssig.TimeOpened > s_dalConfig!.Clock)
