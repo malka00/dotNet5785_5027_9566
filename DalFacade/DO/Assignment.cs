@@ -15,9 +15,6 @@ namespace DO;
 /// <param name="TypeEndTreat">Type of treatment termination (treated, self-cancellation, administrator cancellation, expired cancellation)</param>
 
 
-    /// <summary>
-    /// Default constructor for Assignment
-    /// </summary>
 public record Assignment
 (
     int Id,           // מזהה ייחודי להקצאה
@@ -27,12 +24,14 @@ public record Assignment
    DateTime? TimeEnd = null, // זמן סיום הטיפול בפועל (תאריך ושעה)
    TypeEnd? TypeEndTreat = null// סוג סיום הטיפול (טופלה, ביטול עצמי, ביטול מנהל, ביטול פג תוקף)
 )
-{ public Assignment() : this(0, 0, 0, default(DateTime)) { }
 
-    //public static implicit operator int(Assignment v)
-    //{
-    //    throw new NotImplementedException();
-    //}
+
+/// <summary>
+/// Default constructor for Assignment
+/// </summary>
+{
+    public Assignment() : this(0, 0, 0, default(DateTime)) { }
+
 }
 
 

@@ -1,6 +1,6 @@
 ﻿
 namespace DO;
-// <summary>
+/// <summary>
 /// Volunteer Entity represents a volunteer with all its props
 /// </summary>
 
@@ -12,13 +12,12 @@ namespace DO;
 /// <param name="FullAddress">Complete address of the volunteer</param>
 /// <param name="Latitude">a number indicating how far a point on the Earth is south or north of the equator</param>
 /// <param name="Longitude">A number indicating how far a point on Earth is east or west of the equator</param>
-/// <param name="Role Job ">Represents a position - volunteer/manager</param>
+/// <param name="Job">Represents a position - volunteer/manager</param>
 /// <param name="Active">Whether the volunteer is active or not</param>
 /// <param name="MaxReading">Each volunteer will define through the display the maximum distance for receiving a call</param>
-/// <param name="Distance TypeDistance">Aerial distance, walking distance, driving distance</param>
+/// <param name="TypeDistance">Aerial distance, walking distance, driving distance</param>
 public record Volunteer
 (
-   
      int Id,
      string FullName,
      string PhoneNumber,
@@ -31,17 +30,18 @@ public record Volunteer
      double? Latitude = null,
      double? Longitude = null,
      double? MaxReading = null
-    )
+   )
 
-    using System.Data;
-     /// <summary>
-     /// Default constructor Volunteer
-     /// </summary>
 
-public record class Volunteer
+/// <summary>
+/// Default constructor Volunteer
+/// </summary>
+
+
+
 {
     public Volunteer() : this(0, "", "", "", default(Distance), default(Role), false) { }
-}
+};
 
 
 
