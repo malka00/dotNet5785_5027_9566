@@ -1,9 +1,12 @@
-﻿namespace DalTest;
+﻿using static System.Formats.Asn1.AsnWriter;
+
+namespace DalTest;
 
 
 using Dal;
 using DalApi;
 using DO;
+using Microsoft.VisualBasic;
 
 public enum OPTION
 {
@@ -30,14 +33,20 @@ public enum CRUD
 public enum CONFIG
 {
     EXIT,
+    FORWARD_CLOCK_ONE_MINUTE,
     FORWARD_CLOCK_ONE_HOUR,
     FORWARD_CLOCK_ONE_DAY,
     FORWARD_CLOCK_ONE_MONTH,
     FORWARD_CLOCK_ONE_YEAR,
     GET_CLOCK,
-    SET_MAX_RANGE,
+    UPDATE,
     GET_MAX_RANGE,
-    RESET_CONFIG
+    RESET_CONFIG,
+}
+public enum CLOCKCHOICE
+{ 
+    CLOCK,
+RISK_RANGE,
 }
 
 internal class Program
@@ -119,12 +128,19 @@ internal class Program
         }
     }
 
+
     private static void handleConfigOptions()
     {
         try
         {
             switch (showConfigMenu())
             {
+                case CONFIG.FORWARD_CLOCK_ONE_MINUTE:
+                    {
+                        s_dalConfig.Clock = new (s_dalConfig.Clock.Minute+1);
+                        break;
+                    }
+
                 case CONFIG.FORWARD_CLOCK_ONE_HOUR:
                     {
                         s_dalConfig.Clock = s_dalConfig.Clock.AddHours(1);
@@ -150,12 +166,30 @@ internal class Program
                         Console.WriteLine(s_dalConfig.Clock);
                         break;
                     }
-                case CONFIG.SET_MAX_RANGE:
+                case CONFIG.UPDATE:
                     {
-                        Console.Write("enter Max Range: ");
-                        if (!int.TryParse(Console.ReadLine(), out int maxRange))
-                            throw new FormatException("Wrong input");
-                        s_dalConfig.RiskRange = maxRange;
+                        Console.WriteLine(@"Press 0 for clock id,
+                        Press 1 for risk range\n");
+                        CLOCKCHOICE c = (CLOCKCHOICE)Console.Read();
+                        Console.WriteLine("Write update value:\n");
+                        switch (c)
+                        {
+                            case CLOCKCHOICE.CLOCK:
+                                string newClock= Console.ReadLine();
+                                if (!DateTime.TryParse(newClock, out DateTime dateTimeValue))
+                                    throw new FormatException("Wrong input");
+                                s_dalConfig.Clock = dateTimeValue;
+                                break;
+                            case CLOCKCHOICE.RISK_RANGE:
+                                Console.Write("enter Range: ");
+                                if (!int.TryParse(Console.ReadLine(), out int maxRange))
+                                    throw new FormatException("Wrong input");
+                                int newRisk = Console.Read();
+                                s_dalConfig.RiskRange = new(newRisk);
+                                break;
+                            default:
+                                throw new FormatException("Wrong input");
+                        }
                         break;
                     }
                 case CONFIG.GET_MAX_RANGE:
@@ -221,14 +255,15 @@ OPTION Options:
             Console.WriteLine(@$"
 Config Options:
 0 - Exit
-1 - Forward Clock One Hour
-2 - Forward Clock One Day
-3 - Forward Clock One Month
-4 - Forward Clock One Year
-5 - Get Clock
-6 - Set MaxRange
-7 - Get MaxRange 
-8 - ResetConfig Config");
+1 - Forward Clock One Minute
+2 - Forward Clock One Hour
+3 - Forward Clock One Day
+4 - Forward Clock One Month
+5 - Forward Clock One Year
+6 - get clock
+7 - update
+8 - Get riskRange 
+9 - ResetConfig Config");
         }
         while (!int.TryParse(s: Console.ReadLine(), out choice));
         return (CONFIG)choice;
@@ -369,13 +404,13 @@ Config Options:
             Console.WriteLine(item);
         }
 
-        Console.WriteLine("--------------- List of Volunteer ------------------------------------------");
+        Console.WriteLine("--------------- List of Volunteers ------------------------------------------");
         foreach (var item in s_dalVolunteer.ReadAll())
         {
             Console.WriteLine(item);
         }
 
-        Console.WriteLine("--------------- List of Assignment ------------------------------------------");
+        Console.WriteLine("--------------- List of Assignments ------------------------------------------");
         foreach (var item in s_dalAssignment.ReadAll())
         {
             Console.WriteLine(item);
@@ -395,33 +430,20 @@ Config Options:
 
         assi = new Assignment(id, volId, cId, s_dalConfig.Clock);
     }
-    //private static void createCall(out Call cr, int id = 0)
-    //{
-        //Console.Write("enter Type of the Call: ");
-        //CallType? Type = Console.ReadLine() ?? throw new FormatException("Wrong input");
+    private static void createCall(out Call cr, int id = 0)
+    {
+        
+        Console.Write("enter Type of the Call:  1.Puncture    2.Cables   3.LockedCar");
+        int callTypeInput = int.Parse(Console.ReadLine() ?? "0");
+        DO.CallType type= (DO.CallType)callTypeInput;
 
-        //Console.Write("enter Description  of the Call: ");
-        //string? Description = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        Console.Write("enter Description of the Call: ");
+        string? description = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-        //Console.Write("enter FullAddress of the Call: ");
-        //if (!Enum.TryParse(Console.ReadLine(), out String address))
-        //    throw new FormatException("Wrong input");
-
-        //Console.Write("enter Semester of the Call: ");
-        //if (!Enum.TryParse(Console.ReadLine(), out SemesterNames sem))
-        //    throw new FormatException("Wrong input");
-
-
-
-        //Console.WriteLine("enter the StartHour of the Call (in format hh:mm:ss): ");
-        //if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan sh)) throw new FormatException("StartHour is invalid!");
-
-        //Console.WriteLine("enter the EndHour of the Call (in format hh:mm:ss): ");
-        //if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan eh)) throw new FormatException("EndHour is invalid!");
-
-        //Console.WriteLine("");
-
-        //cr = new Call(id, course_num, name, year, sem, day, sh, eh);
+        Console.Write("enter FullAddress of the Call: ");
+        string address= Console.ReadLine() ?? throw new FormatException("Wrong input");
+        
+        cr = new Call(0, type, description, address, 0,0,s_dalConfig.Clock);
     }
     private static void createVolunteer(out Volunteer st, int id = 0)
     {
@@ -437,28 +459,30 @@ Config Options:
         Console.Write("enter Name of the Volunteer: ");
         string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-        Console.Write("enter PhoneNumber of the Volunteer: ");
-        string? phoneNumber = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        Console.WriteLine("Enter Volunteer Phone Number:");
+        string? numberPhone = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
         Console.Write("enter email of the Volunteer: ");
         string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-        Console.Write("enter Role of the Volunteer: ");
-        Role job = Console.ReadLine() ?? throw new FormatException("Wrong input");
-
+        Console.WriteLine("Enter Role (0 = Volunteer, 1 = Manager):");
+        Role role = (Role)int.Parse(Console.ReadLine() ?? "0");
 
         Console.Write("enter true/false if the Volunteer is active: ");
         if (!bool.TryParse(Console.ReadLine(), out bool active))
             throw new FormatException("Wrong input");
 
-        Console.Write("enter adress of the Volunteer: ");
-        string? adrress = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        Console.Write("enter address of the Volunteer: ");
+        string? address = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
-
-
-        Console.WriteLine("");
-
-        //st = new Volunteer(id, DateTime.Now, name, alias, active, bdt);
-        st = new Volunteer(id, name, phoneNumber, email, Distance.Aerial, job, active, adrress);
+       
+        st = new Volunteer(id, name, numberPhone, email, Distance.Aerial, role, active, address);
     }
 }
+
+
+
+
+
+
+
