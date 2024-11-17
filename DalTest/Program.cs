@@ -7,8 +7,10 @@ using Dal;
 using DalApi;
 using DO;
 using Microsoft.VisualBasic;
-
-public enum OPTION
+/// <summary>
+/// options to choose from in the menu
+/// </summary>
+public enum OPTION   
 {
     EXIT,
     VOLUNTEER,
@@ -19,6 +21,9 @@ public enum OPTION
     CONFIG_MENU,
     RESET_DB
 }
+/// <summary>
+/// Optional actions
+/// </summary>
 public enum CRUD
 {
     EXIT,
@@ -29,7 +34,9 @@ public enum CRUD
     DELETE,
     DELETE_ALL
 }
-
+/// <summary>
+/// Actions on the watch
+/// </summary>
 public enum CONFIG
 {
     EXIT,
@@ -43,10 +50,14 @@ public enum CONFIG
     GET_MAX_RANGE,
     RESET_CONFIG,
 }
+
+/// <summary>
+/// Clock update operations
+/// </summary>
 public enum CLOCKCHOICE
 { 
     CLOCK,
-RISK_RANGE,
+    RISK_RANGE,
 }
 
 internal class Program
@@ -55,13 +66,15 @@ internal class Program
     private static ICall? s_dalCall = new CallImplementation(); //stage 1
     private static IAssignment? s_dalAssignment = new AssignmentImplementation(); //stage 1
     private static IConfig? s_dalConfig = new ConfigImplementation(); //stage 1
-
+     /// <summary>
+     /// main program
+     /// </summary>
     static void Main(string[] args)
     {
-        try
+        try //If there are any exceptions
         {
             OPTION option = showMainMenu();
-            while (OPTION.EXIT != option)
+            while (OPTION.EXIT != option)  //As long as you haven't chosen an exit
             {
                 switch (option)
                 {
@@ -71,29 +84,32 @@ internal class Program
                         s_dalAssignment.DeleteAll();//stage 1 
                         s_dalConfig.Reset(); //stage 1
                         break;
-                    case OPTION.INIT_DB:
+                    case OPTION.INIT_DB:  //initialize the variables
                         Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
                         break;
-                    case OPTION.CONFIG_MENU:
+                    case OPTION.CONFIG_MENU:   //Clock options
                         handleConfigOptions();
                         break;
-                    case OPTION.SHOW_ALL_DB:
+                    case OPTION.SHOW_ALL_DB:  //Viewing the databases
                         showAllDB();
                         break;
                     default:
-                        handleCRUDOptions(option);
+                        handleCRUDOptions(option);  //Optional actions
                         break;
                 }
                 option = showMainMenu();
             }
         }
-        catch (Exception ex)
+        catch (Exception ex)   //If any anomaly is detected
         {
             Console.WriteLine(ex);
         }
     }
 
-    private static void handleCRUDOptions(OPTION entity)
+    /// <summary>
+    /// Optional actions
+    /// </summary>
+    private static void handleCRUDOptions(OPTION entity)    
     {
         try
         {
@@ -128,45 +144,46 @@ internal class Program
         }
     }
 
-
+    /// <summary>
+    /// clock operations
+    /// </summary>
     private static void handleConfigOptions()
     {
         try
         {
             switch (showConfigMenu())
             {
-                case CONFIG.FORWARD_CLOCK_ONE_MINUTE:
+                case CONFIG.FORWARD_CLOCK_ONE_MINUTE:   //Added a minute
                     {
                         s_dalConfig.Clock = new (s_dalConfig.Clock.Minute+1);
                         break;
                     }
-
-                case CONFIG.FORWARD_CLOCK_ONE_HOUR:
+                case CONFIG.FORWARD_CLOCK_ONE_HOUR:     //Add an hour
                     {
                         s_dalConfig.Clock = s_dalConfig.Clock.AddHours(1);
                         break;
                     }
-                case CONFIG.FORWARD_CLOCK_ONE_DAY:
+                case CONFIG.FORWARD_CLOCK_ONE_DAY:    //Add an day
                     {
                         s_dalConfig.Clock = s_dalConfig.Clock.AddDays(1);
                         break;
                     }
-                case CONFIG.FORWARD_CLOCK_ONE_MONTH:
+                case CONFIG.FORWARD_CLOCK_ONE_MONTH:    //Add an month
                     {
                         s_dalConfig.Clock = s_dalConfig.Clock.AddMonths(1);
                         break;
                     }
-                case CONFIG.FORWARD_CLOCK_ONE_YEAR:
+                case CONFIG.FORWARD_CLOCK_ONE_YEAR:     //Add an year
                     {
                         s_dalConfig.Clock = s_dalConfig.Clock.AddYears(1);
                         break;
                     }
-                case CONFIG.GET_CLOCK:
+                case CONFIG.GET_CLOCK:      //show clock
                     {
                         Console.WriteLine(s_dalConfig.Clock);
                         break;
                     }
-                case CONFIG.UPDATE:
+                case CONFIG.UPDATE:       //update the clock
                     {
                         Console.WriteLine(@"Press 0 for clock id,
                         Press 1 for risk range\n");
@@ -192,12 +209,12 @@ internal class Program
                         }
                         break;
                     }
-                case CONFIG.GET_MAX_RANGE:
+                case CONFIG.GET_MAX_RANGE:     //get risk range
                     {
                         Console.WriteLine(s_dalConfig.RiskRange);
                         break;
                     }
-                case CONFIG.RESET_CONFIG:
+                case CONFIG.RESET_CONFIG:     //reset the clock
                     s_dalConfig.Reset();
                     break;
                 default:
@@ -209,7 +226,10 @@ internal class Program
             Console.WriteLine(ex);
         }
     }
-    private static OPTION showMainMenu()
+    /// <summary>
+    /// //all the options
+    /// </summary>
+    private static OPTION showMainMenu()    
     {
         int choice;
         do
@@ -268,7 +288,9 @@ Config Options:
         while (!int.TryParse(s: Console.ReadLine(), out choice));
         return (CONFIG)choice;
     }
-
+    /// <summary>
+    /// Creating new calls/tasks/volunteers
+    /// </summary>
     private static void handleCreate(OPTION entity)
     {
         switch (entity)
@@ -289,6 +311,10 @@ Config Options:
                 break;
         }
     }
+
+    /// <summary>
+    /// Reading one object
+    /// </summary>
     private static void handleRead(OPTION entity)
     {
         Console.WriteLine("Enter an id");
@@ -310,6 +336,9 @@ Config Options:
                 break;
         }
     }
+    /// <summary>
+    /// Reading all data
+    /// </summary>
     private static void handleReadAll(OPTION entity)
     {
         switch (entity)
@@ -330,6 +359,10 @@ Config Options:
                 break;
         }
     }
+
+    /// <summary>
+    /// update data
+    /// </summary>
     private static void handleUpdate(OPTION entity)
     {
         Console.WriteLine("Enter an id");
@@ -357,6 +390,10 @@ Config Options:
                 break;
         }
     }
+
+    /// <summary>
+    /// data deletion 
+    /// </summary>
     private static void handleDelete(OPTION entity)
     {
         Console.WriteLine("Enter an id");
@@ -379,6 +416,9 @@ Config Options:
         }
     }
 
+    /// <summary>
+    /// delete all the data
+    /// </summary>
     private static void handleDeleteAll(OPTION entity)
     {
         switch (entity)
@@ -396,7 +436,10 @@ Config Options:
                 break;
         }
     }
-    private static void showAllDB()
+    /// <summary>
+    /// show all data base
+    /// </summary>
+    private static void showAllDB()    
     {
         Console.WriteLine("--------------- List of Calls ------------------------------------------");
         foreach (var item in s_dalCall.ReadAll())
@@ -416,6 +459,9 @@ Config Options:
             Console.WriteLine(item);
         }
     }
+    /// <summary>
+    /// create new Assigmnet
+    /// </summary>
     private static void createAssigmnet(out Assignment assi, int id = 0)
     {
         Console.Write("enter VolunteerId of the Assignment: ");
@@ -430,6 +476,10 @@ Config Options:
 
         assi = new Assignment(id, volId, cId, s_dalConfig.Clock);
     }
+
+    /// <summary>
+    /// create new Call
+    /// </summary>
     private static void createCall(out Call cr, int id = 0)
     {
         
@@ -445,6 +495,10 @@ Config Options:
         
         cr = new Call(0, type, description, address, 0,0,s_dalConfig.Clock);
     }
+
+    /// <summary>
+    /// create new Volunteer
+    /// </summary>
     private static void createVolunteer(out Volunteer st, int id = 0)
     {
         if (id == 0)
