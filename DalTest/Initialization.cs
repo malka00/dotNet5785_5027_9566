@@ -407,7 +407,7 @@ public static class Initialization
             //DateTime start = s_dalConfig.Clock.AddDays(-1); // זמן התחלה יהיה לפני 24 שעות מהשעון הנוכחי
             //int range = (s_dalConfig.Clock - start).Minutes; // חישוב מספר הדקות מאז זמן ההתחלה
             //DateTime RndomStart = start.AddMinutes(s_rand.Next(range)); // הגרלת זמן פתיחה רנדומלי בתוך ה-24 שעות האחרונות
-            //DateTime? RandomEnd = null;
+            //DateTime? RandomEnd = null; 
             //if (i % 10 == 0)//5 that endtime- pag tokef
 
             //    RandomEnd = RndomStart.AddMinutes(new Random().Next(, (int)(s_dalConfig.Clock - RndomStart).TotalMinutes));
