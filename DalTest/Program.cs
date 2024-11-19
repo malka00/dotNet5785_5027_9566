@@ -199,18 +199,18 @@ internal class Program
                             case CLOCKCHOICE.CLOCK:
                                 string newClock= Console.ReadLine();
                                 if (!DateTime.TryParse(newClock, out DateTime dateTimeValue))
-                                    throw new FormatException("Wrong input");
+                                    throw new DalWrongInput("Wrong input");
                                 s_dal.Config.Clock = dateTimeValue;
                                 break;
                             case CLOCKCHOICE.RISK_RANGE:
                                 Console.Write("enter Range: ");
                                 if (!int.TryParse(Console.ReadLine(), out int maxRange))
-                                    throw new FormatException("Wrong input");
+                                    throw new DalWrongInput("Wrong input");
                                 int newRisk = Console.Read();
                                 s_dal.Config.RiskRange = new(newRisk);
                                 break;
                             default:
-                                throw new FormatException("Wrong input");
+                                throw new DalWrongInput("Wrong input");
                         }
                         break;
                     }
@@ -471,11 +471,11 @@ Config Options:
     {
         Console.Write("enter VolunteerId of the Assignment: ");
         if (!int.TryParse(Console.ReadLine(), out int volId))
-            throw new FormatException("Wrong input");
+            throw new DalWrongInput("Wrong input");
 
         Console.Write("enter CallId of the Assignment: ");
         if (!int.TryParse(Console.ReadLine(), out int cId))
-            throw new FormatException("Wrong input");
+            throw new DalWrongInput("Wrong input");
 
         Console.WriteLine("");
 
@@ -493,10 +493,10 @@ Config Options:
         DO.CallType type= (DO.CallType)callTypeInput;
 
         Console.Write("enter Description of the Call: ");
-        string? description = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        string? description = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
 
         Console.Write("enter FullAddress of the Call: ");
-        string address= Console.ReadLine() ?? throw new FormatException("Wrong input");
+        string address= Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
         
         cr = new Call(0, type, description, address, 0,0,s_dal.Config.Clock);
     }
@@ -510,29 +510,30 @@ Config Options:
         {
             Console.Write("enter volunteer Id: ");
             if (!int.TryParse(Console.ReadLine(), out int _id))
-                throw new FormatException("Wrong input");
+                throw new DalWrongInput("Wrong input");
             else
                 id = _id;
         }
 
         Console.Write("enter Name of the Volunteer: ");
-        string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        string? name = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
+           
 
         Console.WriteLine("Enter Volunteer Phone Number:");
-        string? numberPhone = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        string? numberPhone = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
 
         Console.Write("enter email of the Volunteer: ");
-        string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        string? email = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
 
         Console.WriteLine("Enter Role (0 = Volunteer, 1 = Manager):");
         Role role = (Role)int.Parse(Console.ReadLine() ?? "0");
 
         Console.Write("enter true/false if the Volunteer is active: ");
         if (!bool.TryParse(Console.ReadLine(), out bool active))
-            throw new FormatException("Wrong input");
+            throw new DalWrongInput("Wrong input");
 
         Console.Write("enter address of the Volunteer: ");
-        string? address = Console.ReadLine() ?? throw new FormatException("Wrong input");
+        string? address = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
 
        
         st = new Volunteer(id, name, numberPhone, email, Distance.Aerial, role, active, address);

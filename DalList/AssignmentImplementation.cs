@@ -11,16 +11,9 @@ internal class AssignmentImplementation : IAssignment
     {
 
 
-        // יצירת עותק עמוק של הפריט
+       
         int newId =Config.NextAssignmenteID ;
-        // {
-        //     Id= Config.NextAssignmenteID,          
-        //     CallId=item.CallId,       
-        //     VolunteerId=item.VolunteerId,   
-        //     TimeStart=item.TimeStart,
-        //     TimeEnd =item.TimeEnd , 
-        //     TypeEndTreat =item.TypeEndTreat,   
-        // };
+      
        Assignment copy = item with { Id = newId };
         DataSource.Assignments.Add(copy);
 
@@ -32,7 +25,7 @@ internal class AssignmentImplementation : IAssignment
       
         var assignment = DataSource.Assignments.FirstOrDefault(a => a.Id == id);
         if (assignment == null)
-            throw new Exception($"Assignment with ID={id} not exists");
+            throw new DalDeletImposible($"Assignment with ID={id} not exists");
 
        DataSource.Assignments.Remove(assignment); 
     }
@@ -44,11 +37,8 @@ internal class AssignmentImplementation : IAssignment
 
     public Assignment? Read(int id)
     {
-        // חיפוש פריט לפי מזהה
-        var assignment = DataSource.Assignments.FirstOrDefault(a => a.Id == id);
-        if (assignment == null)
-           return null;
-        return assignment;
+        return DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
+        //return DataSource.Assignments.FirstOrDefault(a => a.Id == id);
 
     }
 
@@ -65,7 +55,7 @@ internal class AssignmentImplementation : IAssignment
         int index = DataSource.Assignments.FindIndex(c => c.Id == item.Id);
         if (index == -1)
         {
-            throw new Exception($"Assignment with ID={item.Id} not exists");
+            throw new DalDeletImposible($"Assignment with ID={item.Id} not exists");
         }
         DataSource.Assignments[index] = item;
     }

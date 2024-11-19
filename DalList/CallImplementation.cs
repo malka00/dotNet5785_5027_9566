@@ -9,20 +9,8 @@ internal class CallImplementation : ICall
 
     public void Create(Call item)
     {
-        // יצירת מזהה חדש על בסיס המספר הרץ הבא
+        
         int newId = Config.NextCallId;
-        //Call newItem = new Call 
-        //{
-        //    Id = newId,
-        //     Type=item.Type,
-        //     Description=item.Description,
-        //     FullAddress=item.FullAddress,
-        //     Latitude=item.Latitude,
-        //     Longitude=item.Longitude,
-        //     TimeOpened = item.TimeOpened,
-        //     MaxTimeToClose = item.MaxTimeToClose    
-
-        //};
         Call copy = item with { Id = newId };
 
         DataSource.Calls.Add(copy);
@@ -33,7 +21,7 @@ internal class CallImplementation : ICall
     {
         Call? call1 = DataSource.Calls.Find(c => c.Id == id);
         if (call1 == null)
-              throw new Exception($"Call with ID={id} not exists");
+              throw new DalDeletImposible($"Call with ID={id} not exists");
         DataSource.Calls.Remove(call1);
     }
 
@@ -44,23 +32,31 @@ internal class CallImplementation : ICall
 
     public Call? Read(int id)
     {
-       var findCall =DataSource.Calls.Find(c => c.Id == id);
-        if (findCall != null) 
-         return findCall;
-        return null;   
-           
+        return DataSource.Calls.FirstOrDefault(item => item.Id == id); //stage 2
+        //return DataSource.Calls.Find(c => c.Id == id);
     }
 
-    public List<Call> ReadAll()
-    {
-        return new List<Call>(DataSource.Calls);
-    }
+    //public List<Call> ReadAll()
+    //{
+    //    return new List<Call>(DataSource.Calls);
+    //}
+   
+    //public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null) //stage 2
+    //{ => filter == null
+    //        ? from item in DataSource.Calls
+    //          where filter(item)
+    //          select item;
+    //        : from item in DataSource.Calls
+    //          select item;
+    //}
 
-    public void Update(Call item)
+
+
+public void Update(Call item)
     {
         int index = DataSource.Calls.FindIndex(c => c.Id == item.Id);
         if (index == -1)
-            throw new Exception($"Call with ID={item.Id} does not exist.");
+            throw new DalDeletImposible($"Call with ID={item.Id} does not exist.");
 
         
         DataSource.Calls[index] = item;

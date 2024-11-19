@@ -14,7 +14,7 @@ internal class VolunteerImplementation : IVolunteer
         // בדיקה אם קיים אובייקט עם אותו מזהה
         if (DataSource.Volunteers.Any(v => v.Id == item.Id))
         {
-            throw new Exception($"Volenteer with ID={item.Id} already exists"); ;
+            throw new DalDeletImposible($"Volenteer with ID={item.Id} already exists"); ;
         }
         
 
@@ -27,10 +27,9 @@ internal class VolunteerImplementation : IVolunteer
 
     public Volunteer? Read(int id)
     {
-        var volunteer1 = DataSource.Volunteers.FirstOrDefault(v => v.Id == id);
-        if (volunteer1 == null) 
-        return null;
-        return volunteer1;
+        return DataSource.Volunteers.FirstOrDefault(item => item.Id == id); //stage 2
+        //return DataSource.Volunteers.FirstOrDefault(v => v.Id == id); //stage 1
+      
     }
 
     public List<Volunteer> ReadAll()
@@ -46,7 +45,7 @@ internal class VolunteerImplementation : IVolunteer
         
 
         var index = DataSource.Volunteers.FindIndex(v => v.Id == item.Id);
-        if (index == -1) throw new Exception($"Volteer with ID={item.Id} not exists");
+        if (index == -1) throw new DalDeletImposible($"Volteer with ID={item.Id} not exists");
 
         DataSource.Volunteers[index] = new Volunteer
         {
@@ -69,7 +68,7 @@ internal class VolunteerImplementation : IVolunteer
     public void Delete(int id)
     {
         var volunteer = DataSource.Volunteers.FirstOrDefault(v => v.Id == id);
-        if (volunteer == null) throw new Exception($"Volunteer with ID={id} not exists");
+        if (volunteer == null) throw new DalDeletImposible($"Volunteer with ID={id} not exists");
 
         DataSource.Volunteers.Remove(volunteer);
     }
