@@ -325,15 +325,15 @@ public static class Initialization
         for (int i = 0; i < 60; i++)
         {
             //Assigning a volunteer to a task
-            int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count);
-            Volunteer volunteerToAssig = s_dal.Volunteer.ReadAll()[randVolunteer];
+            int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count());
+           Volunteer volunteerToAssign = s_dal.Volunteer.ReadAll().OrderBy(v => s_rand.Next()).First();
             //call number ID
-            int randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count - 15);
-            Call callToAssig = s_dal.Call.ReadAll()[randCAll];
+            int randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count() - 15);
+            Call callToAssig = s_dal.Call.ReadAll().OrderBy(v => s_rand.Next()).First();
             while (callToAssig.TimeOpened > s_dal!.Config!.Clock)
             {
-                randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count - 15);
-                callToAssig = s_dal.Call.ReadAll()[randCAll];
+                randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count() - 15);
+                callToAssig = s_dal.Call.ReadAll().OrderBy(v => s_rand.Next()).First();
             }
             TypeEnd? finish = null;
             DateTime? finishTime = null;
@@ -355,7 +355,7 @@ public static class Initialization
 
                 }
             }
-            s_dal.Assignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssig.Id, s_dal!.Config!.Clock, finishTime, finish));
+            s_dal.Assignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssign.Id, s_dal!.Config!.Clock, finishTime, finish));
         }
     }
     //public static void Do(IStudent? dalStudent, ICourse? dalCourse, ILink? dalStudentInCourse, IConfig? dalConfig) // stage 1

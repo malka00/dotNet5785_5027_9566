@@ -2,7 +2,7 @@
 using DO;
 using DalApi;
 using System;
-
+using System.Linq;
 
 internal class VolunteerImplementation : IVolunteer
 {
