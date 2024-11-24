@@ -14,3 +14,8 @@ public class DalWrongInput : Exception     //קלט לא נכון
 {
     public DalWrongInput(string? mass) : base(mass) { }
 }
+public class DalXMLFileLoadCreateException : Exception     //חריגה של דף עזר
+{
+    public DalXMLFileLoadCreateException(string? mass) : base(mass) { }
+}
+
