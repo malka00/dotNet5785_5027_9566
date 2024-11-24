@@ -42,11 +42,11 @@ internal class AssignmentImplementation : IAssignment
 
     }
 
-    public List<Assignment> ReadAll()
-    {
-       
-        return new List<Assignment>(DataSource.Assignments);
-    }
+
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
+        => filter == null ? DataSource.Assignments.Select(item => item)
+           : DataSource.Assignments.Where(filter);
+
 
     public void Update(Assignment item)
     {

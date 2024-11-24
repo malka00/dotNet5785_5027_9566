@@ -36,23 +36,12 @@ internal class CallImplementation : ICall
         //return DataSource.Calls.Find(c => c.Id == id);
     }
 
-    //public List<Call> ReadAll()
-    //{
-    //    return new List<Call>(DataSource.Calls);
-    //}
-   
-    //public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null) //stage 2
-    //{ => filter == null
-    //        ? from item in DataSource.Calls
-    //          where filter(item)
-    //          select item;
-    //        : from item in DataSource.Calls
-    //          select item;
-    //}
+    public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
+        => filter == null ? DataSource.Calls.Select(item => item)
+           : DataSource.Calls.Where(filter);
 
 
-
-public void Update(Call item)
+    public void Update(Call item)
     {
         int index = DataSource.Calls.FindIndex(c => c.Id == item.Id);
         if (index == -1)
