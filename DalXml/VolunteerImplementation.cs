@@ -11,9 +11,48 @@ internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer item)
     {
-        throw new NotImplementedException();
-    }
+        XElement volunteersRoot = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
 
+        if (volunteersRoot.Elements().Any(v => (int?)v.Element("Id") == item.Id))
+            throw new DalExsitException($"Volunteer with ID={item.Id} already exists.");
+
+        volunteersRoot.Add(new XElement("Volunteer", CreateVolunteerElement(item)));
+        XMLTools.SaveListToXMLElement(volunteersRoot, Config.s_volunteers_xml);
+    }
+    private static XElement CreateVolunteerElement(Volunteer v)
+    {
+        return new XElement("Volunteer",
+            new XElement("Id", v.Id),
+            new XElement("Name", v.FullName),
+            new XElement("Number_phone", v.PhoneNumber),
+            new XElement("Email", v.Email),
+            new XElement("Role", v.Job),
+            new XElement("Distance_Type", v.TypeDistance),
+            new XElement("FullCurrentAddress", v.FullAddress),
+            new XElement("Latitude", v.Latitude),
+            new XElement("Longitude", v.Longitude),
+            new XElement("Active", v.Active),
+            new XElement("distance", v.MaxReading)
+        );
+    }
+    static Volunteer getVolunteer(XElement v)
+    {
+        return new DO.Volunteer()
+        {
+            Id = v.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
+            FullName = (string?)v.Element("Name") ?? "",
+            Email = (string?)v.Element("Email") ?? "",
+            Job = v.ToEnumNullable<Role>("Role") ?? Role.Volunteer,
+            TypeDistance = v.ToEnumNullable<Distance>("Distance_Type") ?? Distance.Aerial,
+            PhoneNumber = (string?)v.Element("PhoneNumber") ?? "",
+            Active = (bool?)v.Element("IsActive") ?? false,
+            Password = (string?)v.Element("Password"),
+            FullAddress = (string?)v.Element("FullAddress"),
+            Latitude = (double?)v.Element("Latitude"),
+            Longitude = (double?)v.Element("Longitude"),
+            MaxReading = (double?)v.Element("MaxReading")
+        };
+    }
     public void Delete(int id)
     {
         throw new NotImplementedException();
@@ -24,55 +63,29 @@ internal class VolunteerImplementation : IVolunteer
         throw new NotImplementedException();
     }
 
-
-
-
-
-
-           static Volunteer getStudent(XElement s)
-        {
-            return new DO.Volunteer()
-            {
-                Id = s.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
-                FullName = (string?)s.Element("Name") ?? "",
-                Email = (string?)s.Element("Email") ?? "",
-                PhoneNumber = (string?)s.Element("PhoneNumber") ?? "",
-               // TypeDistance = Enum.TryParse<Distance>((string?)s.Element("TypeDistance"), true, out var typeDistance) ? typeDistance : (Distance?)null,
-               // Job = Enum.TryParse<Role>((string?)s.Element("Job"), true, out var job) ? job : (Role?)null,
-                Active = (bool?)s.Element("IsActive") ?? false,
-                Password = (string?)s.Element("Password"),
-                FullAddress = (string?)s.Element("FullAddress"),
-                Latitude = (double?)s.Element("Latitude"),
-                Longitude = (double?)s.Element("Longitude"),
-                MaxReading = (double?)s.Element("MaxReading")
-            };
-        }
-
-   
-
     public Volunteer? Read(int id)
     {
-        XElement? studentElem =
+        XElement? volunteerElem =
     XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().FirstOrDefault(st => (int?)st.Element("Id") == id);
-        return studentElem is null ? null : getStudent(studentElem);
+        return volunteerElem is null ? null : getVolunteer(volunteerElem);
     }
 
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(s => getStudent(s)).FirstOrDefault(filter);
+        return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(s => getVolunteer(v)).FirstOrDefault(filter);
     }
 
     public void Update(Volunteer item)
     {
-        XElement studentsRootElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
+        XElement volunteersRoot = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
 
-        (studentsRootElem.Elements().FirstOrDefault(st => (int?)st.Element("Id") == item.Id)
-        ?? throw new DO.DalDeletImposible($"Volunteer with ID={item.Id} does Not exist"))
-                .Remove();
+        XElement? volunteerElem = volunteersRoot.Elements().FirstOrDefault(v => (int?)v.Element("Id") == item.Id)
+                                 ?? throw new DalDeletImposible($"Volunteer with ID={item.Id} does not exist.");
 
-        studentsRootElem.Add(new XElement("Volunteer", createStudentElement(item)));
+        volunteerElem.Remove();
 
-        XMLTools.SaveListToXMLElement(studentsRootElem, Config.s_volunteers_xml);
+        volunteersRoot.Add(new XElement("Volunteer", CreateVolunteerElement(item)));
+        XMLTools.SaveListToXMLElement(volunteersRoot, Config.s_volunteers_xml);
     }
 
 }
