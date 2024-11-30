@@ -66,7 +66,9 @@ internal class Program
     //private static ICall? s_dal.Call = new CallImplementation(); //stage 1
     //private static IAssignment? s_dal.Assignment = new AssignmentImplementation(); //stage 1
     //private static IConfig? s_dal = new ConfigImplementation(); //stage 1
-    static readonly IDal s_dal = new DalList(); //stage 2
+   
+    //static readonly IDal s_dal = new DalList(); //stage 2
+    static readonly IDal s_dal = new DalXml(); //stage 3
 
     /// <summary>
     /// main program

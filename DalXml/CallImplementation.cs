@@ -6,7 +6,7 @@ using System.Data.Common;
 
 namespace Dal
 {
-    internal class CallImplemantation : ICall
+    internal class CallImplementation : ICall
     {
 
         public void Create(Call item)
