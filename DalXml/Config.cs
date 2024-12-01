@@ -18,8 +18,8 @@ internal static class Config
 
     internal static TimeSpan RiskRange
     {
-        //get => XMLTools.GetConfigDateVal(s_data_config_xml, "CRiskRangelock") ?? TimeSpan.FromHours(1);
-        //set => XMLTools.SetConfigDateVal(s_data_config_xml, "RiskRange", value);
+        get => XMLTools.GetConfigDateVal(s_data_config_xml, "CRiskRangelock") ?? TimeSpan.FromHours(1);
+        set => XMLTools.SetConfigDateVal(s_data_config_xml, "RiskRange", value);
     }
 
 
