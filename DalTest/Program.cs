@@ -199,7 +199,7 @@ internal class Program
                         switch (c)
                         {
                             case CLOCKCHOICE.CLOCK:
-                                string newClock= Console.ReadLine();
+                              string newClock= Console.ReadLine();
                                 if (!DateTime.TryParse(newClock, out DateTime dateTimeValue))
                                     throw new DalWrongInput("Wrong input");
                                 s_dal.Config.Clock = dateTimeValue;
