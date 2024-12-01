@@ -7,7 +7,16 @@ namespace Dal
 {
     internal class AssignmentImplementation : IAssignment
     {
-
+        //public void Create(Assignment item)
+        //{
+        //    List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
+        //    //if (Assignments.Any(c => c.Id == item.Id))
+        //    //    throw new DalAlreadyExistsException($"Course with ID={item.Id} does Not exist");
+        //    int newId1 = Config.NextassignmentId;
+        //    Assignment newItem = item with { Id = newId1 };
+        //    Assignments.Add(item);
+        //    XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignment_xml);
+        //}
         public void Create(Assignment item)
         {
             List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
@@ -17,7 +26,7 @@ namespace Dal
             Assignments.Add(copy);
 
             // Save the updated list back to the XML file
-            XMLTools.SaveListToXMLSerializer(Assignments, Config.s_calls_xml);
+            XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignment_xml);
         }
 
         public void Update(Assignment item)

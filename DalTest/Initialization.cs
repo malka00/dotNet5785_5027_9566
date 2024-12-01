@@ -80,7 +80,7 @@ public static class Initialization
 
             int Id;
             do
-                Id = s_rand.Next(700000000, 1000000000); //Random 9-digit id code
+                Id = (int)s_rand.Next(700000000, 1000000000); //Random 9-digit id code
             while (s_dal!.Volunteer.Read(Id) != null); // Checking the uniqueness of id
 
             string Name = VolunteerNames[i];
