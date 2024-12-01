@@ -1,6 +1,4 @@
-﻿
-
-using DalApi;
+﻿using DalApi;
 using DO;
 using System;
 using System.Xml.Linq;
@@ -72,7 +70,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
-        return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(s => getVolunteer(v)).FirstOrDefault(filter);
+        return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(v => getVolunteer(v)).FirstOrDefault(filter);
     }
 
     public void Update(Volunteer item)
@@ -86,6 +84,13 @@ internal class VolunteerImplementation : IVolunteer
 
         volunteersRoot.Add(new XElement("Volunteer", CreateVolunteerElement(item)));
         XMLTools.SaveListToXMLElement(volunteersRoot, Config.s_volunteers_xml);
+    }
+    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
+    {
+        var volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml)
+                                            .Elements()
+                                            .Select(v => getVolunteer(v));
+        return filter == null ? volunteers : volunteers.Where(filter);
     }
 
 }

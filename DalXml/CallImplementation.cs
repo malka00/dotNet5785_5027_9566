@@ -1,6 +1,4 @@
-﻿
-
-using DalApi;
+﻿using DalApi;
 using DO;
 using System.Data.Common;
 
@@ -67,6 +65,6 @@ namespace Dal
             return filter != null ? Calls.Where(filter) : Calls;
         }
 
-        
+
     }
 }
