@@ -6,16 +6,16 @@ namespace DO;
 
 public enum Role
 {
-    Volunteer,   // מתנדב
-    Boss         // מנהל
+    Volunteer,   
+    Boss         
 }
 
-// הגדרת Enum עבור סוג המרחק
+// Enum definition for the distance type
 public enum Distance
 {
-    Aerial,      // מרחק אווירי
-    Walking,     // מרחק הליכה
-    Driving      // מרחק נסיעה
+    Aerial,      // aerial distance
+    Walking,    // Walking distance
+    Driving      // Travel distance
 }
 public enum CallType
 {
@@ -26,10 +26,9 @@ public enum CallType
 public enum TypeEnd
 {
 
-    Treated,//טופל
-   // NotYetTreet//לא טופל
-    SelfCancel,       // ביטול עצמי
-    ManagerCancel,    // ביטול מנהל
-    ExpiredCancel     // ביטול פג תוקף
+    Treated,
+    SelfCancel,       
+    ManagerCancel,    
+    ExpiredCancel     
 }
 
