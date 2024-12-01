@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <ID>937697438</ID>
+    <ID>924511022</ID>
     <fullName>Ruth Cohen</fullName>
     <phone>050-1234567</phone>
     <email>ruth@example.com</email>
@@ -11,10 +11,10 @@
     <address>King George St 20, Jerusalem, Israel</address>
     <longitude>35.2193</longitude>
     <latitude>31.7784</latitude>
-    <maxDistance>19</maxDistance>
+    <maxDistance>23</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>705174112</ID>
+    <ID>824170878</ID>
     <fullName>Yossi Levy</fullName>
     <phone>052-9876543</phone>
     <email>yossi@example.com</email>
@@ -24,10 +24,10 @@
     <address>Jaffa St 45, Jerusalem, Israel</address>
     <longitude>35.2137</longitude>
     <latitude>31.7834</latitude>
-    <maxDistance>18</maxDistance>
+    <maxDistance>49</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>960377077</ID>
+    <ID>937195529</ID>
     <fullName>Oren Alon</fullName>
     <phone>053-4567890</phone>
     <email>oren@example.com</email>
@@ -37,10 +37,10 @@
     <address>Agripas St 10, Jerusalem, Israel</address>
     <longitude>35.2129</longitude>
     <latitude>31.7801</latitude>
-    <maxDistance>62</maxDistance>
+    <maxDistance>40</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>757932068</ID>
+    <ID>858702867</ID>
     <fullName>Meirav Israeli</fullName>
     <phone>054-1237894</phone>
     <email>meirav@example.com</email>
@@ -50,10 +50,10 @@
     <address>HaPalmach St 25, Jerusalem, Israel</address>
     <longitude>35.2065</longitude>
     <latitude>31.7642</latitude>
-    <maxDistance>45</maxDistance>
+    <maxDistance>80</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>737244483</ID>
+    <ID>813801094</ID>
     <fullName>Dan Mizrahi</fullName>
     <phone>055-6789123</phone>
     <email>dan@example.com</email>
@@ -63,10 +63,10 @@
     <address>Emek Refaim St 43, Jerusalem, Israel</address>
     <longitude>35.2117</longitude>
     <latitude>31.7655</latitude>
-    <maxDistance>98</maxDistance>
+    <maxDistance>21</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>905807630</ID>
+    <ID>947921613</ID>
     <fullName>Ayelet Israeli</fullName>
     <phone>050-3456789</phone>
     <email>ayelet@example.com</email>
@@ -76,10 +76,10 @@
     <address>Shlomzion HaMalka St 18, Jerusalem, Israel</address>
     <longitude>35.2205</longitude>
     <latitude>31.7798</latitude>
-    <maxDistance>42</maxDistance>
+    <maxDistance>75</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>802329213</ID>
+    <ID>770250688</ID>
     <fullName>Dana Cohen</fullName>
     <phone>052-2345678</phone>
     <email>dana@example.com</email>
@@ -89,10 +89,10 @@
     <address>Hillel St 7, Jerusalem, Israel</address>
     <longitude>35.2142</longitude>
     <latitude>31.7809</latitude>
-    <maxDistance>91</maxDistance>
+    <maxDistance>80</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>997869307</ID>
+    <ID>935781929</ID>
     <fullName>Noam Brenner</fullName>
     <phone>053-9876543</phone>
     <email>noam@example.com</email>
@@ -102,10 +102,10 @@
     <address>Derech Hebron 105, Jerusalem, Israel</address>
     <longitude>35.2156</longitude>
     <latitude>31.7515</latitude>
-    <maxDistance>78</maxDistance>
+    <maxDistance>11</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>764198891</ID>
+    <ID>758083029</ID>
     <fullName>Ofer Mizrahi</fullName>
     <phone>054-5678912</phone>
     <email>ofer@example.com</email>
@@ -115,10 +115,10 @@
     <address>Bezalel St 12, Jerusalem, Israel</address>
     <longitude>35.215</longitude>
     <latitude>31.7812</latitude>
-    <maxDistance>52</maxDistance>
+    <maxDistance>23</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>792528735</ID>
+    <ID>999665428</ID>
     <fullName>Ron Halevi</fullName>
     <phone>055-1234569</phone>
     <email>ron@example.com</email>
@@ -128,10 +128,10 @@
     <address>HaNeviim St 29, Jerusalem, Israel</address>
     <longitude>35.2175</longitude>
     <latitude>31.7837</latitude>
-    <maxDistance>59</maxDistance>
+    <maxDistance>38</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>793693857</ID>
+    <ID>913010596</ID>
     <fullName>Liron Abutbul</fullName>
     <phone>050-4561237</phone>
     <email>liron@example.com</email>
@@ -141,10 +141,10 @@
     <address>Shivtei Israel St 15, Jerusalem, Israel</address>
     <longitude>35.2214</longitude>
     <latitude>31.7849</latitude>
-    <maxDistance>60</maxDistance>
+    <maxDistance>45</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>961845295</ID>
+    <ID>700502829</ID>
     <fullName>Omer Katz</fullName>
     <phone>052-7893451</phone>
     <email>omer@example.com</email>
@@ -154,10 +154,10 @@
     <address>Azza St 50, Jerusalem, Israel</address>
     <longitude>35.2123</longitude>
     <latitude>31.7698</latitude>
-    <maxDistance>13</maxDistance>
+    <maxDistance>40</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>989757914</ID>
+    <ID>906889469</ID>
     <fullName>Ronit Goldman</fullName>
     <phone>053-3214567</phone>
     <email>ronit@example.com</email>
@@ -167,10 +167,10 @@
     <address>Yitzhak Kariv St 4, Jerusalem, Israel</address>
     <longitude>35.2241</longitude>
     <latitude>31.7714</latitude>
-    <maxDistance>82</maxDistance>
+    <maxDistance>77</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>842009037</ID>
+    <ID>875211795</ID>
     <fullName>Ilan Shemesh</fullName>
     <phone>054-7896543</phone>
     <email>ilan@example.com</email>
@@ -180,10 +180,10 @@
     <address>Prophets St 23, Jerusalem, Israel</address>
     <longitude>35.2191</longitude>
     <latitude>31.7815</latitude>
-    <maxDistance>55</maxDistance>
+    <maxDistance>12</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>910250969</ID>
+    <ID>799311790</ID>
     <fullName>Galit Cohen</fullName>
     <phone>055-6547891</phone>
     <email>galit@example.com</email>
@@ -193,10 +193,10 @@
     <address>Ben Yehuda St 1, Jerusalem, Israel</address>
     <longitude>35.2203</longitude>
     <latitude>31.7822</latitude>
-    <maxDistance>86</maxDistance>
+    <maxDistance>15</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>286313649</ID>
+    <ID>289996067</ID>
     <fullName>Admin Man</fullName>
     <phone>050-1111111</phone>
     <email>admin@example.com</email>

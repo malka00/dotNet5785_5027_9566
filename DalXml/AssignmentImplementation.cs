@@ -12,7 +12,7 @@ namespace Dal
         //    List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
         //    //if (Assignments.Any(c => c.Id == item.Id))
         //    //    throw new DalAlreadyExistsException($"Course with ID={item.Id} does Not exist");
-        //    int newId1 = Config.NextassignmentId;
+        //    int newId1 = Config.NextAssignmentId;
         //    Assignment newItem = item with { Id = newId1 };
         //    Assignments.Add(item);
         //    XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignment_xml);
@@ -20,7 +20,7 @@ namespace Dal
         public void Create(Assignment item)
         {
             List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
-            int newId = Config.NextassignmentId;
+            int newId = Config.NextAssignmentId;
             Assignment copy = item with { Id = newId };
             // Add the new assignment to the list
             Assignments.Add(copy);
