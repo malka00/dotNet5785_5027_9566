@@ -7,7 +7,9 @@ namespace Dal
 {
     internal class AssignmentImplementation : IAssignment
     {
-
+        /// <summary>
+        /// Creating a new task in an XML file
+        /// </summary>
         public void Create(Assignment item)
         {
             List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
@@ -17,9 +19,12 @@ namespace Dal
             Assignments.Add(copy);
 
             // Save the updated list back to the XML file
-            XMLTools.SaveListToXMLSerializer(Assignments, Config.s_calls_xml);
+            XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignment_xml);
         }
 
+        /// <summary>
+        /// update assignment
+        /// </summary>
         public void Update(Assignment item)
         {
             List<Assignment> Assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
@@ -29,6 +34,9 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(Assignment, Config.s_assignment_xml);
         }
 
+        /// <summary>
+        /// Delete assignment from the xml file
+        /// </summary>
         public void Delete(int id)
         {
             List<Assignment> Assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
@@ -41,6 +49,9 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_assignment_xml);
         }
 
+        /// <summary>
+        /// read assignment from the xml file
+        /// </summary>
         public Assignment? Read(int id)
         {
             // Load the existing list of assignments from the XML file
@@ -50,6 +61,9 @@ namespace Dal
             return Assignments.FirstOrDefault(assignment => assignment.Id == id);
         }
 
+        /// <summary>
+        /// Read All assignments from the xml file
+        /// </summary>
         public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
         {
             // Load the existing list of assignmemts from the XML file
@@ -58,7 +72,5 @@ namespace Dal
             // Apply the filter if provided, otherwise return all assignment
             return filter != null ? Assignments.Where(filter) : Assignments;
         }
-
-
     }
 }
