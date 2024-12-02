@@ -9,30 +9,23 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Create(Volunteer item)
     {
-        
 
-        // בדיקה אם קיים אובייקט עם אותו מזהה
+
+        // Check if an object with the same ID exists
         if (DataSource.Volunteers.Any(v => v.Id == item.Id))
         {
             throw new DalDeletImposible($"Volenteer with ID={item.Id} already exists"); ;
         }
-        
-
-      
         DataSource.Volunteers.Add(item);
-
-       // return item.Id;
     }
 
 
     public Volunteer? Read(int id)
     {
         return DataSource.Volunteers.FirstOrDefault(item => item.Id == id); //stage 2
-                                                                            //return DataSource.Volunteers.FirstOrDefault(v => v.Id == id); //stage 1
+       //return DataSource.Volunteers.FirstOrDefault(v => v.Id == id); //stage 1
 
     }
-
-
 
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
         => filter == null ? DataSource.Volunteers.Select(item => item)
@@ -48,18 +41,18 @@ internal class VolunteerImplementation : IVolunteer
 
         DataSource.Volunteers[index] = new Volunteer
         {
-           Id=item.Id,  
-      FullName=item.FullName,
-     PhoneNumber=item.PhoneNumber,
-     Email=item.Email,
-     TypeDistance=item.TypeDistance,
-     Job=item.Job,
-     Active=item.Active,
-     Password = item.Password,
-     FullAddress = item.FullAddress,
-     Latitude =item.Latitude, 
-     Longitude = item.Longitude,
-     MaxReading = item.MaxReading,
+         Id=item.Id,  
+         FullName=item.FullName,
+         PhoneNumber=item.PhoneNumber,
+         Email=item.Email,
+         TypeDistance=item.TypeDistance,
+         Job=item.Job,
+         Active=item.Active,
+         Password = item.Password,
+         FullAddress = item.FullAddress,
+         Latitude =item.Latitude, 
+         Longitude = item.Longitude,
+         MaxReading = item.MaxReading,
           
         };
     }

@@ -24,7 +24,6 @@ internal class VolunteerImplementation : IVolunteer
             Active = bool.TryParse((string?)s.Element("isActive"), out bool active) ? active : throw new FormatException("can't convert active"),
             Job = Role.TryParse((string?)s.Element("role"), out Role role) ? role : throw new FormatException("can't convert role "),
             TypeDistance = Distance.TryParse((string?)s.Element("distance"), out Distance dis) ? dis : throw new FormatException("can't convert distance "),
-            //password = (string?)s.Element("password") ?? null,
             FullAddress = (string?)s.Element("address") ?? null,
             Longitude = double.TryParse((string?)s.Element("longitude"), out double longitude) ? longitude : null,
             Latitude = double.TryParse((string?)s.Element("latitude"), out double latitude) ? latitude : null,
