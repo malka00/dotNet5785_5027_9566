@@ -13,7 +13,7 @@ namespace Dal
         public void Create(Assignment item)
         {
             List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
-            int newId = Config.NextassignmentId;
+            int newId = Config.NextAssignmentId;
             Assignment copy = item with { Id = newId };
             // Add the new assignment to the list
             Assignments.Add(copy);
