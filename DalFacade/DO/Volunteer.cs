@@ -22,6 +22,7 @@ public record Volunteer
      string FullName,
      string PhoneNumber,
      string Email,
+     string? password,
      Distance TypeDistance,
      Role Job,
      bool Active,
@@ -37,7 +38,7 @@ public record Volunteer
 /// Default constructor Volunteer
 /// </summary>
 {
-    public Volunteer() : this(0, "", "", "", default(Distance), default(Role), false) { }
+    public Volunteer() : this(0, "", "", "","", default(Distance), default(Role), false) { }
 };
 
 

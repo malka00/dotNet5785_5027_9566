@@ -45,6 +45,7 @@ internal class VolunteerImplementation : IVolunteer
          FullName=item.FullName,
          PhoneNumber=item.PhoneNumber,
          Email=item.Email,
+         password=item.Password,
          TypeDistance=item.TypeDistance,
          Job=item.Job,
          Active=item.Active,

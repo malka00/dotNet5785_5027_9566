@@ -528,6 +528,8 @@ Config Options:
 
         Console.Write("enter email of the Volunteer: ");
         string? email = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
+        Console.Write("enter password of the Volunteer: ");
+        string? password = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
 
         Console.WriteLine("Enter Role (0 = Volunteer, 1 = Manager):");
         Role role = (Role)int.Parse(Console.ReadLine() ?? "0");
@@ -540,7 +542,7 @@ Config Options:
         string? address = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
 
        
-        st = new Volunteer(id, name, numberPhone, email, Distance.Aerial, role, active, address);
+        st = new Volunteer(id, name, numberPhone, email, password,Distance.Aerial, role, active, address);
     }
 }
 
