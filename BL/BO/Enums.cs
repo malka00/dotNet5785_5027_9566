@@ -19,7 +19,7 @@ public enum CallType
     Cables,
     LockedCar
 }
-public enum Status
+public enum StatusTreat
 {
     Open,
     Treat,

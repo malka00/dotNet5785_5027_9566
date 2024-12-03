@@ -16,7 +16,7 @@ public class Call
     double Longitude { get; set; }
     DateTime TimeOpened { get; set; }
     DateTime? MaxTimeToClose { get; set; }
-    Status stat {  get; set; }
+    StatusTreat Status  {  get; set; }
     List<BO.CallAssignInList>? AssignemtsToCalls { get; set; }
 
 }
