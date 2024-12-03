@@ -1,6 +1,6 @@
 ﻿
-namespace BO;
 
+namespace BO;
 public class OpenCallInList
 {
     int Id { get; init; }

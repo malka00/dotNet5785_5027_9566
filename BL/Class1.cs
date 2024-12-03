@@ -1,6 +1,6 @@
 ﻿namespace BL;
 
-internal class Class1
+public class Class1
 {
 
 }
