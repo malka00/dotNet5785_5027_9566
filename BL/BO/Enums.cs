@@ -34,3 +34,44 @@ public enum TypeEnd
     ManagerCancel,
     ExpiredCancel
 }
+public enum EVolunteerInList
+{
+    Id,
+    FullName,
+    Active,
+    SunCalls,
+    Sumcanceled,
+    SunExpired,
+    IdCall,
+    Ctype,
+}
+public enum ECallInList
+{
+    Id ,
+    CallId,
+    CTypy,
+    TimeOpened,
+    TimeLeft,
+    LastVolunteer,
+    TotalTime,
+    Status,
+    SumAssignment,
+}
+public enum EClosedCallInList
+{
+    Id,
+    CType,
+    FullAdress,
+    TimeOpen,
+    StertTreet,
+    TimeClose,
+    TypeEndTreat,
+}
+public enum TimeUnit
+{
+    Minute,
+    Hour,
+    Day,
+    Month,
+    Year
+}
