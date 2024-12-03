@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
  
-</ArrayOfVolunteer>      <Id>12345</Id>
-      <Name>קלמכדח</Name>
-      <Number_phone>0567893297</Number_phone>
-      <Email>קיכדחיחל@וכיח</Email>
-      <Role>Volunteer</Role>
-      <Distance_Type>Aerial</Distance_Type>
-      <FullCurrentAddress />
-      <Latitude />
-      <Longitude />
-      <Active>true</Active>
-      <distance />
-    </Volunteer>
-  </Volunteer>
-</ArrayOfVolunteer>      <Name>קלמכדח</Name>
-      <Number_phone>0567893297</Number_phone>
-      <Email>קיכדחיחל@וכיח</Email>
-      <Role>Volunteer</Role>
-      <Distance_Type>Aerial</Distance_Type>
-      <FullCurrentAddress />
-      <Latitude />
-      <Longitude />
-      <Active>true</Active>
-      <distance />
-    </Volunteer>
-  </Volunteer>
+<ArrayOfVolunteer>    
 </ArrayOfVolunteer>
