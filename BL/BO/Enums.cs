@@ -26,3 +26,11 @@ public enum StatusTreat
     Close,
     RiskOpen
 }
+public enum TypeEnd
+{
+
+    Treated,
+    SelfCancel,
+    ManagerCancel,
+    ExpiredCancel
+}
