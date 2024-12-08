@@ -1,19 +1,19 @@
 ﻿
 
-using BO;
+
 
 namespace BlApi;
 
 public interface ICall
 {
     int CountCall();
-    IEnumerable<BO.CallInList> GetCallInLists(ECallInList? sortBy, object? obj, ECallInList filter);
+    IEnumerable<BO.CallInList> GetCallInLists(BO.ECallInList? sortBy, object? obj, BO.ECallInList filter);
     BO.Call Read(int id);
     void Update(BO.Call call);
     void Delete(int id);
-    void Creat(BO.Call call);
-    IEnumerable<ClosedCallInList> GetClosedCall(int id, CallType? type, EClosedCallInList? sortBy);
-    IEnumerable<OpenCallInList> GetOpenCall(int id, CallType? type, EClosedCallInList? sortBy);
+    void Create(BO.Call call);
+    IEnumerable<BO.ClosedCallInList> GetClosedCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy);
+    IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy);
     void CloseTreat(int idVol, int idAssig);
     void CancalTreat(int idVol, int idAssig);
     void ChoseForTreat(int idVol, int idAssig);

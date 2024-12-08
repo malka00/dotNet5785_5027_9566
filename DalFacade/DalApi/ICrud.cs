@@ -10,7 +10,13 @@ namespace DalApi;
 public interface ICrud<T> where T : class
 {
     void Create(T item); //Creates new entity object in DAL
-    T? Read(int id); //Reads entity object by its ID 
+    /// <summary>
+    /// /Reads entity object by its ID 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    /// <exception cref="DalDeletImposible" />
+    T? Read(int id); 
     IEnumerable<T> ReadAll(Func<T, bool>? filter = null); // stage 2
     void Update(T item); //Updates entity object
     void Delete(int id); //Deletes an object by its Id

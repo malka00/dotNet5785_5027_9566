@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace Helpers
+using DalApi;
+
+namespace Helpers;
+
+internal class VolunteerManager
 {
-    internal class VolunteerManager
+    private static IDal s_dal = Factory.Get;
+
+    internal static void InputIntegrity(BO.Volunteer volunteer)
     {
+
     }
 }

@@ -113,7 +113,7 @@ public static class Initialization
             bool Active = true; //The volunteer is active by default
             double MaxReading = s_rand.Next(5, 100); //Random maximum distance between 5 and 100
 
-            s_dal!.Volunteer.Create(new Volunteer(Id, Name, Phone, Email,Password ,DistanceType, Nrole, Active, null, Address, NLatitude, NLongitude, MaxReading));
+            s_dal!.Volunteer.Create(new Volunteer(Id, Name, Phone, Email ,DistanceType, Nrole, Active, Password, Address, NLatitude, NLongitude, MaxReading));
         }
 
         // Added at least one manager
@@ -122,7 +122,7 @@ public static class Initialization
             managerId = s_rand.Next(100000000, 1000000000);
         while (s_dal!.Volunteer.Read(managerId) != null);
 
-        s_dal!.Volunteer.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com", "A1234",Distance.Aerial, Role.Boss, true, "password123", "HaPega Street 16, Jerusalem, Israel", 31.771959, 35.217018));
+        s_dal!.Volunteer.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "A1234", "HaPega Street 16, Jerusalem, Israel", 31.771959, 35.217018));
     }
     /// <summary>
     /// A function that creates 50 diverse readings according to the requirements.

@@ -34,8 +34,6 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Update(Volunteer item)
     {
-        
-
         var index = DataSource.Volunteers.FindIndex(v => v.Id == item.Id);
         if (index == -1) throw new DalDeletImposible($"Volteer with ID={item.Id} not exists");
 
@@ -45,7 +43,6 @@ internal class VolunteerImplementation : IVolunteer
          FullName=item.FullName,
          PhoneNumber=item.PhoneNumber,
          Email=item.Email,
-         password=item.Password,
          TypeDistance=item.TypeDistance,
          Job=item.Job,
          Active=item.Active,
@@ -60,8 +57,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Delete(int id)
     {
-        var volunteer = DataSource.Volunteers.FirstOrDefault(v => v.Id == id);
-        if (volunteer == null) throw new DalDeletImposible($"Volunteer with ID={id} not exists");
+        var volunteer = DataSource.Volunteers.FirstOrDefault(v => v.Id == id) ?? throw new DalDeletImposible($"Volunteer with ID={id} not exists");
 
         DataSource.Volunteers.Remove(volunteer);
     }

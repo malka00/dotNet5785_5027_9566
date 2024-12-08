@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Helpers;
+
 
 namespace BO;
 
 public class Call
 {
-    int Id { get; init; }
-    CallType Typy { get; set; }
-    string Description { get; set; }
-    string FullAddress { get; set; }
-    double Latitude { get; set; }
-    double Longitude { get; set; }
-    DateTime TimeOpened { get; set; }
-    DateTime? MaxTimeToClose { get; set; }
-    StatusTreat Status  {  get; set; }
-    List<BO.CallAssignInList>? AssignemtsToCalls { get; set; }
+    public  int Id { get; init; }
+    public CallType Type { get; set; }
+    public string Description { get; set; }
+    public string FullAddress { get; set; }
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+    public DateTime TimeOpened { get; set; }
+    public DateTime? MaxTimeToClose { get; set; }
+    public StatusTreat Status  {  get; set; }
+    public  List<BO.CallAssignInList>? AssignemtsToCalls { get; set; }
+    public override string ToString() => this.ToStringProperty();
 
 }

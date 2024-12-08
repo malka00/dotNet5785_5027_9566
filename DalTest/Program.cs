@@ -542,7 +542,7 @@ Config Options:
         string? address = Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
 
        
-        st = new Volunteer(id, name, numberPhone, email, password,Distance.Aerial, role, active, address);
+        st = new Volunteer(id, name, numberPhone, email,Distance.Aerial, role, active, password, address);
     }
 }
 

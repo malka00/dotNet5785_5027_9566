@@ -1,26 +1,29 @@
 ﻿
-using DO;
 
 namespace BO;
 
-//using Helpers;
+using Helpers;
 public class Volunteer
 {
-    int Id { get; init; }
-    string FullName { get; set; }
-    string PhoneNumber { get; set; }
-    string Email { get; set; }
-    Distance TypeDistance { get; set; }
-    Role Job { get; set; }
-    bool Active { get; set; }
-    string? Password { get; set; }
-    string? FullAddress { get; set; }
-    double? Latitude { get; set; }
-    double? Longitude { get; set; }
-    double? MaxReading { get; set; }
-    int SunCalls { get; set; }
-    int Sumcanceled {  get; set; }
-    int SunExpired { get; set; }
-    BO.CallInProgress callIn { get; set; }
-    //public override string ToString() => this.ToStringProperty();
+
+
+    public int Id { get; init; }
+    public string FullName { get; set; }
+    public string PhoneNumber { get; set; }
+    public string Email { get; set; }
+    public Distance TypeDistance { get; set; }
+    public Role Job { get; set; }
+    public bool Active { get; set; }
+    public string? Password { get; set; }
+    public string? FullAddress { get; set; }
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public double? MaxReading { get; set; }
+    public int SumCalls { get; set; }
+    public int SumCanceled { get; set; }
+    public int SumExpired { get; set; }
+    public BO.CallInProgress CallIn { get; set; }
+     public override string ToString() => this.ToStringProperty();
+
 }
+
