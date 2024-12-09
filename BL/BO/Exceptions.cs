@@ -18,6 +18,16 @@ namespace BO
         public BlDoesNotExistException(string message, Exception innerException)
                     : base(message, innerException) { }
     }
+    /// <summary>
+    /// exception for not possible item (like Id impossible)
+    /// </summary>
+    [Serializable]
+    public class BlWrongItemtException : Exception
+    {
+        public BlWrongItemtException(string? message) : base(message) { }
+        public BlWrongItemtException(string message, Exception innerException)
+                    : base(message, innerException) { }
+    }
 
     [Serializable]
     public class DeleteNotPossibleException : Exception
