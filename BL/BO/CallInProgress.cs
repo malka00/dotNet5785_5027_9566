@@ -4,14 +4,14 @@ namespace BO;
 
 public class CallInProgress
 {
-    int Id { get; init; }
-    int IdCall { get; init; }
-    CallType Type { get; set; }
-    string? Description { get; set; }
-    string FullCallAddress { get; set; }
-    DateTime TimeOpen {  get; set; }
-    DateTime? MaxTimeToClose { get; set; }
-    DateTime StertTreet {  get; set; }
-    double distanceCallVolunteer { get; set; }
-    StatusTreat Status { get; set; }
+   public int Id { get; init; }
+    public int IdCall { get; init; }
+    public CallType Type { get; set; }
+    public string? Description { get; set; }
+    public string FullCallAddress { get; set; }
+    public DateTime TimeOpen {  get; set; }
+    public DateTime? MaxTimeToClose { get; set; }
+    public DateTime StertTreet {  get; set; }
+    public double distanceCallVolunteer { get; set; }
+    public StatusTreat Status { get; set; }
 }

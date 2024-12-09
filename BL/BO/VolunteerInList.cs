@@ -3,15 +3,15 @@
 namespace BO;
 
 public class VolunteerInList
-    {
-    int Id {  get; set; }
-    string FullName { get; set; }
-    bool Active { get; set; }
-    int SunCalls { get; set; }
-    int Sumcanceled { get; set; }
-    int SunExpired { get; set; }
-    int? IdCall { get; init; }
-    CallType Ctype { get; set; }
+{
+    public int Id { get; set; }
+    public string FullName { get; set; }
+    public bool Active { get; set; }
+    public int SunCalls { get; set; }
+    public int Sumcanceled { get; set; }
+    public int SumExpired { get; set; }
+    public int? IdCall { get; init; }
+    public CallType Ctype { get; set; }
 
 }
 

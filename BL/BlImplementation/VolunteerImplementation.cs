@@ -1,11 +1,9 @@
 ﻿
-
 namespace BlImplementation;
 using Helpers;
 using BlApi;
 using System;
 using System.Linq;
-
 
 
 internal class VolunteerImplementation : IVolunteer
@@ -51,8 +49,8 @@ internal class VolunteerImplementation : IVolunteer
         catch (DO.DalDeletImposible doEx)
         {
             throw new BO.DeleteNotPossibleException("id not valid", doEx);
-        } 
-    
+        }
+
     }
     /// <summary>
     /// המתודה מקבלת שם מתשמש וסיסמא ומחזירה את תפקיד המשתמש, אם השם מתשמש והסיסמא נכונים
@@ -64,85 +62,105 @@ internal class VolunteerImplementation : IVolunteer
     /// לעשות חריגות!!!
     public BO.Role EnterSystem(int usingName, string password)
     {
-        DO.Volunteer volunteer= _dal.Volunteer.Read(usingName)?? throw new " ";
-           volunteer.Password!=password??throw new "";
+        //    DO.Volunteer? volunteer;
+        //    try
+        //    {
+        //        volunteer = _dal.Volunteer.Read(v => v.Id == usingName && v.Password == password);
+        //    }
+        //    catch (DO.DalDeletImposible doEx)
+        //    {
+        //        throw new BO.BlDoesNotExistException("id and password does not exist", doEx);
+        //    }
+        //       //volunteer.Password!=password??throw new "";
+        //    return (BO.Role)volunteer.Job;
+        DO.Volunteer? volunteer;
+        try
+        {
+            volunteer = _dal.Volunteer.Read(usingName);
+        }
+        catch (DO.DalDeletImposible doEx)
+        {
+            throw new BO.BlDoesNotExistException("id and password does not exist", doEx);
+        }
+        if (volunteer.Password != password) throw new BO.BlDoesNotExistException("the password dont match");
         return (BO.Role)volunteer.Job;
     }
+
 
 
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? activ, BO.EVolunteerInList sortBy)
     {
 
-        // שליפת רשימת המתנדבים
-        List<BO.VolunteerInList> volunteerList = _dal.Volunteer.ReadAll()
-     .Select(v => new BO.VolunteerInList
-     {
-         Id = v.Id,
-         FullName = v.FullName,
-         Active = v.Active,
-         SunCalls = v.SunCalls,
-         SumCanceled = v.SumCanceled,
-         SumExpired = v.SumExpired,
-         IdCall = v.IdCall,
-         CType = v.CType
-     })
-     .ToList();
+        //    // שליפת רשימת המתנדבים
+        //    List<BO.VolunteerInList> volunteerList = _dal.Volunteer.ReadAll()
+        // .Select(v => new BO.VolunteerInList
+        // {
+        //     Id = v.Id,
+        //     FullName = v.FullName,
+        //     Active = v.Active,
+        //     SunCalls = v.SunCalls,
+        //     SumCanceled = v.SumCanceled,
+        //     SumExpired = v.SumExpired,
+        //     IdCall = v.IdCall,
+        //     CType = v.CType
+        // })
+        // .ToList();
 
 
-        // סינון לפי מתנדבים פעילים / לא פעילים אם הערך 'activ' אינו null
-        if (activ.HasValue)
-            {
-                volunteerList = volunteerList.Where(v => v.Active == activ.Value).ToList();
-            }
+        //    // סינון לפי מתנדבים פעילים / לא פעילים אם הערך 'activ' אינו null
+        //    if (activ.HasValue)
+        //    {
+        //        volunteerList = volunteerList.Where(v => v.Active == activ.Value).ToList();
+        //    }
 
-            // מיון הרשימה לפי הפרמטר 'sortBy'
-            if (sortBy.HasValue)
-            {
-                switch (sortBy.Value)
-                {
-                    case BO.EVolunteerInList.Id:
-                        volunteerList = volunteerList.OrderBy(v => v.Id).ToList();
-                        break;
-                    case BO.EVolunteerInList.FullName:
-                        volunteerList = volunteerList.OrderBy(v => v.FullName).ToList();
-                        break;
-                    case BO.EVolunteerInList.Active:
-                        volunteerList = volunteerList.OrderBy(v => v.IsActive).ToList();
-                        break;
-                    case BO.EVolunteerInList.SunCalls:
-                        volunteerList = volunteerList.OrderBy(v => v.SunCalls).ToList();
-                        break;
-                    case BO.EVolunteerInList.Sumcanceled:
-                        volunteerList = volunteerList.OrderBy(v => v.Sumcanceled).ToList();
-                        break;
-                    case BO.EVolunteerInList.SunExpired:
-                        volunteerList = volunteerList.OrderBy(v => v.SunExpired).ToList();
-                        break;
-                    case BO.EVolunteerInList.IdCall:
-                        volunteerList = volunteerList.OrderBy(v => v.IdCall).ToList();
-                        break;
-                    case BO.EVolunteerInList.Ctype:
-                        volunteerList = volunteerList.OrderBy(v => v.Ctype).ToList();
-                        break;
-                    default:
-                        throw new ArgumentException("Invalid sortBy value");
-                }
-            }
-            else
-            {
-                // מיון ברירת מחדל לפי תעודת זהות
-                volunteerList = volunteerList.OrderBy(v => v.Id).ToList();
-            }
+        //    // מיון הרשימה לפי הפרמטר 'sortBy'
+        //    if (sort)
+        //    {
+        //        switch (sortBy.Value)
+        //        {
+        //            case BO.EVolunteerInList.Id:
+        //                volunteerList = volunteerList.OrderBy(v => v.Id).ToList();
+        //                break;
+        //            case BO.EVolunteerInList.FullName:
+        //                volunteerList = volunteerList.OrderBy(v => v.FullName).ToList();
+        //                break;
+        //            case BO.EVolunteerInList.Active:
+        //                volunteerList = volunteerList.OrderBy(v => v.IsActive).ToList();
+        //                break;
+        //            case BO.EVolunteerInList.SunCalls:
+        //                volunteerList = volunteerList.OrderBy(v => v.SunCalls).ToList();
+        //                break;
+        //            case BO.EVolunteerInList.Sumcanceled:
+        //                volunteerList = volunteerList.OrderBy(v => v.Sumcanceled).ToList();
+        //                break;
+        //            case BO.EVolunteerInList.SunExpired:
+        //                volunteerList = volunteerList.OrderBy(v => v.SunExpired).ToList();
+        //                break;
+        //            case BO.EVolunteerInList.IdCall:
+        //                volunteerList = volunteerList.OrderBy(v => v.IdCall).ToList();
+        //                break;
+        //            case BO.EVolunteerInList.Ctype:
+        //                volunteerList = volunteerList.OrderBy(v => v.Ctype).ToList();
+        //                break;
+        //            default:
+        //                throw new ArgumentException("Invalid sortBy value");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        // מיון ברירת מחדל לפי תעודת זהות
+        //        volunteerList = volunteerList.OrderBy(v => v.Id).ToList();
+        //    }
 
-            return volunteerList;
-        }
+        //    return volunteerList;
+        //}
 
     }
 
     public BO.Volunteer Read(int id)
     {
         var doVolunteer = _dal.Volunteer.Read(id);// ??
-                                                  // throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
+                                                   // throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
         return new()
         {
             Id = id,
@@ -155,37 +173,38 @@ internal class VolunteerImplementation : IVolunteer
             FullAddress = doVolunteer.FullAddress,
             Latitude = doVolunteer.Latitude,
             Longitude = doVolunteer.Longitude,
-            CallIn= _dal.Assignment.
-};
+            //  CallIn = _dal.Assignment,
+        };
     }
 
     public void Update(int id, BO.Volunteer boVolunteer)
     {
-        if (boVolunteer.Job != Boss || boVolunteer.Id != id)
-            throw "";
-        _dal.Volunteer.Update()
-        doVolunteer = _dal.Volunteer.Read(id);
-        if (index == -1) throw new DO.DalDeletImposible($"Volteer with ID={doVolunteer.Id} not exists");
+        //if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
+        //    throw "";
 
-        DO.Volunteer doVolunteer = new()
-        {
-            Id = doVolunteer.Id,
-            FullName = doVolunteer.FullName,
-            PhoneNumber = doVolunteer.PhoneNumber,
-            Email = doVolunteer.Email,
-            TypeDistance = (DO.Distance)doVolunteer.TypeDistance,
-            Job = (DO.Role)doVolunteer.Job,
-            Active = doVolunteer.Active,
-            Password = doVolunteer.Password,
-            FullAddress = doVolunteer.FullAddress,
-            Latitude = doVolunteer.Latitude,
-            Longitude = doVolunteer.Longitude,
-            MaxReading = doVolunteer.MaxReading,
+        //    doVolunteer = _dal.Volunteer.Read(id);
+        //if (index == -1) throw new DO.DalDeletImposible($"Volteer with ID={doVolunteer.Id} not exists");
 
-        };
-        try
-        {
-            _dal.Volunteer.Update(doVolunteer);
-        }
+        //DO.Volunteer doVolunteer = new()
+        //{
+        //    Id = doVolunteer.Id,
+        //    FullName = doVolunteer.FullName,
+        //    PhoneNumber = doVolunteer.PhoneNumber,
+        //    Email = doVolunteer.Email,
+        //    TypeDistance = (DO.Distance)doVolunteer.TypeDistance,
+        //    Job = (DO.Role)doVolunteer.Job,
+        //    Active = doVolunteer.Active,
+        //    Password = doVolunteer.Password,
+        //    FullAddress = doVolunteer.FullAddress,
+        //    Latitude = doVolunteer.Latitude,
+        //    Longitude = doVolunteer.Longitude,
+        //    MaxReading = doVolunteer.MaxReading,
+
+        //};
+        //try
+        //{
+        //    _dal.Volunteer.Update(doVolunteer);
+        //}
+
     }
 }

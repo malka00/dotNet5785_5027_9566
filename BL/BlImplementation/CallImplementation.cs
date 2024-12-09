@@ -26,7 +26,7 @@ internal class CallImplementation : ICall
         throw new NotImplementedException();
     }
 
-    public int CountCall()
+    public int[] CountCall()
     {
         throw new NotImplementedException();
     }
