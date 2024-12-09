@@ -1,6 +1,4 @@
 ﻿
-
-using BO;
 using DalApi;
 using System;
 using System.Net.NetworkInformation;
@@ -40,11 +38,11 @@ internal class VolunteerManager
     }
     internal static BO.CallInProgress GetCallIn(DO.Volunteer doVolunteer)
     {
-       
+     
         var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         DO.Assignment? assignmentTreat = call.Find(ass => ass.TimeEnd == null);
         DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
-        return new()
+            return new()
         {
             Id = assignmentTreat.Id,
             IdCall = assignmentTreat.CallId,
@@ -55,10 +53,9 @@ internal class VolunteerManager
             MaxTimeToClose=callTreat.MaxTimeToClose,
             StertTreet= assignmentTreat.TimeStart,
             distanceCallVolunteer= Tools.CalculateDistance(callTreat.Latitude, callTreat.Longitude,doVolunteer.Latitude, doVolunteer.Longitude),
-            Status=
-        };
+            Status= (callTreat.MaxTimeToClose - ClockManager.Now <= GetMaxRange())
+             ? BO.StatusTreat.RiskOpen : BO.StatusTreat.Treat,
+    };
 
     }
-
-
 }

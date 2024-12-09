@@ -25,9 +25,16 @@ namespace BO
         public DeleteNotPossibleException(string? message) : base(message)
         {
         }
-
-
+        
+        
         public DeleteNotPossibleException(string? message, Exception? innerException) : base(message, innerException)
+        {
+        }
+    }
+    [Serializable]
+    public class BlAlreadyExistsException : Exception
+    {
+        public BlAlreadyExistsException(string? message, Exception? innerException) : base(message, innerException)
         {
         }
     }

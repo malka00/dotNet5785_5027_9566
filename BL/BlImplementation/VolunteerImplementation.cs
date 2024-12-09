@@ -4,7 +4,8 @@ using Helpers;
 using BlApi;
 using System;
 using System.Linq;
-
+using System.Linq.Expressions;
+using DO;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -34,7 +35,7 @@ internal class VolunteerImplementation : IVolunteer
         }
         catch (DO.DalExsitException ex)
         {
-            //throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} already exists", ex);
+            throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} already exists", ex);
         }
     }
 
@@ -62,17 +63,6 @@ internal class VolunteerImplementation : IVolunteer
     /// לעשות חריגות!!!
     public BO.Role EnterSystem(int usingName, string password)
     {
-        //    DO.Volunteer? volunteer;
-        //    try
-        //    {
-        //        volunteer = _dal.Volunteer.Read(v => v.Id == usingName && v.Password == password);
-        //    }
-        //    catch (DO.DalDeletImposible doEx)
-        //    {
-        //        throw new BO.BlDoesNotExistException("id and password does not exist", doEx);
-        //    }
-        //       //volunteer.Password!=password??throw new "";
-        //    return (BO.Role)volunteer.Job;
         DO.Volunteer? volunteer;
         try
         {
@@ -91,20 +81,7 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? activ, BO.EVolunteerInList sortBy)
     {
 
-        //    // שליפת רשימת המתנדבים
-        //    List<BO.VolunteerInList> volunteerList = _dal.Volunteer.ReadAll()
-        // .Select(v => new BO.VolunteerInList
-        // {
-        //     Id = v.Id,
-        //     FullName = v.FullName,
-        //     Active = v.Active,
-        //     SunCalls = v.SunCalls,
-        //     SumCanceled = v.SumCanceled,
-        //     SumExpired = v.SumExpired,
-        //     IdCall = v.IdCall,
-        //     CType = v.CType
-        // })
-        // .ToList();
+     
 
 
         //    // סינון לפי מתנדבים פעילים / לא פעילים אם הערך 'activ' אינו null
@@ -159,8 +136,8 @@ internal class VolunteerImplementation : IVolunteer
 
     public BO.Volunteer Read(int id)
     {
-        var doVolunteer = _dal.Volunteer.Read(id);// ??
-                                                   // throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
+        var doVolunteer = _dal.Volunteer.Read(id) ??
+        throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
         return new()
         {
             Id = id,
@@ -173,38 +150,42 @@ internal class VolunteerImplementation : IVolunteer
             FullAddress = doVolunteer.FullAddress,
             Latitude = doVolunteer.Latitude,
             Longitude = doVolunteer.Longitude,
-            //  CallIn = _dal.Assignment,
+            CallIn = VolunteerManager.GetCallIn(doVolunteer),
         };
     }
 
     public void Update(int id, BO.Volunteer boVolunteer)
     {
-        //if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
-        //    throw "";
+      //  if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
+            //   throw "";
 
-        //    doVolunteer = _dal.Volunteer.Read(id);
-        //if (index == -1) throw new DO.DalDeletImposible($"Volteer with ID={doVolunteer.Id} not exists");
+            VolunteerManager.CheckLogic(boVolunteer);
+            VolunteerManager.CheckFormat(boVolunteer);
+        //  doVolunteer = _dal.Volunteer.Read(id);
+        //  throw new DO.DalDeletImposible($"Volteer with ID={doVolunteer.Id} not exists");
 
-        //DO.Volunteer doVolunteer = new()
-        //{
-        //    Id = doVolunteer.Id,
-        //    FullName = doVolunteer.FullName,
-        //    PhoneNumber = doVolunteer.PhoneNumber,
-        //    Email = doVolunteer.Email,
-        //    TypeDistance = (DO.Distance)doVolunteer.TypeDistance,
-        //    Job = (DO.Role)doVolunteer.Job,
-        //    Active = doVolunteer.Active,
-        //    Password = doVolunteer.Password,
-        //    FullAddress = doVolunteer.FullAddress,
-        //    Latitude = doVolunteer.Latitude,
-        //    Longitude = doVolunteer.Longitude,
-        //    MaxReading = doVolunteer.MaxReading,
-
-        //};
-        //try
-        //{
-        //    _dal.Volunteer.Update(doVolunteer);
-        //}
+        DO.Volunteer doVolunteer = new(
+            boVolunteer.Id,
+            boVolunteer.FullName,
+            boVolunteer.PhoneNumber,
+            boVolunteer.Email,
+            (DO.Distance)boVolunteer.TypeDistance,
+            (DO.Role)boVolunteer.Job,
+            boVolunteer.Active,
+            boVolunteer.Password,
+            boVolunteer.FullAddress,
+            boVolunteer.Latitude,
+            boVolunteer.Longitude,
+            boVolunteer.MaxReading
+            );
+        try
+        {
+            _dal.Volunteer.Update(doVolunteer);
+        }
+        catch (DO.DalExsitException ex)
+        {
+             throw new BO.BlAlreadyExistsException($"Volteer with ID={boVolunteer.Id} not exists", ex);
+        }
 
     }
 }
