@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using DO;
+using BO;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -157,7 +158,7 @@ internal class VolunteerImplementation : IVolunteer
     public void Update(int id, BO.Volunteer boVolunteer)
     {
        if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
-              throw ;
+              throw new BO.BlWrongItemtException ("id and  does not correct or not manager");
 
             VolunteerManager.CheckLogic(boVolunteer);
             

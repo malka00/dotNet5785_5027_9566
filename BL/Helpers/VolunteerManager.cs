@@ -55,12 +55,12 @@ internal class VolunteerManager
             TimeOpen = callTreat.TimeOpened,
             MaxTimeToClose = callTreat.MaxTimeToClose,
             StertTreet = assignmentTreat.TimeStart,
-            distanceCallVolunteer = Tools.CalculateDistance(callTreat.Latitude, callTreat.Longitude, doVolunteer.Latitude, doVolunteer.Longitude),
+            distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, doVolunteer.Latitude, doVolunteer.Longitude),
             Status = (callTreat.MaxTimeToClose - ClockManager.Now <= GetMaxRange())
          ? BO.StatusTreat.RiskOpen : BO.StatusTreat.Treat,
         };
     }
-  
+
     internal static void CheckLogic(BO.Volunteer boVolunteer)
     {
         try
@@ -290,11 +290,46 @@ internal class VolunteerManager
     }
     internal static void CheckAddress(BO.Volunteer volunteer)
     {
-        double[] cordinates= GetCoordinates(volunteer.FullAddress);
-        if (cordinates[0]!= volunteer.Latitude||cordinates[1] == volunteer.Longitude)
-             throw new BO.BlWrongItemtException($"not math cordinates");
+        double[] cordinates = GetCoordinates(volunteer.FullAddress);
+        if (cordinates[0] != volunteer.Latitude || cordinates[1] == volunteer.Longitude)
+            throw new BO.BlWrongItemtException($"not math cordinates");
     }
 
+
+    /// <summary>
+    /// מחשבת את המרחק בין שתי נקודות (קו אורך ורוחב) במטרים
+    /// </summary>
+    /// <param name="lat1">קו רוחב של הנקודה הראשונה</param>
+    /// <param name="lon1">קו אורך של הנקודה הראשונה</param>
+    /// <param name="lat2">קו רוחב של הנקודה השנייה</param>
+    /// <param name="lon2">קו אורך של הנקודה השנייה</param>
+    /// <returns>מרחק במטרים בין שתי הנקודות</returns>
+    internal static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+    {
+        const double EarthRadius = 6371000; // רדיוס כדור הארץ במטרים
+
+        // המרת קווי רוחב ואורך מרדיאנים למעלות
+        double lat1Rad = lat1 * Math.PI / 180;
+        double lon1Rad = lon1 * Math.PI / 180;
+        double lat2Rad = lat2 * Math.PI / 180;
+        double lon2Rad = lon2 * Math.PI / 180;
+
+        // הפרשי קווי הרוחב והאורך
+        double deltaLat = lat2Rad - lat1Rad;
+        double deltaLon = lon2Rad - lon1Rad;
+
+        // נוסחת ההאברסין
+        double a = Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2) +
+                   Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
+                   Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2);
+
+        double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+        // המרחק הסופי במטרים
+        return EarthRadius * c;
+    }
 }
+
+
 
 
