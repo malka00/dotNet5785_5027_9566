@@ -39,9 +39,9 @@ public enum EVolunteerInList
     Id,
     FullName,
     Active,
-    SunCalls,
+    SumCalls,
     Sumcanceled,
-    SunExpired,
+    SumExpired,
     IdCall,
     Ctype,
 }

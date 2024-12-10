@@ -1,4 +1,5 @@
 ﻿
+using BlImplementation;
 using DalApi;
 using System;
 using System.Net;
@@ -33,7 +34,7 @@ internal class VolunteerManager
             Id = doVolunteer.Id,
             FullName = doVolunteer.FullName,
             Active = doVolunteer.Active,
-            SunCalls = sumCalls,
+            SumCalls = sumCalls,
             Sumcanceled = sumCanceld,
             SumExpired = sumExpired,
             IdCall = idCall,
@@ -45,6 +46,9 @@ internal class VolunteerManager
         var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         DO.Assignment? assignmentTreat = call.Find(ass => ass.TimeEnd == null);
         DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
+        double[] cordinate = GetCoordinates(doVolunteer.FullAddress);
+        Double latitude = cordinate[0];
+        Double longitude = cordinate[1];
         return new()
         {
             Id = assignmentTreat.Id,
@@ -55,9 +59,9 @@ internal class VolunteerManager
             TimeOpen = callTreat.TimeOpened,
             MaxTimeToClose = callTreat.MaxTimeToClose,
             StertTreet = assignmentTreat.TimeStart,
-            distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, doVolunteer.Latitude, doVolunteer.Longitude),
-            Status = (callTreat.MaxTimeToClose - ClockManager.Now <= GetMaxRange())
-         ? BO.StatusTreat.RiskOpen : BO.StatusTreat.Treat,
+            distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, latitude, longitude),
+         //   Status = (callTreat.MaxTimeToClose - ClockManager.Now <= AdminImplementation.GetMaxRange())
+       //  ? BO.StatusTreat.RiskOpen : BO.StatusTreat.Treat,
         };
     }
     /// <summary>
