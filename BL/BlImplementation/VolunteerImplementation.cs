@@ -156,11 +156,11 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Update(int id, BO.Volunteer boVolunteer)
     {
-      //  if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
-            //   throw "";
+       if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
+              throw ;
 
             VolunteerManager.CheckLogic(boVolunteer);
-            VolunteerManager.CheckFormat(boVolunteer);
+            
         //  doVolunteer = _dal.Volunteer.Read(id);
         //  throw new DO.DalDeletImposible($"Volteer with ID={doVolunteer.Id} not exists");
 

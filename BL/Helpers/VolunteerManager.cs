@@ -1,5 +1,4 @@
 ﻿
-using BO;
 using DalApi;
 using System;
 using System.Net;
@@ -61,10 +60,7 @@ internal class VolunteerManager
          ? BO.StatusTreat.RiskOpen : BO.StatusTreat.Treat,
         };
     }
-    internal static void CheckFormat(BO.Volunteer boVolunteer)
-    {
-
-    }
+  
     internal static void CheckLogic(BO.Volunteer boVolunteer)
     {
         try
@@ -76,9 +72,9 @@ internal class VolunteerManager
             CheckAddress(boVolunteer);
 
         }
-        catch (BlWrongItemtException ex)
+        catch (BO.BlWrongItemtException ex)
         {
-            throw new BlWrongItemtException($"the item have logic problem", ex);
+            throw new BO.BlWrongItemtException($"the item have logic problem", ex);
         }
 
     }
@@ -96,7 +92,7 @@ internal class VolunteerManager
         // Ensure the ID is exactly 9 digits long
         if (idString.Length != 9)
         {
-            throw new BlWrongItemtException($"this ID {id} does not posssible");
+            throw new BO.BlWrongItemtException($"this ID {id} does not posssible");
         }
 
         int sum = 0;
@@ -126,7 +122,7 @@ internal class VolunteerManager
         // תעודת זהות תקינה אם סכום ספרות הביקורת מתחלק ב-10
         if (sum % 10 != 0)
         {
-            throw new BlWrongItemtException($"this ID {id} does not posssible");
+            throw new BO.BlWrongItemtException($"this ID {id} does not posssible");
         }
     }
     /// <summary>
@@ -141,7 +137,7 @@ internal class VolunteerManager
         // Check if the string length is exactly 10 characters
         if (phoneNumber.Length != 10)
         {
-            throw new BlWrongItemtException($"The phone number {phoneNumber}must contain exactly 10 digits.");
+            throw new BO.BlWrongItemtException($"The phone number {phoneNumber}must contain exactly 10 digits.");
         }
 
         // Check if all characters are digits
@@ -149,14 +145,14 @@ internal class VolunteerManager
         {
             if (!char.IsDigit(c))
             {
-                throw new BlWrongItemtException($"The phone number {phoneNumber} must contain digits only.");
+                throw new BO.BlWrongItemtException($"The phone number {phoneNumber} must contain digits only.");
             }
         }
 
         // Check if the first character is '0'
         if (phoneNumber[0] != '0')
         {
-            throw new BlWrongItemtException($"A valid mobile phone number{phoneNumber} must start with '0'.");
+            throw new BO.BlWrongItemtException($"A valid mobile phone number{phoneNumber} must start with '0'.");
         }
 
     }
@@ -174,7 +170,7 @@ internal class VolunteerManager
         // Check if the email matches the pattern
         if (!Regex.IsMatch(email, emailPattern))
         {
-            throw new BlWrongItemtException($"The provided email {email} address is not valid.");
+            throw new BO.BlWrongItemtException($"The provided email {email} address is not valid.");
         }
     }
     /// <summary>
@@ -192,7 +188,7 @@ internal class VolunteerManager
     {
         // Check if the password is at least 5 characters long
         if (password.Length < 5)
-            throw new BlWrongItemtException($"Password {password} must be at least 5 characters long.");
+            throw new BO.BlWrongItemtException($"Password {password} must be at least 5 characters long.");
 
         // Flags to check for at least one letter and one digit
         bool hasLetter = false;
@@ -213,9 +209,9 @@ internal class VolunteerManager
 
         // If the password does not contain both a letter and a digit, throw an exception
         if (!hasLetter)
-            throw new BlWrongItemtException($"Password {password} must contain at least one letter.");
+            throw new BO.BlWrongItemtException($"Password {password} must contain at least one letter.");
         if (!hasDigit)
-            throw new BlWrongItemtException($"Password{password} must contain at least one digit.");
+            throw new BO.BlWrongItemtException($"Password{password} must contain at least one digit.");
     }
 
     /// <summary>
@@ -296,7 +292,7 @@ internal class VolunteerManager
     {
         double[] cordinates= GetCoordinates(volunteer.FullAddress);
         if (cordinates[0]!= volunteer.Latitude||cordinates[1] == volunteer.Longitude)
-             throw new BlWrongItemtException($"not math cordinates");
+             throw new BO.BlWrongItemtException($"not math cordinates");
     }
 
 }
