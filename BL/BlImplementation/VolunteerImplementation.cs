@@ -7,6 +7,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using DO;
 using BO;
+using System.Globalization;
+using System.Collections.Generic;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -14,6 +16,8 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Create(BO.Volunteer boVolunteer)
     {
+        VolunteerManager.CheckLogic(boVolunteer);
+        VolunteerManager.CheckFormat(boVolunteer);
         DO.Volunteer doVolunteer = new
             (
             boVolunteer.Id,
@@ -46,6 +50,7 @@ internal class VolunteerImplementation : IVolunteer
         try
         {
             doVolunteer = _dal.Volunteer.Read(id);
+
             _dal.Volunteer.Delete(id);
         }
         catch (DO.DalDeletImposible doEx)
@@ -77,8 +82,7 @@ internal class VolunteerImplementation : IVolunteer
         return (BO.Role)volunteer.Job;
     }
 
-
-
+    
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? activ, BO.EVolunteerInList sortBy)
     {
 
