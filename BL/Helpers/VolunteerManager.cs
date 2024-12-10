@@ -60,6 +60,84 @@ internal class VolunteerManager
          ? BO.StatusTreat.RiskOpen : BO.StatusTreat.Treat,
         };
     }
+    /// <summary>
+    /// Checks the format of a Volunteer object to ensure all fields are valid.
+    /// </summary>
+    /// <param name="boVolunteer">The Volunteer object to validate.</param>
+    /// <exception cref="ArgumentException">
+    /// Thrown when one or more fields in the Volunteer object are invalid.
+    /// </exception>
+    /// חריגות!!!!!!!!!!!!!
+    internal static void CheckFormat(BO.Volunteer boVolunteer)
+    {
+        /// <summary>
+        /// Validate the ID of the volunteer.
+        /// The ID must be a positive integer and consist of 8 to 9 digits.
+        /// </summary>
+        if (boVolunteer.Id <= 0 || boVolunteer.Id.ToString().Length < 8 || boVolunteer.Id.ToString().Length > 9)
+        {
+            throw new ArgumentException("Invalid ID. It must be 8-9 digits.");
+        }
+
+        /// <summary>
+        /// Validate the FullName field.
+        /// The name must not be null, empty, or consist of only whitespace.
+        /// </summary>
+        if (string.IsNullOrWhiteSpace(boVolunteer.FullName))
+        {
+            throw new ArgumentException("FullName cannot be null or empty.");
+        }
+
+        /// <summary>
+        /// Validate the PhoneNumber field.
+        /// The phone number must be exactly 10 digits and start with 0.
+        /// </summary>
+        if (!Regex.IsMatch(boVolunteer.PhoneNumber, @"^0\d{9}$"))
+        {
+            throw new ArgumentException("PhoneNumber must be 10 digits and start with 0.");
+        }
+
+        /// <summary>
+        /// Validate the Email field.
+        /// The email must match the standard email format.
+        /// </summary>
+        if (!Regex.IsMatch(boVolunteer.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            throw new ArgumentException("Invalid Email format.");
+        }
+
+        /// <summary>
+        /// Validate the MaxReading field.
+        /// If provided, it must be a positive number.
+        /// </summary>
+        if (boVolunteer.MaxReading.HasValue && boVolunteer.MaxReading.Value <= 0)
+        {
+            throw new ArgumentException("MaxReading must be a positive number.");
+        }
+
+        /// <summary>
+        /// Validate the Latitude field.
+        /// If provided, it must be between -90 and 90 (inclusive).
+        /// </summary>
+        if (boVolunteer.Latitude.HasValue && (boVolunteer.Latitude.Value < -90 || boVolunteer.Latitude.Value > 90))
+        {
+            throw new ArgumentException("Latitude must be between -90 and 90.");
+        }
+
+        /// <summary>
+        /// Validate the Longitude field.
+        /// If provided, it must be between -180 and 180 (inclusive).
+        /// </summary>
+        if (boVolunteer.Longitude.HasValue && (boVolunteer.Longitude.Value < -180 || boVolunteer.Longitude.Value > 180))
+        {
+            throw new ArgumentException("Longitude must be between -180 and 180.");
+        }
+
+        /// <summary>
+        /// Add any additional validation checks here if needed in the future.
+        /// </summary>
+    }
+
 
     internal static void CheckLogic(BO.Volunteer boVolunteer)
     {

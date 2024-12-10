@@ -82,7 +82,7 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? activ, BO.EVolunteerInList sortBy)
     {
 
-     
+
 
 
         //    // סינון לפי מתנדבים פעילים / לא פעילים אם הערך 'activ' אינו null
@@ -157,36 +157,87 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Update(int id, BO.Volunteer boVolunteer)
     {
-       if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
-              throw new BO.BlWrongItemtException ("id and  does not correct or not manager");
+        if (boVolunteer.Job != BO.Role.Boss || boVolunteer.Id != id)
+            throw new BO.BlWrongItemtException("id and  does not correct or not manager");
 
-            VolunteerManager.CheckLogic(boVolunteer);
-            
-        //  doVolunteer = _dal.Volunteer.Read(id);
-        //  throw new DO.DalDeletImposible($"Volteer with ID={doVolunteer.Id} not exists");
-
-        DO.Volunteer doVolunteer = new(
-            boVolunteer.Id,
-            boVolunteer.FullName,
-            boVolunteer.PhoneNumber,
-            boVolunteer.Email,
-            (DO.Distance)boVolunteer.TypeDistance,
-            (DO.Role)boVolunteer.Job,
-            boVolunteer.Active,
-            boVolunteer.Password,
-            boVolunteer.FullAddress,
-            boVolunteer.Latitude,
-            boVolunteer.Longitude,
-            boVolunteer.MaxReading
-            );
+        VolunteerManager.CheckLogic(boVolunteer);
+        VolunteerManager.CheckFormat(boVolunteer);
+        DO.Volunteer doVolunteer;
         try
         {
-            _dal.Volunteer.Update(doVolunteer);
+            doVolunteer = _dal.Volunteer.Read(id);
         }
-        catch (DO.DalExsitException ex)
-        {
-             throw new BO.BlAlreadyExistsException($"Volteer with ID={boVolunteer.Id} not exists", ex);
+        catch (DO.DalDeletImposible doEx)
+        { 
+            throw new BO.DeleteNotPossibleException($"Volteer with ID={boVolunteer.Id} not exists", doEx); 
         }
+        DO.Volunteer volunteerUpdate = new(
 
+          boVolunteer.Id,
+          boVolunteer.FullName,
+          boVolunteer.PhoneNumber,
+          boVolunteer.Email,
+          (DO.Distance)boVolunteer.TypeDistance,
+          (DO.Role)boVolunteer.Job,
+          boVolunteer.Active,
+          boVolunteer.Password,
+          boVolunteer.FullAddress,
+          boVolunteer.Latitude,
+          boVolunteer.Longitude,
+          boVolunteer.MaxReading
+          );
+        double[] cordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
+        var changedFields = typeof(BO.Volunteer).GetProperties()
+        .Where(prop => !Equals(prop.GetValue(doVolunteer), prop.GetValue(boVolunteer)))
+        .Select(prop => prop.Name)
+        .ToList();
+        var allowedFields = new List<string>();
+
+        if (boVolunteer.Job == BO.Role.Boss) // אם המבקש הוא מנהל
+        {
+            allowedFields = typeof(BO.Volunteer).GetProperties().Select(p => p.Name).ToList(); // כל השדות מותרים
+        }
+        else if (boVolunteer.Job == BO.Role.Volunteer) // אם המבקש הוא אותו מתנדב עצמו
+        {
+            allowedFields = new List<string>
+        {
+            nameof(BO.Volunteer.FullName),
+            nameof(BO.Volunteer.PhoneNumber),
+            nameof(BO.Volunteer.Email),
+            nameof(BO.Volunteer.Password),
+            nameof(BO.Volunteer.FullAddress),
+            nameof(BO.Volunteer.MaxReading),
+            nameof(BO.Volunteer.TypeDistance)
+        };
+            // מעבר על שמות השדות שהשתנו ושינוי הערכים ב-existingVolunteer אם הם מורשים
+            foreach (var fieldName in changedFields)
+            {
+                // בדוק אם השדה נמצא ברשימת השדות המותרים לעדכון
+                if (!allowedFields.Contains(fieldName))
+                {
+                    throw new BO.BlWrongItemtException($"Field '{fieldName}' cannot be updated by the requester");
+                }
+
+                // שליפת ה-Property לפי השם
+                var property = typeof(BO.Volunteer).GetProperty(fieldName);
+
+                // בדיקת null ובדיקת שהשדה ניתן לכתיבה
+                if (property != null && property.CanWrite)
+                {
+                    // עדכון הערך ב-existingVolunteer לערך מ-updatedVolunteer
+                    var newValue = typeof(BO.Volunteer).GetProperty(fieldName)?.GetValue(boVolunteer);
+                    property.SetValue(volunteerUpdate, newValue);
+                }
+            }
+            try
+            {
+                _dal.Volunteer.Update(volunteerUpdate);
+            }
+            catch (DO.DalExsitException ex)
+            {
+                throw new BO.BlAlreadyExistsException($"Volteer with ID={boVolunteer.Id} not exists", ex);
+            }
+
+        }
     }
 }
