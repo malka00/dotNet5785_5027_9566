@@ -28,7 +28,7 @@ internal class AdminImplementation : IAdmin
     });
   
    
-    public DateTime GetClock() => _dal.Config.Clock; //stage 4 //;
+    public DateTime GetClock() => _dal.Config.Clock; 
    
 
     public TimeSpan GetMaxRange()
@@ -38,12 +38,13 @@ internal class AdminImplementation : IAdmin
 
     public void initialization()
     {
-        DalTest.Initialization.Do(); //stage 4
-        ClockManager.UpdateClock(ClockManager.Now);  //stage 4 - needed since we want the label on Pl to be updated
+        DalTest.Initialization.Do(); 
+        ClockManager.UpdateClock(ClockManager.Now);  
     }
 
     public void Reset()
     {
-        throw new NotImplementedException();
+        _dal.ResetDB(); 
+        ClockManager.UpdateClock(ClockManager.Now);
     }
 }
