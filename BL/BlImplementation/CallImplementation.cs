@@ -3,6 +3,7 @@
 using BlApi;
 using System;
 using Helpers;
+using BO;
 
 namespace BlImplementation;
 
@@ -28,7 +29,7 @@ internal class CallImplementation : ICall
 
     public int[] CountCall()
     {
-        throw new NotImplementedException();
+        
     }
 
     public void Create(BO.Call boCall)

@@ -1,15 +1,23 @@
-﻿
+﻿using Helpers;
+
 namespace BO;
 
-public class CallInList
+public class CallInList : IComparable<CallInList>
 {
-    int Id {  get; init; }
-    int CallId {  get; init; }
-    CallType CTypy { get; set; }
-    DateTime TimeOpened { get; set; }
-    TimeSpan? TimeLeft { get; set; }
-    string? LastVolunteer {  get; set; }
-    TimeSpan? TotalTime {  get; set; }
-    StatusTreat Status { get; set; }
-int SumAssignment {  get; set; }
+    public int Id {  get; init; }
+    public int CallId {  get; init; }
+    public  CallType Type  { get; set; }
+    public DateTime TimeOpened { get; set; }
+    public TimeSpan? TimeLeft { get; set; }
+    public string? LastVolunteer {  get; set; }
+    public TimeSpan? TotalTime {  get; set; }
+    public StatusTreat Status { get; set; }
+    public int SumAssignment {  get; set; }
+
+    public int CompareTo(CallInList? other)
+    {
+        return CallId.CompareTo(other?.CallId);
+    }
+
+    public override string ToString() => this.ToStringProperty();
 }
