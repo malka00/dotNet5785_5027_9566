@@ -2,38 +2,49 @@
 
 using BlApi;
 using BO;
+using Helpers;
+
 
 namespace BlImplementation;
 
 internal class AdminImplementation : IAdmin
 {
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void Definition(TimeSpan time)
     {
-        throw new NotImplementedException();
+     
+      //  DalApi.IConfig.ConfigImplementation.config.RiskRange = time;
+
     }
 
-    public void ForwardClock(TimeUnit unit)
+    public void ForwardClock(BO.TimeUnit unit) => ClockManager.UpdateClock(unit switch
     {
-        throw new NotImplementedException();
-    }
-
-    public DateTime GetClock()
-    {
-        throw new NotImplementedException();
-    }
+        BO.TimeUnit.MINUTE => ClockManager.Now.AddMinutes(1),
+        BO.TimeUnit.HOUR => ClockManager.Now.AddHours(1),
+        BO.TimeUnit.DAY => ClockManager.Now.AddDays(1),
+        BO.TimeUnit.MONTH => ClockManager.Now.AddMonths(1),
+        BO.TimeUnit.YEAR => ClockManager.Now.AddYears(1),
+        _ => DateTime.MinValue
+    });
+  
+   
+    public DateTime GetClock() => _dal.Config.Clock; 
+   
 
     public TimeSpan GetMaxRange()
     {
-        throw new NotImplementedException();
+       return _dal.Config.RiskRange;
     }
 
     public void initialization()
     {
-        throw new NotImplementedException();
+        DalTest.Initialization.Do(); 
+        ClockManager.UpdateClock(ClockManager.Now);  
     }
 
     public void Reset()
     {
-        throw new NotImplementedException();
+        _dal.ResetDB(); 
+        ClockManager.UpdateClock(ClockManager.Now);
     }
 }

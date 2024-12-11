@@ -69,9 +69,9 @@ public enum EClosedCallInList
 }
 public enum TimeUnit
 {
-    Minute,
-    Hour,
-    Day,
-    Month,
-    Year
+    MINUTE,
+    HOUR,
+    DAY,
+    MONTH,
+    YEAR
 }
