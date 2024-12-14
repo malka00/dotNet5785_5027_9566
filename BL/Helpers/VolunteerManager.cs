@@ -1,9 +1,11 @@
 ﻿
 using BlImplementation;
+using BO;
 using DalApi;
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -46,9 +48,15 @@ internal class VolunteerManager
         var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         DO.Assignment? assignmentTreat = call.Find(ass => ass.TimeEnd == null);
         DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
+        if(callTreat != null)  return null;
         double[] cordinate = GetCoordinates(doVolunteer.FullAddress);
-        Double latitude = cordinate[0];
-        Double longitude = cordinate[1];
+        double latitude = cordinate[0];
+        double longitude = cordinate[1];
+        AdminImplementation admin = new AdminImplementation();
+        BO.StatusTreat status;
+        if (callTreat.MaxTimeToClose - ClockManager.Now <= admin.GetMaxRange())
+            status = BO.StatusTreat.RiskOpen;
+        else status = BO.StatusTreat.Treat;
         return new()
         {
             Id = assignmentTreat.Id,
@@ -60,8 +68,7 @@ internal class VolunteerManager
             MaxTimeToClose = callTreat.MaxTimeToClose,
             StertTreet = assignmentTreat.TimeStart,
             distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, latitude, longitude),
-         //   Status = (callTreat.MaxTimeToClose - ClockManager.Now <= AdminImplementation.GetMaxRange())
-       //  ? BO.StatusTreat.RiskOpen : BO.StatusTreat.Treat,
+            Status = status,
         };
     }
     /// <summary>
@@ -80,25 +87,30 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Id <= 0 || boVolunteer.Id.ToString().Length < 8 || boVolunteer.Id.ToString().Length > 9)
         {
-            throw new ArgumentException("Invalid ID. It must be 8-9 digits.");
+            throw new BlWrongItemtException($"Invalid ID {boVolunteer.Id}. It must be 8-9 digits.");
         }
-
         /// <summary>
         /// Validate the FullName field.
         /// The name must not be null, empty, or consist of only whitespace.
         /// </summary>
-        if (string.IsNullOrWhiteSpace(boVolunteer.FullName))
+        if (string.IsNullOrWhiteSpace(boVolunteer.FullName) || !Regex.IsMatch(boVolunteer.FullName, @"^[a-zA-Z\s]+$"))
         {
-            throw new ArgumentException("FullName cannot be null or empty.");
+            throw new BlWrongItemtException($"FullName {boVolunteer.FullName} cannot be null, empty, or contain invalid characters.");
         }
 
         /// <summary>
         /// Validate the PhoneNumber field.
         /// The phone number must be exactly 10 digits and start with 0.
         /// </summary>
-        if (!Regex.IsMatch(boVolunteer.PhoneNumber, @"^0\d{9}$"))
+ 
+        if (string.IsNullOrWhiteSpace(boVolunteer.FullName))
         {
-            throw new ArgumentException("PhoneNumber must be 10 digits and start with 0.");
+            throw new BlWrongItemtException($"FullName {boVolunteer.FullName} cannot be null or empty.");
+        }
+
+        if (boVolunteer.FullName.Any(c => !Char.IsLetter(c) && !Char.IsWhiteSpace(c)))
+        {
+            throw new BlWrongItemtException($"FullName {boVolunteer.FullName} contains invalid characters.");
         }
 
         /// <summary>
@@ -107,17 +119,21 @@ internal class VolunteerManager
         /// </summary>
         if (!Regex.IsMatch(boVolunteer.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
-            throw new ArgumentException("Invalid Email format.");
+            throw new BlWrongItemtException("Invalid Email format.");
         }
 
         /// <summary>
         /// Validate the MaxReading field.
         /// If provided, it must be a positive number.
         /// </summary>
-        if (boVolunteer.MaxReading.HasValue && boVolunteer.MaxReading.Value <= 0)
+        if (boVolunteer.MaxReading.HasValue)
         {
-            throw new ArgumentException("MaxReading must be a positive number.");
+            if (!double.TryParse(boVolunteer.MaxReading.Value.ToString(), out double maxReadingValue) || maxReadingValue <= 0)
+            {
+                throw new BlWrongItemtException($"MaxReading {boVolunteer.MaxReading} must be a positive number.");
+            }
         }
+
 
         /// <summary>
         /// Validate the Latitude field.
@@ -125,7 +141,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Latitude.HasValue && (boVolunteer.Latitude.Value < -90 || boVolunteer.Latitude.Value > 90))
         {
-            throw new ArgumentException("Latitude must be between -90 and 90.");
+            throw new BlWrongItemtException("Latitude must be between -90 and 90.");
         }
 
         /// <summary>
@@ -134,7 +150,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Longitude.HasValue && (boVolunteer.Longitude.Value < -180 || boVolunteer.Longitude.Value > 180))
         {
-            throw new ArgumentException("Longitude must be between -180 and 180.");
+            throw new BlWrongItemtException($"Longitude {boVolunteer.Longitude} must be between -180 and 180.");
         }
 
         /// <summary>
@@ -158,7 +174,6 @@ internal class VolunteerManager
         {
             throw new BO.BlWrongItemtException($"the item have logic problem", ex);
         }
-
     }
     /// <summary>
     /// Validates an Israeli ID number.
@@ -201,7 +216,7 @@ internal class VolunteerManager
             sum += product;
         }
 
-        // תעודת זהות תקינה אם סכום ספרות הביקורת מתחלק ב-10
+        //chach id digit
         if (sum % 10 != 0)
         {
             throw new BO.BlWrongItemtException($"this ID {id} does not posssible");
@@ -379,37 +394,38 @@ internal class VolunteerManager
 
 
     /// <summary>
-    /// מחשבת את המרחק בין שתי נקודות (קו אורך ורוחב) במטרים
+    /// Calculates the distance between two points (latitude and longitude) in meters.
     /// </summary>
-    /// <param name="lat1">קו רוחב של הנקודה הראשונה</param>
-    /// <param name="lon1">קו אורך של הנקודה הראשונה</param>
-    /// <param name="lat2">קו רוחב של הנקודה השנייה</param>
-    /// <param name="lon2">קו אורך של הנקודה השנייה</param>
-    /// <returns>מרחק במטרים בין שתי הנקודות</returns>
+    /// <param name="lat1">Latitude of the first point</param>
+    /// <param name="lon1">Longitude of the first point</param>
+    /// <param name="lat2">Latitude of the second point</param>
+    /// <param name="lon2">Longitude of the second point</param>
+    /// <returns>Distance in meters between the two points</returns>
     internal static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
     {
-        const double EarthRadius = 6371000; // רדיוס כדור הארץ במטרים
+        const double EarthRadius = 6371000; // Earth's radius in meters
 
-        // המרת קווי רוחב ואורך מרדיאנים למעלות
+        // Convert latitude and longitude from degrees to radians
         double lat1Rad = lat1 * Math.PI / 180;
         double lon1Rad = lon1 * Math.PI / 180;
         double lat2Rad = lat2 * Math.PI / 180;
         double lon2Rad = lon2 * Math.PI / 180;
 
-        // הפרשי קווי הרוחב והאורך
+        // Differences in latitude and longitude
         double deltaLat = lat2Rad - lat1Rad;
         double deltaLon = lon2Rad - lon1Rad;
 
-        // נוסחת ההאברסין
+        // Haversine formula
         double a = Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2) +
                    Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
                    Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2);
 
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-        // המרחק הסופי במטרים
+        // Final distance in meters
         return EarthRadius * c;
     }
+
 }
 
 

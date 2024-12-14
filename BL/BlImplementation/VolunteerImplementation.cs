@@ -4,10 +4,6 @@ using Helpers;
 using BlApi;
 using System;
 using System.Linq;
-using System.Linq.Expressions;
-using DO;
-using BO;
-using System.Globalization;
 using System.Collections.Generic;
 
 internal class VolunteerImplementation : IVolunteer
@@ -59,31 +55,22 @@ internal class VolunteerImplementation : IVolunteer
         }
         catch (DO.DalDeletImposible doEx)
         {
-            throw new BO.DeleteNotPossibleException("id not valid", doEx);
+            throw new BO.BlDeleteNotPossibleException("id not valid", doEx);
         }
 
     }
   
-    /// לעשות חריגות!!!
     public BO.Role EnterSystem(int usingName, string password)
     {
-        DO.Volunteer? volunteer;
-        try
-        {
-            volunteer = _dal.Volunteer.Read(usingName);
-        }
-        catch (DO.DalDeletImposible doEx)
-        {
-            throw new BO.BlDoesNotExistException("id and password does not exist", doEx);
-        }
-        if (volunteer.Password != password) throw new BO.BlDoesNotExistException("the password dont match");
+        DO.Volunteer volunteer = _dal.Volunteer.Read(usingName) ?? throw new BO.BlNullPropertyException("the volunteer is null");
+       if (volunteer.Password != password) throw new BO.BlWrongInputException("The password dont match");
         return (BO.Role)volunteer.Job;
     }
 
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? active, BO.EVolunteerInList? sortBy)
     {
         // Retrieve all volunteers from the data layer
-        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll();
+        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll()??throw new BO.BlNullPropertyException ("There are not volunterrs int database");
 
         // Convert IEnumerable<DO.Volunteer> to IEnumerable<BO.VolunteerInList>
         // Using the 'convertDOToBOInList' method to map each DO.Volunteer to BO.VolunteerInList
@@ -121,7 +108,7 @@ internal class VolunteerImplementation : IVolunteer
     public BO.Volunteer Read(int id)
     {
         var doVolunteer = _dal.Volunteer.Read(id) ??
-        throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does Not exist");
+        throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         return new()
         {
             Id = id,
@@ -141,20 +128,10 @@ internal class VolunteerImplementation : IVolunteer
     public void Update(int id, BO.Volunteer boVolunteer)
     {
 
-        DO.Volunteer doVolunteer;
-        DO.Volunteer ismanager;
-        try
-        {
-            ismanager = _dal.Volunteer.Read(id);
-            doVolunteer = _dal.Volunteer.Read(boVolunteer.Id);
-
-        }
-        catch (DO.DalDeletImposible doEx)
-        {
-            throw new BO.DeleteNotPossibleException($"Volteer with ID={boVolunteer.Id} not exists", doEx);
-        }
+        DO.Volunteer doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
+        DO.Volunteer ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         if (ismanager.Job != DO.Role.Boss || boVolunteer.Id != id)
-            throw new BO.BlWrongItemtException("id and  does not correct or not manager");
+            throw new BO.BlWrongInputException("id and  does not correct or not manager");
         if (boVolunteer.FullAddress != doVolunteer.FullAddress)
         {
             double[] cordinat = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
@@ -166,7 +143,7 @@ internal class VolunteerImplementation : IVolunteer
         if (ismanager.Job != DO.Role.Boss)
         {
             if (boVolunteer.Job != (BO.Role)doVolunteer.Job)
-                throw new BO.BlWrongItemtException("not have promition to change the role");
+                throw new BO.BlWrongInputException("not have promition to change the role");
         }
 
 

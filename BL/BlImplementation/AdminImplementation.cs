@@ -2,6 +2,7 @@
 
 using BlApi;
 using BO;
+using DalTest;
 using Helpers;
 
 
@@ -12,8 +13,11 @@ internal class AdminImplementation : IAdmin
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void Definition(TimeSpan time)
     {
-     
-      //  DalApi.IConfig.ConfigImplementation.config.RiskRange = time;
+
+        _dal.ResetDB();
+        ClockManager.UpdateClock(ClockManager.Now);
+        Initialization.Do();
+        //  DalApi.IConfig.ConfigImplementation.config.RiskRange = time;
 
     }
 

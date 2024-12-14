@@ -13,5 +13,4 @@ public interface IDal
     IAssignment Assignment { get; }
     IConfig Config { get; }
     void ResetDB();
-
 }
