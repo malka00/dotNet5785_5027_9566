@@ -22,12 +22,11 @@ internal class CallManager
     internal static StatusTreat GetCallStatus(int callId)
     {
        
-       
     }
 
     internal static void CheckAddress(BO.Call call)
     {
-        double[] coordinates = GetCoordinates(call.FullAddress);
+        double[] coordinates = VolunteerManager.GetCoordinates(call.FullAddress);
         if (coordinates[0] != call.Latitude || coordinates[1] == call.Longitude)
             throw new BO.BlWrongItemtException($"not math coordinates");
     }
