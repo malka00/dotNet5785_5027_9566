@@ -2,8 +2,6 @@
 using BlApi;
 using System;
 using Helpers;
-using BO;
-using DO;
 using DalApi;
 
 namespace BlImplementation;
@@ -30,6 +28,7 @@ internal class CallImplementation : ICall
 
     public int[] CountCall()
     {
+
 
     }
 
@@ -149,5 +148,6 @@ internal class CallImplementation : ICall
             throw new BO.BlDoesNotExistException($"Call with ID={boCall.Id} does Not exist", ex);
         }
     }
+}
 
 

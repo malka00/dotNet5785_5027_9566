@@ -13,9 +13,9 @@ internal class AdminImplementation : IAdmin
     public void Definition(TimeSpan time)
     {
 
-        _dal.ResetDB();
-        ClockManager.UpdateClock(ClockManager.Now);
+     //  _dal.ResetDB();
         Initialization.Do();
+        ClockManager.UpdateClock(ClockManager.Now);
         //  DalApi.IConfig.ConfigImplementation.config.RiskRange = time;
 
     }
