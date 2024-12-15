@@ -23,8 +23,8 @@ public enum IAdmin
 public enum IVolunteer
 {
     EXIT,
-    EnterSystem,
-    GETVOlUNTEERLIST,
+    ENTER_SYSTEM,
+    GET_VOlUNTEERLIST,
     READ,
     UPDATE,
     DELETE,
@@ -34,16 +34,16 @@ public enum ICall
 {
     EXIT,
     CountCall,
-    GetCallInLists,
+    Get_CallInLists,
     Read,
     Update,
     Delete,
     Create,
-    GetClosedCall,
-    GetOpenCall,
+    Get_ClosedCall,
+    Get_OpenCall,
     CloseTreat,
     CancelTreat,
-    ChoseForTreat,
+    Chose_For_Treat,
 }
 
 internal class Program
@@ -83,32 +83,32 @@ internal class Program
         do
         {
             Console.WriteLine(@"
-OPTION Options:
-0 - Exit
-1 - Admin
-2 - Volunteer
-3 - Call
+                OPTION Options:
+                0 - Exit
+                1 - Admin
+                2 - Volunteer
+                3 - Call
 
-");
+                ");
 
         }
         while (!int.TryParse(Console.ReadLine(), out choice));
         return (OPTION)choice;
     }
-    private static IAdmmin showAdminMenu()
+    private static IAdmin showAdminMenu()
     {
         int choice;
         do
         {
             Console.WriteLine(@$"
-Config Options:
-0 - Exit
-1-  get clock
-2 - Forward Clock 
-3 - GetMaxRange
-4 - Definition
-5 - Reset
-6 - initialization");
+            Config Options:
+            0 - Exit
+            1-  get clock
+            2 - Forward Clock 
+            3 - GetMaxRange
+            4 - Definition
+            5 - Reset
+            6 - initialization");
 
         }
         while (!int.TryParse(s: Console.ReadLine(), out choice));
@@ -124,10 +124,368 @@ Config Options:
                 case IAdmin.GET_CLOCK:
                     Console.WriteLine(s_bl.Admin.GetClock());
                     break;
-                case IAdmin.FORWARD_CLOCK: 
+                case IAdmin.FORWARD_CLOCK:
+                    // Prompt the user to enter a time unit (e.g., MINUTE, HOUR, DAY, etc.)
+                    Console.WriteLine("Enter unit time: MINUTE, HOUR, DAY, MONTH, YEAR");
+                    string inputClock = Console.ReadLine()?.ToUpper(); // Convert input to uppercase for consistency
+
+                    // Try to parse the user input into the BO.TimeUnit enum
+                    if (!Enum.TryParse(typeof(BO.TimeUnit), inputClock, out object unitObj) || unitObj is not BO.TimeUnit unit)
+                    {
+                        // If parsing fails or the input is not valid, throw an exception
+                        throw new BO.BlWrongInputException("Wrong input. Please enter a valid time unit.");
+                    }
+
+                    // Call the ForwardClock method with the parsed time unit
+                    s_bl.Admin.ForwardClock(unit);
+                    break;
+                case IAdmin.GET_MAX_RANGE:
+                    Console.WriteLine(s_bl.Admin.GetMaxRange());
+                    break;
+                case IAdmin.DEFENIATION:
+                    Console.WriteLine("Enter time span in the format (days:hours:minutes:seconds):");
+                    string inputTimeSpan = Console.ReadLine();
+
+                    if (!TimeSpan.TryParse(inputTimeSpan, out TimeSpan time))
+                    {
+                        throw new BO.BlWrongInputException("Invalid input. Please enter a valid time span.");
+                    }
+
+                    s_bl.Admin.Definition(time);
+                    break;
+                case IAdmin.RESET:
+                    s_bl.Admin.Reset();
+                    break;
+                case IAdmin.INITIALIZATION:
+                    s_bl.Admin.initialization();
+                    break;
+                case IAdmin.EXIT:
+                    break;
+                default:
+                    Console.WriteLine("Invalid option selected.");
                     break;
             }
         }
-        catch { }
+        catch (BO.BlWrongInputException ex)
+        {
+
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+
+    }
+    private static IVolunteer showVolunteerMenu()
+    {
+        int choice;
+        do
+        {
+            Console.WriteLine(@"
+                OPTION Options:
+                0 - Exit
+                1 - EnterSystem
+                2 - Get volunteerInlist
+                3 - Read
+                4 - update
+                5 - Delete
+                6 - Create
+                ");
+
+        }
+        while (!int.TryParse(Console.ReadLine(), out choice));
+        return (IVolunteer)choice;
+    }
+    private static void handleVolunteerOptions()
+    {
+        try
+        {
+            switch (showVolunteerMenu())
+            {
+
+                case IVolunteer.ENTER_SYSTEM:
+
+                    Console.WriteLine("Please enter your username:");
+                    if (!int.TryParse(Console.ReadLine(), out int username))
+                    {
+                        throw new BO.BlWrongInputException("Invalid username. It must be a numeric value.");
+                    }
+
+                    Console.WriteLine("Please enter your password:");
+                    string password = Console.ReadLine();
+
+                    // Call the EnterSystem method to verify credentials and get the user's role
+                    BO.Role role = s_bl.Volunteers.EnterSystem(username, password);
+                    Console.WriteLine($"Welcome to the system! Your role is: {role}");
+                    break;
+                case IVolunteer.GET_VOlUNTEERLIST:
+
+                    Console.WriteLine("Would you like to filter by active status? (true/false/null):");
+                    string activeInput = Console.ReadLine();
+
+                    bool? activeFilter = activeInput.ToLower() == "true" ? true
+                                        : activeInput.ToLower() == "false" ? false
+                                        : (bool?)null;
+
+                    Console.WriteLine("Please select a sort option (Id, FullName, Active, SumCalls, SumCanceled, SumExpired, IdCall, CType):");
+                    string sortByInput = Console.ReadLine();
+
+                    BO.EVolunteerInList? sortBy = Enum.TryParse<BO.EVolunteerInList>(sortByInput, true, out var sortOption)
+                        ? sortOption : null;
+
+
+                    IEnumerable<BO.VolunteerInList> volunteerList = s_bl.Volunteers.GetVolunteerList(activeFilter, sortBy);
+
+
+                    Console.WriteLine("Volunteer List:");
+                    foreach (var Volunteer in volunteerList)
+                    {
+                        Console.WriteLine(Volunteer);
+                    }
+                    break;
+                case IVolunteer.READ:
+                    Console.WriteLine("Please enter the ID of the volunteer:");
+                    string idInput = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+
+                    if (!int.TryParse(idInput, out int id))  // מנסים להמיר את הקלט למספר
+                    {
+                        throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // זורקים חריגה אם המזהה לא תקני
+                    }
+
+                    BO.Volunteer volunteer = s_bl.Volunteers.Read(id);
+                    Console.WriteLine("Volunteer Details:");
+                    Console.WriteLine(volunteer);
+                    break;
+                case IVolunteer.UPDATE:
+
+                    Console.WriteLine("Please enter the ID of the volunteer you want to update:");
+                    int idToUpdate;
+                    if (!int.TryParse(Console.ReadLine(), out idToUpdate))
+                    {
+                        throw new BO.BlWrongInputException("Invalid ID. Please enter a valid number.");
+                    }
+                    Console.WriteLine("Please enter the your ID");
+                    int idPersson;
+                    if (!int.TryParse(Console.ReadLine(), out idPersson))
+                    {
+                        throw new BO.BlWrongInputException("Invalid ID. Please enter a valid number.");
+                    }
+
+                    // Try to retrieve the volunteer by ID
+                    BO.Volunteer volunteerToUpdate = null;
+
+                    Console.WriteLine("Updating details for volunteer:");
+                  //  Console.WriteLine(volunteerToUpdate);
+
+                    // Full Name
+                    Console.WriteLine("Full Name (leave empty to keep current):");
+                    string fullName = Console.ReadLine();
+                    // Phone Number
+                    Console.WriteLine("Phone Number (leave empty to keep current):");
+                    string phoneNumber = Console.ReadLine();
+
+                    // Email
+                    Console.WriteLine("Email (leave empty to keep current):");
+                    string email = Console.ReadLine();
+                   
+                    // Distance Type
+                    Console.WriteLine("Distance Type (Aerial, Walking, Driving) (leave empty to keep current):");
+                    string distanceTypeInput = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(distanceTypeInput))
+                    {
+                        BO.Distance distanceTypeUpdate;
+                        if (Enum.TryParse(distanceTypeInput, true, out distanceTypeUpdate))
+                        {
+                            volunteerToUpdate.TypeDistance = distanceTypeUpdate;
+                        }
+                        else
+                        {
+                            volunteerToUpdate.TypeDistance = BO.Distance.Aerial; 
+                        }
+                    }
+
+                    // Role
+                    Console.WriteLine("Role (Volunteer, Boss) (leave empty to keep current):");
+                    string roleInput = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(roleInput))
+                    {
+                        BO.Role roleUpdate;
+                        if (Enum.TryParse(roleInput, true, out roleUpdate))
+                        {
+                            volunteerToUpdate.Job = roleUpdate;
+                        }
+                        else
+                        {
+                            throw new BO.BlWrongInputException("Invalid role. Keeping current value.");
+                        }
+                    }
+
+                    // Active
+                    Console.WriteLine("Active (true/false) (leave empty to keep current):");
+                    string activeUpdate = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(activeUpdate))
+                    {
+                        bool activeUP;
+                        if (bool.TryParse(activeUpdate, out activeUP))
+                        {
+                            volunteerToUpdate.Active = activeUP;
+                        }
+                        else
+                        {
+                            throw new BO.BlWrongInputException("Invalid input for Active. Keeping current value.");
+                        }
+                    }
+
+                    // Password
+                    Console.WriteLine("Password (leave empty to keep current):");
+                    string passwordNew = Console.ReadLine();
+                  
+
+                    // Full Address
+                    Console.WriteLine("Full Address (leave empty to keep current):");
+                    string fullAddress = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(fullAddress))
+                    {
+                        volunteerToUpdate.FullAddress = fullAddress;
+                    }
+
+               
+
+                    // Max Reading
+                    Console.WriteLine("Max Reading (leave empty to keep current):");
+                    string maxReadingup = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(maxReadingup))
+                    {
+                        int maxReadingUP;
+                        if (int.TryParse(maxReadingup, out maxReadingUP))
+                        {
+                            volunteerToUpdate.MaxReading = maxReadingUP;
+                        }
+                        else
+                        {
+                           throw new BO.BlWrongInputException("Invalid input for Max Reading. Keeping current value.");
+                        }
+                    }
+
+                    // Update the volunteer in the system
+                  
+                        s_bl.Volunteers.Update(idPersson,volunteerToUpdate);
+                    break;
+
+                case IVolunteer.DELETE:
+                    Console.WriteLine("Volunteer id:");
+                    string idInputDelete = Console.ReadLine(); 
+                    if (!int.TryParse(idInputDelete, out int idDelete))
+                    {
+                        throw new BO.BlWrongInputException($"Invalid ID{idInputDelete} format");  
+                    }
+                    s_bl.Volunteers.Delete(idDelete);  
+                    break;
+                case IVolunteer.CREATE:
+
+                    Console.WriteLine("Please enter volunteer details:");
+
+                    // Full Name
+                    Console.WriteLine("Full Name:");
+                    string fullNameUp = Console.ReadLine();
+
+                    // Phone Number
+                    Console.WriteLine("Phone Number:");
+                    string phoneNumberUp = Console.ReadLine();
+
+                    // Email
+                    Console.WriteLine("Email:");
+                    string emailUp = Console.ReadLine();
+
+                    // Distance Type
+                    Console.WriteLine("Distance Type (Aerial, Walking, Driving):");
+                    string distanceTypeInputUp = Console.ReadLine();
+                    BO.Distance distanceType;
+                    if (!Enum.TryParse(distanceTypeInputUp, true, out distanceType))
+                    {
+                        throw new BO.BlWrongInputException("Invalid distance type. Defaulting to Aerial.");
+                       
+                    }
+
+                    // Role
+                    Console.WriteLine("Role (Volunteer, Boss):");
+                    string roleUp = Console.ReadLine();
+                    BO.Role roleup;
+                    if (!Enum.TryParse(roleUp, true, out roleup))
+                    {
+                        throw new BO.BlWrongInputException("Invalid role. Defaulting to Volunteer.");
+                       
+                    }
+
+                    // Active
+                    Console.WriteLine("Active (true/false):");
+                    bool active;
+                    if (!bool.TryParse(Console.ReadLine(), out active))
+                    {
+                        throw new BO.BlWrongInputException("Invalid input for Active. Defaulting to false.");
+                    }
+
+                    // Password
+                    Console.WriteLine("Password:");
+                    string passwordUp = Console.ReadLine();
+
+                    // Full Address
+                    Console.WriteLine("Full Address:");
+                    string fullAddressUp = Console.ReadLine();
+
+                    // Max Reading
+                    Console.WriteLine("Max Reading:");
+                    int maxReading;
+                    if (!int.TryParse(Console.ReadLine(), out maxReading))
+                    {
+                        throw new BO.BlWrongInputException("Invalid input for Max Reading. Defaulting to 0.");
+                       
+                    }
+
+                    // Create the new Volunteer object
+                    BO.Volunteer newVolunteer = new BO.Volunteer
+                    {
+                        FullName = fullNameUp,
+                        PhoneNumber = phoneNumberUp,
+                        Email = emailUp,
+                        TypeDistance = distanceType,
+                        Job = roleup,
+                        Active = active,
+                        Password = passwordUp,
+                        FullAddress = fullAddressUp,
+                        Latitude = 0,
+                        Longitude = 0,
+                        MaxReading = maxReading,
+                        SumCalls = 0,
+                        SumCanceled = 0,
+                        SumExpired = 0,
+                        CallIn = null,
+                    };
+
+                    // Call the Create method
+                    s_bl.Volunteers.Create(newVolunteer);
+                    break;
+            }
+        }
+        catch (BO.BlNullPropertyException ex)
+        {
+            // Handle the case where the volunteer does not exist
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        catch (BO.BlWrongInputException ex)
+        {
+            // Handle the case where the password does not match
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        catch (BO.BlWrongItemException ex)
+        {
+            // Handle the case where the password does not match
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Handle any other unexpected errors
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
+
     }
 }
+
+

@@ -5,6 +5,7 @@ using BlApi;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using BO;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -12,6 +13,11 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Create(BO.Volunteer boVolunteer)
     {
+        double[] cordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
+        double latitude = cordinate[0];
+        double longitude = cordinate[1];
+        boVolunteer.Latitude = latitude;
+        boVolunteer.Longitude = longitude;
         VolunteerManager.CheckLogic(boVolunteer);
         VolunteerManager.CheckFormat(boVolunteer);
         DO.Volunteer doVolunteer = new
@@ -48,7 +54,7 @@ internal class VolunteerImplementation : IVolunteer
         
         if (assignments != null&& assignments.Count(ass => ass.TimeEnd == null) > 0)
        
-            throw new Exception();
+            throw new BlWrongInputException("canot delete have assignemnt in treat");
         try
         {
             _dal.Volunteer.Delete(id);
