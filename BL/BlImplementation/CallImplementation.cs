@@ -59,10 +59,24 @@ internal class CallImplementation : ICall
         }
     }
 
-
+    /// <summary>
+    /// Delete a call
+    /// </summary>
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (Read(id).Status == BO.StatusTreat.Open)
+            {
+                _dal.Call.Delete(id);
+                return;
+            }
+            throw new BO.BlDeleteNotPossibleException($"Call with id={id} can not be deleted");
+        }
+        catch(DO.DalExsitException ex) 
+        {
+            throw new BO.BlDoesNotExistException($"Call with id={id} does not exist");
+        }
     }
 
     public IEnumerable<BO.CallInList> GetCallInLists(BO.ECallInList? sortBy, object? obj, BO.ECallInList filter)
@@ -70,9 +84,15 @@ internal class CallImplementation : ICall
         throw new NotImplementedException();
     }
 
+
     public IEnumerable<BO.ClosedCallInList> GetClosedCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy)
     {
-        throw new NotImplementedException();
+        IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
+        List<BO.ClosedCallInList>? Calls = new List<BO.ClosedCallInList>();
+        Calls.AddRange(from item in previousCalls
+                       let DataCall= Read(item.Id)
+                       where DataCall.Status== BO.StatusTreat.Close && DataCall.AssignmentsToCalls?.Any()==true
+                       select CallManager.ToCloseCall(item, )
     }
 
     public IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy)
