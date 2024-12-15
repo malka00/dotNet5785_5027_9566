@@ -24,7 +24,9 @@ public enum StatusTreat
     Open,
     Treat,
     Close,
-    RiskOpen
+    Expired,
+    RiskOpen,
+    TreatInRisk
 }
 public enum TypeEnd
 {

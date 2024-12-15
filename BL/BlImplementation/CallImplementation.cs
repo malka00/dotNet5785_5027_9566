@@ -3,6 +3,7 @@ using BlApi;
 using System;
 using Helpers;
 using DalApi;
+using System.Data.Common;
 
 namespace BlImplementation;
 
@@ -26,12 +27,20 @@ internal class CallImplementation : ICall
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// מחזירה כמות קריאות בסטטוסים שווים
+    /// </summary>
+    /// <returns></returns>
     public int[] CountCall()
     {
-
-
+        IEnumerable<DO.Call>? calls = _dal.Call.ReadAll();
+        int[] count = (from item in calls
+                       group item by CallManager.GetCallStatus(item) into groupedCalls
+                       orderby groupedCalls.Key
+                       select groupedCalls.Count()).ToArray();
+        return count;
     }
-
+    
     /// <summary>
     /// add a new call
     /// </summary>

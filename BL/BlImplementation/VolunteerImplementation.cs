@@ -93,10 +93,10 @@ internal class VolunteerImplementation : IVolunteer
                     BO.EVolunteerInList.FullName => v.FullName, // Sorting by full name
                     BO.EVolunteerInList.Active => v.Active, // Sorting by active status
                     BO.EVolunteerInList.SumCalls => v.SumCalls, // Sorting by total number of calls
-                    BO.EVolunteerInList.Sumcanceled => v.Sumcanceled, // Sorting by total number of cancellations
+                    BO.EVolunteerInList.SumCanceled => v.Sumcanceled, // Sorting by total number of cancellations
                     BO.EVolunteerInList.SumExpired => v.SumExpired, // Sorting by total number of expired calls
                     BO.EVolunteerInList.IdCall => v.IdCall ?? null, // Sorting by call ID (nullable)
-                    BO.EVolunteerInList.Ctype => v.Ctype.ToString(), // Sorting by call type (converted to string)
+                    BO.EVolunteerInList.CType => v.Ctype.ToString(), // Sorting by call type (converted to string)
                 })
             : filteredVolunteers.OrderBy(v => v.Id); // Default sorting by ID (T.Z) if no 'sortBy' is provided
 

@@ -1,11 +1,14 @@
-﻿using BO;
+﻿using System.ComponentModel.Design;
+using BlApi;
+using BO;
 using DalApi;
+using DO;
 namespace Helpers;
 
 
 internal class CallManager
 {
-    private static IDal s_dal = Factory.Get;  
+    private static IDal s_dal = Factory.Get;
 
     private static BO.CallInList GetCallsInList(DO.Call doCall)
         => new()
@@ -15,15 +18,38 @@ internal class CallManager
 
         };
 
+    public static bool IsInRisk(DO.Call call) => call!.MaxTimeToClose - s_dal.Config.Clock <= s_dal.Config.RiskRange;
     internal static IEnumerable<BO.CallInList> GetCallsInList(Predicate<DO.Call> condition)
         => s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
 
     // פונקציית העזר הסטטית לשליפת סטטוס קריאה
-    internal static StatusTreat GetCallStatus(IEnumerable<DO.Assignment> assignments, DateTime maxTimeToClose )
+    internal static StatusTreat GetCallStatus(DO.Call doCall)
     {
-       var endTreatment =frome item in assignments
-            select item.
+        if (doCall.MaxTimeToClose < s_dal.Config.Clock)
+            return StatusTreat.Expired;
+        var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.TimeStart).FirstOrDefault();
+        
+        if (lastAssignment == null)
+        {
+            if (IsInRisk(doCall!))
+                return BO.StatusTreat.RiskOpen;
+            else return BO.StatusTreat.Open;
+        }
+        if (lastAssignment.TypeEndTreat.ToString() == "Treated")
+        {
+            return BO.StatusTreat.Close;
+        }
+        if (lastAssignment.TypeEndTreat == null)
+        {
+            if (IsInRisk(doCall!))
+                return BO.StatusTreat.TreatInRisk;
+            else return StatusTreat.Treat;
+        }
+        return StatusTreat.Close;//default
     }
+
+
+
 
     internal static void CheckAddress(BO.Call call)
     {
@@ -50,4 +76,9 @@ internal class CallManager
         }
     }
 }
+
+
+
+
+
 
