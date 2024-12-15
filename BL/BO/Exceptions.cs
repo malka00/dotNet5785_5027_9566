@@ -34,10 +34,10 @@ namespace BO
     /// exception for not possible item (like Id impossible)
     /// </summary>
     [Serializable]
-    public class BlWrongItemtException : Exception
+    public class BlWrongItemException : Exception
     {
-        public BlWrongItemtException(string? message) : base(message) { }
-        public BlWrongItemtException(string message, Exception innerException)
+        public BlWrongItemException(string? message) : base(message) { }
+        public BlWrongItemException(string message, Exception innerException)
                     : base(message, innerException) { }
     }
 

@@ -19,15 +19,15 @@ internal class CallManager
         => s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
 
     // פונקציית העזר הסטטית לשליפת סטטוס קריאה
-    internal static StatusTreat GetCallStatus(int callId)
+    internal static StatusTreat GetCallStatus(IEnumerable<DO.Assignment> assignments, DateTime maxTimeToClose )
     {
-       
-       
+       var endTreatment =frome item in assignments
+            select item.
     }
 
     internal static void CheckAddress(BO.Call call)
     {
-        double[] coordinates = GetCoordinates(call.FullAddress);
+        double[] coordinates = VolunteerManager.GetCoordinates(call.FullAddress);
         if (coordinates[0] != call.Latitude || coordinates[1] == call.Longitude)
             throw new BO.BlWrongItemtException($"not math coordinates");
     }
@@ -40,7 +40,8 @@ internal class CallManager
         try
         {
             CheckAddress(boCall);
-            //זמן מקסימלי לסיום גדול מזמן הפתיחה- לבדוק
+            if ((boCall.MaxTimeToClose <= ClockManager.Now) || (boCall.MaxTimeToClose <= boCall.TimeOpened))
+                throw new BO.BlWrongItemtException("Error input");
 
         }
         catch (BO.BlWrongItemtException ex)
