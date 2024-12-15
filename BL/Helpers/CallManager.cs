@@ -53,7 +53,7 @@ internal class CallManager
     {
         double[] coordinates = VolunteerManager.GetCoordinates(call.FullAddress);
         if (coordinates[0] != call.Latitude || coordinates[1] == call.Longitude)
-            throw new BO.BlWrongItemtException($"not math coordinates");
+            throw new BO.BlWrongItemException($"not math coordinates");
     }
 
     /// <summary>
@@ -65,12 +65,12 @@ internal class CallManager
         {
             CheckAddress(boCall);
             if ((boCall.MaxTimeToClose <= ClockManager.Now) || (boCall.MaxTimeToClose <= boCall.TimeOpened))
-                throw new BO.BlWrongItemtException("Error input");
+                throw new BO.BlWrongItemException("Error input");
 
         }
-        catch (BO.BlWrongItemtException ex)
+        catch (BO.BlWrongItemException ex)
         {
-            throw new BO.BlWrongItemtException($"the item have logic problem", ex);
+            throw new BO.BlWrongItemException($"the item have logic problem", ex);
         }
     }
     internal static BO.CallInList ConvertDOCallToBOCallInList (DO.Call doCall)
