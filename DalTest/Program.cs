@@ -48,6 +48,8 @@ public enum CONFIG
     GET_CLOCK,
     UPDATE,
     GET_MAX_RANGE,
+    Definition,
+    initialization,
     RESET_CONFIG,
 }
 
