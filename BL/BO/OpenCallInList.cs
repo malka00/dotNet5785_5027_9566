@@ -3,11 +3,11 @@
 namespace BO;
 public class OpenCallInList
 {
-    int Id { get; init; }
-    CallType CType { get; set; }
-    string? Description { get; set; }
-    string FullAdress { get; set; }
-    DateTime TimeOpen { get; set; }
-    DateTime? MaxTimeToClose { get; set; }
-    double distanceCallVolunteer { get; set; }
+    public  int Id { get; init; }
+    public CallType CType { get; set; }
+    public string? Description { get; set; }
+    public string FullAddress { get; set; }
+    public DateTime TimeOpen { get; set; }
+    public DateTime? MaxTimeToClose { get; set; }
+    public  double distanceCallVolunteer { get; set; }
 }

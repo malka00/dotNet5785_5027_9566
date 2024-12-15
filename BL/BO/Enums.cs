@@ -69,6 +69,17 @@ public enum EClosedCallInList
     TimeClose,
     TypeEndTreat,
 }
+public enum EOpenCallInList
+{
+    Id,
+    CType,
+    Description,
+    FullAddress,
+    TimeOpen,
+    MaxTimeToClose,
+    distanceCallVolunteer,
+    
+}
 public enum TimeUnit
 {
     MINUTE,

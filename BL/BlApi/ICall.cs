@@ -7,7 +7,7 @@ namespace BlApi;
 public interface ICall
 {
     int[] CountCall();
-    IEnumerable<BO.CallInList> GetCallInLists(BO.ECallInList? sortBy, object? obj, BO.ECallInList filter);
+    IEnumerable<BO.CallInList> GetCallInLists(BO.ECallInList? filter, object? obj, BO.ECallInList? sortBy);
     BO.Call Read(int id);
     void Update(BO.Call call);
     void Delete(int id);

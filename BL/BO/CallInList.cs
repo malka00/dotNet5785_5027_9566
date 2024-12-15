@@ -4,7 +4,7 @@ namespace BO;
 
 public class CallInList : IComparable<CallInList>
 {
-    public int Id {  get; init; }
+    public int? Id {  get; init; }
     public int CallId {  get; init; }
     public  CallType Type  { get; set; }
     public DateTime TimeOpened { get; set; }

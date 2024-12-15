@@ -70,7 +70,7 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? active, BO.EVolunteerInList? sortBy)
     {
         // Retrieve all volunteers from the data layer
-        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll()??throw new BO.BlNullPropertyException ("There are not volunterrs int database");
+        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll()??throw new BO.BlNullPropertyException ("There are not volunteers int database");
 
         // Convert IEnumerable<DO.Volunteer> to IEnumerable<BO.VolunteerInList>
         // Using the 'convertDOToBOInList' method to map each DO.Volunteer to BO.VolunteerInList

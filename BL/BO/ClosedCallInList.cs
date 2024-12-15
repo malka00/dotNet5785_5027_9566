@@ -3,11 +3,11 @@ namespace BO;
 
 public class ClosedCallInList
 {
-    int Id { get; init; }
-    CallType Type { get; set; }
-    string? FullAddress { get; set; }
-    DateTime TimeOpen { get; set; }
-    DateTime StartTreat { get; set; }
-    DateTime? TimeClose { get; set; }
-    TypeEnd? TypeEndTreat {  get; set; }
+    public int Id { get; init; }
+    public CallType Type { get; set; }
+    public string? FullAddress { get; set; }
+    public DateTime TimeOpen { get; set; }
+    public DateTime StartTreat { get; set; }
+    public DateTime? TimeClose { get; set; }
+    public TypeEnd? TypeEndTreat {  get; set; }
 }
