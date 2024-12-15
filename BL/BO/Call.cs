@@ -13,7 +13,7 @@ public class Call
     public double Longitude { get; set; }
     public DateTime TimeOpened { get; set; }
     public DateTime? MaxTimeToClose { get; set; }
-    public StatusTreat Status  {  get; set; }
+    public StatusTreat Status  { get; set; }
     public  List<BO.CallAssignInList>? AssignmentsToCalls { get; set; }
     public override string ToString() => this.ToStringProperty();
 }

@@ -1,5 +1,7 @@
-﻿using DalApi;
+﻿using BO;
+using DalApi;
 namespace Helpers;
+
 
 internal class CallManager
 {
@@ -17,34 +19,33 @@ internal class CallManager
         => s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
 
     // פונקציית העזר הסטטית לשליפת סטטוס קריאה
-    internal static string GetCallStatus(int callId)
+    internal static StatusTreat GetCallStatus(int callId)
     {
-        // לדוגמה: שליפת נתוני הקריאה מבסיס נתונים (מדומה כאן כקריאה לשירות אחר)
-        var call = s_dal.Call.Read(callId);
+       
+       
+    }
 
-        if (call == null)
-        {
-            throw new Exception($"Call with ID {callId} was not found.");
-        }
+    internal static void CheckAddress(BO.Call call)
+    {
+        double[] coordinates = GetCoordinates(call.FullAddress);
+        if (coordinates[0] != call.Latitude || coordinates[1] == call.Longitude)
+            throw new BO.BlWrongItemtException($"not math coordinates");
+    }
 
-        // קביעת הסטטוס על בסיס המידע בבסיס הנתונים ושעון המערכת
-        DateTime currentTime = DateTime.Now;
+    /// <summary>
+    /// כתובת תקינה וזמן מקסימלי תקין -  בדיקת הקריאה מבחינה לוגית
+    /// </summary>
+    internal static void CheckLogic(BO.Call boCall)
+    {
+        try
+        {
+            CheckAddress(boCall);
+            //זמן מקסימלי לסיום גדול מזמן הפתיחה- לבדוק
 
-        if ((BO.StatusTreat)call.Status == "Open")
-        {
-            return "Overdue";
         }
-        else if (call.Status == "Treat")
+        catch (BO.BlWrongItemtException ex)
         {
-            return "In Progress";
-        }
-        else if (call.Status == "Close")
-        {
-            return "Closed";
-        }
-        else if (call.Status == "RiskOpen")
-        {
-            return "RiskOpen";
+            throw new BO.BlWrongItemtException($"the item have logic problem", ex);
         }
     }
 }

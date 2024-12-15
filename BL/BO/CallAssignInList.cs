@@ -4,10 +4,10 @@ namespace BO;
 
 public class CallAssignInList
 {
-    int? VolunteerId {  get; set; }
-    string? VolunteerName {  get; set; }
-    DateTime StertTreet { get; set; }
-    DateTime? TimeClose { get; set; }
-    TypeEnd? TypeEndTreat {  get; set; }
+    public int? VolunteerId { get; set; }
+    public string? VolunteerName { get; set; }
+    public DateTime StartTreat { get; set; }
+    public DateTime? TimeClose { get; set; }
+    public TypeEnd? TypeEndTreat { get; set; }
 }
 

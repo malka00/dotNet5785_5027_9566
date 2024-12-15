@@ -66,7 +66,7 @@ internal class VolunteerManager
             FullCallAddress = callTreat.FullAddress,
             TimeOpen = callTreat.TimeOpened,
             MaxTimeToClose = callTreat.MaxTimeToClose,
-            StertTreet = assignmentTreat.TimeStart,
+            StartTreat = assignmentTreat.TimeStart,
             distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, latitude, longitude),
             Status = status,
         };
@@ -317,7 +317,7 @@ internal class VolunteerManager
     /// </summary>
     /// <param name="address">The address to be geocoded</param>
     /// <returns>A double array containing the latitude and longitude</returns>
-    internal static double[] GetCoordinates(string address)//לטפל בחריגות!!!!!
+    public static double[] GetCoordinates(string address)//לטפל בחריגות!!!!!
     {
         // Checking if the address is null or empty
         if (string.IsNullOrWhiteSpace(address))

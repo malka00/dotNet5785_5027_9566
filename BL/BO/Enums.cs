@@ -40,16 +40,16 @@ public enum EVolunteerInList
     FullName,
     Active,
     SumCalls,
-    Sumcanceled,
+    SumCanceled,
     SumExpired,
     IdCall,
-    Ctype,
+    CType,
 }
 public enum ECallInList
 {
     Id ,
     CallId,
-    CTypy,
+    CType,
     TimeOpened,
     TimeLeft,
     LastVolunteer,
@@ -61,9 +61,9 @@ public enum EClosedCallInList
 {
     Id,
     CType,
-    FullAdress,
+    FullAddress,
     TimeOpen,
-    StertTreet,
+    StartTreat,
     TimeClose,
     TypeEndTreat,
 }
