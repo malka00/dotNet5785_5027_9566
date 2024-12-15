@@ -87,7 +87,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Id <= 0 || boVolunteer.Id.ToString().Length < 8 || boVolunteer.Id.ToString().Length > 9)
         {
-            throw new BlWrongItemtException($"Invalid ID {boVolunteer.Id}. It must be 8-9 digits.");
+            throw new BlWrongItemException($"Invalid ID {boVolunteer.Id}. It must be 8-9 digits.");
         }
         /// <summary>
         /// Validate the FullName field.
@@ -95,7 +95,7 @@ internal class VolunteerManager
         /// </summary>
         if (string.IsNullOrWhiteSpace(boVolunteer.FullName) || !Regex.IsMatch(boVolunteer.FullName, @"^[a-zA-Z\s]+$"))
         {
-            throw new BlWrongItemtException($"FullName {boVolunteer.FullName} cannot be null, empty, or contain invalid characters.");
+            throw new BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null, empty, or contain invalid characters.");
         }
 
         /// <summary>
@@ -105,12 +105,12 @@ internal class VolunteerManager
  
         if (string.IsNullOrWhiteSpace(boVolunteer.FullName))
         {
-            throw new BlWrongItemtException($"FullName {boVolunteer.FullName} cannot be null or empty.");
+            throw new BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null or empty.");
         }
 
         if (boVolunteer.FullName.Any(c => !Char.IsLetter(c) && !Char.IsWhiteSpace(c)))
         {
-            throw new BlWrongItemtException($"FullName {boVolunteer.FullName} contains invalid characters.");
+            throw new BlWrongItemException($"FullName {boVolunteer.FullName} contains invalid characters.");
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ internal class VolunteerManager
         /// </summary>
         if (!Regex.IsMatch(boVolunteer.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
-            throw new BlWrongItemtException("Invalid Email format.");
+            throw new BlWrongItemException("Invalid Email format.");
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ internal class VolunteerManager
         {
             if (!double.TryParse(boVolunteer.MaxReading.Value.ToString(), out double maxReadingValue) || maxReadingValue <= 0)
             {
-                throw new BlWrongItemtException($"MaxReading {boVolunteer.MaxReading} must be a positive number.");
+                throw new BlWrongItemException($"MaxReading {boVolunteer.MaxReading} must be a positive number.");
             }
         }
 
@@ -141,7 +141,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Latitude.HasValue && (boVolunteer.Latitude.Value < -90 || boVolunteer.Latitude.Value > 90))
         {
-            throw new BlWrongItemtException("Latitude must be between -90 and 90.");
+            throw new BlWrongItemException("Latitude must be between -90 and 90.");
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Longitude.HasValue && (boVolunteer.Longitude.Value < -180 || boVolunteer.Longitude.Value > 180))
         {
-            throw new BlWrongItemtException($"Longitude {boVolunteer.Longitude} must be between -180 and 180.");
+            throw new BlWrongItemException($"Longitude {boVolunteer.Longitude} must be between -180 and 180.");
         }
 
         /// <summary>
@@ -170,9 +170,9 @@ internal class VolunteerManager
             CheckAddress(boVolunteer);
 
         }
-        catch (BO.BlWrongItemtException ex)
+        catch (BO.BlWrongItemException ex)
         {
-            throw new BO.BlWrongItemtException($"the item have logic problem", ex);
+            throw new BO.BlWrongItemException($"the item have logic problem", ex);
         }
     }
     /// <summary>
@@ -189,7 +189,7 @@ internal class VolunteerManager
         // Ensure the ID is exactly 9 digits long
         if (idString.Length != 9)
         {
-            throw new BO.BlWrongItemtException($"this ID {id} does not posssible");
+            throw new BO.BlWrongItemException($"this ID {id} does not posssible");
         }
 
         int sum = 0;
@@ -219,7 +219,7 @@ internal class VolunteerManager
         //chach id digit
         if (sum % 10 != 0)
         {
-            throw new BO.BlWrongItemtException($"this ID {id} does not posssible");
+            throw new BO.BlWrongItemException($"this ID {id} does not posssible");
         }
     }
     /// <summary>
@@ -234,7 +234,7 @@ internal class VolunteerManager
         // Check if the string length is exactly 10 characters
         if (phoneNumber.Length != 10)
         {
-            throw new BO.BlWrongItemtException($"The phone number {phoneNumber}must contain exactly 10 digits.");
+            throw new BO.BlWrongItemException($"The phone number {phoneNumber}must contain exactly 10 digits.");
         }
 
         // Check if all characters are digits
@@ -242,14 +242,14 @@ internal class VolunteerManager
         {
             if (!char.IsDigit(c))
             {
-                throw new BO.BlWrongItemtException($"The phone number {phoneNumber} must contain digits only.");
+                throw new BO.BlWrongItemException($"The phone number {phoneNumber} must contain digits only.");
             }
         }
 
         // Check if the first character is '0'
         if (phoneNumber[0] != '0')
         {
-            throw new BO.BlWrongItemtException($"A valid mobile phone number{phoneNumber} must start with '0'.");
+            throw new BO.BlWrongItemException($"A valid mobile phone number{phoneNumber} must start with '0'.");
         }
 
     }
@@ -267,7 +267,7 @@ internal class VolunteerManager
         // Check if the email matches the pattern
         if (!Regex.IsMatch(email, emailPattern))
         {
-            throw new BO.BlWrongItemtException($"The provided email {email} address is not valid.");
+            throw new BO.BlWrongItemException($"The provided email {email} address is not valid.");
         }
     }
     /// <summary>
@@ -285,7 +285,7 @@ internal class VolunteerManager
     {
         // Check if the password is at least 5 characters long
         if (password.Length < 5)
-            throw new BO.BlWrongItemtException($"Password {password} must be at least 5 characters long.");
+            throw new BO.BlWrongItemException($"Password {password} must be at least 5 characters long.");
 
         // Flags to check for at least one letter and one digit
         bool hasLetter = false;
@@ -306,9 +306,9 @@ internal class VolunteerManager
 
         // If the password does not contain both a letter and a digit, throw an exception
         if (!hasLetter)
-            throw new BO.BlWrongItemtException($"Password {password} must contain at least one letter.");
+            throw new BO.BlWrongItemException($"Password {password} must contain at least one letter.");
         if (!hasDigit)
-            throw new BO.BlWrongItemtException($"Password{password} must contain at least one digit.");
+            throw new BO.BlWrongItemException($"Password{password} must contain at least one digit.");
     }
 
     /// <summary>
@@ -389,7 +389,7 @@ internal class VolunteerManager
     {
         double[] cordinates = GetCoordinates(volunteer.FullAddress);
         if (cordinates[0] != volunteer.Latitude || cordinates[1] == volunteer.Longitude)
-            throw new BO.BlWrongItemtException($"not math cordinates");
+            throw new BO.BlWrongItemException($"not math cordinates");
     }
 
 

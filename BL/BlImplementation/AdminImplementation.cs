@@ -12,12 +12,9 @@ internal class AdminImplementation : IAdmin
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void Definition(TimeSpan time)
     {
-
-     //  _dal.ResetDB();
+         _dal.ResetDB();
         Initialization.Do();
         ClockManager.UpdateClock(ClockManager.Now);
-        //  DalApi.IConfig.ConfigImplementation.config.RiskRange = time;
-
     }
 
     public void ForwardClock(BO.TimeUnit unit) => ClockManager.UpdateClock(unit switch
