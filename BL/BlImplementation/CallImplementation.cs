@@ -46,15 +46,57 @@ internal class CallImplementation : ICall
 
     }
 
-    public void ChoseForTreat(int idVol, int idcall)
+    public void ChoseForTreat(int idVol, int idCall)
     {
-        DO.Volunteer vol = _dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException(@"there is no volunterr with this ID {idVol}");
-        DO.Volunteer  = _dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException(@"there is no volunterr with this ID {idVol}")
+        DO.Volunteer vol = _dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException($"there is no volunterr with this ID {idVol}");
+        BO.Call bocall = Read(idCall) ?? throw new BO.BlNullPropertyException($"there is no call with this ID {idCall}");
+        if (bocall.Status == BO.StatusTreat.Open || bocall.Status == BO.StatusTreat.Expired)
+            throw new BO.BlAlreadyExistsException($"the call is open or expired Idcall is={idCall}");
+        DO.Assignment assigmnetToCreat = new DO.Assignment
+        {
+            Id = 0,
+            CallId = idCall,
+            VolunteerId = idVol,
+            TimeStart = ClockManager.Now,
+            TimeEnd = null,
+            TypeEndTreat = null
+        };
+        try
+        {
+            _dal.Assignment.Create(assigmnetToCreat);
+        }
+        catch (DO.DalDeletImposible)
+        { throw new BO.BlAlreadyExistsException("impossible to creat"); }
     }
 
     public void CloseTreat(int idVol, int idAssig)
     {
-        throw new NotImplementedException();
+        DO.Assignment assigmnetToClose = _dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
+        if (assigmnetToClose.VolunteerId != idVol)
+        {
+           throw new BO.BlWrongInputException("the volunteer is not treat in this assignment");
+        }
+        BO.Call bocall = Read(assigmnetToClose.CallId);
+        if (assigmnetToClose.TypeEndTreat != null || (bocall.Status!=BO.StatusTreat.Open&& bocall.Status != BO.StatusTreat.RiskOpen) ||assigmnetToClose.TimeEnd != null)
+            throw new BO.BlDeleteNotPossibleException("The assigmnet not open");
+
+        DO.Assignment assigmnetToUP = new DO.Assignment
+        {
+            Id = assigmnetToClose.Id,
+            CallId = assigmnetToClose.CallId,
+            VolunteerId = assigmnetToClose.VolunteerId,
+            TimeStart = assigmnetToClose.TimeStart,
+            TimeEnd = ClockManager.Now,
+            TypeEndTreat = DO.TypeEnd.Treated,
+        };
+        try
+        {
+            _dal.Assignment.Update(assigmnetToUP);
+        }
+        catch (DO.DalExsitException ex)
+        {
+            throw new BO.BlDeleteNotPossibleException("canot update in DO");
+        }
     }
 
     /// <summary>

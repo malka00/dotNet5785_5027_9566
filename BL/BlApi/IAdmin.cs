@@ -9,4 +9,5 @@ public interface IAdmin
     void Definition(TimeSpan time);
     void Reset();
     void initialization();
+
 }

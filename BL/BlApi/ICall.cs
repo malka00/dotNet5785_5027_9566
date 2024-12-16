@@ -16,6 +16,6 @@ public interface ICall
     IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy);
     void CloseTreat(int idVol, int idAssig);
     void CancelTreat(int idVol, int idAssig);
-    void ChoseForTreat(int idVol, int idAssig);
+    void ChoseForTreat(int idVol, int idCall);
 }
 

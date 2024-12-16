@@ -85,13 +85,11 @@ internal class Program
         do
         {
             Console.WriteLine(@"
-                OPTION Options:
-                0 - Exit
-                1 - Admin
-                2 - Volunteer
-                3 - Call
-
-                ");
+ OPTION Options:
+0 - Exit
+1 - Admin
+2 - Volunteer
+3 - Call ");
 
         }
         while (!int.TryParse(Console.ReadLine(), out choice));
@@ -103,14 +101,14 @@ internal class Program
         do
         {
             Console.WriteLine(@$"
-            Config Options:
-            0 - Exit
-            1-  get clock
-            2 - Forward Clock 
-            3 - GetMaxRange
-            4 - Definition
-            5 - Reset
-            6 - initialization");
+Config Options:
+0 - Exit
+1-  get clock
+2 - Forward Clock 
+3 - GetMaxRange
+4 - Definition
+5 - Reset
+6 - initialization");
 
         }
         while (!int.TryParse(s: Console.ReadLine(), out choice));
@@ -181,15 +179,14 @@ internal class Program
         do
         {
             Console.WriteLine(@"
-                OPTION Options:
-                0 - Exit
-                1 - EnterSystem
-                2 - Get volunteerInlist
-                3 - Read
-                4 - update
-                5 - Delete
-                6 - Create
-                ");
+OPTION Options:
+0 - Exit
+1 - EnterSystem
+2 - Get volunteerInlist
+3 - Read
+4 - update
+5 - Delete
+6 - Create");
 
         }
         while (!int.TryParse(Console.ReadLine(), out choice));
@@ -495,20 +492,19 @@ internal class Program
         do
         {
             Console.WriteLine(@"
-                OPTION Options:
-                0 - Exit
-                1 - CountCall
-                2 - Get CallInLists
-                3 - Read
-                4 - update
-                5 - Delete
-                6 - Create
-                7 - Get ClosedCall
-                8 - Get OpenCall
-                9 - CloseTreat
-                10 - CancelTreat
-                11- ChoseForTreat
-                ");
+ Call Options:
+ 0 - Exit
+1 - CountCall
+2 - Get CallInLists
+3 - Read
+4 - update
+5 - Delete
+6 - Create
+7 - Get ClosedCall
+8 - Get OpenCall
+9 - CloseTreat
+10 - CancelTreat
+11- ChoseForTreat");
 
         }
         while (!int.TryParse(Console.ReadLine(), out choice));
