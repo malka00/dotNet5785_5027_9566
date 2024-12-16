@@ -2,9 +2,8 @@
 using BlApi;
 using System;
 using Helpers;
-using DalApi;
-using System.Data.Common;
-using BO;
+
+
 using System.Collections.Generic;
 
 namespace BlImplementation;
@@ -16,12 +15,41 @@ internal class CallImplementation : ICall
 
     public void CancelTreat(int idVol, int idAssig)
     {
-        throw new NotImplementedException();
+        
+        DO.Assignment assigmnetToCancel = _dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
+        bool ismanager=false;
+        if (assigmnetToCancel.VolunteerId != idVol)
+        {
+            if (_dal.Volunteer.Read(idVol).Job == DO.Role.Boss)
+                ismanager = true;
+            else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager or not in this call");
+        }
+        if (assigmnetToCancel.TypeEndTreat != null || (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > ClockManager.Now)| assigmnetToCancel.TimeEnd != null)
+            throw new BO.BlDeleteNotPossibleException("The assigmnet not open or exspaired");
+
+        DO.Assignment assigmnetToUP = new DO.Assignment {
+            Id = assigmnetToCancel.Id,
+            CallId = assigmnetToCancel.CallId,
+            VolunteerId =assigmnetToCancel.VolunteerId,
+             TimeStart=assigmnetToCancel.TimeStart,
+             TimeEnd = ClockManager.Now,
+            TypeEndTreat = ismanager?DO.TypeEnd.ManagerCancel:DO.TypeEnd.SelfCancel,
+            };
+        try
+        {
+            _dal.Assignment.Update(assigmnetToUP);
+        }
+        catch ( DO.DalExsitException ex)
+        {
+            throw new BO.BlDeleteNotPossibleException("canot delete in DO");
+        }
+
     }
 
-    public void ChoseForTreat(int idVol, int idAssig)
+    public void ChoseForTreat(int idVol, int idcall)
     {
-        throw new NotImplementedException();
+        DO.Volunteer vol = _dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException(@"there is no volunterr with this ID {idVol}");
+        DO.Volunteer  = _dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException(@"there is no volunterr with this ID {idVol}")
     }
 
     public void CloseTreat(int idVol, int idAssig)
@@ -106,39 +134,39 @@ internal class CallImplementation : ICall
         {
             switch (filter)
             {
-                case ECallInList.Id:
+                case BO.ECallInList.Id:
                     boCallsInList.Where(item => item.Id == (int)obj).Select(item => item);
                     break;
 
-                case ECallInList.CallId:
+                case BO.ECallInList.CallId:
                     boCallsInList.Where(item => item.CallId == (int)obj).Select(item => item);
                     break;
 
-                case ECallInList.CType:
-                    boCallsInList.Where(item => item.Type == (CallType)obj).Select(item => item);
+                case BO.ECallInList.CType:
+                    boCallsInList.Where(item => item.Type == (BO.CallType)obj).Select(item => item);
                     break;
 
-                case ECallInList.TimeOpened:
+                case BO.ECallInList.TimeOpened:
                     boCallsInList.Where(item => item.TimeOpened == (DateTime)obj).Select(item => item);
                     break;
 
-                case ECallInList.TimeLeft:
+                case BO.ECallInList.TimeLeft:
                     boCallsInList.Where(item => item.TimeLeft == (TimeSpan)obj).Select(item => item);
                     break;
 
-                case ECallInList.LastVolunteer:
+                case BO.ECallInList.LastVolunteer:
                     boCallsInList.Where(item => item.LastVolunteer == (string)obj).Select(item => item);
                     break;
 
-                case ECallInList.TotalTime:
+                case BO.ECallInList.TotalTime:
                     boCallsInList.Where(item => item.TotalTime == (TimeSpan)obj).Select(item => item);
                     break;
 
-                case ECallInList.Status:
-                    boCallsInList.Where(item => item.Status == (StatusTreat)obj).Select(item => item);
+                case BO.ECallInList.Status:
+                    boCallsInList.Where(item => item.Status == (BO.StatusTreat)obj).Select(item => item);
                     break;
 
-                case ECallInList.SumAssignment:
+                case BO.ECallInList.SumAssignment:
                     boCallsInList.Where(item => item.SumAssignment == (int)obj).Select(item => item);
                     break;
 
@@ -146,42 +174,42 @@ internal class CallImplementation : ICall
             }
         }
         if (sortBy == null)
-            sortBy = ECallInList.CallId;
+            sortBy = BO.ECallInList.CallId;
         switch (sortBy)
         {
-            case ECallInList.Id:
+            case BO.ECallInList.Id:
                 boCallsInList.OrderBy(item => item.Id);
                 break;
 
-            case ECallInList.CallId:
+            case BO.ECallInList.CallId:
                 boCallsInList.OrderBy(item => item.CallId);
                 break;
 
-            case ECallInList.CType:
+            case BO.ECallInList.CType:
                 boCallsInList.OrderBy(item => item.Type);
                 break;
 
-            case ECallInList.TimeOpened:
+            case BO.ECallInList.TimeOpened:
                 boCallsInList.OrderBy(item => item.TimeOpened);
                 break;
 
-            case ECallInList.TimeLeft:
+            case BO.ECallInList.TimeLeft:
                 boCallsInList.OrderBy(item => item.TimeLeft);
                 break;
 
-            case ECallInList.LastVolunteer:
+            case BO.ECallInList.LastVolunteer:
                 boCallsInList.OrderBy(item => item.LastVolunteer);
                 break;
 
-            case ECallInList.TotalTime:
+            case BO.ECallInList.TotalTime:
                 boCallsInList.OrderBy(item => item.TotalTime);
                 break;
 
-            case ECallInList.Status:
+            case BO.ECallInList.Status:
                 boCallsInList.OrderBy(item => item.Status);
                 break;
 
-            case ECallInList.SumAssignment:
+            case BO.ECallInList.SumAssignment:
                 boCallsInList.OrderBy(item => item.SumAssignment);
                 break;
 
@@ -217,29 +245,29 @@ internal class CallImplementation : ICall
         }
         if (sortBy == null)
         {
-            sortBy = EClosedCallInList.Id;
+            sortBy = BO.EClosedCallInList.Id;
         }
         switch (sortBy)
         {
-            case EClosedCallInList.Id:
+            case BO.EClosedCallInList.Id:
                     closedCallInLists.OrderBy(item => item.Id);
                 break;
-            case EClosedCallInList.CType:
+            case BO.EClosedCallInList.CType:
                     closedCallInLists.OrderBy(item => item.Type);
                     break;
-            case EClosedCallInList.FullAddress:
+            case BO.EClosedCallInList.FullAddress:
                     closedCallInLists.OrderBy(item => item.FullAddress);
                     break;
-            case EClosedCallInList.TimeOpen:
+            case BO.EClosedCallInList.TimeOpen:
                     closedCallInLists.OrderBy(item => item.TimeOpen);
                     break;
-            case EClosedCallInList.StartTreat:
+            case BO.EClosedCallInList.StartTreat:
                     closedCallInLists.OrderBy(item => item.StartTreat);
                     break;
-            case EClosedCallInList.TimeClose:
+            case BO.EClosedCallInList.TimeClose:
                     closedCallInLists.OrderBy(item => item.TimeClose);
                     break;
-            case EClosedCallInList.TypeEndTreat:
+            case BO.EClosedCallInList.TypeEndTreat:
                     closedCallInLists.OrderBy(item => item.TypeEndTreat);
                     break;
            
@@ -271,26 +299,26 @@ internal class CallImplementation : ICall
         }
         if (sortBy == null)
         {
-            sortBy = EOpenCallInList.Id;
+            sortBy =BO.EOpenCallInList.Id;
         }
         switch (sortBy)
         {
-            case EOpenCallInList.Id:
+            case BO.EOpenCallInList.Id:
                 openCallInLists.OrderBy(item => item.Id);
                 break;
-            case EOpenCallInList.CType:
+            case BO.EOpenCallInList.CType:
                 openCallInLists.OrderBy(item => item.CType);
                 break;
-            case EOpenCallInList.FullAddress:
+            case BO.EOpenCallInList.FullAddress:
                 openCallInLists.OrderBy(item => item.FullAddress);
                 break;
-            case EOpenCallInList.TimeOpen:
+            case BO.EOpenCallInList.TimeOpen:
                 openCallInLists.OrderBy(item => item.TimeOpen);
                 break;
-            case EOpenCallInList.MaxTimeToClose:
+            case BO.EOpenCallInList.MaxTimeToClose:
                 openCallInLists.OrderBy(item => item.MaxTimeToClose);
                 break;
-            case  EOpenCallInList.distanceCallVolunteer :
+            case  BO.EOpenCallInList.distanceCallVolunteer :
                 openCallInLists.OrderBy(item => item.distanceCallVolunteer);
                 break;
 
@@ -298,11 +326,16 @@ internal class CallImplementation : ICall
         return openCallInLists;
     }
 
-
-    public IEnumerable<BO.CallInList> ReadAll(BO.CallAssignInList? filter = null, BO.CallAssignInList? sort = null, object? ValueTask = null)
+    public IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy)
     {
-
+        throw new NotImplementedException();
     }
+
+
+    //public IEnumerable<BO.CallInList> ReadAll(BO.CallAssignInList? filter = null, BO.CallAssignInList? sort = null, object? ValueTask = null)
+    //{
+
+    //}
 
 
 
@@ -326,14 +359,15 @@ internal class CallImplementation : ICall
             Longitude = doCall.Longitude,
             TimeOpened = doCall.TimeOpened,
             MaxTimeToClose = doCall.MaxTimeToClose,
-            Status = CallManager.GetCallStatus(dataOfAssignments, doCall.MaxTimeToClose),
+            // Status = CallManager.GetCallStatus(dataOfAssignments, doCall.MaxTimeToClose),
+            Status = CallManager.GetCallStatus(doCall),
             AssignmentsToCalls = dataOfAssignments.Select(assign => new BO.CallAssignInList
             {
                 VolunteerId = assign.VolunteerId,
                 VolunteerName = _dal.Volunteer.Read(id).FullName,
                 StartTreat = assign.TimeStart,
                 TimeClose = assign.TimeEnd,
-                TypeEndTreat = (BO.TypeEndTreat)assign.TypeEndTreat,
+                TypeEndTreat = (BO.TypeEnd)assign.TypeEndTreat,
             }).ToList()
         };
         throw new Exception();

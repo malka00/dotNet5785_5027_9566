@@ -5,7 +5,6 @@ using BlApi;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using BO;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -54,7 +53,7 @@ internal class VolunteerImplementation : IVolunteer
         
         if (assignments != null&& assignments.Count(ass => ass.TimeEnd == null) > 0)
        
-            throw new BlWrongInputException("canot delete have assignemnt in treat");
+            throw new BO.BlWrongInputException("canot delete have assignemnt in treat");
         try
         {
             _dal.Volunteer.Delete(id);
