@@ -326,7 +326,8 @@ internal class VolunteerManager
         }
 
         // Constructing the URL for the geocoding service with the provided address
-        string url = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}";
+        //string url = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}";
+        string url = $"https://geocode.maps.co/search?q=.php{Uri.EscapeDataString(address)}";
 
         // Creating a synchronous HTTP request
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);

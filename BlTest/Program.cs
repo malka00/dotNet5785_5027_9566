@@ -50,6 +50,8 @@ public enum ICall
 
 internal class Program
 {
+
+
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     static void Main(string[] args)
     {
@@ -85,7 +87,7 @@ internal class Program
         do
         {
             Console.WriteLine(@"
- OPTION Options:
+OPTION Options:
 0 - Exit
 1 - Admin
 2 - Volunteer
@@ -492,8 +494,8 @@ OPTION Options:
         do
         {
             Console.WriteLine(@"
- Call Options:
- 0 - Exit
+Call Options:
+0 - Exit
 1 - CountCall
 2 - Get CallInLists
 3 - Read
@@ -746,7 +748,7 @@ OPTION Options:
                 default: break;
             }
 
-            }
+        }
         catch (BO.BlWrongInputException ex)
         {
             // Handle the case where the password does not match
@@ -834,7 +836,7 @@ OPTION Options:
             MaxTimeToClose = maxTimeToClose,
             Status = status
         };
-       
+
     }
 }
 
