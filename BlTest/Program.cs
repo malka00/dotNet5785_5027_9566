@@ -504,7 +504,7 @@ internal class Program
                 5 - Delete
                 6 - Create
                 7 - Get ClosedCall
-                8 - Get_OpenCall
+                8 - Get OpenCall
                 9 - CloseTreat
                10 - CancelTreat
                 ");
@@ -571,14 +571,112 @@ internal class Program
                     Console.WriteLine(s_bl.Calls.Read(id));
                     break;
                 case ICall.UPDATE:
+                    s_bl.Calls.Update(getCall());
+                    break;
+                case ICall.DELETE:
+                    Console.WriteLine("Please enter the ID of the call:");
+                    string idDel = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
 
-                  
+                    if (!int.TryParse(idDel, out int idd))  // מנסים להמיר את הקלט למספר
+                    {
+                        throw new BO.BlWrongInputException($"Invalid ID{idDel} format");  // זורקים חריגה אם המזהה לא תקני
+                    }
+                    s_bl.Calls.Delete(idd);
+                    break;
+                case ICall.CREATE:
+                    s_bl.Calls.Create(getCall());
+                    break;
+                case ICall.GET_CLOSED_CALL:
+                    {
+                        // Ask the user for the volunteer's ID
+                        Console.Write("Enter volunteer ID: ");
+                        if (!int.TryParse(Console.ReadLine(), out int volunteerId))
+                        {
+                            throw new BO.BlWrongInputException("Invalid ID format.");
 
-            break;
+                        }
 
-                    
+                        // Ask the user for the call type
+                        Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
+                        string callTypeInput = Console.ReadLine();
+                        BO.CallType? callType = null;
+                        if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
+                        {
+                            callType = null;
+                        }
+
+                        // Ask the user for the sorting field
+                        Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
+                        string sortByInput = Console.ReadLine();
+                        BO.EClosedCallInList? sortByClose = null;
+                        if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+                        {
+                            sortBy = null;
+                        }
+
+                        // Call the method to get the filtered and sorted closed calls
+                        var closedCalls = s_bl.Calls.GetClosedCall(volunteerId, callType, sortByClose);
+
+                        // Display the result
+                        Console.WriteLine("Closed Calls:");
+                        foreach (var call in closedCalls)
+                        {
+                            Console.WriteLine(call);
+                        }
+                        break;
+                    }
+
+                case ICall.GET_OPEN_CALL:
+                    {
+
+                        // Ask the user for the volunteer's ID
+                        Console.Write("Enter volunteer ID: ");
+                        if (!int.TryParse(Console.ReadLine(), out int volunteerId))
+                        {
+                            Console.WriteLine("Invalid ID format.");
+                            break;
+                        }
+
+                        // Ask the user for the volunteer's ID
+                        Console.Write("Enter volunteer ID: ");
+                        if (!int.TryParse(Console.ReadLine(), out int volunteerID))
+                        {
+                            throw new BO.BlWrongInputException("Invalid ID format.");
+
+                        }
+
+                        // Ask the user for the call type
+                        Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
+                        string callTypeInput = Console.ReadLine();
+                        BO.CallType? callType = null;
+                        if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
+                        {
+                            callType = null;
+                        }
+
+                        // Ask the user for the sorting field
+                        Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
+                        string sortByInput = Console.ReadLine();
+                        BO.EClosedCallInList? sortByClose = null;
+                        if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+                        {
+                            sortBy = null;
+                        }
+
+                        // Call the method to get the filtered and sorted closed calls
+                        var closedCalls = s_bl.Calls.GetOpenCall(volunteerId, callType, sortByClose);
+
+                        // Display the result
+                        Console.WriteLine("Open Calls:");
+                        foreach (var call in closedCalls)
+                        {
+                            Console.WriteLine(call);
+                        }
+                        break;
+                    }
             }
-        }
+
+            }
         catch (BO.BlWrongInputException ex)
         {
             // Handle the case where the password does not match
@@ -666,7 +764,7 @@ internal class Program
             MaxTimeToClose = maxTimeToClose,
             Status = status
         };
-     
+
     }
 }
 
