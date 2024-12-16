@@ -117,6 +117,8 @@ internal class VolunteerImplementation : IVolunteer
         return new()
         {
             Id = id,
+            Email = doVolunteer.Email,
+            MaxReading = doVolunteer.MaxReading,
             FullName = doVolunteer.FullName,
             PhoneNumber = doVolunteer.PhoneNumber,
             TypeDistance = (BO.Distance)doVolunteer.TypeDistance,

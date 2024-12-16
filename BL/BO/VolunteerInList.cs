@@ -1,5 +1,7 @@
 ﻿
 
+using Helpers;
+
 namespace BO;
 
 public class VolunteerInList
@@ -12,6 +14,7 @@ public class VolunteerInList
     public int SumExpired { get; set; }
     public int? IdCall { get; init; }
     public CallType Ctype { get; set; }
+    public override string ToString() => this.ToStringProperty();
 
 }
 

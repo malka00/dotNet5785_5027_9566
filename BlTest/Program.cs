@@ -238,7 +238,7 @@ OPTION Options:
                     Console.WriteLine("Volunteer List:");
                     foreach (var Volunteer in volunteerList)
                     {
-                        Console.WriteLine(Volunteer);
+                        Console.WriteLine(Volunteer.ToString());
                     }
                     break;
                 case IVolunteer.READ:
@@ -380,90 +380,99 @@ OPTION Options:
                     s_bl.Volunteers.Delete(idDelete);
                     break;
                 case IVolunteer.CREATE:
-
-                    Console.WriteLine("Please enter volunteer details:");
-
-                    // Full Name
-                    Console.WriteLine("Full Name:");
-                    string fullNameUp = Console.ReadLine();
-
-                    // Phone Number
-                    Console.WriteLine("Phone Number:");
-                    string phoneNumberUp = Console.ReadLine();
-
-                    // Email
-                    Console.WriteLine("Email:");
-                    string emailUp = Console.ReadLine();
-
-                    // Distance Type
-                    Console.WriteLine("Distance Type (Aerial, Walking, Driving):");
-                    string distanceTypeInputUp = Console.ReadLine();
-                    BO.Distance distanceType;
-                    if (!Enum.TryParse(distanceTypeInputUp, true, out distanceType))
                     {
-                        throw new BO.BlWrongInputException("Invalid distance type. Defaulting to Aerial.");
 
+                        Console.WriteLine("Please enter volunteer details:");
+                        Console.WriteLine("Please enter the ID :");
+                        string idCreat = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+
+                        if (!int.TryParse(idCreat, out int idC))  // מנסים להמיר את הקלט למספר
+                        {
+                            throw new BO.BlWrongInputException($"Invalid ID{idCreat} format");  // זורקים חריגה אם המזהה לא תקני
+                        }
+                        // Full Name
+                        Console.WriteLine("Full Name:");
+                        string fullNameUp = Console.ReadLine();
+
+                        // Phone Number
+                        Console.WriteLine("Phone Number:");
+                        string phoneNumberUp = Console.ReadLine();
+
+                        // Email
+                        Console.WriteLine("Email:");
+                        string emailUp = Console.ReadLine();
+
+                        // Distance Type
+                        Console.WriteLine("Distance Type (Aerial, Walking, Driving):");
+                        string distanceTypeInputUp = Console.ReadLine();
+                        BO.Distance distanceType;
+                        if (!Enum.TryParse(distanceTypeInputUp, true, out distanceType))
+                        {
+                            throw new BO.BlWrongInputException("Invalid distance type. Defaulting to Aerial.");
+
+                        }
+
+                        // Role
+                        Console.WriteLine("Role (Volunteer, Boss):");
+                        string roleUp = Console.ReadLine();
+                        BO.Role roleup;
+                        if (!Enum.TryParse(roleUp, true, out roleup))
+                        {
+                            throw new BO.BlWrongInputException("Invalid role. Defaulting to Volunteer.");
+
+                        }
+
+                        // Active
+                        Console.WriteLine("Active (true/false):");
+                        bool active;
+                        if (!bool.TryParse(Console.ReadLine(), out active))
+                        {
+                            throw new BO.BlWrongInputException("Invalid input for Active. Defaulting to false.");
+                        }
+
+                        // Password
+                        Console.WriteLine("Password:");
+                        string passwordUp = Console.ReadLine();
+
+                        // Full Address
+                        Console.WriteLine("Full Address:");
+                        string fullAddressUp = Console.ReadLine();
+
+                        // Max Reading
+                        Console.WriteLine("Max Reading:");
+                        int maxReading;
+                        if (!int.TryParse(Console.ReadLine(), out maxReading))
+                        {
+                            throw new BO.BlWrongInputException("Invalid input for Max Reading. Defaulting to 0.");
+
+                        }
+
+                        // Create the new Volunteer object
+                        BO.Volunteer newVolunteer = new BO.Volunteer
+                        {
+                            Id = idC,
+                            FullName = fullNameUp,
+                            PhoneNumber = phoneNumberUp,
+                            Email = emailUp,
+                            TypeDistance = distanceType,
+                            Job = roleup,
+                            Active = active,
+                            Password = passwordUp,
+                            FullAddress = fullAddressUp,
+                            Latitude = 0,
+                            Longitude = 0,
+                            MaxReading = maxReading,
+                            SumCalls = 0,
+                            SumCanceled = 0,
+                            SumExpired = 0,
+                            CallIn = null,
+                        };
+
+                        // Call the Create method
+                        s_bl.Volunteers.Create(newVolunteer);
+                        break;
+                        
                     }
-
-                    // Role
-                    Console.WriteLine("Role (Volunteer, Boss):");
-                    string roleUp = Console.ReadLine();
-                    BO.Role roleup;
-                    if (!Enum.TryParse(roleUp, true, out roleup))
-                    {
-                        throw new BO.BlWrongInputException("Invalid role. Defaulting to Volunteer.");
-
-                    }
-
-                    // Active
-                    Console.WriteLine("Active (true/false):");
-                    bool active;
-                    if (!bool.TryParse(Console.ReadLine(), out active))
-                    {
-                        throw new BO.BlWrongInputException("Invalid input for Active. Defaulting to false.");
-                    }
-
-                    // Password
-                    Console.WriteLine("Password:");
-                    string passwordUp = Console.ReadLine();
-
-                    // Full Address
-                    Console.WriteLine("Full Address:");
-                    string fullAddressUp = Console.ReadLine();
-
-                    // Max Reading
-                    Console.WriteLine("Max Reading:");
-                    int maxReading;
-                    if (!int.TryParse(Console.ReadLine(), out maxReading))
-                    {
-                        throw new BO.BlWrongInputException("Invalid input for Max Reading. Defaulting to 0.");
-
-                    }
-
-                    // Create the new Volunteer object
-                    BO.Volunteer newVolunteer = new BO.Volunteer
-                    {
-                        FullName = fullNameUp,
-                        PhoneNumber = phoneNumberUp,
-                        Email = emailUp,
-                        TypeDistance = distanceType,
-                        Job = roleup,
-                        Active = active,
-                        Password = passwordUp,
-                        FullAddress = fullAddressUp,
-                        Latitude = 0,
-                        Longitude = 0,
-                        MaxReading = maxReading,
-                        SumCalls = 0,
-                        SumCanceled = 0,
-                        SumExpired = 0,
-                        CallIn = null,
-                    };
-
-                    // Call the Create method
-                    s_bl.Volunteers.Create(newVolunteer);
-                    break;
-                default: break;
             }
         }
         catch (BO.BlNullPropertyException ex)
