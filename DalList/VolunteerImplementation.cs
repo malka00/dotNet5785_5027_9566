@@ -30,29 +30,42 @@ internal class VolunteerImplementation : IVolunteer
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
         => filter == null ? DataSource.Volunteers.Select(item => item)
            :DataSource.Volunteers.Where(filter);
- 
-
     public void Update(Volunteer item)
     {
-        var index = DataSource.Volunteers.FindIndex(v => v.Id == item.Id);
-        if (index == -1) throw new DalDeletImposible($"Volteer with ID={item.Id} not exists");
+        Volunteer? old = DataSource.Volunteers.Find(x => x?.Id == item.Id);
 
-        DataSource.Volunteers[index] = new Volunteer
+        if (old == null)
         {
-         Id=item.Id,  
-         FullName=item.FullName,
-         PhoneNumber=item.PhoneNumber,
-         Email=item.Email,
-         TypeDistance=item.TypeDistance,
-         Job=item.Job,
-         Active=item.Active,
-         Password = item.Password,
-         FullAddress = item.FullAddress,
-         Latitude =item.Latitude, 
-         Longitude = item.Longitude,
-         MaxReading = item.MaxReading,
-          
-        };
+            //throw new Exception($"Volunteer with ID={item.id} does not exist"); // // stag 1
+            throw new DO.DalDeletImposible($"Volunteer with ID={item.Id} does exist"); // stage 2
+        }
+        else
+        {
+            DataSource.Volunteers.Remove(old);
+            DataSource.Volunteers.Add(item);
+        }
+
+        //public void Update(Volunteer item)
+        //{
+        //    var index = DataSource.Volunteers.FindIndex(v => v.Id == item.Id);
+        //    if (index == -1) throw new DalDeletImposible($"Volteer with ID={item.Id} not exists");
+
+        //    DataSource.Volunteers[index] = new Volunteer
+        //    {
+        //     Id=item.Id,  
+        //     FullName=item.FullName,
+        //     PhoneNumber=item.PhoneNumber,
+        //     Email=item.Email,
+        //     TypeDistance=item.TypeDistance,
+        //     Job=item.Job,
+        //     Active=item.Active,
+        //     Password = item.Password,
+        //     FullAddress = item.FullAddress,
+        //     Latitude =item.Latitude, 
+        //     Longitude = item.Longitude,
+        //     MaxReading = item.MaxReading,
+
+        //    };
     }
 
     public void Delete(int id)

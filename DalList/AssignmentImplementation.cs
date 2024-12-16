@@ -48,15 +48,34 @@ internal class AssignmentImplementation : IAssignment
            : DataSource.Assignments.Where(filter);
 
 
+    //public void Update(Assignment item)
+    //{
+
+
+    //    int index = DataSource.Assignments.FindIndex(c => c.Id == item.Id);
+    //    if (index == )
+    //    {
+    //        throw new DalDeletImposible($"Assignment with ID={item.Id} not exists");
+    //    }
+    //    DataSource.Assignments[index] = item;
+    //}
     public void Update(Assignment item)
     {
-      
+        Assignment? old = DataSource.Assignments.Find(x => x?.Id == item.Id);
 
-        int index = DataSource.Assignments.FindIndex(c => c.Id == item.Id);
-        if (index == -1)
+        if (old == null)
         {
-            throw new DalDeletImposible($"Assignment with ID={item.Id} not exists");
+
+            //throw new Exception($"Volunteer with ID={id} does not exist"); // stag 1
+            throw new DO.DalDeletImposible($"Assignment with ID={item.Id} does not exist"); // stag 2
+
         }
-        DataSource.Assignments[index] = item;
+        else
+        {
+            DataSource.Assignments.Remove(old);
+            DataSource.Assignments.Add(item);
+        }
     }
+
+
 }

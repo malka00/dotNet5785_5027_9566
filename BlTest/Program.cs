@@ -1,6 +1,8 @@
 ﻿namespace BlTest;
 using BlApi;
-
+using BO;
+using DO;
+using System.Linq.Expressions;
 
 public enum OPTION
 {
@@ -33,17 +35,17 @@ public enum IVolunteer
 public enum ICall
 {
     EXIT,
-    CountCall,
-    Get_CallInLists,
-    Read,
-    Update,
-    Delete,
-    Create,
-    Get_ClosedCall,
-    Get_OpenCall,
-    CloseTreat,
-    CancelTreat,
-    Chose_For_Treat,
+    COUNT_CALL,
+    GET_CALLINLIST,
+    READ,
+    UPDATE,
+    DELETE,
+    CREATE,
+    GET_CLOSED_CALL,
+    GET_OPEN_CALL,
+    CLOSE_TREAT,
+    CANCEL_TREAT,
+    CHOSE_TOR_TREAT,
 }
 
 internal class Program
@@ -272,7 +274,7 @@ internal class Program
                     BO.Volunteer volunteerToUpdate = null;
 
                     Console.WriteLine("Updating details for volunteer:");
-                  //  Console.WriteLine(volunteerToUpdate);
+                    //  Console.WriteLine(volunteerToUpdate);
 
                     // Full Name
                     Console.WriteLine("Full Name (leave empty to keep current):");
@@ -284,7 +286,7 @@ internal class Program
                     // Email
                     Console.WriteLine("Email (leave empty to keep current):");
                     string email = Console.ReadLine();
-                   
+
                     // Distance Type
                     Console.WriteLine("Distance Type (Aerial, Walking, Driving) (leave empty to keep current):");
                     string distanceTypeInput = Console.ReadLine();
@@ -297,7 +299,7 @@ internal class Program
                         }
                         else
                         {
-                            volunteerToUpdate.TypeDistance = BO.Distance.Aerial; 
+                            volunteerToUpdate.TypeDistance = BO.Distance.Aerial;
                         }
                     }
 
@@ -336,7 +338,7 @@ internal class Program
                     // Password
                     Console.WriteLine("Password (leave empty to keep current):");
                     string passwordNew = Console.ReadLine();
-                  
+
 
                     // Full Address
                     Console.WriteLine("Full Address (leave empty to keep current):");
@@ -346,7 +348,7 @@ internal class Program
                         volunteerToUpdate.FullAddress = fullAddress;
                     }
 
-               
+
 
                     // Max Reading
                     Console.WriteLine("Max Reading (leave empty to keep current):");
@@ -360,23 +362,23 @@ internal class Program
                         }
                         else
                         {
-                           throw new BO.BlWrongInputException("Invalid input for Max Reading. Keeping current value.");
+                            throw new BO.BlWrongInputException("Invalid input for Max Reading. Keeping current value.");
                         }
                     }
 
                     // Update the volunteer in the system
-                  
-                        s_bl.Volunteers.Update(idPersson,volunteerToUpdate);
+
+                    s_bl.Volunteers.Update(idPersson, volunteerToUpdate);
                     break;
 
                 case IVolunteer.DELETE:
                     Console.WriteLine("Volunteer id:");
-                    string idInputDelete = Console.ReadLine(); 
+                    string idInputDelete = Console.ReadLine();
                     if (!int.TryParse(idInputDelete, out int idDelete))
                     {
-                        throw new BO.BlWrongInputException($"Invalid ID{idInputDelete} format");  
+                        throw new BO.BlWrongInputException($"Invalid ID{idInputDelete} format");
                     }
-                    s_bl.Volunteers.Delete(idDelete);  
+                    s_bl.Volunteers.Delete(idDelete);
                     break;
                 case IVolunteer.CREATE:
 
@@ -401,7 +403,7 @@ internal class Program
                     if (!Enum.TryParse(distanceTypeInputUp, true, out distanceType))
                     {
                         throw new BO.BlWrongInputException("Invalid distance type. Defaulting to Aerial.");
-                       
+
                     }
 
                     // Role
@@ -411,7 +413,7 @@ internal class Program
                     if (!Enum.TryParse(roleUp, true, out roleup))
                     {
                         throw new BO.BlWrongInputException("Invalid role. Defaulting to Volunteer.");
-                       
+
                     }
 
                     // Active
@@ -436,7 +438,7 @@ internal class Program
                     if (!int.TryParse(Console.ReadLine(), out maxReading))
                     {
                         throw new BO.BlWrongInputException("Invalid input for Max Reading. Defaulting to 0.");
-                       
+
                     }
 
                     // Create the new Volunteer object
@@ -462,6 +464,7 @@ internal class Program
                     // Call the Create method
                     s_bl.Volunteers.Create(newVolunteer);
                     break;
+                default: break;
             }
         }
         catch (BO.BlNullPropertyException ex)
@@ -486,6 +489,188 @@ internal class Program
         }
 
     }
+    private static ICall showCallMenu()
+    {
+        int choice;
+        do
+        {
+            Console.WriteLine(@"
+                OPTION Options:
+                0 - Exit
+                1 - CountCall
+                2 - Get CallInLists
+                3 - Read
+                4 - update
+                5 - Delete
+                6 - Create
+                7 - Get ClosedCall
+                8 - Get_OpenCall
+                9 - CloseTreat
+               10 - CancelTreat
+                ");
+
+        }
+        while (!int.TryParse(Console.ReadLine(), out choice));
+        return (ICall)choice;
+    }
+    private static void handleCallOptions()
+    {
+        try
+        {
+            switch (showCallMenu())
+            {
+                case ICall.COUNT_CALL:
+                    Console.WriteLine(s_bl.Calls.CountCall());
+                    break;
+                case ICall.GET_CALLINLIST:
+                    Console.Write("Enter filter field: ");
+                    string? filterInput = Console.ReadLine();
+
+                    // Try to parse the filter input
+                    BO.ECallInList? filter = null;
+                    if (!string.IsNullOrEmpty(filterInput) && Enum.TryParse(filterInput, out BO.ECallInList parsedFilter))
+                    {
+                        filter = parsedFilter;
+                    }
+                    Console.Write("Enter value for the filter field (or leave blank for no value): ");
+                    string? filterValueInput = Console.ReadLine();
+                    object? filterValue = string.IsNullOrEmpty(filterValueInput) ? null : filterValueInput;
+
+                    Console.WriteLine("Please choose a sorting field from the following list (or leave blank for default sorting):");
+                    foreach (var field in Enum.GetNames(typeof(BO.ECallInList)))
+                    {
+                        Console.WriteLine($"- {field}");
+                    }
+                    Console.Write("Enter sorting field: ");
+                    string? sortInput = Console.ReadLine();
+
+                    // Try to parse the sorting input
+                    BO.ECallInList? sortBy = null;
+                    if (!string.IsNullOrEmpty(sortInput) && Enum.TryParse(sortInput, out BO.ECallInList parsedSort))
+                    {
+                        sortBy = parsedSort;
+                    }
+
+                    // Step 4: Call the method and display the results
+                    var callInLists = s_bl.Calls.GetCallInLists(filter, filterValue, sortBy);
+
+                    Console.WriteLine("Filtered and sorted call-in list:");
+                    foreach (var call in callInLists)
+                    {
+                        Console.WriteLine(call); // Assuming BO.CallInList has a meaningful ToString() implementation
+                    }
+                    break;
+                case ICall.READ:
+                    Console.WriteLine("Please enter the ID of the call:");
+                    string idInput = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+
+                    if (!int.TryParse(idInput, out int id))  // מנסים להמיר את הקלט למספר
+                    {
+                        throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // זורקים חריגה אם המזהה לא תקני
+                    }
+                    Console.WriteLine(s_bl.Calls.Read(id));
+                    break;
+                case ICall.UPDATE:
+
+                  
+
+            break;
+
+                    
+            }
+        }
+        catch (BO.BlWrongInputException ex)
+        {
+            // Handle the case where the password does not match
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        catch (BO.BlWrongItemException ex)
+        {
+            // Handle the case where the password does not match
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            // Handle any other unexpected errors
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
+
+    }
+    private static BO.Call getCall()
+    {
+        int id;
+        Console.WriteLine("Enter call ID to update:");
+        if (!int.TryParse(Console.ReadLine(), out id))
+        {
+            throw new BO.BlWrongInputException("Invalid input. Please enter a valid integer for the ID:");
+        }
+
+        Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
+        string callTypeInput = Console.ReadLine();
+        if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
+        {
+            throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (Puncture, Cables, LockedCar):");
+        }
+
+        Console.WriteLine("Enter description:");
+        string description = Console.ReadLine();
+
+        Console.WriteLine("Enter full address:");
+        string fullAddress = Console.ReadLine();
+
+        //double latitude;
+        //Console.WriteLine("Enter latitude:");
+        //while (!double.TryParse(Console.ReadLine(), out latitude))
+        //{
+        //    Console.WriteLine("Invalid input. Please enter a valid latitude:");
+        //}
+
+        //double longitude;
+        //Console.WriteLine("Enter longitude:");
+        //while (!double.TryParse(Console.ReadLine(), out longitude))
+        //{
+        //    Console.WriteLine("Invalid input. Please enter a valid longitude:");
+        //}
+
+        DateTime timeOpened;
+        Console.WriteLine("Enter time opened (YYYY-MM-DD HH:mm:ss):");
+        if (!DateTime.TryParse(Console.ReadLine(), out timeOpened))
+        {
+            throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time (YYYY-MM-DD HH:mm:ss):");
+        }
+
+        DateTime? maxTimeToClose = null;
+        Console.WriteLine("Enter max time to close (or leave empty):");
+        string maxTimeInput = Console.ReadLine();
+        if (!string.IsNullOrEmpty(maxTimeInput) && !DateTime.TryParse(maxTimeInput, out DateTime parsedMaxTime))
+        {
+            throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
+        }
+
+        BO.StatusTreat status;
+        Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
+        while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
+        {
+            Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
+        }
+
+        return new BO.Call
+        {
+            Id = id,
+            Type = callType,
+            Description = description,
+            FullAddress = fullAddress,
+            Latitude = 0,
+            Longitude = 0,
+            TimeOpened = timeOpened,
+            MaxTimeToClose = maxTimeToClose,
+            Status = status
+        };
+     
+    }
 }
+
+
+
 
 
