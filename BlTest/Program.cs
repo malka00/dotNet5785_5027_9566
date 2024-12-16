@@ -506,7 +506,8 @@ internal class Program
                 7 - Get ClosedCall
                 8 - Get OpenCall
                 9 - CloseTreat
-               10 - CancelTreat
+                10 - CancelTreat
+                11- ChoseForTreat
                 ");
 
         }
@@ -674,6 +675,79 @@ internal class Program
                         }
                         break;
                     }
+                case ICall.CLOSE_TREAT:
+                    {
+                        // Requesting the user to enter the values
+                        Console.WriteLine("Enter the volunteer ID:");
+                        string volInput = Console.ReadLine();
+                        Console.WriteLine("Enter the task ID:");
+                        string assigInput = Console.ReadLine();
+
+                        // Variables to store the values entered by the user
+                        int idVol, idAssig;
+
+                        // Checking if it's possible to parse the input into integers
+                        if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
+                        {
+                            // If the parsing succeeded, call the CloseTreat function
+                            s_bl.Calls.CloseTreat(idVol, idAssig);
+                        }
+                        else
+                        {
+                            // If parsing failed, display an error message
+                            throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
+                        }
+                        break;
+                    }
+                case ICall.CANCEL_TREAT:
+                    {
+                        // Requesting the user to enter the values
+                        Console.WriteLine("Enter the volunteer ID:");
+                        string volInput = Console.ReadLine();
+                        Console.WriteLine("Enter the task ID:");
+                        string assigInput = Console.ReadLine();
+
+                        // Variables to store the values entered by the user
+                        int idVol, idAssig;
+
+                        // Checking if it's possible to parse the input into integers
+                        if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
+                        {
+                            // If the parsing succeeded, call the CloseTreat function
+                            s_bl.Calls.CancelTreat(idVol, idAssig);
+                        }
+                        else
+                        {
+                            // If parsing failed, display an error message
+                            throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
+                        }
+                        break;
+                    }
+                case ICall.CHOSE_TOR_TREAT:
+                    {
+                        // Requesting the user to enter the values
+                        Console.WriteLine("Enter the volunteer ID:");
+                        string volInput = Console.ReadLine();
+                        Console.WriteLine("Enter the task ID:");
+                        string assigInput = Console.ReadLine();
+
+                        // Variables to store the values entered by the user
+                        int idVol, idAssig;
+
+                        // Checking if it's possible to parse the input into integers
+                        if (int.TryParse(volInput, out idVol) && int.TryParse(assigInput, out idAssig))
+                        {
+                            // If the parsing succeeded, call the CloseTreat function
+                            s_bl.Calls.ChoseForTreat(idVol, idAssig);
+                        }
+                        else
+                        {
+                            // If parsing failed, display an error message
+                            throw new BO.BlWrongInputException("Invalid input. Please ensure the IDs are numbers.");
+                        }
+                        break;
+                    }
+                default: break;
             }
 
             }
@@ -764,7 +838,7 @@ internal class Program
             MaxTimeToClose = maxTimeToClose,
             Status = status
         };
-
+       
     }
 }
 
