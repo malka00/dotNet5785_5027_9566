@@ -121,6 +121,8 @@ internal class CallImplementation : ICall
         double[] coordinate = VolunteerManager.GetCoordinates(boCall.FullAddress);
         double latitude = coordinate[0];
         double longitude = coordinate[1];
+        boCall.Latitude = latitude;
+        boCall.Longitude = longitude;
         try
         {
             CallManager.CheckLogic(boCall);
@@ -214,8 +216,6 @@ internal class CallImplementation : ICall
                 case BO.ECallInList.SumAssignment:
                     boCallsInList.Where(item => item.SumAssignment == (int)obj).Select(item => item);
                     break;
-
-
             }
         }
         if (sortBy == null)
@@ -223,42 +223,42 @@ internal class CallImplementation : ICall
         switch (sortBy)
         {
             case BO.ECallInList.Id:
-                boCallsInList.OrderBy(item => item.Id);
+                boCallsInList= boCallsInList.OrderBy(item => item.Id.HasValue ? 0 : 1)
+    .ThenBy(item => item.Id)
+    .ToList();
                 break;
 
             case BO.ECallInList.CallId:
-                boCallsInList.OrderBy(item => item.CallId);
+                boCallsInList= boCallsInList.OrderBy(item => item.CallId).ToList();
                 break;
 
             case BO.ECallInList.CType:
-                boCallsInList.OrderBy(item => item.Type);
+                boCallsInList = boCallsInList.OrderBy(item => item.Type).ToList();
                 break;
 
             case BO.ECallInList.TimeOpened:
-                boCallsInList.OrderBy(item => item.TimeOpened);
+                boCallsInList = boCallsInList.OrderBy(item => item.TimeOpened).ToList();
                 break;
 
             case BO.ECallInList.TimeLeft:
-                boCallsInList.OrderBy(item => item.TimeLeft);
+                boCallsInList = boCallsInList.OrderBy(item => item.TimeLeft).ToList();
                 break;
 
             case BO.ECallInList.LastVolunteer:
-                boCallsInList.OrderBy(item => item.LastVolunteer);
+                boCallsInList = boCallsInList.OrderBy(item => item.LastVolunteer).ToList();
                 break;
 
             case BO.ECallInList.TotalTime:
-                boCallsInList.OrderBy(item => item.TotalTime);
+                boCallsInList = boCallsInList.OrderBy(item => item.TotalTime).ToList();
                 break;
 
             case BO.ECallInList.Status:
-                boCallsInList.OrderBy(item => item.Status);
+                boCallsInList = boCallsInList.OrderBy(item => item.Status).ToList();
                 break;
 
             case BO.ECallInList.SumAssignment:
-                boCallsInList.OrderBy(item => item.SumAssignment);
+                boCallsInList = boCallsInList.OrderBy(item => item.SumAssignment).ToList();
                 break;
-
-
         }
         return boCallsInList;
     }
@@ -423,6 +423,11 @@ internal class CallImplementation : ICall
     /// </summary>
     public void Update(BO.Call boCall)
     {
+        double[] coordinate = VolunteerManager.GetCoordinates(boCall.FullAddress);
+        double latitude = coordinate[0];
+        double longitude = coordinate[1];
+        boCall.Latitude = latitude;
+        boCall.Longitude = longitude;
         CallManager.CheckLogic(boCall);
 
         DO.Call doCall = new

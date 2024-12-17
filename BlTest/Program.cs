@@ -183,9 +183,9 @@ Config Options:
 OPTION Options:
 0 - Exit
 1 - EnterSystem
-2 - Get volunteerInlist
+2 - Get volunteerInList
 3 - Read
-4 - update
+4 - Update
 5 - Delete
 6 - Create");
 
@@ -632,12 +632,12 @@ Call Options:
                             throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
                         }
 
-                        BO.StatusTreat status;
-                        Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
-                        while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
-                        {
-                            Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
-                        }
+                        //BO.StatusTreat status;
+                        //Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
+                        //while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
+                        //{
+                        //    Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
+                        //}
                         BO.Call callToCreate= new BO.Call
                         {
                             Id = 0,
@@ -648,7 +648,7 @@ Call Options:
                             Longitude = 0,
                             TimeOpened = timeOpened,
                             MaxTimeToClose = maxTimeToClose,
-                            Status = status
+                            Status = 0,
                         };
                         s_bl.Calls.Create(callToCreate);
 
@@ -886,7 +886,7 @@ Call Options:
         }
 
         BO.StatusTreat status;
-        Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
+        Console.WriteLine("Enter status (   Open,  Treat,  Close, Expired,   RiskOpen,  TreatInRisk):");
         while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
         {
             Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");

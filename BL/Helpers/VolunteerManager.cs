@@ -28,11 +28,25 @@ internal class VolunteerManager
     /// <returns></returns>
     internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
     {
-        var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
-        int sumCalls = call.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
-        int sumCanceld = call.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
-        int sumExpired = call.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
-        int? idCall = call.Count(ass => ass.TimeEnd == null);
+        var assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
+        int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
+        int sumCanceld = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
+        int sumExpired = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
+        // idCall = call.Count(ass => ass.TimeEnd == null);
+        var assignmentToCallID = assignments.Find(ass => ass.TimeEnd == null);
+        int? idCall;
+        BO.CallType ctype;
+        if (assignmentToCallID == null)
+        {
+            idCall = null;
+            ctype=BO.CallType.None;
+        }
+        else
+        {
+            idCall = assignmentToCallID.CallId;
+            DO.Call call = s_dal.Call.Read(assignmentToCallID.CallId);
+            ctype=(BO.CallType)call.Type;
+        } 
         return new()
         {
             Id = doVolunteer.Id,
@@ -42,6 +56,7 @@ internal class VolunteerManager
             Sumcanceled = sumCanceld,
             SumExpired = sumExpired,
             IdCall = idCall,
+            Ctype=ctype
         };
     }
     internal static BO.CallInProgress GetCallIn(DO.Volunteer doVolunteer)

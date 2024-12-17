@@ -17,7 +17,8 @@ public enum CallType
 {
     Puncture,
     Cables,
-    LockedCar
+    LockedCar,
+    None
 }
 public enum StatusTreat
 {

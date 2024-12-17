@@ -52,7 +52,7 @@ internal class CallManager
     internal static void CheckAddress(BO.Call call)
     {
         double[] coordinates = VolunteerManager.GetCoordinates(call.FullAddress);
-        if (coordinates[0] != call.Latitude || coordinates[1] == call.Longitude)
+        if (coordinates[0] != call.Latitude || coordinates[1] != call.Longitude)
             throw new BO.BlWrongItemException($"not math coordinates");
     }
 
@@ -75,19 +75,20 @@ internal class CallManager
     }
     internal static BO.CallInList ConvertDOCallToBOCallInList (DO.Call doCall)
     {
-       var assignmentsForCall = s_dal.Assignment.ReadAll(A => A.CallId == doCall.Id);
+       var assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.Id);
        var lastAssignmentsForCall= assignmentsForCall.OrderByDescending(item => item.TimeStart).FirstOrDefault();
+
         return new()
         {
-            Id = lastAssignmentsForCall!=null? lastAssignmentsForCall.Id:null,
-            CallId = lastAssignmentsForCall.CallId,
+            Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,
+            CallId = doCall.Id,
             Type = (BO.CallType)doCall.Type,
             TimeOpened = doCall.TimeOpened,
-            TimeLeft = doCall.MaxTimeToClose!=null? doCall.MaxTimeToClose - s_dal.Config.Clock:null,
-            LastVolunteer = lastAssignmentsForCall != null? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName:null,
-            TotalTime= lastAssignmentsForCall.TimeEnd!=null? lastAssignmentsForCall.TimeEnd - lastAssignmentsForCall.TimeStart:null,
-            Status= GetCallStatus(doCall),
-            SumAssignment= assignmentsForCall.Count()
+            TimeLeft = doCall.MaxTimeToClose != null ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
+            LastVolunteer =( lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null,
+            TotalTime = ( lastAssignmentsForCall != null && lastAssignmentsForCall.TimeEnd != null) ? lastAssignmentsForCall.TimeEnd - lastAssignmentsForCall.TimeStart : null,
+            Status = GetCallStatus(doCall),
+            SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
         };
     }
 
