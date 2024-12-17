@@ -30,8 +30,8 @@ internal class VolunteerImplementation : IVolunteer
             boVolunteer.Active,
             boVolunteer.Password,
             boVolunteer.FullAddress,
-            latitude,
-            longitude,
+             boVolunteer.Latitude,
+            boVolunteer.Longitude,
             boVolunteer.MaxReading
 
             );
