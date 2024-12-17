@@ -117,6 +117,8 @@ internal class VolunteerImplementation : IVolunteer
         return new()
         {
             Id = id,
+            Email = doVolunteer.Email,
+            MaxReading = doVolunteer.MaxReading,
             FullName = doVolunteer.FullName,
             PhoneNumber = doVolunteer.PhoneNumber,
             TypeDistance = (BO.Distance)doVolunteer.TypeDistance,
@@ -132,16 +134,18 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Update(int id, BO.Volunteer boVolunteer)
     {
-
         DO.Volunteer doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
         DO.Volunteer ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         if (ismanager.Job != DO.Role.Boss || boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and  does not correct or not manager");
-        if (boVolunteer.FullAddress != doVolunteer.FullAddress)
-        {
+        
             double[] cordinat = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
             boVolunteer.Latitude = cordinat[0];
             boVolunteer.Longitude = cordinat[1];
+        if (boVolunteer.Id != doVolunteer.Id)
+        {
+            
+                throw new BO.BlWrongInputException("can not update ID");
         }
         VolunteerManager.CheckLogic(boVolunteer);
         VolunteerManager.CheckFormat(boVolunteer);
@@ -150,7 +154,7 @@ internal class VolunteerImplementation : IVolunteer
             if (boVolunteer.Job != (BO.Role)doVolunteer.Job)
                 throw new BO.BlWrongInputException("not have promition to change the role");
         }
-
+      
 
         ///לבדוק על פעיחל אם מותר לשנות...
         DO.Volunteer volunteerUpdate = new(

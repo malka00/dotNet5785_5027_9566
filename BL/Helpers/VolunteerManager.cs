@@ -4,10 +4,13 @@ using BO;
 using DalApi;
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Helpers;
 
@@ -46,17 +49,20 @@ internal class VolunteerManager
     {
 
         var call = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
-        DO.Assignment? assignmentTreat = call.Find(ass => ass.TimeEnd == null);
+        DO.Assignment? assignmentTreat = call.Find(ass => ass.TimeEnd == null || ass.TypeEndTreat==null);
+        if (assignmentTreat == null) { return null; }
         DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
-        if(callTreat != null)  return null;
+        if (callTreat != null) { throw new BO.BlWrongInputException($"threr is no call with this DI {assignmentTreat.CallId}"); }
         double[] cordinate = GetCoordinates(doVolunteer.FullAddress);
         double latitude = cordinate[0];
         double longitude = cordinate[1];
         AdminImplementation admin = new AdminImplementation();
         BO.StatusTreat status;
         if (callTreat.MaxTimeToClose - ClockManager.Now <= admin.GetMaxRange())
+        {
             status = BO.StatusTreat.RiskOpen;
-        else status = BO.StatusTreat.Treat;
+        }
+        else { status = BO.StatusTreat.Treat; }
         return new()
         {
             Id = assignmentTreat.Id,
@@ -102,7 +108,7 @@ internal class VolunteerManager
         /// Validate the PhoneNumber field.
         /// The phone number must be exactly 10 digits and start with 0.
         /// </summary>
- 
+
         if (string.IsNullOrWhiteSpace(boVolunteer.FullName))
         {
             throw new BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null or empty.");
@@ -325,9 +331,9 @@ internal class VolunteerManager
             throw new ArgumentException("Address cannot be empty or null.", nameof(address));
         }
 
-        // Constructing the URL for the geocoding service with the provided address
-        //string url = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}";
-        string url = $"https://geocode.maps.co/search?q=.php{Uri.EscapeDataString(address)}";
+        string apiKey = "67575890e42cc578964142uob149f45";  // החלף במפתח האמיתי שלך
+        string url = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}&api_key={apiKey}";
+        HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 
         // Creating a synchronous HTTP request
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
@@ -377,7 +383,7 @@ internal class VolunteerManager
     }
 
     /// <summary>
-    /// Class to represent the structure of the geocoding response (latitude and longitude)
+    /// Class to represent the structure of the geocoding response(latitude and longitude)
     /// </summary>
     private class LocationResult
     {
@@ -389,7 +395,7 @@ internal class VolunteerManager
     internal static void CheckAddress(BO.Volunteer volunteer)
     {
         double[] cordinates = GetCoordinates(volunteer.FullAddress);
-        if (cordinates[0] != volunteer.Latitude || cordinates[1] == volunteer.Longitude)
+        if (cordinates[0] != volunteer.Latitude || cordinates[1] != volunteer.Longitude)
             throw new BO.BlWrongItemException($"not math cordinates");
     }
 
@@ -425,8 +431,35 @@ internal class VolunteerManager
 
         // Final distance in meters
         return EarthRadius * c;
+
     }
 
+
+    //public static double[] GetCoordinates(string address)
+    //{
+    //    using var httpClient = new HttpClient();
+    //    const string Apikey = "pk.4affd8e40a36388fb51da1f110d14238";
+    //    const string URL = "https://us1.locationiq.com/v1/search.php";
+    //    string url = $"{URL}?key={Apikey}&q={Uri.EscapeDataString(address)}&format=json";
+
+    //    var response = httpClient.GetAsync(url).Result;
+    //    if (!response.IsSuccessStatusCode)
+    //        throw new BO.BlWrongItemException($"Error fetching geolocation data: {response.ReasonPhrase}");
+
+    //    var content = response.Content.ReadAsStringAsync().Result;
+    //    var data = JsonSerializer.Deserialize<List<LocationIQResponse>>(content);
+
+    //    if (data == null || data.Count == 0)
+    //        throw new BO.BlWrongItemException("No geolocation data found for the provided address.");
+
+    //    var firstResult = data.First(); //To avoid exceptions
+
+    //    return new 
+    //    {
+    //        Latitude = double.Parse(firstResult.lat),
+    //        Longitude = double.Parse(firstResult.lon)
+    //    };
+    //}
 }
 
 
