@@ -46,7 +46,7 @@ public static class Initialization
         "Agripas St 10, Jerusalem, Israel",
         "HaPalmach St 25, Jerusalem, Israel",
         "Emek Refaim St 43, Jerusalem, Israel",
-        "Shlomzion HaMalka St 18, Jerusalem, Israel",
+        "Hapisga St 18, Jerusalem, Israel",
         "Hillel St 7, Jerusalem, Israel",
         "Derech Hebron 105, Jerusalem, Israel",
         "Bezalel St 12, Jerusalem, Israel",
@@ -61,7 +61,7 @@ public static class Initialization
         double[] Longitudes = new double[]
 {
         35.2193, 35.2137, 35.2129, 35.2065, 35.2117,
-        35.2205, 35.2142, 35.2156, 35.2150, 35.2175,
+        35.212416, 35.2142, 35.2156, 35.2150, 35.2175,
         35.2214, 35.2123, 35.2241, 35.2191, 35.2203
 };
 
@@ -69,7 +69,7 @@ public static class Initialization
         double[] Latitudes = new double[]
 {
         31.7784, 31.7834, 31.7801, 31.7642, 31.7655,
-        31.7798, 31.7809, 31.7515, 31.7812, 31.7837,
+        31.751709, 31.7809, 31.7515, 31.7812, 31.7837,
         31.7849, 31.7698, 31.7714, 31.7815, 31.7822
 };
 
@@ -250,7 +250,7 @@ public static class Initialization
         "Zahal St 5, Jerusalem, Israel",
         "Ha'Arazim Blvd 3, Jerusalem, Israel",
         "Ramot Forest, Jerusalem, Israel",
-        "Eliyahu Bashan St 4, Jerusalem, Israel"
+        "Yirmiyahu Street, Jerusalem,Israel"
     };
     
     double[] longitudes = new double[]
@@ -264,7 +264,7 @@ public static class Initialization
         35.2079, 35.2145, 35.2045, 35.2120, 35.1963,
         35.2112, 35.2008, 35.2159, 35.2235, 35.2210,
         35.2342, 35.2149, 35.2236, 35.2087, 35.2381,
-        35.2201, 35.2357, 35.2289, 35.2325, 35.2291
+        35.2201, 35.2357, 35.2289, 35.2325, 35.207448
    };
      
     double[] latitudes = new double[]
@@ -278,7 +278,7 @@ public static class Initialization
       31.7821, 31.7741, 31.7897, 31.7685, 31.7784,
       31.7695, 31.7982, 31.7623, 31.7598, 31.7981,
       31.7742, 31.8012, 31.7591, 31.7545, 31.7695,
-      31.7901, 31.7947, 31.8014, 31.7903, 31.7885
+      31.7901, 31.7947, 31.8014, 31.7903, 31.792351
        };
 
 

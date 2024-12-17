@@ -333,7 +333,7 @@ internal class VolunteerManager
             throw new ArgumentException("Address cannot be empty or null.", nameof(address));
         }
 
-        string apiKey = "67575890e42cc578964142uob149f45";  // החלף במפתח האמיתי שלך
+        string apiKey = "https://geocode.maps.co/search?q=address&api_key=67575890e42cc578964142uob149f45";  // החלף במפתח האמיתי שלך
         string url = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}&api_key={apiKey}";
         HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -394,6 +394,8 @@ internal class VolunteerManager
         // Longitude as string in the JSON response
         public string Lon { get; set; }
     }
+
+
     internal static void CheckAddress(BO.Volunteer volunteer)
     {
         double[] cordinates = GetCoordinates(volunteer.FullAddress);
