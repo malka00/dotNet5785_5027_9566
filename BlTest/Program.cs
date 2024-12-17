@@ -769,12 +769,11 @@ Call Options:
     private static BO.Call getCall()
     {
         int id;
-        Console.WriteLine("Enter call ID to update:");
+        Console.WriteLine("Enter call ID:");
         if (!int.TryParse(Console.ReadLine(), out id))
         {
             throw new BO.BlWrongInputException("Invalid input. Please enter a valid integer for the ID:");
         }
-
         Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
         string callTypeInput = Console.ReadLine();
         if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
