@@ -105,13 +105,44 @@ internal class CallImplementation : ICall
     /// <returns></returns>
     public int[] CountCall()
     {
-        IEnumerable<DO.Call>? calls = _dal.Call.ReadAll();
-        int[] count = (from item in calls
-                       group item by CallManager.GetCallStatus(item) into groupedCalls
-                       orderby groupedCalls.Key
-                       select groupedCalls.Count()).ToArray();
+
+        //IEnumerable<DO.Call>? calls = _dal.Call.ReadAll();
+        //int[] count = (from item in calls
+        //               group item by CallManager.GetCallStatus(item) into groupedCalls
+        //               orderby groupedCalls.Key
+        //               select groupedCalls.Count()).ToArray();
+        //return count;
+    
+        // שליפת הקריאות
+        IEnumerable<DO.Call>? calls = _dal.Call.ReadAll() ?? Enumerable.Empty<DO.Call>();
+
+        // מקבל את כמות הסטטוסים (לפי Enum)
+        int statusCount = Enum.GetValues(typeof(BO.StatusTreat)).Length;
+
+        // יוצר מערך בגודל של כמות הסטטוסים
+        int[] count = new int[statusCount];
+
+        // קיבוץ הקריאות לפי סטטוס ועדכון המערך
+        var groupedCounts = from call in calls
+                            let status = CallManager.GetCallStatus(call)
+                            group call by status into groupedCalls
+                            select new { Status = groupedCalls.Key, Count = groupedCalls.Count() };
+
+        foreach (var group in groupedCounts)
+        {
+            int statusIndex = (int)group.Status; // המרה מפורשת של Enum ל-int
+
+            if (statusIndex >= 0 && statusIndex < statusCount)
+            {
+                count[statusIndex] = group.Count;
+            }
+        }
+
+
         return count;
     }
+
+    
 
     /// <summary>
     /// add a new call
@@ -275,7 +306,9 @@ internal class CallImplementation : ICall
     /// <returns></returns>
     public IEnumerable<BO.ClosedCallInList> GetClosedCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy)
     {
-        IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
+       // var assignments=_dal.Assignment.ReadAll(ass=>ass.VolunteerId==id&&ass.TimeEnd!=null);
+      
+        IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll();
         List<BO.ClosedCallInList>? Calls = new List<BO.ClosedCallInList>();
         
         Calls.AddRange(from item in previousCalls
@@ -295,25 +328,25 @@ internal class CallImplementation : ICall
         switch (sortBy)
         {
             case BO.EClosedCallInList.Id:
-                    closedCallInLists.OrderBy(item => item.Id);
+                closedCallInLists= closedCallInLists.OrderBy(item => item.Id).ToList();
                 break;
             case BO.EClosedCallInList.CType:
-                    closedCallInLists.OrderBy(item => item.Type);
+                closedCallInLists= closedCallInLists.OrderBy(item => item.Type).ToList();
                     break;
             case BO.EClosedCallInList.FullAddress:
-                    closedCallInLists.OrderBy(item => item.FullAddress);
+                closedCallInLists= closedCallInLists.OrderBy(item => item.FullAddress).ToList();
                     break;
             case BO.EClosedCallInList.TimeOpen:
-                    closedCallInLists.OrderBy(item => item.TimeOpen);
+                closedCallInLists= closedCallInLists.OrderBy(item => item.TimeOpen).ToList();
                     break;
             case BO.EClosedCallInList.StartTreat:
-                    closedCallInLists.OrderBy(item => item.StartTreat);
+                closedCallInLists=  closedCallInLists.OrderBy(item => item.StartTreat).ToList();
                     break;
             case BO.EClosedCallInList.TimeClose:
-                    closedCallInLists.OrderBy(item => item.TimeClose);
+                closedCallInLists=closedCallInLists.OrderBy(item => item.TimeClose).ToList();
                     break;
             case BO.EClosedCallInList.TypeEndTreat:
-                    closedCallInLists.OrderBy(item => item.TypeEndTreat);
+                closedCallInLists=closedCallInLists.OrderBy(item => item.TypeEndTreat).ToList();
                     break;
            
         }
@@ -349,22 +382,22 @@ internal class CallImplementation : ICall
         switch (sortBy)
         {
             case BO.EOpenCallInList.Id:
-                openCallInLists.OrderBy(item => item.Id);
+                openCallInLists=openCallInLists.OrderBy(item => item.Id).ToList();
                 break;
             case BO.EOpenCallInList.CType:
-                openCallInLists.OrderBy(item => item.CType);
+                openCallInLists=openCallInLists.OrderBy(item => item.CType).ToList();
                 break;
             case BO.EOpenCallInList.FullAddress:
-                openCallInLists.OrderBy(item => item.FullAddress);
+                openCallInLists= openCallInLists.OrderBy(item => item.FullAddress).ToList();
                 break;
             case BO.EOpenCallInList.TimeOpen:
-                openCallInLists.OrderBy(item => item.TimeOpen);
+                openCallInLists= openCallInLists.OrderBy(item => item.TimeOpen).ToList();
                 break;
             case BO.EOpenCallInList.MaxTimeToClose:
-                openCallInLists.OrderBy(item => item.MaxTimeToClose);
+                openCallInLists=openCallInLists.OrderBy(item => item.MaxTimeToClose).ToList();
                 break;
             case  BO.EOpenCallInList.distanceCallVolunteer :
-                openCallInLists.OrderBy(item => item.distanceCallVolunteer);
+                openCallInLists= openCallInLists.OrderBy(item => item.distanceCallVolunteer).ToList();
                 break;
 
         }
@@ -404,7 +437,6 @@ internal class CallImplementation : ICall
             Longitude = doCall.Longitude,
             TimeOpened = doCall.TimeOpened,
             MaxTimeToClose = doCall.MaxTimeToClose,
-            // Status = CallManager.GetCallStatus(dataOfAssignments, doCall.MaxTimeToClose),
             Status = CallManager.GetCallStatus(doCall),
             AssignmentsToCalls = dataOfAssignments.Select(assign => new BO.CallAssignInList
             {
@@ -415,7 +447,7 @@ internal class CallImplementation : ICall
                 TypeEndTreat = (BO.TypeEnd)assign.TypeEndTreat,
             }).ToList()
         };
-        throw new Exception();
+        
     }
 
     /// <summary>
@@ -429,6 +461,8 @@ internal class CallImplementation : ICall
         boCall.Latitude = latitude;
         boCall.Longitude = longitude;
         CallManager.CheckLogic(boCall);
+      
+
 
         DO.Call doCall = new
                     (

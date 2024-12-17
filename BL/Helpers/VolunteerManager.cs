@@ -66,7 +66,7 @@ internal class VolunteerManager
         DO.Assignment? assignmentTreat = assignments.Find(ass => ass.TimeEnd == null || ass.TypeEndTreat==null);
         if (assignmentTreat == null) { return null; }
         DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
-        if (callTreat == null) { throw new BO.BlWrongInputException($"threr is no call with this DI {assignmentTreat.CallId}"); }
+        if (callTreat == null) { throw new BO.BlWrongInputException($"there is no call with this DI {assignmentTreat.CallId}"); }
         double[] cordinate = GetCoordinates(doVolunteer.FullAddress);
         double latitude = cordinate[0];
         double longitude = cordinate[1];

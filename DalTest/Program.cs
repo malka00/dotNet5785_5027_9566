@@ -504,7 +504,7 @@ Config Options:
         Console.Write("enter FullAddress of the Call: ");
         string address= Console.ReadLine() ?? throw new DalWrongInput("Wrong input");
         
-        cr = new Call(0, type, description, address, 0,0,s_dal.Config.Clock);
+        cr = new Call(0, type, description, address, 0,0,s_dal.Config.Clock, null);
     }
 
     /// <summary>

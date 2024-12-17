@@ -25,7 +25,7 @@ public record Call
         double Latitude,
         double Longitude,
         DateTime TimeOpened,
-        DateTime? MaxTimeToClose = null
+        DateTime? MaxTimeToClose
   )
 
 
@@ -33,7 +33,7 @@ public record Call
 /// Default constructor for Call with default values
 /// </summary>
 {
-    public Call() : this(0, default(CallType), "", "", 0, 0, DateTime.MinValue) { }
+    public Call() : this(0, default(CallType), "", "", 0, 0, DateTime.MinValue,null) { }
 }
 
 

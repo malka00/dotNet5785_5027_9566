@@ -1,5 +1,6 @@
 ﻿namespace BlTest;
 using BlApi;
+using BO;
 using System;
 using System.Linq.Expressions;
 
@@ -538,7 +539,19 @@ Call Options:
             switch (showCallMenu())
             {
                 case ICall.COUNT_CALL:
-                    Console.WriteLine(s_bl.Calls.CountCall());
+                    //Console.WriteLine(s_bl.Calls.CountCall());
+                    //   Console.WriteLine(string.Join(", ", s_bl.Calls.CountCall()));
+                    int[] counts = s_bl.Calls.CountCall();
+
+                    // מקבל את כל שמות הסטטוסים מה-Enum
+                    string[] statusNames = Enum.GetNames(typeof(StatusTreat));
+
+                    // לולאה להדפסת שמות הסטטוסים עם הכמויות
+                    for (int i = 0; i < statusNames.Length; i++)
+                    {
+                        Console.WriteLine($"{statusNames[i]}: {counts[i]}");
+                    }
+
                     break;
                 case ICall.GET_CALLINLIST:
                     Console.Write("Enter filter field: ");
@@ -886,7 +899,7 @@ Call Options:
         }
 
         BO.StatusTreat status;
-        Console.WriteLine("Enter status (   Open,  Treat,  Close, Expired,   RiskOpen,  TreatInRisk):");
+        //Console.WriteLine("Enter status (   Open,  Treat,  Close, Expired,   RiskOpen,  TreatInRisk):");
         while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
         {
             Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
