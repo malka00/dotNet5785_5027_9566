@@ -2,6 +2,7 @@
 using BlApi;
 using BO;
 using DO;
+using System;
 using System.Linq.Expressions;
 
 public enum OPTION
@@ -270,100 +271,111 @@ OPTION Options:
                     }
 
                     // Try to retrieve the volunteer by ID
-                    BO.Volunteer volunteerToUpdate = null;
+
 
                     Console.WriteLine("Updating details for volunteer:");
                     //  Console.WriteLine(volunteerToUpdate);
 
                     // Full Name
-                    Console.WriteLine("Full Name (leave empty to keep current):");
+                    Console.WriteLine("Full Name :");
                     string fullName = Console.ReadLine();
+                    if (string.IsNullOrEmpty(fullName))
+                    {
+                        throw new BO.BlWrongInputException("Invalid fullName. Please enter a valid number.");
+                    }
                     // Phone Number
-                    Console.WriteLine("Phone Number (leave empty to keep current):");
+
+                    Console.WriteLine("Phone Number :");
                     string phoneNumber = Console.ReadLine();
 
+                    if (string.IsNullOrEmpty(phoneNumber))
+                    {
+                        throw new BO.BlWrongInputException("Invalid phoneNumber. Please enter a valid number.");
+                    }
+
                     // Email
-                    Console.WriteLine("Email (leave empty to keep current):");
+                    Console.WriteLine("Email:");
                     string email = Console.ReadLine();
 
                     // Distance Type
-                    Console.WriteLine("Distance Type (Aerial, Walking, Driving) (leave empty to keep current):");
+                    Console.WriteLine("Distance Type (Aerial, Walking, Driving) for Arial leav empty:");
                     string distanceTypeInput = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(distanceTypeInput))
-                    {
+                    //if (!string.IsNullOrEmpty(distanceTypeInput))
+                    //{
                         BO.Distance distanceTypeUpdate;
-                        if (Enum.TryParse(distanceTypeInput, true, out distanceTypeUpdate))
+                        if (!Enum.TryParse(distanceTypeInput, true, out distanceTypeUpdate))
                         {
-                            volunteerToUpdate.TypeDistance = distanceTypeUpdate;
+                             distanceTypeUpdate=BO.Distance.Aerial;
                         }
-                        else
-                        {
-                            volunteerToUpdate.TypeDistance = BO.Distance.Aerial;
-                        }
-                    }
+                     
+                    //}
 
                     // Role
-                    Console.WriteLine("Role (Volunteer, Boss) (leave empty to keep current):");
-                    string roleInput = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(roleInput))
-                    {
+                    Console.WriteLine("Role (Volunteer, Boss):");
+                    //string roleInput = Console.ReadLine();
+                    //if (!string.IsNullOrEmpty(roleInput))
+                    //{
                         BO.Role roleUpdate;
-                        if (Enum.TryParse(roleInput, true, out roleUpdate))
-                        {
-                            volunteerToUpdate.Job = roleUpdate;
+                        if (!Enum.TryParse(Console.ReadLine(), true, out roleUpdate))
+                        { 
+                            throw new BO.BlWrongInputException("Invalid role.");
                         }
-                        else
-                        {
-                            throw new BO.BlWrongInputException("Invalid role. Keeping current value.");
-                        }
-                    }
+                    //}
 
                     // Active
-                    Console.WriteLine("Active (true/false) (leave empty to keep current):");
-                    string activeUpdate = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(activeUpdate))
-                    {
+                    Console.WriteLine("Active (true/false): defult is true");
+                    
                         bool activeUP;
-                        if (bool.TryParse(activeUpdate, out activeUP))
-                        {
-                            volunteerToUpdate.Active = activeUP;
+                        if (!bool.TryParse(Console.ReadLine(), out activeUP))
+                         {
+                             activeUP=true;
                         }
-                        else
-                        {
-                            throw new BO.BlWrongInputException("Invalid input for Active. Keeping current value.");
-                        }
-                    }
+                    
 
                     // Password
-                    Console.WriteLine("Password (leave empty to keep current):");
+                    Console.WriteLine("Password :");
                     string passwordNew = Console.ReadLine();
 
 
                     // Full Address
-                    Console.WriteLine("Full Address (leave empty to keep current):");
+                    Console.WriteLine("Full Address:");
                     string fullAddress = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(fullAddress))
+                    if (string.IsNullOrEmpty(fullAddress))
                     {
-                        volunteerToUpdate.FullAddress = fullAddress;
+                         throw new BO.BlWrongInputException("the addres not valid");
                     }
 
 
 
                     // Max Reading
-                    Console.WriteLine("Max Reading (leave empty to keep current):");
-                    string maxReadingup = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(maxReadingup))
-                    {
+                    Console.WriteLine("Max Reading:");
+                   
                         int maxReadingUP;
-                        if (int.TryParse(maxReadingup, out maxReadingUP))
-                        {
-                            volunteerToUpdate.MaxReading = maxReadingUP;
-                        }
-                        else
-                        {
+                        if (!int.TryParse(Console.ReadLine(), out maxReadingUP))
+                         { 
                             throw new BO.BlWrongInputException("Invalid input for Max Reading. Keeping current value.");
                         }
-                    }
+                    
+                    BO.Volunteer volunteerToUpdate = new BO.Volunteer
+                    {
+                        Id = idToUpdate,
+                        FullName = fullName,
+                        PhoneNumber = phoneNumber,
+                        Email = email,
+                        TypeDistance = distanceTypeUpdate,
+                        Job = roleUpdate,
+                        Active = activeUP,
+                        Password = passwordNew,
+                        FullAddress = fullAddress,
+                        Latitude = 0,
+                        Longitude = 0,
+                        MaxReading = maxReadingUP,
+                        SumCalls = 0,
+                        SumCanceled = 0,
+                        SumExpired = 0,
+                        CallIn = null,
+                    };
+
 
                     // Update the volunteer in the system
 

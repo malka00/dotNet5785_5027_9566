@@ -52,15 +52,17 @@ internal class VolunteerManager
         DO.Assignment? assignmentTreat = call.Find(ass => ass.TimeEnd == null || ass.TypeEndTreat==null);
         if (assignmentTreat == null) { return null; }
         DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
-        if (callTreat != null) return null;
+        if (callTreat != null) { throw new BO.BlWrongInputException ($"threr is no call with this DI {assignmentTreat.CallId}") };
         double[] cordinate = GetCoordinates(doVolunteer.FullAddress);
         double latitude = cordinate[0];
         double longitude = cordinate[1];
         AdminImplementation admin = new AdminImplementation();
         BO.StatusTreat status;
         if (callTreat.MaxTimeToClose - ClockManager.Now <= admin.GetMaxRange())
+        {
             status = BO.StatusTreat.RiskOpen;
-        else status = BO.StatusTreat.Treat;
+        }
+        else { status = BO.StatusTreat.Treat; }
         return new()
         {
             Id = assignmentTreat.Id,
