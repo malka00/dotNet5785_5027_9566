@@ -1,7 +1,5 @@
 ﻿namespace BlTest;
 using BlApi;
-using BO;
-using DO;
 using System;
 using System.Linq.Expressions;
 
