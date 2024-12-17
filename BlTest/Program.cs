@@ -602,7 +602,57 @@ Call Options:
                     s_bl.Calls.Delete(idd);
                     break;
                 case ICall.CREATE:
-                    s_bl.Calls.Create(getCall());
+                    {
+                        //s_bl.Calls.Create(getCall());
+                        Console.WriteLine("Enter call type (Puncture, Cables, LockedCar):");
+                        string callTypeInput = Console.ReadLine();
+                        if (!Enum.TryParse(callTypeInput, true, out BO.CallType callType) || !Enum.IsDefined(typeof(BO.CallType), callType))
+                        {
+                            throw new BO.BlWrongInputException("Invalid input. Please enter a valid call type (Puncture, Cables, LockedCar):");
+                        }
+
+                        Console.WriteLine("Enter description:");
+                        string description = Console.ReadLine();
+
+                        Console.WriteLine("Enter full address:");
+                        string fullAddress = Console.ReadLine();
+
+                        DateTime timeOpened;
+                        Console.WriteLine("Enter time opened (YYYY-MM-DD HH:mm:ss):");
+                        if (!DateTime.TryParse(Console.ReadLine(), out timeOpened))
+                        {
+                            throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time (YYYY-MM-DD HH:mm:ss):");
+                        }
+
+                        DateTime? maxTimeToClose = null;
+                        Console.WriteLine("Enter max time to close (or leave empty):");
+                        string maxTimeInput = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(maxTimeInput) && !DateTime.TryParse(maxTimeInput, out DateTime parsedMaxTime))
+                        {
+                            throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
+                        }
+
+                        BO.StatusTreat status;
+                        Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
+                        while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
+                        {
+                            Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
+                        }
+                        BO.Call callToCreate= new BO.Call
+                        {
+                            Id = 0,
+                            Type = callType,
+                            Description = description,
+                            FullAddress = fullAddress,
+                            Latitude = 0,
+                            Longitude = 0,
+                            TimeOpened = timeOpened,
+                            MaxTimeToClose = maxTimeToClose,
+                            Status = status
+                        };
+                        s_bl.Calls.Create(callToCreate);
+
+                    }
                     break;
                 case ICall.GET_CLOSED_CALL:
                     {

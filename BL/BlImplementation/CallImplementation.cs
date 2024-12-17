@@ -118,6 +118,9 @@ internal class CallImplementation : ICall
     /// </summary>
     public void Create(BO.Call boCall)
     {
+        double[] coordinate = VolunteerManager.GetCoordinates(boCall.FullAddress);
+        double latitude = coordinate[0];
+        double longitude = coordinate[1];
         try
         {
             CallManager.CheckLogic(boCall);
@@ -127,8 +130,8 @@ internal class CallImplementation : ICall
                 (DO.CallType)boCall.Type,
                 boCall.Description,
                 boCall.FullAddress,
-                boCall.Latitude,
-                boCall.Longitude,
+                latitude,
+                longitude,
                 boCall.TimeOpened,
                 boCall.MaxTimeToClose
                 );

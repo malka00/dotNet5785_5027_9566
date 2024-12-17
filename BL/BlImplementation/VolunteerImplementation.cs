@@ -15,8 +15,8 @@ internal class VolunteerImplementation : IVolunteer
         double[] cordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
         double latitude = cordinate[0];
         double longitude = cordinate[1];
-        boVolunteer.Latitude = latitude;
-        boVolunteer.Longitude = longitude;
+        //boVolunteer.Latitude = latitude;
+        //boVolunteer.Longitude = longitude;
         VolunteerManager.CheckLogic(boVolunteer);
         VolunteerManager.CheckFormat(boVolunteer);
         DO.Volunteer doVolunteer = new
@@ -30,8 +30,8 @@ internal class VolunteerImplementation : IVolunteer
             boVolunteer.Active,
             boVolunteer.Password,
             boVolunteer.FullAddress,
-            boVolunteer.Latitude,
-            boVolunteer.Longitude,
+            latitude,
+            longitude,
             boVolunteer.MaxReading
 
             );
