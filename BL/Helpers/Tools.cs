@@ -1,6 +1,8 @@
 ﻿
 
+using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 
 namespace Helpers;
 
@@ -18,10 +20,14 @@ internal static class Tools
         string str = "";
         foreach (PropertyInfo item in t.GetType().GetProperties())
         {
-            str += "\n" + item.Name + ": " + item.GetValue(t);
+
+            str += "\n" + item.Name + ": "+item.GetValue(t);
         }
+
+
         return str;
     }
+
 }
 
 

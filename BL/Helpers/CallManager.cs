@@ -47,6 +47,12 @@ internal class CallManager
                 return BO.StatusTreat.TreatInRisk;
             else return BO.StatusTreat.Treat;
         }
+        if (lastAssignment.TypeEndTreat.ToString() == "SelfCancel"|| lastAssignment.TypeEndTreat.ToString() == "ManagerCancel")
+        {
+         
+                return BO.StatusTreat.Open;
+           
+        }
         return BO.StatusTreat.Close;//default
     }
 

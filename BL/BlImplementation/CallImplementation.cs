@@ -49,8 +49,9 @@ internal class CallImplementation : ICall
     public void ChoseForTreat(int idVol, int idCall)
     {
         DO.Volunteer vol = _dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException($"there is no volunterr with this ID {idVol}");
-        BO.Call bocall = Read(idCall) ?? throw new BO.BlNullPropertyException($"there is no call with this ID {idCall}");
-        if (bocall.Status == BO.StatusTreat.Open || bocall.Status == BO.StatusTreat.Expired)
+         BO.Call bocall = Read(idCall) ?? throw new BO.BlNullPropertyException($"there is no call with this ID {idCall}");
+        if (bocall.Status != BO.StatusTreat.Open || bocall.Status == BO.StatusTreat.RiskOpen)
+        
             throw new BO.BlAlreadyExistsException($"the call is open or expired Idcall is={idCall}");
         
         
@@ -79,8 +80,9 @@ internal class CallImplementation : ICall
         {
            throw new BO.BlWrongInputException("the volunteer is not treat in this assignment");
         }
-        BO.Call bocall = Read(assigmnetToClose.CallId);
-        if (assigmnetToClose.TypeEndTreat != null || (bocall.Status!=BO.StatusTreat.Open&& bocall.Status != BO.StatusTreat.RiskOpen) ||assigmnetToClose.TimeEnd != null)
+      //  BO.Call bocall = Read(assigmnetToClose.CallId);
+        if (assigmnetToClose.TypeEndTreat != null || assigmnetToClose.TimeEnd != null)
+            //(bocall.Status!=BO.StatusTreat.Open&& bocall.Status != BO.StatusTreat.RiskOpen) ||assigmnetToClose.TimeEnd != null)
             throw new BO.BlDeleteNotPossibleException("The assigmnet not open");
 
         DO.Assignment assigmnetToUP = new DO.Assignment
@@ -431,6 +433,9 @@ internal class CallImplementation : ICall
 
 
         var doCall = _dal.Call.Read(id) ?? throw new BO.BlDoesNotExistException($"Call with ID={id} does Not exist");
+
+  
+
         return new()
         {
             Id = id,
@@ -442,17 +447,19 @@ internal class CallImplementation : ICall
             TimeOpened = doCall.TimeOpened,
             MaxTimeToClose = doCall.MaxTimeToClose,
             Status = CallManager.GetCallStatus(doCall),
-            AssignmentsToCalls = dataOfAssignments.Select(assign => new BO.CallAssignInList
-            {   
-                VolunteerId = assign.VolunteerId,
-                VolunteerName = _dal.Volunteer.Read(assign.VolunteerId)?.FullName,
-                StartTreat = assign.TimeStart,
-                TimeClose = assign.TimeEnd,
-                TypeEndTreat = assign.TypeEndTreat==null? null: (BO.TypeEnd)assign.TypeEndTreat,
-            }).ToList()
+            AssignmentsToCalls = dataOfAssignments.Any()
+    ? dataOfAssignments.Select(assign => new BO.CallAssignInList
+    {
+        VolunteerId = assign.VolunteerId,
+        VolunteerName = _dal.Volunteer.Read(assign.VolunteerId)?.FullName,
+        StartTreat = assign.TimeStart,
+        TimeClose = assign.TimeEnd,
+        TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
+    }).ToList()
+    : null,
+
         };
-        
-    }
+        }
 
     /// <summary>
     /// עדכון הקריאה ובדיקה האם היתה חריגה משכבת ה DO
