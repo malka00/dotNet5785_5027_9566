@@ -52,6 +52,8 @@ internal class CallImplementation : ICall
         BO.Call bocall = Read(idCall) ?? throw new BO.BlNullPropertyException($"there is no call with this ID {idCall}");
         if (bocall.Status == BO.StatusTreat.Open || bocall.Status == BO.StatusTreat.Expired)
             throw new BO.BlAlreadyExistsException($"the call is open or expired Idcall is={idCall}");
+        
+        
         DO.Assignment assigmnetToCreat = new DO.Assignment
         {
             Id = 0,
@@ -67,6 +69,7 @@ internal class CallImplementation : ICall
         }
         catch (DO.DalDeletImposible)
         { throw new BO.BlAlreadyExistsException("impossible to creat"); }
+       
     }
 
     public void CloseTreat(int idVol, int idAssig)
