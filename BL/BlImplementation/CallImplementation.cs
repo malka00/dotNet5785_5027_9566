@@ -313,11 +313,12 @@ internal class CallImplementation : ICall
         
         Calls.AddRange(from item in previousCalls
                        let DataCall = Read(item.Id)
-                       where DataCall.Status == BO.StatusTreat.Close && DataCall.AssignmentsToCalls?.Any() == true
+                       where (DataCall.Status == BO.StatusTreat.Close||DataCall.Status == BO.StatusTreat.Expired) && DataCall.AssignmentsToCalls?.Any() == true
                        let lastAssugnment = DataCall.AssignmentsToCalls.OrderBy(c => c.StartTreat).Last()
+                       where(lastAssugnment.VolunteerId == id)
                        select CallManager.ConvertDOCallToBOCloseCallInList(item, lastAssugnment));
-        IEnumerable<BO.ClosedCallInList>? closedCallInLists = Calls.Where(call=>call.Id == id);
-        if(type!=null)
+        IEnumerable<BO.ClosedCallInList>? closedCallInLists = Calls;
+        if (type!=null)
         {
             closedCallInLists.Where(c => c.Type == type).Select(c => c);
         }
@@ -439,12 +440,12 @@ internal class CallImplementation : ICall
             MaxTimeToClose = doCall.MaxTimeToClose,
             Status = CallManager.GetCallStatus(doCall),
             AssignmentsToCalls = dataOfAssignments.Select(assign => new BO.CallAssignInList
-            {
+            {   
                 VolunteerId = assign.VolunteerId,
-                VolunteerName = _dal.Volunteer.Read(id).FullName,
+                VolunteerName = _dal.Volunteer.Read(assign.VolunteerId)?.FullName,
                 StartTreat = assign.TimeStart,
                 TimeClose = assign.TimeEnd,
-                TypeEndTreat = (BO.TypeEnd)assign.TypeEndTreat,
+                TypeEndTreat = assign.TypeEndTreat==null? null: (BO.TypeEnd)assign.TypeEndTreat,
             }).ToList()
         };
         
