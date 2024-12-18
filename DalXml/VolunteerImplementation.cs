@@ -111,7 +111,7 @@ internal class VolunteerImplementation : IVolunteer
     public Volunteer? Read(int id)
     {
         XElement? volunteerElem =
-        XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().FirstOrDefault(st => (int?)st.Element("Id") == id);
+        XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().FirstOrDefault(st => (int?)st.Element("ID") == id);
         return volunteerElem is null ? null : getVolunteer(volunteerElem);
     }
 

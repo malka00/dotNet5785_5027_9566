@@ -103,7 +103,7 @@ OPTION Options:
         do
         {
             Console.WriteLine(@$"
-Config Options:
+Admin Options:
 0 - Exit
 1-  get clock
 2 - Forward Clock 
@@ -181,7 +181,7 @@ Config Options:
         do
         {
             Console.WriteLine(@"
-OPTION Options:
+Volunteer Options:
 0 - Exit
 1 - EnterSystem
 2 - Get volunteerInList
@@ -898,12 +898,12 @@ Call Options:
             throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
         }
 
-        BO.StatusTreat status;
-        //Console.WriteLine("Enter status (   Open,  Treat,  Close, Expired,   RiskOpen,  TreatInRisk):");
-        while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
-        {
-            Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
-        }
+        //BO.StatusTreat status;
+        ////Console.WriteLine("Enter status (   Open,  Treat,  Close, Expired,   RiskOpen,  TreatInRisk):");
+        //while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
+        //{
+        //    Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
+        //}
 
         return new BO.Call
         {
@@ -915,7 +915,7 @@ Call Options:
             Longitude = 0,
             TimeOpened = timeOpened,
             MaxTimeToClose = maxTimeToClose,
-            Status = status
+            Status = 0
         };
 
     }
