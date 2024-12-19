@@ -1,6 +1,8 @@
 ﻿namespace BlTest;
 using BlApi;
 using BO;
+using DalApi;
+using DO;
 using System;
 using System.Linq.Expressions;
 
@@ -86,12 +88,13 @@ internal class Program
         int choice;
         do
         {
-            Console.WriteLine(@"
-OPTION Options:
+            Console.WriteLine
+                (@"OPTION Options:
 0 - Exit
 1 - Admin
 2 - Volunteer
-3 - Call ");
+3 - Call");
+
 
         }
         while (!int.TryParse(Console.ReadLine(), out choice));
@@ -674,87 +677,256 @@ Call Options:
                         if (!int.TryParse(Console.ReadLine(), out int volunteerId))
                         {
                             throw new BO.BlWrongInputException("Invalid ID format.");
+                        }
+                        //פונקציה לקליטת סוג הסינון 
+                        static BO.CallType? filterClose()
+                        {
+                            BO.CallType? filter = null;
+                            Console.WriteLine("Do you want to filter the list? (1 for Yes, 0 for No): ");
+                            if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
+                            {
+                                // תפריט מיון לפי FieldsOpenCallInList
+                                Console.WriteLine("\nChoose a field to filter by:");
+                                Console.WriteLine("1. Cables");
+                                Console.WriteLine("2. Puncture");
+                                Console.WriteLine("3. LockedCar");
 
+                                // קליטת הבחירה של המשתמש
+                                switch (Console.ReadLine())
+                                {
+                                    case "1":
+                                        filter = BO.CallType.Cables;
+                                        break;
+                                    case "2":
+                                        filter = BO.CallType.Puncture;
+                                        break;
+                                    case "3":
+                                        filter = BO.CallType.LockedCar;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Invalid input. No filtering applied.");
+                                        break;
+                                }
+
+                                // החזרת הערך שנבחר או null
+                            }
+                            return filter;
                         }
 
-                        // Ask the user for the call type
-                        Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
-                        string callTypeInput = Console.ReadLine();
-                        BO.CallType? callType = null;
-                        if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
+
+                        //פונקציה לקליטת סוג המיון
+                        static BO.EClosedCallInList? SortClose()
                         {
-                            callType = null;
+                            BO.EClosedCallInList? sortField = null;
+                            Console.WriteLine("Do you want to sort the list? (1 for Yes, 0 for No): ");
+                            if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
+                            {
+                                // תפריט מיון לפי FieldsOpenCallInList
+                                Console.WriteLine("\nChoose a field to sort by:");
+                                Console.WriteLine("1. Id");
+                                Console.WriteLine("2. Type Of The Call");
+                                Console.WriteLine("3. Address");
+                                Console.WriteLine("4. Opening Time");
+                                Console.WriteLine("5. Start Treat");
+                                Console.WriteLine("6. Max Time To Close");
+                                Console.WriteLine("7. Type End Treat");
+
+                                // קליטת הבחירה של המשתמש
+                                switch (Console.ReadLine())
+                                {
+                                    case "1":
+                                        sortField = BO.EClosedCallInList.Id;
+                                        break;
+                                    case "2":
+                                        sortField = BO.EClosedCallInList.CType;
+                                        break;
+                                    case "3":
+                                        sortField = BO.EClosedCallInList.FullAddress;
+                                        break;
+                                    case "4":
+                                        sortField = BO.EClosedCallInList.TimeOpen;
+                                        break;
+                                    case "5":
+                                        sortField = BO.EClosedCallInList.StartTreat;
+                                        break;
+                                    case "6":
+                                        sortField = BO.EClosedCallInList.TimeClose;
+                                        break;
+                                    case "7":
+                                        sortField = BO.EClosedCallInList.TypeEndTreat;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Invalid input. No sorting applied.");
+                                        break;
+                                }
+
+                                // החזרת הערך שנבחר או null
+                            }
+                            return sortField;
                         }
-
-                        // Ask the user for the sorting field
-                        Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
-                        string sortByInput = Console.ReadLine();
-                        BO.EClosedCallInList? sortByClose = null;
-                        if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
-                        {
-                            sortBy = null;
-                        }
-
-                        // Call the method to get the filtered and sorted closed calls
-                        var closedCalls = s_bl.Calls.GetClosedCall(volunteerId, callType, sortByClose);
-
-                        // Display the result
-                        Console.WriteLine("Closed Calls:");
-                        foreach (var call in closedCalls)
-                        {
+                        BO.CallType? filterToClose = filterClose();
+                        BO.EClosedCallInList? sortToClose = SortClose();
+                        var openCallList = s_bl.Calls.GetClosedCall(volunteerId, filterToClose, sortToClose);
+                        Console.WriteLine("Closed Calls of the volunteer: ");
+                        foreach (var call in openCallList)
                             Console.WriteLine(call);
-                        }
                         break;
                     }
 
+                //    // Ask the user for the call type
+                //    Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
+                //    string callTypeInput = Console.ReadLine();
+                //    BO.CallType? callType = null;
+                //    if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
+                //    {
+                //        callType = null;
+                //    }
+
+                //    // Ask the user for the sorting field
+                //    Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
+                //    string sortByInput = Console.ReadLine();
+                //    BO.EClosedCallInList? sortByClose = null;
+                //    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+                //    {
+                //        sortBy = null;
+                //    }
+
+                //    // Call the method to get the filtered and sorted closed calls
+                //    var closedCalls = s_bl.Calls.GetClosedCall(volunteerId, callType, sortByClose);
+
+                //    // Display the result
+                //    Console.WriteLine("Closed Calls:");
+                //    foreach (var call in closedCalls)
+                //    {
+                //        Console.WriteLine(call);
+                //    }
+                //    break;
+                //}
+
                 case ICall.GET_OPEN_CALL:
                     {
-
-                        // Ask the user for the volunteer's ID
-                        Console.Write("Enter volunteer ID: ");
-                        if (!int.TryParse(Console.ReadLine(), out int volunteerId))
-                        {
-                            Console.WriteLine("Invalid ID format.");
-                            break;
-                        }
-
                         // Ask the user for the volunteer's ID
                         Console.Write("Enter volunteer ID: ");
                         if (!int.TryParse(Console.ReadLine(), out int volunteerID))
                         {
                             throw new BO.BlWrongInputException("Invalid ID format.");
-
                         }
 
-                        // Ask the user for the call type
-                        Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
-                        string callTypeInput = Console.ReadLine();
-                        BO.CallType? callType = null;
-                        if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
+                        //פונקציה לקליטת סוג הסינון 
+                        static BO.CallType? filterOpen()
                         {
-                            callType = null;
+                            BO.CallType? filter = null;
+                            Console.WriteLine("Do you want to filter the list? (1 for Yes, 0 for No): ");
+                            if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
+                            {
+                                // תפריט מיון לפי FieldsOpenCallInList
+                                Console.WriteLine("\nChoose a field to filter by:");
+                                Console.WriteLine("1. Cables");
+                                Console.WriteLine("2. Puncture");
+                                Console.WriteLine("3. LockedCar");
+
+                                // קליטת הבחירה של המשתמש
+                                switch (Console.ReadLine())
+                                {
+                                    case "1":
+                                        filter = BO.CallType.Cables;
+                                        break;
+                                    case "2":
+                                        filter = BO.CallType.Puncture;
+                                        break;
+                                    case "3":
+                                        filter = BO.CallType.LockedCar;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Invalid input. No filtering applied.");
+                                        break;
+                                }
+
+                                // החזרת הערך שנבחר או null
+                            }
+                            return filter;
                         }
 
-                        // Ask the user for the sorting field
-                        Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
-                        string sortByInput = Console.ReadLine();
-                        BO.EClosedCallInList? sortByClose = null;
-                        if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+
+                        //פונקציה לקליטת סוג המיון
+                        static BO.EOpenCallInList? SortOpen()
                         {
-                            sortBy = null;
+                            BO.EOpenCallInList? sortField = null;
+                            Console.WriteLine("Do you want to sort the list? (1 for Yes, 0 for No): ");
+                            if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
+                            {
+                                // תפריט מיון לפי FieldsOpenCallInList
+                                Console.WriteLine("\nChoose a field to sort by:");
+                                Console.WriteLine("1. Id");
+                                Console.WriteLine("2. Call Type");
+                                Console.WriteLine("3. Verbal Description");
+                                Console.WriteLine("4. Address");
+                                Console.WriteLine("5. Opening Time");
+                                Console.WriteLine("6. Max Time To End");
+                                Console.WriteLine("7. Distance");
+
+                                // קליטת הבחירה של המשתמש
+                                switch (Console.ReadLine())
+                                {
+                                    case "1":
+                                        sortField = BO.EOpenCallInList.Id;
+                                        break;
+                                    case "2":
+                                        sortField = BO.EOpenCallInList.CType;
+                                        break;
+                                    case "3":
+                                        sortField = BO.EOpenCallInList.Description;
+                                        break;
+                                    case "4":
+                                        sortField = BO.EOpenCallInList.FullAddress;
+                                        break;
+                                    case "5":
+                                        sortField = BO.EOpenCallInList.TimeOpen;
+                                        break;
+                                    case "6":
+                                        sortField = BO.EOpenCallInList.MaxTimeToClose;
+                                        break;
+                                    case "7":
+                                        sortField = BO.EOpenCallInList.distanceCallVolunteer;
+                                        break;
+                                    default:
+                                        Console.WriteLine("Invalid input. No sorting applied.");
+                                        break;
+                                }
+
+                                // החזרת הערך שנבחר או null
+                            }
+                            return sortField;
                         }
-
-                        // Call the method to get the filtered and sorted closed calls
-                        var closedCalls = s_bl.Calls.GetOpenCall(volunteerId, callType, sortByClose);
-
-                        // Display the result
-                        Console.WriteLine("Open Calls:");
-                        foreach (var call in closedCalls)
-                        {
+                        BO.CallType? filterToOpen = filterOpen();
+                        BO.EOpenCallInList? sortToOpen = SortOpen();
+                        var openCallList = s_bl.Calls.GetOpenCall(volunteerID, filterToOpen, sortToOpen);
+                        Console.WriteLine("Call Open list for volunteer: ");
+                        foreach (var call in openCallList)
                             Console.WriteLine(call);
-                        }
                         break;
                     }
+
+                        //    // Ask the user for the sorting field
+                        //    Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
+                        //    string sortByInput = Console.ReadLine();
+                        //    BO.EOpenCallInList? sortByOpen = null;
+                        //    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
+                        //    {
+                        //        sortBy = null;
+                        //    }
+
+                        //    // Call the method to get the filtered and sorted closed calls
+                        //    var openCalls = s_bl.Calls.GetOpenCall(volunteerID, callType, sortByOpen);
+
+                        //    // Display the result
+                        //    Console.WriteLine("Open Calls:");
+                        //    foreach (var call in openCalls)
+                        //    {
+                        //        Console.WriteLine(call);
+                        //    }
+                        //    break;
+                        //}
                 case ICall.CLOSE_TREAT:
                     {
                         // Requesting the user to enter the values

@@ -1,5 +1,6 @@
 ﻿
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
@@ -9,25 +10,32 @@ namespace Helpers;
 internal static class Tools
 {
     /// <summary>
-    /// Converts all the properties of an object into a formatted string 
-    /// that displays each property's name and its value.
+    /// 
     /// </summary>
-    /// <typeparam name="T">The type of the object whose properties are being processed.</typeparam>
-    /// <param name="t">The object whose properties will be converted to a string.</param>
-    /// <returns>A string representation of the object's properties and their values.</returns>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="t"></param>
+    /// <returns></returns>
     public static string ToStringProperty<T>(this T t)
     {
         string str = "";
-        foreach (PropertyInfo item in t.GetType().GetProperties())
+        foreach (PropertyInfo item in typeof(T).GetProperties())
         {
-
-            str += "\n" + item.Name + ": "+item.GetValue(t);
+            var value = item.GetValue(t, null);
+            str += item.Name + ": ";
+            if (value is not string && value is IEnumerable)
+            {
+                str += "\n";
+                foreach (var it in (IEnumerable<object>)value)
+                {
+                    str += it.ToString() + '\n';
+                }
+            }
+            else
+                str += value?.ToString() + '\n';
+            //str += "\n" + item.CourseName + ": " + item.GetValue(t, null);
         }
-
-
         return str;
     }
-
 }
 
 

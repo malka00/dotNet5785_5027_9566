@@ -1,8 +1,4 @@
-﻿
-
-
-// Module Call.cs
-namespace DO;
+﻿namespace DO;
 
 /// <summary>
 /// Course Entity
