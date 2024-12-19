@@ -1,7 +1,10 @@
 ﻿using Helpers;
-
 namespace BO;
 
+
+/// <summary>
+/// The entity definition of call in list
+/// </summary>
 public class CallInList : IComparable<CallInList>
 {
     public int? Id {  get; init; }

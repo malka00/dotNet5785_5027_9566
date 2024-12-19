@@ -1,22 +1,21 @@
-﻿
-
-using BlApi;
+﻿using BlApi;
 using DalTest;
 using Helpers;
-
-
 namespace BlImplementation;
 
+
+/// <summary>
+/// Implementation of the methods of admin
+/// </summary>
 internal class AdminImplementation : IAdmin
 {
-    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;  //stage 4
     public void Definition(TimeSpan time)
     {
         //_dal.ResetDB();
         //Initialization.Do();
         //ClockManager.UpdateClock(ClockManager.Now);
         _dal.Config.RiskRange = time;
-
     }
 
     public void ForwardClock(BO.TimeUnit unit) => ClockManager.UpdateClock(unit switch
@@ -29,10 +28,8 @@ internal class AdminImplementation : IAdmin
         _ => DateTime.MinValue
     });
   
-   
     public DateTime GetClock() => _dal.Config.Clock; 
    
-
     public TimeSpan GetMaxRange()
     {
        return _dal.Config.RiskRange;

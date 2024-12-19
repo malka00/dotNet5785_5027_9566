@@ -1,5 +1,4 @@
-﻿
-namespace BlImplementation;
+﻿namespace BlImplementation;
 using Helpers;
 using BlApi;
 using System;
@@ -12,9 +11,9 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Create(BO.Volunteer boVolunteer)
     {
-        double[] cordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
-        double latitude = cordinate[0];
-        double longitude = cordinate[1];
+        double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
+        double latitude = coordinate[0];
+        double longitude = coordinate[1];
         boVolunteer.Latitude = latitude;
         boVolunteer.Longitude = longitude;
         VolunteerManager.CheckLogic(boVolunteer);
@@ -33,7 +32,6 @@ internal class VolunteerImplementation : IVolunteer
              boVolunteer.Latitude,
             boVolunteer.Longitude,
             boVolunteer.MaxReading
-
             );
 
         try
@@ -53,7 +51,7 @@ internal class VolunteerImplementation : IVolunteer
         
         if (assignments != null&& assignments.Count(ass => ass.TimeEnd == null) > 0)
        
-            throw new BO.BlWrongInputException("canot delete have assignemnt in treat");
+            throw new BO.BlWrongInputException("can not delete have assignment in treat");
         try
         {
             _dal.Volunteer.Delete(id);
@@ -68,7 +66,7 @@ internal class VolunteerImplementation : IVolunteer
     public BO.Role EnterSystem(int usingName, string password)
     {
         DO.Volunteer volunteer = _dal.Volunteer.Read(usingName) ?? throw new BO.BlNullPropertyException("the volunteer is null");
-       if (volunteer.Password != password) throw new BO.BlWrongInputException("The password dont match");
+       if (volunteer.Password != password) throw new BO.BlWrongInputException("The password do not match");
         return (BO.Role)volunteer.Job;
     }
 
@@ -98,17 +96,16 @@ internal class VolunteerImplementation : IVolunteer
                     BO.EVolunteerInList.FullName => v.FullName, // Sorting by full name
                     BO.EVolunteerInList.Active => v.Active, // Sorting by active status
                     BO.EVolunteerInList.SumCalls => v.SumCalls, // Sorting by total number of calls
-                    BO.EVolunteerInList.SumCanceled => v.Sumcanceled, // Sorting by total number of cancellations
+                    BO.EVolunteerInList.SumCanceled => v.SumCanceled, // Sorting by total number of cancellations
                     BO.EVolunteerInList.SumExpired => v.SumExpired, // Sorting by total number of expired calls
                     BO.EVolunteerInList.IdCall => v.IdCall ?? null, // Sorting by call ID (nullable)
-                    BO.EVolunteerInList.CType => v.Ctype.ToString(), // Sorting by call type (converted to string)
+                    BO.EVolunteerInList.CType => v.CType.ToString(), // Sorting by call type (converted to string)
                 })
             : filteredVolunteers.OrderBy(v => v.Id); // Default sorting by ID (T.Z) if no 'sortBy' is provided
 
         // Return the sorted and filtered list of volunteers
         return sortedVolunteers;
     }
-
 
     public BO.Volunteer Read(int id)
     {
@@ -139,9 +136,10 @@ internal class VolunteerImplementation : IVolunteer
         if (ismanager.Job != DO.Role.Boss || boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and  does not correct or not manager");
         
-            double[] cordinat = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
-            boVolunteer.Latitude = cordinat[0];
-            boVolunteer.Longitude = cordinat[1];
+            double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
+            boVolunteer.Latitude = coordinate[0];
+            boVolunteer.Longitude = coordinate[1];
+        
         if (boVolunteer.Id != doVolunteer.Id)
         {
             
@@ -156,7 +154,6 @@ internal class VolunteerImplementation : IVolunteer
         }
       
 
-        ///לבדוק על פעיחל אם מותר לשנות...
         DO.Volunteer volunteerUpdate = new(
 
       boVolunteer.Id,

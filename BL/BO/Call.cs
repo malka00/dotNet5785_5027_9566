@@ -3,6 +3,10 @@
 
 namespace BO;
 
+
+/// <summary>
+/// The entity definition of call 
+/// </summary>
 public class Call
 {
     public  int Id { get; init; }

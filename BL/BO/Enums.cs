@@ -1,18 +1,28 @@
 ﻿
 namespace BO;
+
+/// <summary>
+/// Enum definition for the role of the user
+/// </summary>
 public enum Role
 {
     Volunteer,
     Boss
 }
 
-// Enum definition for the distance type
+/// <summary>
+/// Enum definition for the distance type
+/// </summary>
 public enum Distance
 {
     Aerial,      // aerial distance
-    Walking,    // Walking distance
+    Walking,     // Walking distance
     Driving      // Travel distance
 }
+
+/// <summary>
+/// Enum definition for the type of the call
+/// </summary>
 public enum CallType
 {
     Puncture,
@@ -20,6 +30,10 @@ public enum CallType
     LockedCar,
     None
 }
+
+/// <summary>
+/// Enum definition for the status of the call
+/// </summary>
 public enum StatusTreat
 {
     Open,
@@ -29,14 +43,21 @@ public enum StatusTreat
     RiskOpen,
     TreatInRisk
 }
+
+/// <summary>
+/// Enum definition for the type of the end of the call
+/// </summary>
 public enum TypeEnd
 {
-
     Treated,
     SelfCancel,
     ManagerCancel,
     ExpiredCancel
 }
+
+/// <summary>
+/// Enum definition for the property of volunteer in list
+/// </summary>
 public enum EVolunteerInList
 {
     Id,
@@ -48,6 +69,10 @@ public enum EVolunteerInList
     IdCall,
     CType,
 }
+
+/// <summary>
+/// Enum definition for the property of call in list
+/// </summary>
 public enum ECallInList
 {
     Id ,
@@ -60,6 +85,10 @@ public enum ECallInList
     Status,
     SumAssignment,
 }
+
+/// <summary>
+/// Enum definition for the property of closed call in list
+/// </summary>
 public enum EClosedCallInList
 {
     Id,
@@ -70,6 +99,10 @@ public enum EClosedCallInList
     TimeClose,
     TypeEndTreat,
 }
+
+/// <summary>
+/// Enum definition for the property of open call in list
+/// </summary>
 public enum EOpenCallInList
 {
     Id,
@@ -81,6 +114,10 @@ public enum EOpenCallInList
     distanceCallVolunteer,
     
 }
+
+/// <summary>
+/// Enum definition for the unit of time
+/// </summary>
 public enum TimeUnit
 {
     MINUTE,

@@ -1,8 +1,10 @@
-﻿
-
-using Helpers;
-
+﻿using Helpers;
 namespace BO;
+
+
+/// <summary>
+///  The entity definition of open call in  list
+/// </summary>
 public class OpenCallInList
 {
     public  int Id { get; init; }

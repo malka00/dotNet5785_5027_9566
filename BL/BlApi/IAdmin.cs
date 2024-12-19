@@ -1,6 +1,8 @@
-﻿
+﻿namespace BlApi;
 
-namespace BlApi;
+/// <summary>
+/// Definition of the admin methods
+/// </summary>
 public interface IAdmin
 {
     DateTime GetClock();
@@ -9,5 +11,4 @@ public interface IAdmin
     void Definition(TimeSpan time);
     void Reset();
     void initialization();
-
 }

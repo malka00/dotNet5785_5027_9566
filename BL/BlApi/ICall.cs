@@ -1,9 +1,9 @@
-﻿
+﻿namespace BlApi;
 
 
-
-namespace BlApi;
-
+/// <summary>
+/// Definition of the call methods
+/// </summary>
 public interface ICall
 {
     int[] CountCall();

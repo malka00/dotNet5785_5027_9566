@@ -26,6 +26,10 @@ internal static class ClockManager //stage 4
         // }).Start(); // stage 7 as above
     }
 
+    /// <summary>
+    /// The updateClock function updates the clock in the system (referred to as "Clock").
+    /// </summary>
+    /// <param name="newClock"></param>
     private static void updateClock(DateTime newClock) // prepared for stage 7 as DRY to eliminate needless repetition
     {
         var oldClock = _dal.Config.Clock; //stage 4
@@ -46,13 +50,11 @@ internal static class ClockManager //stage 4
     }
     #endregion Stage 4
 
-
     #region Stage 5
 
     internal static event Action? ClockUpdatedObservers; //prepared for stage 5 - for clock update observers
 
     #endregion Stage 5
-
 
     #region Stage 7 base
     internal static readonly object blMutex = new();

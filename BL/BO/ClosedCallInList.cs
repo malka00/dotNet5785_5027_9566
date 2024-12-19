@@ -1,8 +1,11 @@
-﻿
-using Helpers;
-
+﻿using Helpers;
 namespace BO;
 
+
+
+/// <summary>
+/// The entity definition of closed call in  list
+/// </summary>
 public class ClosedCallInList
 {
     public int Id { get; init; }

@@ -1,16 +1,15 @@
-﻿
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-
 namespace Helpers;
 
 internal static class Tools
 {
     /// <summary>
-    /// 
+    /// The ToStringProperty function is an extension method extended on any object (T),
+    /// which converts the object to a string. Its purpose is to convert the values of all the properties of the 
+    /// object into a string, so that each property and its corresponding value are included in the final string.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="t"></param>

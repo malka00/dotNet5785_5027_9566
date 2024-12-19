@@ -1,9 +1,10 @@
-﻿
-
-using Helpers;
-
+﻿using Helpers;
 namespace BO;
 
+
+/// <summary>
+/// The entity definition of call in progress
+/// </summary>
 public class CallInProgress
 {
     public int Id { get; init; }

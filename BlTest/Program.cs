@@ -52,9 +52,12 @@ public enum ICall
 
 internal class Program
 {
-
-
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();    //stage 4
+    /// <summary>
+    /// The function is responsible for displaying the main menu to the user, performing the appropriate actions based on their selection, 
+    /// and handling any exceptions that may occur during execution.
+    /// </summary>
+    /// <param name="args"></param>
     static void Main(string[] args)
     {
         try //If there are any exceptions
@@ -83,6 +86,11 @@ internal class Program
         }
     }
 
+    /// <summary>
+    /// In summary, the function displays a menu to the user, receives input from the user,
+    /// and returns the selection as a value from the `OPTION` enum.
+    /// </summary>
+    /// <returns></returns>
     private static OPTION showMainMenu()
     {
         int choice;
@@ -100,6 +108,11 @@ internal class Program
         while (!int.TryParse(Console.ReadLine(), out choice));
         return (OPTION)choice;
     }
+
+    /// <summary>
+    /// the function displays a menu for the admin, receives input from the user, and returns the selection as a value from the `IAdmin` interface.
+    /// </summary>
+    /// <returns> IAdmin </returns>
     private static IAdmin showAdminMenu()
     {
         int choice;
@@ -120,6 +133,10 @@ Admin Options:
         return (IAdmin)choice;
     }
 
+    /// <summary>
+    /// The function manages admin tasks based on the user's selection from a menu, handling various admin operations like getting the clock, 
+    /// advancing the clock, resetting, and initialization. It also includes error handling for invalid user inputs.
+    /// </summary>
     private static void handleAdminOptions()
     {
         try
@@ -178,6 +195,12 @@ Admin Options:
         }
 
     }
+
+    /// <summary>
+    /// The `showVolunteerMenu` function displays a menu with volunteer options and receives the user's selection. 
+    /// It returns the chosen option as a value from the `IVolunteer` interface.
+    /// </summary>
+    /// <returns> IVolunteer </returns>
     private static IVolunteer showVolunteerMenu()
     {
         int choice;
@@ -197,13 +220,17 @@ Volunteer Options:
         while (!int.TryParse(Console.ReadLine(), out choice));
         return (IVolunteer)choice;
     }
+
+    /// <summary>
+    /// The function manages volunteer-related tasks based on the user's menu selection, including actions like logging in, viewing, updating, deleting, 
+    /// or creating volunteer records. It also handles errors from invalid inputs or system issues.
+    /// </summary>
     private static void handleVolunteerOptions()
     {
         try
         {
             switch (showVolunteerMenu())
             {
-
                 case IVolunteer.ENTER_SYSTEM:
 
                     Console.WriteLine("Please enter your username:");
@@ -383,7 +410,6 @@ Volunteer Options:
 
                     s_bl.Volunteers.Update(idPersson, volunteerToUpdate);
                     break;
-
                 case IVolunteer.DELETE:
                     Console.WriteLine("Volunteer id:");
                     string idInputDelete = Console.ReadLine();
@@ -511,6 +537,12 @@ Volunteer Options:
         }
 
     }
+
+    /// <summary>
+    /// The `showCallMenu` function displays a menu with call-related options and receives the user's selection.
+    /// It returns the chosen option as a value from the `ICall` interface.
+    /// </summary>
+    /// <returns> ICall </returns>
     private static ICall showCallMenu()
     {
         int choice;
@@ -535,6 +567,11 @@ Call Options:
         while (!int.TryParse(Console.ReadLine(), out choice));
         return (ICall)choice;
     }
+
+    /// <summary>
+    /// The `handleCallOptions` method handles different call-related actions based on user input, such as reading, updating, creating, and deleting calls. 
+    /// It includes error handling for invalid inputs and exceptions during the process.
+    /// </summary>
     private static void handleCallOptions()
     {
         try
@@ -542,18 +579,18 @@ Call Options:
             switch (showCallMenu())
             {
                 case ICall.COUNT_CALL:
-                    //Console.WriteLine(s_bl.Calls.CountCall());
-                    //   Console.WriteLine(string.Join(", ", s_bl.Calls.CountCall()));
+
                     int[] counts = s_bl.Calls.CountCall();
 
-                    // מקבל את כל שמות הסטטוסים מה-Enum
+                    // Gets all the status names from the Enum
                     string[] statusNames = Enum.GetNames(typeof(StatusTreat));
 
-                    // לולאה להדפסת שמות הסטטוסים עם הכמויות
+                    // Loop to print status names with their counts
                     for (int i = 0; i < statusNames.Length; i++)
                     {
                         Console.WriteLine($"{statusNames[i]}: {counts[i]}");
                     }
+
 
                     break;
                 case ICall.GET_CALLINLIST:
@@ -596,11 +633,11 @@ Call Options:
                     break;
                 case ICall.READ:
                     Console.WriteLine("Please enter the ID of the call:");
-                    string idInput = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+                    string idInput = Console.ReadLine();  // Taking the input from the user
 
-                    if (!int.TryParse(idInput, out int id))  // מנסים להמיר את הקלט למספר
+                    if (!int.TryParse(idInput, out int id))  // Trying to convert the input to a number
                     {
-                        throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // זורקים חריגה אם המזהה לא תקני
+                        throw new BO.BlWrongInputException($"Invalid ID{idInput} format");  // Throwing an exception if the ID format is invalid
                     }
                     Console.WriteLine(s_bl.Calls.Read(id));
                     break;
@@ -609,11 +646,11 @@ Call Options:
                     break;
                 case ICall.DELETE:
                     Console.WriteLine("Please enter the ID of the call:");
-                    string idDel = Console.ReadLine();  // לוקחים את הקלט מהמשתמש
+                    string idDel = Console.ReadLine();  // Taking the input from the user
 
-                    if (!int.TryParse(idDel, out int idd))  // מנסים להמיר את הקלט למספר
+                    if (!int.TryParse(idDel, out int idd))  // Trying to convert the input to a number
                     {
-                        throw new BO.BlWrongInputException($"Invalid ID{idDel} format");  // זורקים חריגה אם המזהה לא תקני
+                        throw new BO.BlWrongInputException($"Invalid ID{idDel} format");  // Throwing an exception if the ID format is invalid
                     }
                     s_bl.Calls.Delete(idd);
                     break;
@@ -648,12 +685,6 @@ Call Options:
                             throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
                         }
 
-                        //BO.StatusTreat status;
-                        //Console.WriteLine("Enter status (e.g., 0 for Pending, 1 for InProgress, 2 for Completed):");
-                        //while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
-                        //{
-                        //    Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
-                        //}
                         BO.Call callToCreate= new BO.Call
                         {
                             Id = 0,
@@ -678,20 +709,21 @@ Call Options:
                         {
                             throw new BO.BlWrongInputException("Invalid ID format.");
                         }
-                        //פונקציה לקליטת סוג הסינון 
+
+                        // Function for receiving filter type
                         static BO.CallType? filterClose()
                         {
                             BO.CallType? filter = null;
                             Console.WriteLine("Do you want to filter the list? (1 for Yes, 0 for No): ");
                             if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
                             {
-                                // תפריט מיון לפי FieldsOpenCallInList
+                                // Sorting menu by FieldsOpenCallInList
                                 Console.WriteLine("\nChoose a field to filter by:");
                                 Console.WriteLine("1. Cables");
                                 Console.WriteLine("2. Puncture");
                                 Console.WriteLine("3. LockedCar");
 
-                                // קליטת הבחירה של המשתמש
+                                // Receiving the user's choice
                                 switch (Console.ReadLine())
                                 {
                                     case "1":
@@ -708,20 +740,20 @@ Call Options:
                                         break;
                                 }
 
-                                // החזרת הערך שנבחר או null
+                                // Return the selected value or null
                             }
                             return filter;
                         }
 
 
-                        //פונקציה לקליטת סוג המיון
+                        // Function for receiving sort type
                         static BO.EClosedCallInList? SortClose()
                         {
                             BO.EClosedCallInList? sortField = null;
                             Console.WriteLine("Do you want to sort the list? (1 for Yes, 0 for No): ");
                             if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
                             {
-                                // תפריט מיון לפי FieldsOpenCallInList
+                                // Sorting menu by FieldsOpenCallInList
                                 Console.WriteLine("\nChoose a field to sort by:");
                                 Console.WriteLine("1. Id");
                                 Console.WriteLine("2. Type Of The Call");
@@ -731,7 +763,7 @@ Call Options:
                                 Console.WriteLine("6. Max Time To Close");
                                 Console.WriteLine("7. Type End Treat");
 
-                                // קליטת הבחירה של המשתמש
+                                // Receiving the user's choice
                                 switch (Console.ReadLine())
                                 {
                                     case "1":
@@ -760,10 +792,11 @@ Call Options:
                                         break;
                                 }
 
-                                // החזרת הערך שנבחר או null
+                                // Return the selected value or null
                             }
                             return sortField;
                         }
+
                         BO.CallType? filterToClose = filterClose();
                         BO.EClosedCallInList? sortToClose = SortClose();
                         var openCallList = s_bl.Calls.GetClosedCall(volunteerId, filterToClose, sortToClose);
@@ -772,37 +805,6 @@ Call Options:
                             Console.WriteLine(call);
                         break;
                     }
-
-                //    // Ask the user for the call type
-                //    Console.Write("Enter call type or null (Puncture, Cables, LockedCar or leave blank): ");
-                //    string callTypeInput = Console.ReadLine();
-                //    BO.CallType? callType = null;
-                //    if (!string.IsNullOrEmpty(callTypeInput) && Enum.TryParse(callTypeInput, out BO.CallType parsedCallType))
-                //    {
-                //        callType = null;
-                //    }
-
-                //    // Ask the user for the sorting field
-                //    Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
-                //    string sortByInput = Console.ReadLine();
-                //    BO.EClosedCallInList? sortByClose = null;
-                //    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
-                //    {
-                //        sortBy = null;
-                //    }
-
-                //    // Call the method to get the filtered and sorted closed calls
-                //    var closedCalls = s_bl.Calls.GetClosedCall(volunteerId, callType, sortByClose);
-
-                //    // Display the result
-                //    Console.WriteLine("Closed Calls:");
-                //    foreach (var call in closedCalls)
-                //    {
-                //        Console.WriteLine(call);
-                //    }
-                //    break;
-                //}
-
                 case ICall.GET_OPEN_CALL:
                     {
                         // Ask the user for the volunteer's ID
@@ -812,20 +814,20 @@ Call Options:
                             throw new BO.BlWrongInputException("Invalid ID format.");
                         }
 
-                        //פונקציה לקליטת סוג הסינון 
+                        // Function for receiving filter type
                         static BO.CallType? filterOpen()
                         {
                             BO.CallType? filter = null;
                             Console.WriteLine("Do you want to filter the list? (1 for Yes, 0 for No): ");
                             if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
                             {
-                                // תפריט מיון לפי FieldsOpenCallInList
+                                // Sorting menu by FieldsOpenCallInList
                                 Console.WriteLine("\nChoose a field to filter by:");
                                 Console.WriteLine("1. Cables");
                                 Console.WriteLine("2. Puncture");
                                 Console.WriteLine("3. LockedCar");
 
-                                // קליטת הבחירה של המשתמש
+                                // Receiving the user's choice
                                 switch (Console.ReadLine())
                                 {
                                     case "1":
@@ -842,20 +844,19 @@ Call Options:
                                         break;
                                 }
 
-                                // החזרת הערך שנבחר או null
+                                // Return the selected value or null
                             }
                             return filter;
                         }
 
-
-                        //פונקציה לקליטת סוג המיון
+                        // Function for receiving sort type
                         static BO.EOpenCallInList? SortOpen()
                         {
                             BO.EOpenCallInList? sortField = null;
                             Console.WriteLine("Do you want to sort the list? (1 for Yes, 0 for No): ");
                             if (int.TryParse(Console.ReadLine(), out int sortInput) && sortInput == 1)
                             {
-                                // תפריט מיון לפי FieldsOpenCallInList
+                                // Sorting menu by FieldsOpenCallInList
                                 Console.WriteLine("\nChoose a field to sort by:");
                                 Console.WriteLine("1. Id");
                                 Console.WriteLine("2. Call Type");
@@ -865,7 +866,7 @@ Call Options:
                                 Console.WriteLine("6. Max Time To End");
                                 Console.WriteLine("7. Distance");
 
-                                // קליטת הבחירה של המשתמש
+                                // Receiving the user's choice
                                 switch (Console.ReadLine())
                                 {
                                     case "1":
@@ -894,10 +895,11 @@ Call Options:
                                         break;
                                 }
 
-                                // החזרת הערך שנבחר או null
+                                // Return the selected value or null
                             }
                             return sortField;
                         }
+
                         BO.CallType? filterToOpen = filterOpen();
                         BO.EOpenCallInList? sortToOpen = SortOpen();
                         var openCallList = s_bl.Calls.GetOpenCall(volunteerID, filterToOpen, sortToOpen);
@@ -906,27 +908,6 @@ Call Options:
                             Console.WriteLine(call);
                         break;
                     }
-
-                        //    // Ask the user for the sorting field
-                        //    Console.Write("Enter sorting field  or null(Id, CType, FullAddress, TimeOpen, StartTreat, TimeClose, TypeEndTreat or leave blank): ");
-                        //    string sortByInput = Console.ReadLine();
-                        //    BO.EOpenCallInList? sortByOpen = null;
-                        //    if (!string.IsNullOrEmpty(sortByInput) && Enum.TryParse(sortByInput, out BO.EClosedCallInList parsedSortBy))
-                        //    {
-                        //        sortBy = null;
-                        //    }
-
-                        //    // Call the method to get the filtered and sorted closed calls
-                        //    var openCalls = s_bl.Calls.GetOpenCall(volunteerID, callType, sortByOpen);
-
-                        //    // Display the result
-                        //    Console.WriteLine("Open Calls:");
-                        //    foreach (var call in openCalls)
-                        //    {
-                        //        Console.WriteLine(call);
-                        //    }
-                        //    break;
-                        //}
                 case ICall.CLOSE_TREAT:
                     {
                         // Requesting the user to enter the values
@@ -1001,7 +982,6 @@ Call Options:
                     }
                 default: break;
             }
-
         }
         catch (BO.BlWrongInputException ex)
         {
@@ -1020,6 +1000,12 @@ Call Options:
         }
 
     }
+
+    /// <summary>
+    /// The function prompts the user for input in the console and creates a BO.Call object based on the provided details.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="BO.BlWrongInputException"></exception>
     private static BO.Call getCall()
     {
         int id;
@@ -1041,20 +1027,6 @@ Call Options:
         Console.WriteLine("Enter full address:");
         string fullAddress = Console.ReadLine();
 
-        //double latitude;
-        //Console.WriteLine("Enter latitude:");
-        //while (!double.TryParse(Console.ReadLine(), out latitude))
-        //{
-        //    Console.WriteLine("Invalid input. Please enter a valid latitude:");
-        //}
-
-        //double longitude;
-        //Console.WriteLine("Enter longitude:");
-        //while (!double.TryParse(Console.ReadLine(), out longitude))
-        //{
-        //    Console.WriteLine("Invalid input. Please enter a valid longitude:");
-        //}
-
         DateTime timeOpened;
         Console.WriteLine("Enter time opened (YYYY-MM-DD HH:mm:ss):");
         if (!DateTime.TryParse(Console.ReadLine(), out timeOpened))
@@ -1070,13 +1042,6 @@ Call Options:
             throw new BO.BlWrongInputException("Invalid input. Please enter a valid date and time for max time to close.");
         }
 
-        //BO.StatusTreat status;
-        ////Console.WriteLine("Enter status (   Open,  Treat,  Close, Expired,   RiskOpen,  TreatInRisk):");
-        //while (!Enum.TryParse(Console.ReadLine(), out status) || !Enum.IsDefined(typeof(BO.StatusTreat), status))
-        //{
-        //    Console.WriteLine("Invalid input. Please enter a valid status (0 for Pending, 1 for InProgress, 2 for Completed):");
-        //}
-
         return new BO.Call
         {
             Id = id,
@@ -1089,7 +1054,6 @@ Call Options:
             MaxTimeToClose = maxTimeToClose,
             Status = 0
         };
-
     }
 }
 

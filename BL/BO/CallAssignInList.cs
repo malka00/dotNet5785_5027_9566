@@ -1,9 +1,10 @@
-﻿
-
-using Helpers;
-
+﻿using Helpers;
 namespace BO;
 
+
+/// <summary>
+/// The entity definition of call assignment in list
+/// </summary>
 public class CallAssignInList
 {
     public int? VolunteerId { get; set; }

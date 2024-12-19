@@ -1,8 +1,9 @@
-﻿
-
-namespace BO;
-
+﻿namespace BO;
 using Helpers;
+
+/// <summary>
+///  The entity definition of volunteer
+/// </summary>
 public class Volunteer
 {
     public int Id { get; init; }
@@ -20,7 +21,7 @@ public class Volunteer
     public int SumCalls { get; set; }
     public int SumCanceled { get; set; }
     public int SumExpired { get; set; }
-    public BO.CallInProgress CallIn { get; set; }
+    public BO.CallInProgress? CallIn { get; set; }
     public override string ToString() => this.ToStringProperty();
 
 }

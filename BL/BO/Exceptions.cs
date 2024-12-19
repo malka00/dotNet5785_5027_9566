@@ -21,7 +21,7 @@ namespace BO
 
 
     /// <summary>
-    /// exception foritem  Does Not Exist
+    /// exception for item that does Not Exist
     /// </summary>    
     [Serializable]
     public class BlDoesNotExistException : Exception
@@ -30,6 +30,8 @@ namespace BO
         public BlDoesNotExistException(string message, Exception innerException)
                     : base(message, innerException) { }
     }
+
+
     /// <summary>
     /// exception for not possible item (like Id impossible)
     /// </summary>
@@ -41,6 +43,10 @@ namespace BO
                     : base(message, innerException) { }
     }
 
+
+    /// <summary>
+    /// Exception for an object that cannot be deleted
+    /// </summary>
     [Serializable]
     public class BlDeleteNotPossibleException : Exception
     {
@@ -48,6 +54,11 @@ namespace BO
         public BlDeleteNotPossibleException(string message, Exception innerException)
                 : base(message, innerException) { }
     }
+
+
+    /// <summary>
+    /// Exception for an object that already exists
+    /// </summary>
     [Serializable]
     public class BlAlreadyExistsException : Exception
     {
@@ -56,16 +67,25 @@ namespace BO
                 : base(message, innerException) { }
     }
 
+
+    /// <summary>
+    /// Exception for a value that cannot be null
+    /// </summary>
     public class BlNullPropertyException : Exception
     {
         public BlNullPropertyException(string? message) : base(message) { }
     }
+
+
+    /// <summary>
+    /// Exception for incorrect input
+    /// </summary>
+    [Serializable]
     public class BlWrongInputException : Exception
     {
         public BlWrongInputException(string? message) : base(message) { }
         public BlWrongInputException(string message, Exception innerException)
                 : base(message, innerException) { }
     }
-
 }
 

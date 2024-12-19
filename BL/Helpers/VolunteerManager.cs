@@ -1,5 +1,4 @@
-﻿
-using BlImplementation;
+﻿using BlImplementation;
 using DalApi;
 using System;
 using System.Net;
@@ -10,22 +9,26 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
 namespace Helpers;
 
+
+/// <summary>
+/// Auxiliary functions for the implementation of the volunteer
+/// </summary>
 internal class VolunteerManager
 {
-    private static IDal s_dal = Factory.Get;
+    private static IDal s_dal = Factory.Get;   //stage 4
 
     internal static void InputIntegrity(BO.Volunteer volunteer)
     {
 
     }
+
     /// <summary>
     /// func for convert DO.volunteer for BO.VolunteerInList
     /// </summary>
     /// <param name="doVolunteer"></param>
-    /// <returns></returns>
+    /// <returns> BO.VolunteerInList </returns>
     internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
     {
         var assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
@@ -53,15 +56,23 @@ internal class VolunteerManager
             FullName = doVolunteer.FullName,
             Active = doVolunteer.Active,
             SumCalls = sumCalls,
-            Sumcanceled = sumCanceld,
+            SumCanceled = sumCanceld,
             SumExpired = sumExpired,
             IdCall = idCall,
-            Ctype=ctype
+            CType = ctype
         };
     }
+
+    /// <summary>
+    /// The GetCallIn function takes an object of type DO.Volunteer and returns an object of type BO.CallInProgress. 
+    /// It is responsible for searching and creating information about a call in which the volunteer is currently involved in treatment, 
+    /// and it returns the information in a structured format.
+    /// </summary>
+    /// <param name="doVolunteer"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.BlWrongInputException"></exception>
     internal static BO.CallInProgress GetCallIn(DO.Volunteer doVolunteer)
     {
-
         var assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         DO.Assignment? assignmentTreat = assignments.Find(ass => ass.TimeEnd == null || ass.TypeEndTreat==null);
         if (assignmentTreat == null) { return null; }
@@ -73,12 +84,6 @@ internal class VolunteerManager
         AdminImplementation admin = new AdminImplementation();
         BO.StatusTreat status=CallManager.GetCallStatus(callTreat);
 
-
-        //if (callTreat.MaxTimeToClose - ClockManager.Now <= admin.GetMaxRange())
-        //{
-        //    status = BO.StatusTreat.RiskOpen;
-        //}
-        //else { status = BO.StatusTreat.Treat; }
         return new()
         {
             Id = assignmentTreat.Id,
@@ -94,6 +99,7 @@ internal class VolunteerManager
             Status = (callTreat.MaxTimeToClose - ClockManager.Now <= s_dal.Config.RiskRange ? BO.StatusTreat.TreatInRisk : BO.StatusTreat.TreatInRisk),
         };
     }
+
     /// <summary>
     /// Checks the format of a Volunteer object to ensure all fields are valid.
     /// </summary>
@@ -101,7 +107,6 @@ internal class VolunteerManager
     /// <exception cref="ArgumentException">
     /// Thrown when one or more fields in the Volunteer object are invalid.
     /// </exception>
-
     internal static void CheckFormat(BO.Volunteer boVolunteer)
     {
         /// <summary>
@@ -125,17 +130,18 @@ internal class VolunteerManager
         /// Validate the PhoneNumber field.
         /// The phone number must be exactly 10 digits and start with 0.
         /// </summary>
-
         if (string.IsNullOrWhiteSpace(boVolunteer.FullName))
         {
             throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null or empty.");
         }
 
+        /// <summary>
+        /// it checks if the FullName property of the boVolunteer object contains invalid characters.
+        /// </summary>
         if (boVolunteer.FullName.Any(c => !Char.IsLetter(c) && !Char.IsWhiteSpace(c)))
         {
             throw new    BO.BlWrongItemException($"FullName {boVolunteer.FullName} contains invalid characters.");
         }
-
         /// <summary>
         /// Validate the Email field.
         /// The email must match the standard email format.
@@ -156,7 +162,6 @@ internal class VolunteerManager
                 throw new BO.BlWrongItemException($"MaxReading {boVolunteer.MaxReading} must be a positive number.");
             }
         }
-
 
         /// <summary>
         /// Validate the Latitude field.
@@ -181,13 +186,18 @@ internal class VolunteerManager
         /// </summary>
     }
 
-
+    /// <summary>
+    /// The CheckLogic function checks the logic of an object of type BO.Volunteer. It performs a series of checks on the volunteer's properties, 
+    /// and if any of them fail, it throws an exception with an appropriate message
+    /// </summary>
+    /// <param name="boVolunteer"></param>
+    /// <exception cref="BO.BlWrongItemException"></exception>
     internal static void CheckLogic(BO.Volunteer boVolunteer)
     {
         try
         {
             CheckId(boVolunteer.Id);
-            CheckPhonnumber(boVolunteer.PhoneNumber);
+            CheckPhoneNumber(boVolunteer.PhoneNumber);
             CheckEmail(boVolunteer.Email);
             CheckPassword(boVolunteer.Password);
             CheckAddress(boVolunteer);
@@ -198,6 +208,7 @@ internal class VolunteerManager
             throw new BO.BlWrongItemException($"the item have logic problem", ex);
         }
     }
+
     /// <summary>
     /// Validates an Israeli ID number.
     /// Throws an exception if the ID is invalid.
@@ -239,12 +250,13 @@ internal class VolunteerManager
             sum += product;
         }
 
-        //chach id digit
+        //check id digit
         if (sum % 10 != 0)
         {
             throw new BO.BlWrongItemException($"this ID {id} does not posssible");
         }
     }
+
     /// <summary>
     /// Validates if a given phone number represents a valid mobile number.
     /// The number must be exactly 10 digits long, consist only of digits, 
@@ -252,7 +264,7 @@ internal class VolunteerManager
     /// </summary>
     /// <param name="phoneNumber">The phone number to validate, as a string.</param>
     /// <exception cref="ArgumentException">Thrown if the phone number is not valid.</exception>
-    internal static void CheckPhonnumber(string phoneNumber)
+    internal static void CheckPhoneNumber(string phoneNumber)
     {
         // Check if the string length is exactly 10 characters
         if (phoneNumber.Length != 10)
@@ -276,6 +288,7 @@ internal class VolunteerManager
         }
 
     }
+
     /// <summary>
     /// Validates whether the given string is a valid email address.
     /// The email address must match a standard email format (e.g., username@domain.com).
@@ -293,6 +306,7 @@ internal class VolunteerManager
             throw new BO.BlWrongItemException($"The provided email {email} address is not valid.");
         }
     }
+
     /// <summary>
     /// Validates if a given password is strong.
     /// A strong password must:
@@ -340,7 +354,7 @@ internal class VolunteerManager
     /// </summary>
     /// <param name="address">The address to be geocoded</param>
     /// <returns>A double array containing the latitude and longitude</returns>
-    public static double[] GetCoordinates(string address)//לטפל בחריגות!!!!!
+    public static double[] GetCoordinates(string address)
     {
         // Checking if the address is null or empty
         if (string.IsNullOrWhiteSpace(address))
@@ -410,14 +424,17 @@ internal class VolunteerManager
         public string Lon { get; set; }
     }
 
-
+    /// <summary>
+    /// The function checks if the coordinates of the address provided for the volunteer match the coordinates calculated based on the full address.
+    /// </summary>
+    /// <param name="volunteer"></param>
+    /// <exception cref="BO.BlWrongItemException"></exception>
     internal static void CheckAddress(BO.Volunteer volunteer)
     {
         double[] cordinates = GetCoordinates(volunteer.FullAddress);
         if (cordinates[0] != volunteer.Latitude || cordinates[1] != volunteer.Longitude)
             throw new BO.BlWrongItemException($"not math cordinates");
     }
-
 
     /// <summary>
     /// Calculates the distance between two points (latitude and longitude) in meters.
@@ -452,9 +469,6 @@ internal class VolunteerManager
         return EarthRadius * c;
 
     }
-
-
- 
 }
 
 

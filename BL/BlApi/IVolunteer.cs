@@ -1,6 +1,9 @@
-﻿
-namespace BlApi;
+﻿namespace BlApi;
 
+
+/// <summary>
+/// Definition of the volunteer methods
+/// </summary>
 public interface IVolunteer
 {
     /// <summary>
@@ -103,5 +106,4 @@ public interface IVolunteer
     /// 4. Handles exceptions from the data layer and converts them to meaningful business exceptions.
     /// </remarks>
     void Create(BO.Volunteer boVolunteer);
-
 }
