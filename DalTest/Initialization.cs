@@ -11,7 +11,6 @@ using System.Numerics;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-
 public static class Initialization
 {
     //private static IVolunteer? s_dal.Volunteer; //stage 1
@@ -38,9 +37,8 @@ public static class Initialization
         string[] Emails = { "ruth@example.com", "yossi@example.com", "oren@example.com", "meirav@example.com", "dan@example.com", "ayelet@example.com", "dana@example.com",
                         "noam@example.com", "ofer@example.com", "ron@example.com", "liron@example.com", "omer@example.com", "ronit@example.com", "ilan@example.com", "galit@example.com" };
 
-        
         string[] addresses =
-{
+        {
         "King George St 20, Jerusalem, Israel",
         "Jaffa St 45, Jerusalem, Israel",
         "Agripas St 10, Jerusalem, Israel",
@@ -59,23 +57,21 @@ public static class Initialization
         };
 
         double[] Longitudes = new double[]
-{
+        {
         35.2193, 35.2137, 35.2129, 35.2065, 35.2117,
         35.212416, 35.2142, 35.2156, 35.2150, 35.2175,
         35.2214, 35.2123, 35.2241, 35.2191, 35.2203
-};
+        };
 
-      
         double[] Latitudes = new double[]
-{
+        {
         31.7784, 31.7834, 31.7801, 31.7642, 31.7655,
         31.751709, 31.7809, 31.7515, 31.7812, 31.7837,
         31.7849, 31.7698, 31.7714, 31.7815, 31.7822
-};
-
+        };
 
         string[] passwords =
-   {
+        {
     "P@ssw0rd",
     "A1b2C3",
     "Hello5",
@@ -91,15 +87,15 @@ public static class Initialization
     "P4ssMe",
     "C0ffee",
     "Choco7"
-};
+        };
 
         for (int i = 0; i<VolunteerNames.Length; i++)
         {
 
             int Id;
             do
-                Id = (int)s_rand.Next(700000000, 1000000000); //Random 9-digit id code
-            while (s_dal!.Volunteer.Read(Id) != null); // Checking the uniqueness of id
+                Id = (int)s_rand.Next(700000000, 1000000000);    // Random 9-digit id code
+            while (s_dal!.Volunteer.Read(Id) != null);           // Checking the uniqueness of id
 
             string Name = VolunteerNames[i];
             string Phone = PhoneNumbers[i];
@@ -108,12 +104,12 @@ public static class Initialization
             string Password = passwords[i];
             double NLatitude = Latitudes[i];
             double NLongitude = Longitudes[i];
-            Distance DistanceType = Distance.Aerial; // default distance
-            Role Nrole = Role.Volunteer; //Default - regular volunteer
-            bool Active = true; //The volunteer is active by default
-            double MaxReading = s_rand.Next(5, 100); //Random maximum distance between 5 and 100
+            Distance DistanceType = Distance.Aerial;             // Default distance
+            Role NRole = Role.Volunteer;                         // Default - regular volunteer
+            bool Active = true;                                  // The volunteer is active by default
+            double MaxReading = s_rand.Next(5, 100);             // Random maximum distance between 5 and 100
 
-            s_dal!.Volunteer.Create(new Volunteer(Id, Name, Phone, Email ,DistanceType, Nrole, Active, Password, Address, NLatitude, NLongitude, MaxReading));
+            s_dal!.Volunteer.Create(new Volunteer(Id, Name, Phone, Email ,DistanceType, NRole, Active, Password, Address, NLatitude, NLongitude, MaxReading));
         }
 
         // Added at least one manager
@@ -124,6 +120,8 @@ public static class Initialization
 
         s_dal!.Volunteer.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "A1234", "HaPega Street 16, Jerusalem, Israel", 31.771959, 35.217018));
     }
+
+
     /// <summary>
     /// A function that creates 50 diverse readings according to the requirements.
     ///In the function we created arrays for addresses, longitudes and street, as well as arrays for describing the case according to the type of case
@@ -252,9 +250,8 @@ public static class Initialization
         "Ramot Forest, Jerusalem, Israel",
         "Yirmiyahu Street, Jerusalem,Israel"
     };
-    
-    double[] longitudes = new double[]
-   {
+        double[] longitudes = new double[]
+        {
         35.2252, 35.2168, 35.2150, 35.2174, 35.2132,
         35.2165, 35.2138, 35.2245, 35.2241, 35.2206,
         35.2123, 35.2202, 35.2214, 35.2155, 35.2198,
@@ -265,10 +262,13 @@ public static class Initialization
         35.2112, 35.2008, 35.2159, 35.2235, 35.2210,
         35.2342, 35.2149, 35.2236, 35.2087, 35.2381,
         35.2201, 35.2357, 35.2289, 35.2325, 35.207448
-   };
-     
-    double[] latitudes = new double[]
-       {
+        };
+
+
+
+
+        double[] latitudes = new double[]
+    {
       31.7767, 31.7745, 31.7839, 31.7843, 31.7785,
       31.7803, 31.7809, 31.7763, 31.7825, 31.7694,
       31.7812, 31.7828, 31.7695, 31.7823, 31.7604,
@@ -279,32 +279,32 @@ public static class Initialization
       31.7695, 31.7982, 31.7623, 31.7598, 31.7981,
       31.7742, 31.8012, 31.7591, 31.7545, 31.7695,
       31.7901, 31.7947, 31.8014, 31.7903, 31.792351
-       };
+    };
 
 
         ///created 50 readings
         for (int i = 0; i < 50; i++)
         {
-            CallType ctype; 
-            string ndescription;
+            CallType cType; 
+            string nDescription;
             //The rest of the division is a dish that came out diverse..
             int p = 0, l = 0, c = 0;
             if (i % 3 == 0)
             {
-                ctype = CallType.Puncture;
-                ndescription = DescriptionsP[p];
+                cType = CallType.Puncture;
+                nDescription = DescriptionsP[p];
                 p++;
             }
             else if (i % 4 == 0)
             {
-                ctype = CallType.LockedCar;
-                ndescription = DescriptionsP[l];
+                cType = CallType.LockedCar;
+                nDescription = DescriptionsP[l];
                 l++;
             }
             else
             {
-                ctype = CallType.Cables;  // ערך אחר אם לא מתקיים אף תנאי
-                ndescription = DescriptionsP[c];
+                cType = CallType.Cables;            // else value if no condition is met
+                nDescription = DescriptionsP[c];
                 c++;
             }
             DateTime start = s_dal!.Config.Clock.AddDays(-1);
@@ -312,30 +312,30 @@ public static class Initialization
             // Calculate the number of minutes since the start time until now
             int totalMinutesInLastDay = (int)(s_dal!.Config.Clock - start).TotalMinutes;
             // Random opening time within the last 24 hours
-            DateTime RndomStart = start.AddMinutes(s_rand.Next(0, totalMinutesInLastDay));
+            DateTime RandomStart = start.AddMinutes(s_rand.Next(0, totalMinutesInLastDay));
             DateTime? RandomEnd = null;
 
             if (i % 10 == 0)
             {
                 //calls that have passed the time
-                int maxRange = (int)(s_dal!.Config.Clock - RndomStart).TotalMinutes;
+                int maxRange = (int)(s_dal!.Config.Clock - RandomStart).TotalMinutes;
                 if (maxRange > 0) 
-                    RandomEnd = RndomStart.AddMinutes(s_rand.Next(1, maxRange + 1));
+                    RandomEnd = RandomStart.AddMinutes(s_rand.Next(1, maxRange + 1));
             }
             else
             {
-               
                 if (s_rand.Next(2) == 1)
                 {
      
                     int maxDurationMinutes = s_rand.Next(1, 1441);
-                    RandomEnd = RndomStart.AddMinutes(maxDurationMinutes);
+                    RandomEnd = RandomStart.AddMinutes(maxDurationMinutes);
                 }
             }
-            s_dal.Call.Create(new Call(0, ctype, ndescription, addresses[i], latitudes[i], longitudes[i], RndomStart, RandomEnd));
+            s_dal.Call.Create(new Call(0, cType, nDescription, addresses[i], latitudes[i], longitudes[i], RandomStart, RandomEnd));
         }
 
     }
+
     /// <summary>
     /// Function for creating readings We have created diverse readings as required
     /// </summary>
@@ -345,7 +345,7 @@ public static class Initialization
         {
             //Assigning a volunteer to a task
             int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count());
-           Volunteer volunteerToAssign = s_dal.Volunteer.ReadAll().OrderBy(v => s_rand.Next()).First();
+             Volunteer volunteerToAssign = s_dal.Volunteer.ReadAll().OrderBy(v => s_rand.Next()).First();
             //call number ID
             int randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count() - 15);
             Call callToAssig = s_dal.Call.ReadAll().OrderBy(v => s_rand.Next()).First();
@@ -371,15 +371,14 @@ public static class Initialization
                         break;
                     case 1: finish = TypeEnd.SelfCancel; break;
                     case 2: finish = TypeEnd.ManagerCancel; break;
-
                 }
             }
             s_dal.Assignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssign.Id, s_dal!.Config!.Clock, finishTime, finish));
         }
     }
+
     //public static void Do(IStudent? dalStudent, ICourse? dalCourse, ILink? dalStudentInCourse, IConfig? dalConfig) // stage 1
-   
-    //public static void Do(IDal dal )  //stage 2
+    //public static void Do(IDal dal)  //stage 2
     public static void Do() //stage 4
     {
         //s_dal.Volunteer = dal_volunteer ?? throw new NullReferenceException("DAL object can not be null!");

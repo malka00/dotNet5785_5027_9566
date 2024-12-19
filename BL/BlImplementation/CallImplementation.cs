@@ -39,7 +39,7 @@ internal class CallImplementation : ICall
         {
             _dal.Assignment.Update(assigmnetToUP);
         }
-        catch ( DO.DalExsitException ex)
+        catch ( DO.DalExistException ex)
         {
             throw new BO.BlDeleteNotPossibleException("canot delete in DO");
         }
@@ -68,7 +68,7 @@ internal class CallImplementation : ICall
         {
             _dal.Assignment.Create(assigmnetToCreat);
         }
-        catch (DO.DalDeletImposible)
+        catch (DO.DalDeleteImpossible)
         { throw new BO.BlAlreadyExistsException("impossible to creat"); }
        
     }
@@ -98,7 +98,7 @@ internal class CallImplementation : ICall
         {
             _dal.Assignment.Update(assigmnetToUP);
         }
-        catch (DO.DalExsitException ex)
+        catch (DO.DalExistException ex)
         {
             throw new BO.BlDeleteNotPossibleException("canot update in DO");
         }
@@ -175,7 +175,7 @@ internal class CallImplementation : ICall
                 );
             _dal.Call.Create(doCall);
         }
-        catch (DO.DalExsitException ex)
+        catch (DO.DalExistException ex)
         {
             throw new BO.BlAlreadyExistsException($"Student with ID={boCall.Id} already exists", ex);
         }
@@ -195,7 +195,7 @@ internal class CallImplementation : ICall
             }
             throw new BO.BlDeleteNotPossibleException($"Call with id={id} can not be deleted");
         }
-        catch (DO.DalExsitException ex)
+        catch (DO.DalExistException ex)
         {
             throw new BO.BlDoesNotExistException($"Call with id={id} does not exist");
         }
@@ -490,7 +490,7 @@ internal class CallImplementation : ICall
         {
             _dal.Call.Update(doCall);
         }
-        catch (DO.DalDeletImposible ex)
+        catch (DO.DalDeleteImpossible ex)
         {
             throw new BO.BlDoesNotExistException($"Call with ID={boCall.Id} does Not exist", ex);
         }

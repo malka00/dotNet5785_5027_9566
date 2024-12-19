@@ -9,7 +9,7 @@ static class DalConfig
     internal record DalImplementation
     (string Package,   // package/dll name
      string Namespace, // namespace where DAL implementation class is contained in
-     string Class   // DAL implementation class name
+     string Class      // DAL implementation class name
     );
 
     internal static string s_dalName;

@@ -2,11 +2,32 @@
 using DalApi;
 using DO;
 using System.Data.Common;
+using System.Xml.Linq;
 
 namespace Dal
 {
+    
     internal class AssignmentImplementation : IAssignment
     {
+        /// <summary>
+        /// help func return the assignment that is in the XElement 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        /// <exception cref="FormatException"></exception>
+        static Assignment getAssignment(XElement s)
+        {
+            Assignment a = new DO.Assignment()
+            {
+                Id = int.TryParse((string?)s.Element("Id"), out var id) ? id : throw new FormatException("can't convert id"),
+                CallId = int.TryParse((string?)s.Element("CallId"), out var callId) ? callId : throw new FormatException("can't convert id"),
+                VolunteerId = int.TryParse((string?)s.Element("VolunteerId"), out var volunteerId) ? volunteerId : throw new FormatException("can't convert id"),
+                TimeStart = DateTime.TryParse((string?)s.Element("TimeStart"), out DateTime timeStart) ? timeStart : throw new FormatException("Can't convert TimeStart"),
+                TimeEnd = DateTime.TryParse((string?)s.Element("TimeEnd"), out DateTime timeEnd) ? timeEnd : null,
+                TypeEndTreat = TypeEnd.TryParse<TypeEnd>((string?)s.Element("TypeEndTreat"), out TypeEnd typeEndTreat) ? typeEndTreat : null 
+            };
+            return a;
+        }
         /// <summary>
         /// Creating a new task in an XML file
         /// </summary>
@@ -29,7 +50,7 @@ namespace Dal
         {
             List<Assignment> Assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
             if (Assignment.RemoveAll(it => it.Id == item.Id) == 0)
-                throw new DalDeletImposible($"Assignment with ID={item.Id} does Not exist");
+                throw new DalDeleteImpossible($"Assignment with ID={item.Id} does Not exist");
             Assignment.Add(item);
             XMLTools.SaveListToXMLSerializer(Assignment, Config.s_assignment_xml);
         }
@@ -41,7 +62,7 @@ namespace Dal
         {
             List<Assignment> Assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
             if (Assignment.RemoveAll(it => it.Id == id) == 0)
-                throw new DalDeletImposible($"Assignemt with ID={id} does Not exist");
+                throw new DalDeleteImpossible($"Assignemt with ID={id} does Not exist");
             XMLTools.SaveListToXMLSerializer(Assignment, Config.s_assignment_xml);
         }
         public void DeleteAll()
@@ -66,11 +87,23 @@ namespace Dal
         /// </summary>
         public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
         {
-            // Load the existing list of assignmemts from the XML file
+            // Load the existing list of assignments from the XML file
             List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
 
             // Apply the filter if provided, otherwise return all assignment
             return filter != null ? Assignments.Where(filter) : Assignments;
         }
+
+        /// <summary>
+        /// The function returns the first assignment according to the filter parameter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public Assignment? Read(Func<Assignment, bool> filter)
+        {
+            return XMLTools.LoadListFromXMLElement(Config.s_assignment_xml).Elements().Select(s => getAssignment(s)).FirstOrDefault(filter); 
+        }
+
     }
 }
+

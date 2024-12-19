@@ -1,12 +1,12 @@
 ﻿using static System.Formats.Asn1.AsnWriter;
 
 namespace DalTest;
-
-
 using Dal;
 using DalApi;
 using DO;
 using Microsoft.VisualBasic;
+
+
 /// <summary>
 /// options to choose from in the menu
 /// </summary>
@@ -52,7 +52,6 @@ public enum CONFIG
     initialization,
     RESET_CONFIG,
 }
-
 /// <summary>
 /// Clock update operations
 /// </summary>
@@ -254,7 +253,8 @@ OPTION Options:
 4 - Init DB
 5 - Show all database
 6 - Config Menu
-7 - Reset DB & Config");
+7 - Reset DB & Config"
+);
         }
         while (!int.TryParse(Console.ReadLine(), out choice));
         return (OPTION)choice;
@@ -272,7 +272,8 @@ OPTION Options:
 3 - ReadAll
 4 - Update 
 5 - Delete
-6 - Delete All");
+6 - Delete All"
+);
         }
         while (!int.TryParse(s: Console.ReadLine(), out choice));
         return (CRUD)choice;
@@ -315,7 +316,7 @@ Config Options:
                 s_dal.Call.Create(cr);
                 break;
             case OPTION.ASSIGNMENT:
-                createAssigmnet(out Assignment assi);
+                createAssignment(out Assignment assi);
                 s_dal.Assignment.Create(assi);
                 break;
             default:
@@ -394,7 +395,7 @@ Config Options:
                 break;
             case OPTION.ASSIGNMENT:
                 Console.WriteLine(s_dal.Assignment.Read(id));
-                createAssigmnet(out Assignment lk, id);
+                createAssignment(out Assignment lk, id);
                 s_dal.Assignment.Update(lk);
                 break;
             default:
@@ -471,9 +472,9 @@ Config Options:
         }
     }
     /// <summary>
-    /// create new Assigmnet
+    /// create new Assignment
     /// </summary>
-    private static void createAssigmnet(out Assignment assi, int id = 0)
+    private static void createAssignment(out Assignment assi, int id = 0)
     {
         Console.Write("enter VolunteerId of the Assignment: ");
         if (!int.TryParse(Console.ReadLine(), out int volId))

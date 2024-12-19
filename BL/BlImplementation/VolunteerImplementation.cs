@@ -40,7 +40,7 @@ internal class VolunteerImplementation : IVolunteer
         {
             _dal.Volunteer.Create(doVolunteer);
         }
-        catch (DO.DalExsitException ex)
+        catch (DO.DalExistException ex)
         {
             throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} already exists", ex);
         }
@@ -58,7 +58,7 @@ internal class VolunteerImplementation : IVolunteer
         {
             _dal.Volunteer.Delete(id);
         }
-        catch (DO.DalDeletImposible doEx)
+        catch (DO.DalDeleteImpossible doEx)
         {
             throw new BO.BlDeleteNotPossibleException("id not valid", doEx);
         }
@@ -176,9 +176,9 @@ internal class VolunteerImplementation : IVolunteer
         {
             _dal.Volunteer.Update(volunteerUpdate);
         }
-        catch (DO.DalExsitException ex)
+        catch (DO.DalExistException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Volteer with ID={boVolunteer.Id} not exists", ex);
+            throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} not exists", ex);
         }
 
     }
