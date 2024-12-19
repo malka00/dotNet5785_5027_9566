@@ -25,7 +25,6 @@ public enum CallType
 }
 public enum TypeEnd
 {
-
     Treated,
     SelfCancel,       
     ManagerCancel,    

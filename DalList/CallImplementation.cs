@@ -9,7 +9,6 @@ internal class CallImplementation : ICall
 
     public void Create(Call item)
     {
-
         int newId = Config.NextCallId;
         Call copy = item with { Id = newId };
 

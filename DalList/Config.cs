@@ -1,5 +1,3 @@
-﻿
-
 namespace Dal;
 
 internal static class Config
@@ -14,7 +12,6 @@ internal static class Config
     //...
 
     internal static DateTime Clock { get; set; } = DateTime.Now;
-    //...
 
     // "זמן סיכון" עבור קריאות מתקרבות לזמן סיום
     internal static TimeSpan RiskRange { get; set; } = TimeSpan.FromHours(1);
@@ -30,6 +27,4 @@ internal static class Config
         Clock = DateTime.Now;
         RiskRange = TimeSpan.FromHours(1);
     }
-   
-
 }

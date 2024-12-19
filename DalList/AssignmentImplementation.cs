@@ -6,7 +6,9 @@ namespace Dal;
 internal class AssignmentImplementation : IAssignment
 {
     
-   
+    /// Create a new assignment
+    /// </summary>
+    /// <param name="item"></param>
     public void Create(Assignment item)
     {
 
@@ -25,7 +27,7 @@ internal class AssignmentImplementation : IAssignment
       
         var assignment = DataSource.Assignments.FirstOrDefault(a => a.Id == id);
         if (assignment == null)
-            throw new DalDeletImposible($"Assignment with ID={id} not exists");
+            throw new DalExistException($"Assignment with ID={id} does not exists");
 
        DataSource.Assignments.Remove(assignment); 
     }
@@ -76,6 +78,4 @@ internal class AssignmentImplementation : IAssignment
             DataSource.Assignments.Add(item);
         }
     }
-
-
 }
