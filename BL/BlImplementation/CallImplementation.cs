@@ -2,9 +2,6 @@
 using System;
 using Helpers;
 using System.Collections.Generic;
-using BO;
-using System.Globalization;
-using DO;
 namespace BlImplementation;
 
 /// <summary>

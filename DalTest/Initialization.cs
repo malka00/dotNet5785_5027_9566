@@ -40,9 +40,9 @@ public static class Initialization
         string[] addresses =
         {
         "King George St 20, Jerusalem, Israel",
-        "Jaffa St 45, Jerusalem, Israel",
+        "bit hadfus 7  ,Jerusalem, Israel",
         "Agripas St 10, Jerusalem, Israel",
-        "HaPalmach St 25, Jerusalem, Israel",
+        "Hapalmach St 25, Jerusalem, Israel",
         "Emek Refaim St 43, Jerusalem, Israel",
         "Hapisga St 18, Jerusalem, Israel",
         "Hillel St 7, Jerusalem, Israel",
@@ -51,23 +51,23 @@ public static class Initialization
         "HaNeviim St 29, Jerusalem, Israel",
         "Shivtei Israel St 15, Jerusalem, Israel",
         "Azza St 50, Jerusalem, Israel",
-        "Yitzhak Kariv St 4, Jerusalem, Israel",
+        "Kriyat Hayuvel St 5, Jerusalem, Israel",
         "Prophets St 23, Jerusalem, Israel",
         "Ben Yehuda St 1, Jerusalem, Israel"
         };
 
         double[] Longitudes = new double[]
         {
-        35.2193, 35.2137, 35.2129, 35.2065, 35.2117,
+        35.2193, 35.189689, 35.2129, 35.2065, 35.2117,
         35.212416, 35.2142, 35.2156, 35.2150, 35.2175,
-        35.2214, 35.2123, 35.2241, 35.2191, 35.2203
+        35.2214, 35.2123, 35.18130622417343, 35.2191, 35.2203
         };
 
         double[] Latitudes = new double[]
         {
-        31.7784, 31.7834, 31.7801, 31.7642, 31.7655,
+        31.7784, 31.78542, 31.7801, 31.7642, 31.7655,
         31.751709, 31.7809, 31.7515, 31.7812, 31.7837,
-        31.7849, 31.7698, 31.7714, 31.7815, 31.7822
+        31.7849, 31.7698, 31.770868836791788, 31.7815, 31.7822
         };
 
         string[] passwords =

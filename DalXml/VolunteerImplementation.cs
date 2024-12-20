@@ -88,7 +88,7 @@ internal class VolunteerImplementation : IVolunteer
     {
         XElement volunteersRoot = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
 
-        XElement? volunteerElem = volunteersRoot.Elements().FirstOrDefault(v => (int?)v.Element("Id") == id)
+        XElement? volunteerElem = volunteersRoot.Elements().FirstOrDefault(v => (int?)v.Element("ID") == id)
                            ?? throw new DalDeleteImpossible($"Volunteer with ID={id} does not exist.");
 
         volunteerElem.Remove();
@@ -130,7 +130,7 @@ internal class VolunteerImplementation : IVolunteer
     {
         XElement volunteersRoot = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
 
-        XElement? volunteerElem = volunteersRoot.Elements().FirstOrDefault(v => (int?)v.Element("Id") == item.Id)
+        XElement? volunteerElem = volunteersRoot.Elements().FirstOrDefault(v => (int?)v.Element("ID") == item.Id)
                                  ?? throw new DalDeleteImpossible($"Volunteer with ID={item.Id} does not exist.");
 
         volunteerElem.Remove();
