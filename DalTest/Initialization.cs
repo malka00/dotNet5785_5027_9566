@@ -30,11 +30,11 @@ public static class Initialization
     /// </summary>
     private static void CreateVolunteers()
     {
-        string[] VolunteerNames = { "Ruth Cohen", "Yossi Levy", "Oren Alon", "Meirav Israeli", "Dan Mizrahi", "Ayelet Israeli", "Dana Cohen",
+        string[] volunteerNames = { "Ruth Cohen", "Yossi Levy", "Oren Alon", "Meirav Israeli", "Dan Mizrahi", "Ayelet Israeli", "Dana Cohen",
                                 "Noam Brenner", "Ofer Mizrahi", "Ron Halevi", "Liron Abutbul", "Omer Katz", "Ronit Goldman", "Ilan Shemesh", "Galit Cohen" };
-        string[] PhoneNumbers = { "050-1234567", "052-9876543", "053-4567890", "054-1237894", "055-6789123", "050-3456789", "052-2345678",
+        string[] phoneNumbers = { "050-1234567", "052-9876543", "053-4567890", "054-1237894", "055-6789123", "050-3456789", "052-2345678",
                               "053-9876543", "054-5678912", "055-1234569", "050-4561237", "052-7893451", "053-3214567", "054-7896543", "055-6547891" };
-        string[] Emails = { "ruth@example.com", "yossi@example.com", "oren@example.com", "meirav@example.com", "dan@example.com", "ayelet@example.com", "dana@example.com",
+        string[] emails = { "ruth@example.com", "yossi@example.com", "oren@example.com", "meirav@example.com", "dan@example.com", "ayelet@example.com", "dana@example.com",
                         "noam@example.com", "ofer@example.com", "ron@example.com", "liron@example.com", "omer@example.com", "ronit@example.com", "ilan@example.com", "galit@example.com" };
 
         string[] addresses =
@@ -56,14 +56,14 @@ public static class Initialization
         "Ben Yehuda St 1, Jerusalem, Israel"
         };
 
-        double[] Longitudes = new double[]
+        double[] longitudes = new double[]
         {
         35.2193, 35.189689, 35.2129, 35.2065, 35.2117,
         35.212416, 35.2142, 35.2156, 35.2150, 35.2175,
         35.2214, 35.2123, 35.18130622417343, 35.2191, 35.2203
         };
 
-        double[] Latitudes = new double[]
+        double[] latitudes = new double[]
         {
         31.7784, 31.78542, 31.7801, 31.7642, 31.7655,
         31.751709, 31.7809, 31.7515, 31.7812, 31.7837,
@@ -88,37 +88,42 @@ public static class Initialization
     "C0ffee",
     "Choco7"
         };
+        int[] volunteerId = {207488065,207669508,207733817,207862384,207926692,208317958,208448738,
+            208731323,208749978,209184217,209307123,209314277,209567445,209567890,209606318,209668409,
+};
 
-        for (int i = 0; i<VolunteerNames.Length; i++)
+        for (int i = 0; i < volunteerNames.Length; i++)
         {
 
-            int Id;
-            do
-                Id = (int)s_rand.Next(700000000, 1000000000);    // Random 9-digit id code
-            while (s_dal!.Volunteer.Read(Id) != null);           // Checking the uniqueness of id
+            //    int Id;
+            //    do
+            //        Id = (int)s_rand.Next(700000000, 1000000000);    // Random 9-digit id code
+            //    while (s_dal!.Volunteer.Read(Id) != null);           // Checking the uniqueness of id
 
-            string Name = VolunteerNames[i];
-            string Phone = PhoneNumbers[i];
-            string Email = Emails[i];
-            string Address = addresses[i];
-            string Password = passwords[i];
-            double NLatitude = Latitudes[i];
-            double NLongitude = Longitudes[i];
-            Distance DistanceType = Distance.Aerial;             // Default distance
-            Role NRole = Role.Volunteer;                         // Default - regular volunteer
-            bool Active = true;                                  // The volunteer is active by default
-            double MaxReading = s_rand.Next(5, 100);             // Random maximum distance between 5 and 100
+            string name = volunteerNames[i];
+            string phone = phoneNumbers[i];
+            int id = volunteerId[i];
+            string email = emails[i];
+            string address = addresses[i];
+            string password = passwords[i];
+            double nLatitude = latitudes[i];
+            double nLongitude = longitudes[i];
+            Distance distanceType = Distance.Aerial;             // Default distance
+            Role nRole = Role.Volunteer;                         // Default - regular volunteer
+            bool active = true;                                  // The volunteer is active by default
+            double maxReading = s_rand.Next(5, 100);             // Random maximum distance between 5 and 100
 
-            s_dal!.Volunteer.Create(new Volunteer(Id, Name, Phone, Email ,DistanceType, NRole, Active, Password, Address, NLatitude, NLongitude, MaxReading));
+            s_dal!.Volunteer.Create(new Volunteer(id, name, phone, email ,distanceType, nRole, active, password, address, nLatitude, nLongitude, maxReading));
         }
 
         // Added at least one manager
-        int managerId;
-        do
-            managerId = s_rand.Next(100000000, 1000000000);
-        while (s_dal!.Volunteer.Read(managerId) != null);
+        int managerId = 330824459;
 
-        s_dal!.Volunteer.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "A1234", "HaPega Street 16, Jerusalem, Israel", 31.771959, 35.217018));
+        //do
+        //    managerId = s_rand.Next(100000000, 1000000000);
+        //while (s_dal!.Volunteer.Read(managerId) != null);
+
+        s_dal!.Volunteer.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "A1234", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
     }
 
 

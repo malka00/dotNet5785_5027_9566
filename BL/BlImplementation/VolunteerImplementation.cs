@@ -109,8 +109,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public BO.Volunteer Read(int id)
     {
-        var doVolunteer = _dal.Volunteer.Read(id) ??
-        throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+        var doVolunteer = _dal.Volunteer.Read(id) ??throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         return new()
         {
             Id = id,
@@ -133,7 +132,7 @@ internal class VolunteerImplementation : IVolunteer
     {
         DO.Volunteer doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
         DO.Volunteer ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
-        if (ismanager.Job != DO.Role.Boss || boVolunteer.Id != id)
+        if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and  does not correct or not manager");
         
             double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);

@@ -40,8 +40,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns></returns>
     static XElement createVolunteerElement(Volunteer volunteer)
     {
-        XElement volunteerXml =
-            new XElement("Volunteer",
+       return  new XElement("Volunteer",
             new XElement("ID", volunteer.Id),
             new XElement("fullName", volunteer.FullName),
             new XElement("phone", volunteer.PhoneNumber),
@@ -53,11 +52,8 @@ internal class VolunteerImplementation : IVolunteer
                         (volunteer.FullAddress != null ? new XElement("address", volunteer.FullAddress!) : null),
                         (volunteer.Longitude != null ? new XElement("longitude", volunteer.Longitude!) : null),
                         (volunteer.Latitude != null ? new XElement("latitude", volunteer.Latitude!) : null),
-                        (volunteer.MaxReading != null ? new XElement("maxDistance", volunteer.MaxReading) : null))
-            {
-            };
-           
-        return volunteerXml;
+                        (volunteer.MaxReading != null ? new XElement("maxDistance", volunteer.MaxReading) : null)
+             );
     }
 
 
@@ -135,14 +131,14 @@ internal class VolunteerImplementation : IVolunteer
 
         volunteerElem.Remove();
 
-        volunteersRoot.Add(new XElement("Volunteer", createVolunteerElement(item)));
+        volunteersRoot.Add(createVolunteerElement(item));
         XMLTools.SaveListToXMLElement(volunteersRoot, Config.s_volunteers_xml);
     }
 
-    /// <summary>
-    /// read all volunteers from the xml file
-    /// </summary>
-    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
+/// <summary>
+/// read all volunteers from the xml file
+/// </summary>
+public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         var volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml)
                                             .Elements()

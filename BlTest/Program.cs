@@ -1,8 +1,8 @@
 ﻿namespace BlTest;
 using BlApi;
-using BO;
+
 using DalApi;
-using DO;
+
 using System;
 using System.Linq.Expressions;
 
@@ -12,7 +12,7 @@ public enum OPTION
     ADMIN_MENUE,
     VOLUNTEER_MENUE,
     CALL_MENUE,
-    //SHOW_ALL_DB,
+  
 }
 public enum IAdmin
 {
@@ -583,7 +583,7 @@ Call Options:
                     int[] counts = s_bl.Calls.CountCall();
 
                     // Gets all the status names from the Enum
-                    string[] statusNames = Enum.GetNames(typeof(StatusTreat));
+                    string[] statusNames = Enum.GetNames(typeof(BO.StatusTreat));
 
                     // Loop to print status names with their counts
                     for (int i = 0; i < statusNames.Length; i++)
