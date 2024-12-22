@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Net.NetworkInformation;
+using BlImplementation;
 using BO;
 using DalApi;
 using DO;
@@ -150,51 +151,65 @@ internal class CallManager
 
         };
     }
+
+    /// <summary>
+    /// convert DO call to BO call
+    /// </summary>
+    /// <param name="doCall"></param>
+    /// <returns> BO.Call </returns>
+    internal static BO.Call convertDOtoBO(DO.Call doCall)
+    {
+        Func<DO.Assignment, bool> func = item => item.CallId == doCall.Id;
+        IEnumerable<DO.Assignment> dataOfAssignments = s_dal.Assignment.ReadAll(func);
+        return new()
+        {
+            Id = doCall.Id,
+            Type = (BO.CallType)doCall.Type,
+            Description = doCall.Description,
+            FullAddress = doCall.FullAddress,
+            Latitude = doCall.Latitude,
+            Longitude = doCall.Longitude,
+            TimeOpened = doCall.TimeOpened,
+            MaxTimeToClose = doCall.MaxTimeToClose,
+            Status = GetCallStatus(doCall),
+            AssignmentsToCalls = dataOfAssignments.Any()
+        ? dataOfAssignments.Select(assign => new BO.CallAssignInList
+        {
+            VolunteerId = assign.VolunteerId,
+            VolunteerName = s_dal.Volunteer.Read(assign.VolunteerId)?.FullName,
+            StartTreat = assign.TimeStart,
+            TimeClose = assign.TimeEnd,
+            TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
+        }).ToList()
+        : null,
+
+        };
+    }
+
+
+    /// <summary>
+    /// The `UpdateExpiredCalls` function is responsible for updating the status of expired calls (calls whose maximum time to close has passed).
+    /// </summary>
+    internal static void UpdateExpiredCalls()
+    {
+        IEnumerable<DO.Call> calls = s_dal.Call.ReadAll();
+        IEnumerable<BO.Call> boCalls = from dCall in calls
+                                       where (dCall.MaxTimeToClose == null ? true : dCall.MaxTimeToClose < s_dal.Config.Clock)
+                                       select (convertDOtoBO(dCall));
+        foreach (BO.Call call in boCalls)
+        {
+            if (call.AssignmentsToCalls == null)
+                call.Status = BO.StatusTreat.Expired;
+            //  s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+            else
+            {
+                var lastAss = call.AssignmentsToCalls.OrderByDescending(a => a.StartTreat).First();
+                if (lastAss.TypeEndTreat == null)
+                {
+                    var assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.TimeEnd == null && a.TypeEndTreat == null);
+                    s_dal.Assignment.Update(new DO.Assignment(assing.Id, assing.CallId, assing.VolunteerId, lastAss.StartTreat, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+                }
+            }
+        }
+    }
 }
-
-
-
-    ///// <summary>
-    ///// ממיר את הקריאה לקריאה סגורה ברשימה
-    ///// </summary>
-    ///// <param name="doCall"></param>
-    ///// <param name="lastAssignment"></param>
-    ///// <returns></returns>
-    //internal static BO.ClosedCallInList ConvertDOCallToBOCloseCallInList(DO.Call doCall, CallAssignInList lastAssignment)
-    //{
-    //    return new BO.ClosedCallInList
-    //    {
-    //        Id = doCall.Id,
-    //        Type = (BO.CallType)doCall.Type,
-    //        FullAddress = doCall.FullAddress,
-    //        TimeOpen = doCall.TimeOpened,
-    //        StartTreat = lastAssignment.StartTreat,
-    //        TimeClose = lastAssignment.TimeClose,
-    //        TypeEndTreat = lastAssignment.TypeEndTreat
-    //    };
-    //}
-    //internal static BO.OpenCallInList ConvertDOCallToBOOpenCallInList(DO.Call doCall, int id )
-    //{
-    //    var vol = s_dal.Volunteer.Read(id);
-    //    double idLat = vol.Latitude??0;
-    //    double idLon = vol.Longitude ?? 0;
-    //    return new BO.OpenCallInList
-    //    {
-    //        Id = doCall.Id,
-    //       CType = (BO.CallType)doCall.Type,
-    //        Description =  doCall.Description,
-    //        FullAddress = doCall.FullAddress,
-    //        TimeOpen = doCall.TimeOpened,
-    //        MaxTimeToClose =doCall.MaxTimeToClose,
-    //        distanceCallVolunteer = VolunteerManager.CalculateDistance(doCall.Latitude, doCall.Longitude,idLat,idLon),
-    //    };
-    //}
-
-
-
-
-
-
-
-
-

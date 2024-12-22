@@ -35,12 +35,7 @@ internal static class ClockManager //stage 4
         var oldClock = _dal.Config.Clock; //stage 4
         _dal.Config.Clock = newClock; //stage 4
 
-        //TO_DO:
-        //Add calls here to any logic method that should be called periodically,
-        //after each clock update
-        //for example, Periodic students' updates:
-        //Go through all students to update properties that are affected by the clock update
-        //(students becomes not active after 5 years etc.)
+      CallManager.UpdateExpiredCalls();
         
      //   VolunteerManager.PeriodicVolunteersUpdates(oldClock, newClock); //stage 4
         //etc ...
