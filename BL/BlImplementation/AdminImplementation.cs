@@ -48,13 +48,15 @@ internal class AdminImplementation : IAdmin
 
     public void initialization()
     {
-        DalTest.Initialization.Do(); 
-        AdminManager.UpdateClock(AdminManager.Now);  
+        DalTest.Initialization.Do();
+        AdminManager.UpdateClock(AdminManager.Now);
+        AdminManager.MaxRange = AdminManager.MaxRange;
     }
 
     public void Reset()
     {
         _dal.ResetDB(); 
         AdminManager.UpdateClock(AdminManager.Now);
+        AdminManager.MaxRange = AdminManager.MaxRange;
     }
 }
