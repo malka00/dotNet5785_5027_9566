@@ -101,7 +101,7 @@ internal class CallManager
         try
         {
             CheckAddress(boCall);
-            if ((boCall.MaxTimeToClose <= ClockManager.Now) || (boCall.MaxTimeToClose <= boCall.TimeOpened))
+            if ((boCall.MaxTimeToClose <= AdminManager.Now) || (boCall.MaxTimeToClose <= boCall.TimeOpened))
                 throw new BO.BlWrongItemException("Error input");
 
         }
@@ -188,12 +188,13 @@ internal class CallManager
         };
     }
 
-
     /// <summary>
     /// The `UpdateExpiredCalls` function is responsible for updating the status of expired calls (calls whose maximum time to close has passed).
     /// </summary>
     internal static void UpdateExpiredCalls()
     {
+        bool assignmentUpdated = false; //stage 5
+
         IEnumerable<DO.Call> calls = s_dal.Call.ReadAll();
         IEnumerable<BO.Call> boCalls = from dCall in calls
                                        where (dCall.MaxTimeToClose == null ? true : dCall.MaxTimeToClose < s_dal.Config.Clock)
@@ -201,16 +202,23 @@ internal class CallManager
         foreach (BO.Call call in boCalls)
         {
             if (call.AssignmentsToCalls == null)
-             s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+            { 
+                s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+            }
+             
             else
             {
                 var lastAss = call.AssignmentsToCalls.OrderByDescending(a => a.StartTreat).First();
                 if (lastAss.TypeEndTreat == null)
                 {
-                    var assing = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.TimeEnd == null && a.TypeEndTreat == null);
-                    s_dal.Assignment.Update(new DO.Assignment(assing.Id, assing.CallId, assing.VolunteerId, lastAss.StartTreat, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+                    assignmentUpdated = true; //stage 5
+                    var assignment = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.TimeEnd == null && a.TypeEndTreat == null);
+                    Observers.NotifyItemUpdated(assignment.Id); //stage 5
+                    s_dal.Assignment.Update(new DO.Assignment(assignment.Id, assignment.CallId, assignment.VolunteerId, lastAss.StartTreat, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
                 }
             }
         }
+        if(assignmentUpdated)
+            Observers.NotifyListUpdated();
     }
 }

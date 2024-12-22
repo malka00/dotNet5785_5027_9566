@@ -93,7 +93,7 @@ internal class VolunteerManager
             StartTreat = assignmentTreat.TimeStart,
             distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, latitude, longitude),
             //Status = status,
-            Status = (callTreat.MaxTimeToClose - ClockManager.Now <= s_dal.Config.RiskRange ? BO.StatusTreat.TreatInRisk : BO.StatusTreat.TreatInRisk),
+            Status = (callTreat.MaxTimeToClose - AdminManager.Now <= s_dal.Config.RiskRange ? BO.StatusTreat.TreatInRisk : BO.StatusTreat.TreatInRisk),
         };
     }
 
@@ -399,69 +399,6 @@ internal class VolunteerManager
             throw new Exception($"General error: {ex.Message}");
         }
     }
-
-
-    //public static double[] GetCoordinates(string address)
-    //{
-    //    // Checking if the address is null or empty
-    //    if (string.IsNullOrWhiteSpace(address))
-    //    {
-    //        throw new ArgumentException("Address cannot be empty or null.", nameof(address));
-    //    }
-
-    //    //string apiKey = "https://geocode.maps.co/search?q=address&api_key=67575890e42cc578964142uob149f45";  // החלף במפתח האמיתי שלך
-    //    //string url = $"https://geocode.maps.co/search?q={Uri.EscapeDataString(address)}&api_key={apiKey}";
-    //    string apiKey = "51229b895167367503aba7d1c5dd9afc"; // החלף במפתח שלך
-    //    string url = $"https://us1.locationiq.com/v1/search.php?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
-
-    //    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-    //    // Creating a synchronous HTTP request
-    //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-    //    request.Method = "GET";
-
-    //    try
-    //    {
-    //        // Sending the request and getting the response synchronously
-    //        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-    //        {
-    //            // Checking if the response status is OK
-    //            if (response.StatusCode != HttpStatusCode.OK)
-    //            {
-    //                throw new Exception($"Error in request: {response.StatusCode}");
-    //            }
-
-    //            // Reading the response body as a string
-    //            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-    //            {
-    //                string jsonResponse = reader.ReadToEnd();
-
-    //                // Deserializing the JSON response to extract location data
-    //                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    //                var results = JsonSerializer.Deserialize<LocationResult[]>(jsonResponse, options);
-
-    //                // If no results are found, throwing an exception
-    //                if (results == null || results.Length == 0)
-    //                {
-    //                    throw new Exception("No coordinates found for the given address.");
-    //                }
-
-    //                // Returning the latitude and longitude as an array
-    //                return new double[] { double.Parse(results[0].Lat), double.Parse(results[0].Lon) };
-    //            }
-    //        }
-    //    }
-    //    catch (WebException ex)
-    //    {
-    //        // Handling web exceptions (e.g., network issues)
-    //        throw new Exception("Error sending web request: " + ex.Message);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // Handling general exceptions
-    //        throw new Exception("General error: " + ex.Message);
-    //    }
-    //}
 
     /// <summary>
     /// Class to represent the structure of the geocoding response(latitude and longitude)

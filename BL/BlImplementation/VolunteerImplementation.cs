@@ -13,11 +13,11 @@ internal class VolunteerImplementation : IVolunteer
     public void AddObserver(Action listObserver) =>
     VolunteerManager.Observers.AddListObserver(listObserver); //stage 5
     public void AddObserver(int id, Action observer) =>
-VolunteerManager.Observers.AddObserver(id, observer); //stage 5
+    VolunteerManager.Observers.AddObserver(id, observer); //stage 5
     public void RemoveObserver(Action listObserver) =>
-VolunteerManager.Observers.RemoveListObserver(listObserver); //stage 5
+    VolunteerManager.Observers.RemoveListObserver(listObserver); //stage 5
     public void RemoveObserver(int id, Action observer) =>
-VolunteerManager.Observers.RemoveObserver(id, observer); //stage 5
+    VolunteerManager.Observers.RemoveObserver(id, observer); //stage 5
     #endregion Stage 5
 
     public void Create(BO.Volunteer boVolunteer)

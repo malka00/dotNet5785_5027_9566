@@ -18,8 +18,4 @@
     <ProjectReference Include="..\DalTest\DalTest.csproj" />
     <ProjectReference Include="..\DalXml\DalXml.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
 </Project>

@@ -14,11 +14,11 @@ internal class CallImplementation : ICall
     public void AddObserver(Action listObserver) =>
     CallManager.Observers.AddListObserver(listObserver); //stage 5
     public void AddObserver(int id, Action observer) =>
-CallManager.Observers.AddObserver(id, observer); //stage 5
+    CallManager.Observers.AddObserver(id, observer); //stage 5
     public void RemoveObserver(Action listObserver) =>
-CallManager.Observers.RemoveListObserver(listObserver); //stage 5
+    CallManager.Observers.RemoveListObserver(listObserver); //stage 5
     public void RemoveObserver(int id, Action observer) =>
-CallManager.Observers.RemoveObserver(id, observer); //stage 5
+    CallManager.Observers.RemoveObserver(id, observer); //stage 5
     #endregion Stage 5
 
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;   //stage 4
@@ -40,7 +40,7 @@ CallManager.Observers.RemoveObserver(id, observer); //stage 5
                 ismanager = true;
             else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager or not in this call");
         }
-        if (assigmnetToCancel.TypeEndTreat != null || (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > ClockManager.Now)| assigmnetToCancel.TimeEnd != null)
+        if (assigmnetToCancel.TypeEndTreat != null || (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > AdminManager.Now)| assigmnetToCancel.TimeEnd != null)
             throw new BO.BlDeleteNotPossibleException("The assigmnet not open or exspaired");
 
         DO.Assignment assigmnetToUP = new DO.Assignment {
@@ -48,7 +48,7 @@ CallManager.Observers.RemoveObserver(id, observer); //stage 5
             CallId = assigmnetToCancel.CallId,
             VolunteerId =assigmnetToCancel.VolunteerId,
              TimeStart=assigmnetToCancel.TimeStart,
-             TimeEnd = ClockManager.Now,
+             TimeEnd = AdminManager.Now,
             TypeEndTreat = ismanager?DO.TypeEnd.ManagerCancel:DO.TypeEnd.SelfCancel,
             };
         try
@@ -84,7 +84,7 @@ CallManager.Observers.RemoveObserver(id, observer); //stage 5
             Id = 0, // ID will be generated automatically
             CallId = idCall,
             VolunteerId = idVol,
-            TimeStart = ClockManager.Now,
+            TimeStart = AdminManager.Now,
             TimeEnd = null,
             TypeEndTreat = null
         };
@@ -127,7 +127,7 @@ CallManager.Observers.RemoveObserver(id, observer); //stage 5
         DO.Assignment assignmentToUP = new DO.Assignment
         {
             Id = assignmentToClose.Id,
-            TimeEnd = ClockManager.Now,
+            TimeEnd = AdminManager.Now,
             TypeEndTreat = DO.TypeEnd.Treated,
         };
 
