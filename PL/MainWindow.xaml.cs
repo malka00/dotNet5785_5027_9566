@@ -18,6 +18,7 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+
         public DateTime CurrentTime
         {
             get { return (DateTime)GetValue(CurrentTimeProperty); }
@@ -58,20 +59,32 @@ namespace PL
         public static readonly DependencyProperty MyPropertyProperty =
             DependencyProperty.Register("MaxRange", typeof(TimeSpan), typeof(MainWindow), new PropertyMetadata(TimeSpan.Zero));
         
-        private void txtBMaxRange(object sender, RoutedEventArgs e)
+        private void btnUpdateMaxRange_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.Definition(MaxRange);
         }
 
-        
+        private void clockObserver()
+        {
+            CurrentTime = s_bl.Admin.GetClock();
+        }
+        private void configObserver()
+        {
+            MaxRange = s_bl.Admin.GetMaxRange();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e) 
+        {
+            MaxRange = s_bl.Admin.GetMaxRange();
+            CurrentTime = s_bl.Admin.GetClock(); 
+            s_bl.Admin.AddClockObserver(clockObserver);
+            s_bl.Admin.AddConfigObserver(configObserver);
 
-
-
-
+        }
 
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -80,6 +93,11 @@ namespace PL
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
         }
