@@ -9,6 +9,17 @@ internal class VolunteerImplementation : IVolunteer
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
+    #region Stage 5
+    public void AddObserver(Action listObserver) =>
+    VolunteerManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+VolunteerManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+VolunteerManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+VolunteerManager.Observers.RemoveObserver(id, observer); //stage 5
+    #endregion Stage 5
+
     public void Create(BO.Volunteer boVolunteer)
     {
         double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
@@ -42,6 +53,8 @@ internal class VolunteerImplementation : IVolunteer
         {
             throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} already exists", ex);
         }
+
+        VolunteerManager.Observers.NotifyListUpdated(); //stage 5 
     }
 
     public void Delete(int id)
@@ -60,7 +73,7 @@ internal class VolunteerImplementation : IVolunteer
         {
             throw new BO.BlDeleteNotPossibleException("id not valid", doEx);
         }
-
+        VolunteerManager.Observers.NotifyListUpdated();  //stage 5 
     }
   
     public BO.Role EnterSystem(int usingName, string password)
@@ -176,7 +189,8 @@ internal class VolunteerImplementation : IVolunteer
         {
             throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} not exists", ex);
         }
-
+        VolunteerManager.Observers.NotifyItemUpdated(volunteerUpdate.Id);  //stage 5
+        VolunteerManager.Observers.NotifyListUpdated();  //stage 5
     }
 }
 

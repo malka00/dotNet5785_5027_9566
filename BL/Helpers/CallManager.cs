@@ -15,6 +15,8 @@ internal class CallManager
 {
     private static IDal s_dal = Factory.Get;   //stage 4
 
+    internal static ObserverManager Observers = new(); //stage 5 
+
     ///// <summary>
     ///// Converts an object of type DO.Call to an object of type BO.CallInList
     ///// </summary>
@@ -199,8 +201,7 @@ internal class CallManager
         foreach (BO.Call call in boCalls)
         {
             if (call.AssignmentsToCalls == null)
-                call.Status = BO.StatusTreat.Expired;
-            //  s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+             s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
             else
             {
                 var lastAss = call.AssignmentsToCalls.OrderByDescending(a => a.StartTreat).First();

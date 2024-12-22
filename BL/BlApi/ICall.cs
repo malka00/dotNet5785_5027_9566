@@ -4,7 +4,7 @@
 /// <summary>
 /// Definition of the call methods
 /// </summary>
-public interface ICall
+public interface ICall : IObservable
 {
     int[] CountCall();
     IEnumerable<BO.CallInList> GetCallInLists(BO.ECallInList? filter, object? obj, BO.ECallInList? sortBy);

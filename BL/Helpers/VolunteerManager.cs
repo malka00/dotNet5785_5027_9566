@@ -19,11 +19,8 @@ internal class VolunteerManager
 {
     private static IDal s_dal = Factory.Get;   //stage 4
 
-    internal static void InputIntegrity(BO.Volunteer volunteer)
-    {
-
-    }
-
+    internal static ObserverManager Observers = new(); //stage 5 
+   
     /// <summary>
     /// func for convert DO.volunteer for BO.VolunteerInList
     /// </summary>

@@ -4,7 +4,7 @@
 /// <summary>
 /// Definition of the volunteer methods
 /// </summary>
-public interface IVolunteer
+public interface IVolunteer: IObservable
 {
     /// <summary>
     /// Logs in a volunteer using their username and password.

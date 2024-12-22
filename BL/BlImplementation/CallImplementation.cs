@@ -9,6 +9,18 @@ namespace BlImplementation;
 /// </summary>
 internal class CallImplementation : ICall
 {
+
+    #region Stage 5
+    public void AddObserver(Action listObserver) =>
+    CallManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+CallManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+CallManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+CallManager.Observers.RemoveObserver(id, observer); //stage 5
+    #endregion Stage 5
+
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;   //stage 4
 
     /// <summary>
@@ -193,6 +205,7 @@ internal class CallImplementation : ICall
         {
             throw new BO.BlAlreadyExistsException($"Student with ID={boCall.Id} already exists", ex);
         }
+        CallManager.Observers.NotifyListUpdated();  //stage 5 
     }
 
     /// <summary>
@@ -213,6 +226,7 @@ internal class CallImplementation : ICall
         {
             throw new BO.BlDoesNotExistException($"Call with id={id} does not exist");
         }
+        CallManager.Observers.NotifyListUpdated();  //stage 5 
     }
 
     /// <summary>
@@ -510,6 +524,8 @@ internal class CallImplementation : ICall
         {
             throw new BO.BlDoesNotExistException($"Call with ID={boCall.Id} does Not exist", ex);
         }
+        CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
+        CallManager.Observers.NotifyListUpdated();  //stage 5
     }
 }
 
