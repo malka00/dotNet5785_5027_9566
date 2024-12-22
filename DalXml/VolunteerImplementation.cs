@@ -38,22 +38,27 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="volunteer"> volunteer from the user </param>
     /// <returns></returns>
-    static XElement createVolunteerElement(Volunteer volunteer)
+ 
+static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     {
-       return  new XElement("Volunteer",
-            new XElement("ID", volunteer.Id),
-            new XElement("fullName", volunteer.FullName),
-            new XElement("phone", volunteer.PhoneNumber),
-            new XElement("email", volunteer.Email),
-            new XElement("password", volunteer.Password),
-            new XElement("isActive", volunteer.Active),
-            new XElement("role", volunteer.Job),
-            new XElement("distance", volunteer.TypeDistance),
-                        (volunteer.FullAddress != null ? new XElement("address", volunteer.FullAddress!) : null),
-                        (volunteer.Longitude != null ? new XElement("longitude", volunteer.Longitude!) : null),
-                        (volunteer.Latitude != null ? new XElement("latitude", volunteer.Latitude!) : null),
-                        (volunteer.MaxReading != null ? new XElement("maxDistance", volunteer.MaxReading) : null)
-             );
+        //return  new XElement("Volunteer",
+        yield return new XElement("ID", volunteer.Id);
+        yield return new XElement("fullName", volunteer.FullName);
+        yield return new XElement("phone", volunteer.PhoneNumber);
+        yield return new XElement("email", volunteer.Email);
+        yield return new XElement("password", volunteer.Password);
+        yield return new XElement("isActive", volunteer.Active);
+        yield return new XElement("role", volunteer.Job);
+        yield return new XElement("distance", volunteer.TypeDistance);
+        if (volunteer.FullAddress is not null)
+            yield return new XElement("address", volunteer.FullAddress);
+        if (volunteer.Longitude is not null)
+            new XElement("longitude", volunteer.Longitude);
+        if (volunteer.Latitude is not null)
+            new XElement("latitude", volunteer.Latitude);
+        if (volunteer.MaxReading is not null)
+            new XElement("maxDistance", volunteer.MaxReading);
+             
     }
 
 
@@ -67,9 +72,9 @@ internal class VolunteerImplementation : IVolunteer
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
 
         if ((volunteerRootElem.Elements().FirstOrDefault(st => (int?)st.Element("ID") == item.Id)) != null)
-            throw new DO.DalExistException($"Student with ID={item.Id} already  exist");
+            throw new DO.DalExistException($"Volunteer with ID={item.Id} already  exist");
 
-        volunteerRootElem.Add(new XElement(createVolunteerElement(item)));
+        volunteerRootElem.Add(new XElement("Volunteer",createVolunteerElement(item)));
         
         XMLTools.SaveListToXMLElement(volunteerRootElem, Config.s_volunteers_xml);
     }
@@ -131,7 +136,8 @@ internal class VolunteerImplementation : IVolunteer
 
         volunteerElem.Remove();
 
-        volunteersRoot.Add(createVolunteerElement(item));
+
+        volunteersRoot.Add(new XElement("Volunteer", createVolunteerElement(item)));
         XMLTools.SaveListToXMLElement(volunteersRoot, Config.s_volunteers_xml);
     }
 
