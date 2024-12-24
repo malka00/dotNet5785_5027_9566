@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="VolunteerListWindow" Height="640" Width="800">
 
 
@@ -26,7 +27,7 @@
             <Label Content="Label" HorizontalAlignment="Left" Margin="162,8,0,0" VerticalAlignment="Top" Grid.Column="0" />
             <ComboBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Grid.Column="1"/>
         </Grid>
-        <DataGrid Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=CourseList}" SelectionChanged="DataGrid_SelectionChanged"/>
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
 
     </Grid>
