@@ -12,7 +12,7 @@
 
     <Grid>
 
-        <Border BorderBrush="Black" BorderThickness="1" Margin="304,39,147,424">
+        <Border BorderBrush="Blue" BorderThickness="1" Margin="304,39,147,424">
 
         </Border>
         
