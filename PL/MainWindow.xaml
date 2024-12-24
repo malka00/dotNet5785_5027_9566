@@ -6,27 +6,34 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800"
-    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Closed="Window_Closed"
+           Loaded="Window_Loaded" >
+
     <Grid>
 
         <Border BorderBrush="Black" BorderThickness="1" Margin="304,39,147,424">
 
         </Border>
+        
         <!--Internal, Upper Grid-->
-      
-        <Label Content="{Binding CurrentTime}" FontWeight="Bold" FontSize="20" HorizontalAlignment="Left" Margin="414,54,0,0" VerticalAlignment="Top" Height="13" Width="109"/>
+
+        <Label Content="{Binding CurrentTime}" HorizontalAlignment="Left" Margin="422,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.667,0.548"/>
         <Button Content="Add One Minute" HorizontalAlignment="Left" Margin="400,77,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneMinute_Click"/>
         <Button Content="Add One Hour" HorizontalAlignment="Left" Margin="400,97,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneHour_Click"/>
         <Button Content="Add One Day" HorizontalAlignment="Left" Margin="400,117,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneDay_Click"/>
         <Button Content="Add One Month" HorizontalAlignment="Left" Margin="400,137,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneMonth_Click"/>
         <Button Content="Add One Year" HorizontalAlignment="Left" Margin="400,157,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneYear_Click"/>
+
         <!--config-->
-        <TextBox  Text="{Binding MaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="516,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
-        <Button Content="update" HorizontalAlignment="Left" Margin="556,276,0,0" VerticalAlignment="Top"/>
-        <Button Content="Reset DB" HorizontalAlignment="Left" Margin="162,127,0,0" VerticalAlignment="Top" Height="40" Width="104"/>
-        <Button Content="Init DB" HorizontalAlignment="Left" Margin="32,127,0,0" VerticalAlignment="Top" Height="40" Width="99" RenderTransformOrigin="-0.357,0.423"/>
-        <Button Content="Handele Volunteers" HorizontalAlignment="Left" Margin="162,62,0,0" VerticalAlignment="Top" Height="40" Width="104"/>
+
+        <TextBox Text="{Binding MaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="516,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <Button Content="update" HorizontalAlignment="Left" Margin="556,276,0,0" VerticalAlignment="Top" Click="btnUpdateMaxRange_Click" />
+        <Button Content="Reset DB" HorizontalAlignment="Left" Margin="162,127,0,0" VerticalAlignment="Top" Height="40" Width="104" Click="btnResetDB_Click"/>
+        <Button Content="Init DB" HorizontalAlignment="Left" Margin="32,127,0,0" VerticalAlignment="Top" Height="40" Width="99"  Click="btnInitDB_Click" RenderTransformOrigin="-0.357,0.423"/>
+        <Button Content="Handele Volunteers" HorizontalAlignment="Left" Margin="162,62,0,0" VerticalAlignment="Top" Height="40" Width="104" Click="btnCVolunteer_Click" />
         <Button Content="Handele Calls" HorizontalAlignment="Left" Margin="32,62,0,0" VerticalAlignment="Top" Height="40" Width="99" Click="Button_Click_1"/>
+
     </Grid>
 
 </Window>
