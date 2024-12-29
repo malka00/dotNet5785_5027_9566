@@ -28,7 +28,7 @@ public enum CallType
     Puncture,
     Cables,
     LockedCar,
-    None
+     None
 }
 
 /// <summary>

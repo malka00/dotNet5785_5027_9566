@@ -27,14 +27,67 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-
-          
             <Label Content="Select Call Type:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerInListCollectionKey}}"  SelectionChanged="cbVolunteerSelector_SelectionChanged" SelectedValue="{Binding VolunteerInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}"    />
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <DataGrid Grid.Row="1"  ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False" >
 
+            <!-- הגדרת סגנון לכותרות -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="AliceBlue"/>
+                    <Setter Property="Foreground" Value="#0D1821" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="Padding" Value="5" />
+                    <!-- ריווח פנימי -->
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding FullName}" Header="Name" Width="Auto"/>
+
+                <DataGridTemplateColumn Header=" Is Active">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsEnabled="False" IsChecked="{Binding Active}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding SumCalls}" Header="SumCalls" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding SumCanceled}" Header="SumCanceled" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding SumExpired}" Header="SumExpired" Width="Auto"/>
+                <DataGridTextColumn Binding="{Binding IdCall}" Header="IdCall" Width="Auto"/>
+                <DataGridTemplateColumn Header="Call Type">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding CType}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <!-- צבע עבור Puncture -->
+                                            <DataTrigger Binding="{Binding CType}" Value="Puncture">
+                                                <Setter Property="Foreground" Value="Red" />
+                                            </DataTrigger>
+                                            <!-- צבע עבור Cables -->
+                                            <DataTrigger Binding="{Binding CType}" Value="Cables">
+                                                <Setter Property="Foreground" Value="Blue" />
+                                            </DataTrigger>
+                                            <!-- צבע עבור LockedCar -->
+                                            <DataTrigger Binding="{Binding CType}" Value="LockedCar">
+                                                <Setter Property="Foreground" Value="Green" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
