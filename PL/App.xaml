@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:VolunteerInListCollection x:Key= "VolunteerInListCollectionKey" />
+        <local:VolunteerInListCollection x:Key= "VolunteerInListCollectionKey"/>
+        <local:RoleCollection x:Key="RoleCollectionKey" />
+        <local:DistanceCollection x:Key= "DistanceCollectionKey"/>
     </Application.Resources>
 </Application>
