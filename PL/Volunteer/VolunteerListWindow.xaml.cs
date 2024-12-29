@@ -30,17 +30,88 @@ namespace PL.Volunteer
         public static readonly DependencyProperty VolunteerListProperty =
             DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
-
-
+        public BO.EVolunteerInList VolunteerInList { get; set; } = BO.EVolunteerInList.Id;
 
         public VolunteerListWindow()
         {
             InitializeComponent();
+            queryVolunteerList();
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+        
+
+        private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
+        {
+            VolunteerInList = (BO.EVolunteerInList)(((ComboBox)sender).SelectedItem);
+            VolunteerList = s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
+        }
+
+
+        private void queryVolunteerList()
+=> VolunteerList = (VolunteerInList == BO.EVolunteerInList.Id) ?
+   s_bl?.Volunteers.GetVolunteerList(null, null)! : s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
+
+        private void VolunteerListObserver()
+            => queryVolunteerList();
+ 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+            => s_bl.Volunteers.AddObserver(VolunteerListObserver);
+
+        private void Window_Closed(object sender, EventArgs e)
+            => s_bl.Volunteers.RemoveObserver(VolunteerListObserver);
+
+
     }
+
 }
+
+
+//namespace PL.Volunteer
+//{
+//    /// <summary>
+//    /// Interaction logic for VolunteerListWindow.xaml
+//    /// </summary>
+//    public partial class VolunteerListWindow : Window
+//    {
+//        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+//        public IEnumerable<BO.VolunteerInList> VolunteerList
+//        {
+//            get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
+//            set { SetValue(VolunteerListProperty, value); }
+//        }
+
+//        public static readonly DependencyProperty VolunteerListProperty =
+//            DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
+//        public BO.FiledOfVolunteerInList filedToFilter { get; set; } = BO.FiledOfVolunteerInList.ID;
+//        public VolunteerListWindow()
+//        {
+//            InitializeComponent();
+//            queryVolunteerList();
+
+//        }
+
+//        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+//        {
+
+//        }
+
+//        private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
+//        {
+//            filedToFilter = (BO.FiledOfVolunteerInList)(((ComboBox)sender).SelectedItem);
+
+//            VolunteerList = s_bl?.Volunteer.GetVolunteerInList(null, filedToFilter)!;
+
+//        }
+//     
+
+
+//        private void Window_Closed(object sender, EventArgs e)
+//            => s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
+
+//    }

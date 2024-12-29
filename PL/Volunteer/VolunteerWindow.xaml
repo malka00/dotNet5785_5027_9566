@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="VolunteerWindow" Height="450" Width="800">
+        Title="VolunteerWindow" Height="450" Width="800"
+   	 DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+
     <Grid>
-        
+        <Label Content="Id" HorizontalAlignment="Left" Margin="72,20,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="FullName" HorizontalAlignment="Left" Margin="72,50,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.FullName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,54,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="PhoneNumber" HorizontalAlignment="Left" Margin="72,80,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,84,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="Email" HorizontalAlignment="Left" Margin="72,110,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="TypeDistance" HorizontalAlignment="Left" Margin="72,140,0,0" VerticalAlignment="Top"/>
+        <ComboBox  HorizontalAlignment="Left" Margin="160,144,0,0" VerticalAlignment="Top" Width="120"/>
+
+
+        <Label Content="Role" HorizontalAlignment="Left" Margin="72,170,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="160,174,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="Active" HorizontalAlignment="Left" Margin="72,200,0,0" VerticalAlignment="Top"/>
+        <CheckBox HorizontalAlignment="Left" Margin="160,204,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="Password" HorizontalAlignment="Left" Margin="72,230,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,234,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+        <Label Content="FullAddress" HorizontalAlignment="Left" Margin="72,260,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.FullAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+
+        <Label Content="Latitude" HorizontalAlignment="Left" Margin="72,290,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.Latitude, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,294,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+
+        <Label Content="Longitude" HorizontalAlignment="Left" Margin="72,320,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.Longitude, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,324,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+
+
+        <Label Content="MaxReading" HorizontalAlignment="Left" Margin="72,350,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.MaxReading, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="160,354,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+        <Button Content="{Binding ButtonText}" Click="btnAddUpdate_Click" HorizontalAlignment="Left" Margin="110,392,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.024" Height="26" Width="84"/>
+
+
+
     </Grid>
 </Window>

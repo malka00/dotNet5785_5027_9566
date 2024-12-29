@@ -89,7 +89,7 @@ namespace PL
 
 
         private void btnCVolunteer_Click(object sender, RoutedEventArgs e)
-        { new VolunteerWindow().Show(); }
+        { new VolunteerListWindow().Show(); }
 
 
         private void btnInitDB_Click(object sender, RoutedEventArgs e)
