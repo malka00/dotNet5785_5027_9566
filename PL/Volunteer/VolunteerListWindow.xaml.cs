@@ -21,6 +21,8 @@ namespace PL.Volunteer
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+
+
         public IEnumerable<BO.VolunteerInList> VolunteerList
         {
             get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
@@ -35,15 +37,19 @@ namespace PL.Volunteer
         public VolunteerListWindow()
         {
             InitializeComponent();
-            queryVolunteerList();
+         //   QueryVolunteerList();
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+
+        //}
+
+        private void cbVolunteerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+            QueryVolunteerList();
         }
-
-        
 
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
@@ -52,12 +58,12 @@ namespace PL.Volunteer
         }
 
 
-        private void queryVolunteerList()
+        private void QueryVolunteerList()
 => VolunteerList = (VolunteerInList == BO.EVolunteerInList.Id) ?
    s_bl?.Volunteers.GetVolunteerList(null, null)! : s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
 
         private void VolunteerListObserver()
-            => queryVolunteerList();
+            => QueryVolunteerList();
  
         private void Window_Loaded(object sender, RoutedEventArgs e)
             => s_bl.Volunteers.AddObserver(VolunteerListObserver);

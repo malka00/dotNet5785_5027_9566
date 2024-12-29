@@ -26,10 +26,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Label" HorizontalAlignment="Left" Margin="162,8,0,0" VerticalAlignment="Top" Grid.Column="0" />
-            <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerInListCollectionKey}}" SelectedValue="{Binding VolunteerInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+
+          
+            <Label Content="Select Call Type:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerInListCollectionKey}}"  SelectionChanged="cbVolunteerSelector_SelectionChanged" SelectedValue="{Binding VolunteerInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=VolunteerList}" SelectionChanged="DataGrid_SelectionChanged"/>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}"    />
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
 
     </Grid>

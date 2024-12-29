@@ -68,7 +68,7 @@ public enum EVolunteerInList
     SumExpired,
     IdCall,
     CType,
-    None
+  //  None
 }
 
 /// <summary>
