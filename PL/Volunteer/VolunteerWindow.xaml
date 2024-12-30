@@ -31,15 +31,19 @@
         <TextBox Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
 
         <Label Content="TypeDistance" HorizontalAlignment="Left" Margin="72,6,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource DistanceCollectionKey}}"  
+        <!--<ComboBox ItemsSource="{Binding Source={StaticResource DistanceCollectionKey}}"  
                    SelectedValue="{Binding CurrentVolunteer.TypeDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                  HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
-
-
-        <Label Content="Role" HorizontalAlignment="Left" Margin="72,36,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                  HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>-->
+        <ComboBox ItemsSource="{Binding Distance}" 
+   SelectedItem="{Binding Volunteer.DistanceType, Mode=TwoWay}"
+   SelectionChanged="cbDistanceType_SelectionChanged"           
+      HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/> 
+        
+        
+        <!--<Label Content="Role" HorizontalAlignment="Left" Margin="72,36,0,0" VerticalAlignment="Top" Grid.Row="1"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource RoleCollectionKey}}" 
                   SelectedValue="{Binding CurrentVolunteer.Job, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
- HorizontalAlignment="Left" Margin="55,40,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+ HorizontalAlignment="Left" Margin="55,40,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>-->
 
         <Label Content="Active" HorizontalAlignment="Left" Margin="72,66,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
         <CheckBox HorizontalAlignment="Left" Margin="55,70,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
