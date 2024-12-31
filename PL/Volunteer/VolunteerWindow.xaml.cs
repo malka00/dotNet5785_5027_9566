@@ -52,6 +52,21 @@ namespace PL.Volunteer
             }
         }
 
+        private void VolunteerObserver() 
+        {
+                int id = CurrentVolunteer!.Id;
+                CurrentVolunteer = null;
+                CurrentVolunteer = s_bl.Volunteers.Read(id);
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e) 
+        {
+            if (CurrentVolunteer!.Id != 0)
+                s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
+        }
+        private void Window_Closed(object sender, EventArgs e) 
+        {
+            s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
+        }
 
         public BO.Volunteer? CurrentVolunteer
         {
@@ -61,5 +76,38 @@ namespace PL.Volunteer
 
         public static readonly DependencyProperty CurrentVolunteerProperty =
             DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+
+        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (ButtonText == "Add")
+                try {
+                    s_bl.Volunteers.Create(CurrentVolunteer!);
+                    MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (BO.BlAlreadyExistsException ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            else
+                try { 
+                s_bl.Volunteers.Update(CurrentVolunteer.Id, CurrentVolunteer!);
+                    MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (BO.BlDoesNotExistException ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+        }
     }
+
 }

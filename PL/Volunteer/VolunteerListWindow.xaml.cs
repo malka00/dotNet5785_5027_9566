@@ -32,18 +32,16 @@ namespace PL.Volunteer
         public static readonly DependencyProperty VolunteerListProperty =
             DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
+        public BO.VolunteerInList? SelectedVolunteer { get; set; }
+
         public BO.EVolunteerInList VolunteerInList { get; set; } = BO.EVolunteerInList.Id;
 
         public VolunteerListWindow()
         {
             InitializeComponent();
-         //   QueryVolunteerList();
+         
         }
 
-        //private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
 
         private void cbVolunteerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -71,6 +69,43 @@ namespace PL.Volunteer
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Volunteers.RemoveObserver(VolunteerListObserver);
 
+        private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (SelectedVolunteer!= null)
+                new VolunteerWindow(SelectedVolunteer.Id).Show();
+        }
+
+      
+        private void btnCAdd_Click(object sender, RoutedEventArgs e)
+        {
+            new VolunteerWindow().Show();
+        }
+
+       
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+            MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to delete this volunteer?", "Reset Confirmation",
+                                                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (mbResult == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    s_bl.Volunteers.Delete(SelectedVolunteer.Id);
+                }
+                catch (BO.BlDeleteNotPossibleException ex)
+                {
+                   
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            } 
+            
+        }
 
     }
 

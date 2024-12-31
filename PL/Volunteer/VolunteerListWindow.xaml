@@ -30,9 +30,9 @@
             <Label Content="Select Call Type:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerInListCollectionKey}}"  SelectionChanged="cbVolunteerSelector_SelectionChanged" SelectedValue="{Binding VolunteerInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnCAdd_Click"/>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick" >
             <!-- הגדרת סגנון לכותרות -->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -45,6 +45,7 @@
             </DataGrid.ColumnHeaderStyle>
 
             <DataGrid.Columns>
+
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
                 <DataGridTextColumn Binding="{Binding FullName}" Header="Name" Width="*"/>
 
@@ -84,8 +85,16 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
 
+                <DataGridTemplateColumn Header="Actions">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="btnDelete_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </Window>
