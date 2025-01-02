@@ -36,6 +36,7 @@ namespace PL.Volunteer
         {
             ButtonText = id == 0 ? "Add" : "Update";
             InitializeComponent();
+            
             try
             {
                 CurrentVolunteer = (id != 0) ? s_bl.Volunteers.Read(id)! : new BO.Volunteer() { Id = 0, FullName = "", PhoneNumber = "", Email="", TypeDistance=BO.Distance.Aerial, Job=BO.Role.Volunteer, Active = false };
@@ -50,6 +51,8 @@ namespace PL.Volunteer
             {
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+
+            s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
         }
 
         private void VolunteerObserver() 

@@ -28,7 +28,7 @@ internal class VolunteerImplementation : IVolunteer
             FullAddress = (string?)s.Element("address") ?? null,
             Longitude = double.TryParse((string?)s.Element("longitude"), out double longitude) ? longitude : null,
             Latitude = double.TryParse((string?)s.Element("latitude"), out double latitude) ? latitude : null,
-            MaxReading = double.TryParse((string?)s.Element("MaxReading"), out double maxDis) ? maxDis : null,
+            MaxReading = double.TryParse((string?)s.Element("maxDistance"), out double maxDis) ? maxDis : null,
         };
         return v;
     }
@@ -53,11 +53,11 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
         if (volunteer.FullAddress is not null)
             yield return new XElement("address", volunteer.FullAddress);
         if (volunteer.Longitude is not null)
-            new XElement("longitude", volunteer.Longitude);
+            yield return new XElement("longitude", volunteer.Longitude);
         if (volunteer.Latitude is not null)
-            new XElement("latitude", volunteer.Latitude);
+            yield return new XElement("latitude", volunteer.Latitude);
         if (volunteer.MaxReading is not null)
-            new XElement("MaxReading", volunteer.MaxReading);
+            yield return new XElement("maxDistance", volunteer.MaxReading);
              
     }
 
