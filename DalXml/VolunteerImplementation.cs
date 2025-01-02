@@ -53,11 +53,11 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
         if (volunteer.FullAddress is not null)
             yield return new XElement("address", volunteer.FullAddress);
         if (volunteer.Longitude is not null)
-            new XElement("longitude", volunteer.Longitude);
+            yield return new XElement("longitude", volunteer.Longitude);
         if (volunteer.Latitude is not null)
-            new XElement("latitude", volunteer.Latitude);
+            yield return new XElement("latitude", volunteer.Latitude);
         if (volunteer.MaxReading is not null)
-            new XElement("maxDistance", volunteer.MaxReading);
+            yield return new XElement("maxDistance", volunteer.MaxReading);
              
     }
 
