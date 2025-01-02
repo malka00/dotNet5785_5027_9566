@@ -1,20 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
-    <ID>207488065</ID>
-    <fullName>Ruth Cohen</fullName>
-    <phone>0501234567</phone>
-    <email>ruth@example.com</email>
-    <password>P@ssw0rd</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>King George St 20, Jerusalem, Israel</address>
-    <longitude>35.2193</longitude>
-    <latitude>31.7784</latitude>
-    <maxDistance>17</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>207733817</ID>
     <fullName>Oren Alon</fullName>
     <phone>0534567890</phone>
@@ -222,5 +208,19 @@
     <longitude>35.215315</longitude>
     <latitude>31.759595</latitude>
     <maxDistance>20</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>207488065</ID>
+    <fullName>Ruth Cohen</fullName>
+    <phone>0501234567</phone>
+    <email>ruth@example.com</email>
+    <password>P@ssw0rd</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>King George St 20, Jerusalem, Israel</address>
+    <longitude>35.2159448</longitude>
+    <latitude>31.7777204</latitude>
+    <maxDistance>17</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>
