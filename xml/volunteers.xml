@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer>
   <Volunteer>
+    <ID>207488065</ID>
+    <fullName>Ruth Cohen</fullName>
+    <phone>050-1234567</phone>
+    <email>ruth@example.com</email>
+    <password>P@ssw0rd</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>King George St 20, Jerusalem, Israel</address>
+  </Volunteer>
+  <Volunteer>
     <ID>207669508</ID>
     <fullName>Yossi Levy</fullName>
     <phone>052-9876543</phone>
@@ -164,16 +175,5 @@
     <role>Boss</role>
     <distance>Aerial</distance>
     <address>Harounoff  street 2, Jerusalem, Israel</address>
-  </Volunteer>
-  <Volunteer>
-    <ID>207488065</ID>
-    <fullName>Ruth Cohen</fullName>
-    <phone>0527906600</phone>
-    <email>ruth@example.com</email>
-    <password>P@ssw0rd</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>King George St 20, Jerusalem, Israel</address>
   </Volunteer>
 </ArrayOfVolunteer>
