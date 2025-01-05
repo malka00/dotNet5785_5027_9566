@@ -1,0 +1,22 @@
+﻿<Window x:Class="PL.EnterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="EnterWindow" Height="450" Width="800"
+          DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <Grid>
+        <Label Content="Enter Id" HorizontalAlignment="Left" Margin="185,84,0,0" VerticalAlignment="Top"/>
+        <TextBox Tag="ID" HorizontalAlignment="Left" Margin="191,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+
+        <Label Content="Enter Password" HorizontalAlignment="Left" Margin="185,0,0,0" VerticalAlignment="Center"/>
+        <PasswordBox  Tag="password" HorizontalAlignment="Left" Margin="191,240,0,0" VerticalAlignment="Top" Width="120"/>
+
+        <Button Content="Enter" Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="222,165,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Calibri"/>
+
+
+    </Grid>
+</Window>
