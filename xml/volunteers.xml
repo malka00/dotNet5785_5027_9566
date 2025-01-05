@@ -223,4 +223,18 @@
     <latitude>31.7777204</latitude>
     <maxDistance>17</maxDistance>
   </Volunteer>
+  <Volunteer>
+    <ID>214425027</ID>
+    <fullName>Efrat Sharabi</fullName>
+    <phone>0586526683</phone>
+    <email>efrat@gmail.com</email>
+    <password>Efrat1234</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>Jerusalem</address>
+    <longitude>35.2257626</longitude>
+    <latitude>31.7788242</latitude>
+    <maxDistance>15</maxDistance>
+  </Volunteer>
 </ArrayOfVolunteer>

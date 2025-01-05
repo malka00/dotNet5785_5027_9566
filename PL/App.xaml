@@ -9,5 +9,10 @@
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
         <local:ConvertUpdateToTrueKey x:Key="ConvertUpdateToTrueKey"/>
         <local:ConvertUpdateToVisibleKey x:Key="ConvertUpdateToVisible"/>
+        <local:BooleanToVisibility x:Key="BooleanToVisibility"/>
     </Application.Resources>
 </Application>
+
+
+
+

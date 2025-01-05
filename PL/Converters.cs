@@ -44,4 +44,32 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+
+
+    public class BooleanToVisibility : IValueConverter
+    {
+        // המרת ערך Boolean ל-Visibility
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            // אם הערך הוא true, מחזירים Visibility.Visible
+            if (value is bool boolValue && boolValue)
+            {
+                return Visibility.Visible;
+            }
+            // אם הערך הוא false, מחזירים Visibility.Collapsed
+            return Visibility.Collapsed;
+        }
+
+        // המרת Visibility חזרה ל-Boolean (לא חובה, אם לא משתמשים ב-ConvertBack)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            // אם הערך הוא Visibility.Visible מחזירים true, אחרת false
+            if (value is Visibility visibility && visibility == Visibility.Visible)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
 }
