@@ -81,7 +81,7 @@ namespace PL
 
             else
             {
-                MessageBox.Show("WELLCOM TO SYSTEM", "Wellcom");
+                MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
                 if (currentVolunteer.Job == BO.Role.Boss)
                 {
                     MessageBoxResult mbResult = MessageBox.Show("are u want the Mannge Window?", "mannege or volunteer",

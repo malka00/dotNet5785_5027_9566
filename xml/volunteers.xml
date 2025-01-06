@@ -235,6 +235,6 @@
     <address>Jerusalem</address>
     <longitude>35.2257626</longitude>
     <latitude>31.7788242</latitude>
-    <maxDistance>15</maxDistance>
+    <maxDistance>10</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>
