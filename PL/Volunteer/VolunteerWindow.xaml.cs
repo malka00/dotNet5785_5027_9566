@@ -24,7 +24,7 @@ namespace PL.Volunteer
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-      
+
 
         string ButtonText
         {
@@ -34,130 +34,22 @@ namespace PL.Volunteer
         public static readonly DependencyProperty ButtonTextProperty =
          DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow));
 
-        public VolunteerWindow(int id=0)
+        public VolunteerWindow(int id = 0)
         {
-            ButtonText = id == 0 ? "Add" : "Update";
-            InitializeComponent();
-            
-            try
-            {
-                CurrentVolunteer = (id != 0) ? s_bl.Volunteers.Read(id)! : new BO.Volunteer() { Id = 0, FullName = "", PhoneNumber = "", Email="", TypeDistance=BO.Distance.Aerial, Job=BO.Role.Volunteer, Active = false };
-            }
-            catch (BO.BlDoesNotExistException ex)
-            {
-                CurrentVolunteer = null;
-                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-
-            s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
-        }
-
-        private void VolunteerObserver() 
-        {
-                int id = CurrentVolunteer!.Id;
-                CurrentVolunteer = null;
-                CurrentVolunteer = s_bl.Volunteers.Read(id);
-        }
-        private void Window_Loaded(object sender, RoutedEventArgs e) 
-        {
-            if (CurrentVolunteer!.Id != 0)
-                s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
-        }
-        private void Window_Closed(object sender, EventArgs e) 
-        {
-            s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
-        }
-
-        public BO.Volunteer? CurrentVolunteer
-        {
-            get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
-            set { SetValue(CurrentVolunteerProperty, value); }
-        }
-
-        public static readonly DependencyProperty CurrentVolunteerProperty =
-            DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
-
-        public bool IsTextBoxVisible
-        {
-            get { return (bool)GetValue(IsTextBoxVisibleProperty); }
-            set { SetValue(IsTextBoxVisibleProperty, value); }
-        }
-        public static readonly DependencyProperty IsTextBoxVisibleProperty =
-            DependencyProperty.Register("IsTextBoxVisible", typeof(bool), typeof(VolunteerWindow), new PropertyMetadata(false));
-
-        public bool IsPasswordBoxVisible
-        {
-            get { return (bool)GetValue(IsPasswordBoxVisibleProperty); }
-            set { SetValue(IsPasswordBoxVisibleProperty, value); }
-        }
-        public static readonly DependencyProperty IsPasswordBoxVisibleProperty =
-            DependencyProperty.Register("IsPasswordBoxVisible", typeof(bool), typeof(VolunteerWindow), new PropertyMetadata(true));
-
-        public bool IsPasswordVisible
-        {
-            get { return (bool)GetValue(IsPasswordVisibleProperty); }
-            set { SetValue(IsPasswordVisibleProperty, value); }
-        }
-        public static readonly DependencyProperty IsPasswordVisibleProperty =
-            DependencyProperty.Register("IsPasswordVisible", typeof(bool), typeof(VolunteerWindow), new PropertyMetadata(false));
-
-
-        private void IsPasswordVisibleChanged(object sender, RoutedEventArgs e)
-        {
-            IsTextBoxVisible = IsPasswordVisible;  // אם נבחר, הצג את ה-TextBox
-            IsPasswordBoxVisible = !IsPasswordVisible;  // אם לא נבחר, הצג את ה-PasswordBox
-        }
-
- 
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            // עדכון הסיסמה ב-CurrentVolunteer
-            if (CurrentVolunteer != null)
-            {
-                CurrentVolunteer.Password = ((PasswordBox)sender).Password;
-            }
         }
 
 
-
-
-
-        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ButtonText == "Add")
-                try {
-                    s_bl.Volunteers.Create(CurrentVolunteer!);
-                    MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (BO.BlAlreadyExistsException ex)
-                {
-                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }
-            else
-                try { 
-                s_bl.Volunteers.Update(CurrentVolunteer.Id, CurrentVolunteer!);
-                    MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (BO.BlDoesNotExistException ex)
-                {
-                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }
+
+        }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPersonalDetails_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 

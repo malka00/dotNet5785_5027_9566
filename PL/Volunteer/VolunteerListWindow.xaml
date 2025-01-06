@@ -33,6 +33,7 @@
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnCAdd_Click"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick" >
+   
             <!-- הגדרת סגנון לכותרות -->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
