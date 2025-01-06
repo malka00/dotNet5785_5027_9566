@@ -30,7 +30,7 @@
 //        public static readonly DependencyProperty ClosedCallInListProperty =
 //            DependencyProperty.Register("ClosedCallInListProperty", typeof(IEnumerable<BO.VolunteerInList>), typeof(History_Calls), new PropertyMetadata(null));
 
-//       // public BO.VolunteerInList? SelectedVolunteer { get; set; }
+//        // public BO.VolunteerInList? SelectedVolunteer { get; set; }
 
 //        public BO.EVolunteerInList VolunteerInList { get; set; } = BO.EVolunteerInList.Id;
 

@@ -25,7 +25,6 @@ namespace PL.Volunteer
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
       
-
         string ButtonText
         {
             get => (string)GetValue(ButtonTextProperty);
@@ -159,8 +158,5 @@ namespace PL.Volunteer
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
         }
-
-
     }
-
 }

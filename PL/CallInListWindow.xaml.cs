@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using PL.Volunteer;
 
 namespace PL
 {
@@ -19,9 +20,82 @@ namespace PL
     /// </summary>
     public partial class CallInListWindow : Window
     {
-        public CallInListWindow()
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+        public IEnumerable<BO.CallInList> CallList
         {
-            InitializeComponent();
+            get { return (IEnumerable<BO.CallInList>)GetValue(CallListProperty); }
+            set { SetValue(CallListProperty, value); }
+        }
+
+        public static readonly DependencyProperty CallListProperty =
+            DependencyProperty.Register("CallList", typeof(IEnumerable<BO.CallInList>), typeof(CallInListWindow), new PropertyMetadata(null));
+
+        public BO.CallInList? SelectedCall { get; set; }
+
+        public BO.ECallInList CallInList { get; set; } = BO.ECallInList.Id;
+
+        public CallInListWindow()
+        { InitializeComponent(); }
+
+        private void CallSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        { QueryCallList(); }
+
+        private void CallFilter(object sender, SelectionChangedEventArgs e)
+        {
+            CallInList = (BO.ECallInList)(((ComboBox)sender).SelectedItem);
+            CallList = s_bl?.Calls.GetCallInLists(null, CallInList, null)!;
+        }
+
+        private void QueryCallList()
+        => CallList = (CallInList == BO.ECallInList.Id) ?
+        s_bl?.Calls.GetCallInLists(null, null, null)! : s_bl?.Calls.GetCallInLists(null, CallInList, null)!;
+
+        private void CallListObserver() => QueryCallList();
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+            => s_bl.Calls.AddObserver(CallListObserver);
+
+        private void Window_Closed(object sender, EventArgs e)
+            => s_bl.Calls.RemoveObserver(CallListObserver);
+
+        private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (SelectedCall != null)
+                new CallWindow(SelectedCall.Id).Show();
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            new CallWindow().Show();
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to delete this call?", "Reset Confirmation",
+                                                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (mbResult == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    s_bl.Calls.Delete(SelectedCall.Id.Value);
+                }
+                catch (BO.BlDeleteNotPossibleException ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
         }
     }
 }
+
+
+
+
+
+

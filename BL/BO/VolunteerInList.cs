@@ -16,6 +16,5 @@ public class VolunteerInList
     public int? IdCall { get; init; }
     public CallType CType { get; set; }
     public override string ToString() => this.ToStringProperty();
-
 }
 

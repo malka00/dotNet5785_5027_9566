@@ -21,8 +21,6 @@ namespace PL.Volunteer
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-
-
         public IEnumerable<BO.VolunteerInList> VolunteerList
         {
             get { return (IEnumerable<BO.VolunteerInList>)GetValue(VolunteerListProperty); }
@@ -30,24 +28,17 @@ namespace PL.Volunteer
         }
 
         public static readonly DependencyProperty VolunteerListProperty =
-            DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("VolunteerList", typeof(IEnumerable<BO.VolunteerInList>), typeof(VolunteerListWindow), new PropertyMetadata(null));
 
         public BO.VolunteerInList? SelectedVolunteer { get; set; }
 
         public BO.EVolunteerInList VolunteerInList { get; set; } = BO.EVolunteerInList.Id;
 
         public VolunteerListWindow()
-        {
-            InitializeComponent();
-         
-        }
+        { InitializeComponent();}
 
-
-        private void cbVolunteerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            QueryVolunteerList();
-        }
+        private void VolunteerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        { QueryVolunteerList();}
 
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
@@ -55,13 +46,11 @@ namespace PL.Volunteer
             VolunteerList = s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
         }
 
-
         private void QueryVolunteerList()
-=> VolunteerList = (VolunteerInList == BO.EVolunteerInList.Id) ?
-   s_bl?.Volunteers.GetVolunteerList(null, null)! : s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
+        => VolunteerList = (VolunteerInList == BO.EVolunteerInList.Id) ?
+        s_bl?.Volunteers.GetVolunteerList(null, null)! : s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
 
-        private void VolunteerListObserver()
-            => QueryVolunteerList();
+        private void VolunteerListObserver() => QueryVolunteerList();
  
         private void Window_Loaded(object sender, RoutedEventArgs e)
             => s_bl.Volunteers.AddObserver(VolunteerListObserver);
@@ -75,16 +64,13 @@ namespace PL.Volunteer
                 new VolunteerDetailsWindow(SelectedVolunteer.Id).Show();
         }
 
-      
-        private void btnCAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerDetailsWindow().Show();
         }
 
-       
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-
             MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to delete this volunteer?", "Reset Confirmation",
                                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (mbResult == MessageBoxResult.Yes)
@@ -104,11 +90,8 @@ namespace PL.Volunteer
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             } 
-            
         }
-
     }
-
 }
 
 

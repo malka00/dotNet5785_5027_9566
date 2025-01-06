@@ -24,9 +24,6 @@ namespace PL
         public static readonly DependencyProperty CurrentTimeProperty =
             DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(MainWindow));
 
-     
-  
-
         public TimeSpan MaxRange
         {
             get { return (TimeSpan)GetValue(MaxRangeProperty); }
@@ -88,7 +85,7 @@ namespace PL
         }
 
 
-        private void btnCVolunteer_Click(object sender, RoutedEventArgs e)
+        private void ButtonVolunteer_Click(object sender, RoutedEventArgs e)
         { new VolunteerListWindow().Show(); }
 
 
@@ -142,21 +139,12 @@ namespace PL
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        { }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        { }
 
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
+        private void ButtonCall_Click(object sender, RoutedEventArgs e)
+        { new CallInListWindow().Show(); }
     }
-
 }

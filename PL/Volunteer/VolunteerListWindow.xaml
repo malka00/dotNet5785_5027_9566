@@ -28,9 +28,11 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Select Call Type:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerInListCollectionKey}}"  SelectionChanged="cbVolunteerSelector_SelectionChanged" SelectedValue="{Binding VolunteerInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerInListCollectionKey}}"  SelectionChanged="VolunteerSelector_SelectionChanged" SelectedValue="{Binding VolunteerInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnCAdd_Click"/>
+        
+        
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonAdd_Click"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick" >
    
@@ -90,7 +92,7 @@
                 <DataGridTemplateColumn Header="Actions">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Click="btnDelete_Click" />
+                            <Button Content="Delete" Click="ButtonDelete_Click" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

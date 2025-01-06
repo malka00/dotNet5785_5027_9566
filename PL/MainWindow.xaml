@@ -31,8 +31,8 @@
         <Button Content="update" HorizontalAlignment="Left" Margin="556,276,0,0" VerticalAlignment="Top" Click="btnUpdateMaxRange_Click" />
         <Button Content="Reset DB" HorizontalAlignment="Left" Margin="162,127,0,0" VerticalAlignment="Top" Height="40" Width="115" Click="btnResetDB_Click"/>
         <Button Content="Init DB" HorizontalAlignment="Left" Margin="32,127,0,0" VerticalAlignment="Top" Height="40" Width="115"  Click="btnInitDB_Click" RenderTransformOrigin="-0.357,0.423"/>
-        <Button Content="Handele Volunteers" HorizontalAlignment="Left" Margin="162,62,0,0" VerticalAlignment="Top" Height="40" Width="115" Click="btnCVolunteer_Click" />
-        <Button Content="Handele Calls" HorizontalAlignment="Left" Margin="32,62,0,0" VerticalAlignment="Top" Height="40" Width="115" Click="Button_Click_1"/>
+        <Button Content="Handele Volunteers" HorizontalAlignment="Left" Margin="162,62,0,0" VerticalAlignment="Top" Height="40" Width="115" Click="ButtonVolunteer_Click" />
+        <Button Content="Handele Calls" HorizontalAlignment="Left" Margin="32,62,0,0" VerticalAlignment="Top" Height="40" Width="115" Click="ButtonCall_Click"/>
 
 
     

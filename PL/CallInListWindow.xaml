@@ -8,7 +8,8 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="CallInListWindow" Height="450" Width="800"
         Closed="Window_Closed"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded">    
+    
     <!--External Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -26,11 +27,12 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="Select Call Type:" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0"/>
-            <ComboBox ItemsSource="{Binding Source={StaticResource VolunteerInListCollectionKey}}"  SelectionChanged="cbVolunteerSelector_SelectionChanged" SelectedValue="{Binding VolunteerInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource CallInListCollectionKey}}"  SelectionChanged="CallSelector_SelectionChanged" SelectedValue="{Binding CallInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         </Grid>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnCAdd_Click"/>
+        
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonAdd_Click"/>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick" >
+        <DataGrid Grid.Row="1" ItemsSource="{Binding CallList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedCall}" MouseDoubleClick="dtgList_MouseDoubleClick" >
             <!-- הגדרת סגנון לכותרות -->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -45,35 +47,22 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
-                <DataGridTextColumn Binding="{Binding FullName}" Header="Name" Width="*"/>
-
-                <DataGridTemplateColumn Header="Is Active">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsEnabled="False" IsChecked="{Binding Active}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTextColumn Binding="{Binding SumCalls}" Header="SumCalls" Width="*"/>
-                <DataGridTextColumn Binding="{Binding SumCanceled}" Header="SumCanceled" Width="*"/>
-                <DataGridTextColumn Binding="{Binding SumExpired}" Header="SumExpired" Width="*"/>
-                <DataGridTextColumn Binding="{Binding IdCall}" Header="IdCall" Width="*"/>
+                <DataGridTextColumn Binding="{Binding CallId}" Header="CallId" Width="*"/>
 
                 <DataGridTemplateColumn Header="Call Type">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding CType}">
+                            <TextBlock Text="{Binding Type}">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding CType}" Value="Puncture">
+                                            <DataTrigger Binding="{Binding Type}" Value="Puncture">
                                                 <Setter Property="Foreground" Value="Red" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding CType}" Value="Cables">
+                                            <DataTrigger Binding="{Binding Type}" Value="Cables">
                                                 <Setter Property="Foreground" Value="Blue" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding CType}" Value="LockedCar">
+                                            <DataTrigger Binding="{Binding Type}" Value="LockedCar">
                                                 <Setter Property="Foreground" Value="Green" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -84,10 +73,48 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+                <DataGridTextColumn Binding="{Binding LastVolunteer}" Header="Last Volunteer" Width="*"/>
+
+                <DataGridTemplateColumn Header="Status">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Status}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Status}" Value="Open">
+                                                <Setter Property="Foreground" Value="Yellow" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="Treat">
+                                                <Setter Property="Foreground" Value="Orange" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="Close">
+                                                <Setter Property="Foreground" Value="Green" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="Expired">
+                                                <Setter Property="Foreground" Value="Blue" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="RiskOpen">
+                                                <Setter Property="Foreground" Value="Red" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Status}" Value="TreatInRisk">
+                                                <Setter Property="Foreground" Value="Pink" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding SumAssignment}" Header="SumAssignment" Width="*"/>
+
+
                 <DataGridTemplateColumn Header="Actions">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Click="btnDelete_Click" />
+                            <Button Content="Delete" Click="ButtonDelete_Click" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

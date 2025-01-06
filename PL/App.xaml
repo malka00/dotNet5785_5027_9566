@@ -5,6 +5,7 @@
              StartupUri="EnterWindow.xaml">
     <Application.Resources>
         <local:VolunteerInListCollection x:Key="VolunteerInListCollectionKey"/>
+        <local:VolunteerInListCollection x:Key="CallInListCollectionKey"/>
         <local:RoleCollection x:Key="RoleCollectionKey"/>
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
