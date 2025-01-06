@@ -28,7 +28,7 @@ namespace PL
     }
 
 
-    public class ConvertUpdateToVisible: IValueConverter
+    public class ConvertUpdateToVisible : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
