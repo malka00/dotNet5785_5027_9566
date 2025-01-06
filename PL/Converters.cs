@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace PL
 {
-    public class ConvertUpdateToTrueKey : IValueConverter
+    public class ConvertUpdateToTrue : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -28,7 +28,7 @@ namespace PL
     }
 
 
-    public class ConvertUpdateToVisibleKey : IValueConverter
+    public class ConvertUpdateToVisible: IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

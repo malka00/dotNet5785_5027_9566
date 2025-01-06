@@ -72,13 +72,13 @@ namespace PL.Volunteer
         private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SelectedVolunteer!= null)
-                new VolunteerWindow(SelectedVolunteer.Id).Show();
+                new VolunteerDetailsWindow(SelectedVolunteer.Id).Show();
         }
 
       
         private void btnCAdd_Click(object sender, RoutedEventArgs e)
         {
-            new VolunteerWindow().Show();
+            new VolunteerDetailsWindow().Show();
         }
 
        

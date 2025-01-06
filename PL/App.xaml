@@ -7,9 +7,9 @@
         <local:VolunteerInListCollection x:Key="VolunteerInListCollectionKey"/>
         <local:RoleCollection x:Key="RoleCollectionKey"/>
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
-        <local:ConvertUpdateToTrueKey x:Key="ConvertUpdateToTrueKey"/>
-        <local:ConvertUpdateToVisibleKey x:Key="ConvertUpdateToVisible"/>
-        <local:BooleanToVisibility x:Key="BooleanToVisibility"/>
+        <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
+        <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey"/>
+        <local:BooleanToVisibility x:Key="BooleanToVisibilityKey"/>
     </Application.Resources>
 </Application>
 

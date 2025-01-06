@@ -23,29 +23,50 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-       
+        public int Id { get; set; }
+        public string Password { get; set; }
+
 
 
         public EnterWindow()
         {
-           
+
             InitializeComponent();
 
-
         }
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-           
-        
-            
+            if (sender is PasswordBox passwordBox)
+            {
+                Password = passwordBox.Password;
+            }
+        }
 
+        private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Password))
+            {
+                // אפשר להוסיף כאן לוגיקה כדי להחזרת ערך ברירת מחדל או שינוי צבע
+            }
+        }
+
+        private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // אפשר להוסיף כאן לוגיקה כדי להסיר ערך ברירת מחדל אם יש
+        }
+
+
+        private void btnEnter_Click(object sender, RoutedEventArgs e)
+        {
+
+            BO.Volunteer currentVolunteer = null;
             try
             {
-              BO.Volunteer  currentVolunteer =  s_bl.Volunteers.Read(id);
+                currentVolunteer = s_bl.Volunteers.Read(Id);
             }
             catch (BO.BlDoesNotExistException ex)
             {
-               
+
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 this.Close();
             }
@@ -53,13 +74,26 @@ namespace PL
             {
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-            if(currentVolunteer.Password!=password)
-                MessageBox.Show("wrong password!","Error", MessageBoxButton.OK);
+            if (currentVolunteer!.Password != Password)
+                MessageBox.Show("wrong password!", "Error", MessageBoxButton.OK);
+
+
 
             else
             {
-                if(currentVolunteer.Job==BO.Role.Volunteer)
-               
+                MessageBox.Show("WELLCOM TO SYSTEM", "Wellcom");
+                if (currentVolunteer.Job == BO.Role.Boss)
+                {
+                    MessageBoxResult mbResult = MessageBox.Show("are u want the Mannge Window?", "mannege or volunteer",
+                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (mbResult == MessageBoxResult.Yes)
+                        new MainWindow().Show();
+                }
+                else
+                new VolunteerWindow().Show();
+
+
             }
 
         }
