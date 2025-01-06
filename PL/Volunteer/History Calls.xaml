@@ -1,0 +1,56 @@
+﻿<Window x:Class="PL.Volunteer.History_Calls"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Volunteer"
+        mc:Ignorable="d"
+        Title="History Calls" Height="450" Width="800">
+
+    <Grid>
+        <!-- Row 0: ComboBox and Label -->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--<Label Content="Select Call Type:" 
+                   Grid.Column="0" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   Margin="3,0,0,0"/>
+
+            <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallInListKey}}"  
+                      SelectionChanged="cbVSelector_SelectionChanged" 
+                      SelectedValue="{Binding ClosedCallInList, Mode=TwoWay}" 
+                      Grid.Column="1" 
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch"/>
+        </Grid>
+
+        --><!-- Row 1: DataGrid --><!--
+        
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding ClosedCallInList}" 
+                  AutoGenerateColumns="False"  
+                  SelectedItem="{Binding ClosedCallInList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Type}" Header="Type" Width="*"/>
+                <DataGridTextColumn Binding="{Binding FullAddress}" Header="Full Address" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TimeOpen}" Header="Time Open" Width="*"/>
+                <DataGridTextColumn Binding="{Binding StartTreat}" Header="Start Treatment" Width="*"/>
+                <DataGridTextColumn Binding="{Binding TimeClose}" Header="Time Close" Width="*"/>
+
+                <DataGridTemplateColumn Header="Call Type">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding TypeEndTreat}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>-->
+    </Grid>
+</Window>
