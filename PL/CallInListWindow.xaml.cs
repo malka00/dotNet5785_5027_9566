@@ -11,9 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using PL.Volunteer;
 
-namespace PL
+
+namespace PL.Call
 {
     /// <summary>
     /// Interaction logic for CallInListWindow.xaml
@@ -61,8 +61,14 @@ namespace PL
 
         private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (SelectedCall != null)
-                new CallWindow(SelectedCall.Id).Show();
+            if (SelectedCall?.Id != null) // בדיקה אם SelectedCall ו-Id אינם null
+            {
+                new CallWindow(SelectedCall.Id.Value).Show();
+            }
+            else
+            {
+                MessageBox.Show("No call selected for editing.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -78,7 +84,14 @@ namespace PL
             {
                 try
                 {
-                    s_bl.Calls.Delete(SelectedCall.Id.Value);
+                    if (SelectedCall?.Id != null)
+                    {
+                        s_bl.Calls.Delete(SelectedCall.Id.Value);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No call selected for deletion.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
                 }
                 catch (BO.BlDeleteNotPossibleException ex)
                 {

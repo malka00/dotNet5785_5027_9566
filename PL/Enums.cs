@@ -17,6 +17,14 @@ internal class VolunteerInListCollection : IEnumerable
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
 
+internal class CallInListCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.ECallInList> s_enums =
+        (Enum.GetValues(typeof(BO.ECallInList)) as IEnumerable<BO.ECallInList>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
+
 internal class DistanceCollection : IEnumerable
 {
     static readonly IEnumerable<BO.Distance> s_enums =
@@ -24,8 +32,19 @@ internal class DistanceCollection : IEnumerable
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
 
+internal class CallTypeCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.CallType> s_enums =
+        (Enum.GetValues(typeof(BO.CallType)) as IEnumerable<BO.CallType>)!;
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
 
-
+internal class StatusCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.StatusTreat> s_enums =
+        (Enum.GetValues(typeof(BO.StatusTreat)) as IEnumerable<BO.StatusTreat>)!;
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
 
 
 

@@ -9,7 +9,7 @@ namespace BO;
 /// </summary>
 public class Call
 {
-    public  int Id { get; init; }
+    public int Id { get; init; }
     public CallType Type { get; set; }
     public string? Description { get; set; }
     public string FullAddress { get; set; }
