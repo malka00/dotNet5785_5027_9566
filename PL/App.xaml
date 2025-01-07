@@ -13,6 +13,7 @@
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
         <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey"/>
         <local:BooleanToVisibility x:Key="BooleanToVisibilityKey"/>
+        <local:ClosedCallColection x:Key="ClosedCallColectionKey"/>
     </Application.Resources>
 </Application>
 

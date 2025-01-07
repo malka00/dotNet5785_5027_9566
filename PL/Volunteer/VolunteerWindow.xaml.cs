@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,16 +27,20 @@ namespace PL.Volunteer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
 
-        string ButtonText
-        {
-            get => (string)GetValue(ButtonTextProperty);
-            init => SetValue(ButtonTextProperty, value);
-        }
-        public static readonly DependencyProperty ButtonTextProperty =
-         DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow));
+        //string ButtonText
+        //{
+        //    get => (string)GetValue(ButtonTextProperty);
+        //    init => SetValue(ButtonTextProperty, value);
+        //}
+        //public static readonly DependencyProperty ButtonTextProperty =
+        // DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow));
 
+        public int userId {  get; set; }
         public VolunteerWindow(int id = 0)
         {
+            userId=id;
+         InitializeComponent();
+
         }
 
 
@@ -51,6 +56,13 @@ namespace PL.Volunteer
         private void btnPersonalDetails_Click(object sender, RoutedEventArgs e)
         {
         }
+        private void btnCallsHistory_Click(object sender, RoutedEventArgs e)
+        {
+            new HistoryCalls(userId).Show();
+        }
+
+
+
     }
 
 }

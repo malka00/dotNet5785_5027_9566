@@ -35,7 +35,10 @@ namespace PL.Volunteer
         public BO.EVolunteerInList VolunteerInList { get; set; } = BO.EVolunteerInList.Id;
 
         public VolunteerListWindow()
-        { InitializeComponent();}
+        { 
+            InitializeComponent();
+          
+        }
 
         private void VolunteerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         { QueryVolunteerList();}
