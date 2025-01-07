@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 
 
-namespace PL.Call
+namespace PL
 {
     /// <summary>
     /// Interaction logic for CallWindow.xaml

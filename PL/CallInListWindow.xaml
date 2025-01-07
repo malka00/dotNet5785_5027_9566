@@ -1,9 +1,9 @@
-﻿<Window x:Class="PL.Call.CallInListWindow"
+﻿<Window x:Class="PL.CallInListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.Call"
+        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="CallInListWindow" Height="450" Width="800"
@@ -31,12 +31,12 @@
                       SelectedValue="{Binding CallInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
 
-            <!-- ComboBox ראשון -->
+             <!--ComboBox ראשון--> 
             <ComboBox  Margin="167,0,0,0"
                   ItemsSource="{Binding StatusOrTypeOptions}" 
             SelectedItem="{Binding SelectedStatusOrType, Mode=TwoWay}"/>
             
-            <!-- ComboBox שני -->
+             <!--ComboBox שני--> 
             <ComboBox Margin="0,0,224,0"
                ItemsSource="{Binding SelectedStatusOrType, Converter={StaticResource ConvertStatusOrTypeToEnumKey}}"
             SelectedItem="{Binding SelectedSecondOption, Mode=TwoWay}" />
@@ -48,7 +48,7 @@
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonAdd_Click"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding CallList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedCall}" MouseDoubleClick="dtgList_MouseDoubleClick" >
-            <!-- הגדרת סגנון לכותרות -->
+             <!--הגדרת סגנון לכותרות--> 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="AliceBlue"/>
