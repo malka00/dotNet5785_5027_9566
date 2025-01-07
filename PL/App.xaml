@@ -5,11 +5,11 @@
              StartupUri="EnterWindow.xaml">
     <Application.Resources>
         <local:VolunteerInListCollection x:Key="VolunteerInListCollectionKey"/>
-        <!--<local:CallInListCollection x:Key="CallInListCollectionKey"/>-->
+        <local:CallInListCollection x:Key="CallInListCollectionKey"/>
         <local:RoleCollection x:Key="RoleCollectionKey"/>
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
-        <!--<local:CallTypeCollection x:Key="CallTypeCollectionKey"/>-->
-        <!--<local:StatusCollection x:Key="StatusCollectionKey"/>-->
+        <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
+        <local:StatusCollection x:Key="StatusCollectionKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
         <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey"/>
         <local:BooleanToVisibility x:Key="BooleanToVisibilityKey"/>
