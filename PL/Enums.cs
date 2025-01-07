@@ -9,6 +9,14 @@ internal class RoleCollection : IEnumerable
 
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+internal class ClosedCallColection : IEnumerable
+{
+    static readonly IEnumerable<BO.EClosedCallInList> s_enums =
+        (Enum.GetValues(typeof(BO.EClosedCallInList)) as IEnumerable<BO.EClosedCallInList>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
+
 internal class VolunteerInListCollection : IEnumerable 
 {
     static readonly IEnumerable<BO.EVolunteerInList> s_enums =

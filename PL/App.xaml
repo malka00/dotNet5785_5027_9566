@@ -14,6 +14,7 @@
         <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey"/>
         <local:BooleanToVisibility x:Key="BooleanToVisibilityKey"/>
         <local:ConvertStatusOrTypeToEnum x:Key="ConvertStatusOrTypeToEnumKey"/>
+        <local:ClosedCallColection x:Key="ClosedCallColectionKey"/>
     </Application.Resources>
 </Application>
 
