@@ -69,7 +69,7 @@ public partial class CallInListWindow : Window
     {
         if (SelectedCall?.Id != null) // בדיקה אם SelectedCall ו-Id אינם null
         {
-            new CallWindow(SelectedCall.Id.Value).Show();
+            new CallWindow(SelectedCall.CallId).Show();
         }
         else
         {
