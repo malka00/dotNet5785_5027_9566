@@ -5,11 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Volunteer"
         mc:Ignorable="d"
-        Title="History Calls" Height="450" Width="800">
+          DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Title="History Calls" Height="640" Width="800">
 
     <Grid>
-        <!----><!-- Row 0: ComboBox and Label 
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
+        <!-- הגדרת שורות לגריד -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- השורה הראשונה עבור תיבת הבחירה -->
+            <RowDefinition Height="*"/>
+            <!-- השורה השנייה עבור ה-DataGrid -->
+        </Grid.RowDefinitions>
+
+        <!-- שורה ראשונה: בחירת סוג הקריאה -->
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -21,7 +30,7 @@
                    VerticalAlignment="Top" 
                    Margin="3,0,0,0"/>
 
-            <ComboBox ItemsSource="{Binding Source={StaticResource ClosedCallInListKey}}"  
+            <ComboBox  ItemsSource="{Binding Source={StaticResource ClosedCallColectionKey}}"  
                       SelectionChanged="cbVSelector_SelectionChanged" 
                       SelectedValue="{Binding ClosedCallInList, Mode=TwoWay}" 
                       Grid.Column="1" 
@@ -29,12 +38,11 @@
                       VerticalAlignment="Stretch"/>
         </Grid>
 
-         Row 1: DataGrid 
-        
+        <!-- שורה שנייה: DataGrid להצגת הנתונים -->
         <DataGrid Grid.Row="1" 
-                  ItemsSource="{Binding ClosedCallInList}" 
-                  AutoGenerateColumns="False"  
-                  SelectedItem="{Binding ClosedCallInList}">
+                  ItemsSource="{Binding ClosedCallList}" 
+                  AutoGenerateColumns="False">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Type}" Header="Type" Width="*"/>
@@ -51,6 +59,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>-->
+        </DataGrid>
     </Grid>
 </Window>

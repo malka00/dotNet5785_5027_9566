@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <Button Content="Personal Details" Click="btnPersonalDetails_Click" HorizontalAlignment="Left" Margin="96,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.024" Height="59" Width="128" Grid.Column="1" Grid.Row="1"/>
-        <Button Grid.Column="1" Content="Call History" HorizontalAlignment="Left" Margin="96,114,0,0" Grid.Row="1" VerticalAlignment="Top" Height="52" Width="128"/>
+        <Button Grid.Column="1" Content="Calls History" Click="btnCallsHistory_Click" HorizontalAlignment="Left" Margin="96,114,0,0" Grid.Row="1" VerticalAlignment="Top" Height="52" Width="128"/>
         <Button Grid.Column="1" Content="Choose Call" HorizontalAlignment="Left" Margin="318,14,0,0" Grid.Row="1" VerticalAlignment="Top" Height="55" Width="111"/>
         <Button Grid.Column="1" Content="Current Call" HorizontalAlignment="Left" Margin="318,114,0,0" Grid.Row="1" VerticalAlignment="Top" Height="52" Width="111"/>
 

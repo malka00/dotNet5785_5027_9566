@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Id:" HorizontalAlignment="Left" Margin="72,20,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding CurrenCall.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" HorizontalAlignment="Left" Margin="55,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <TextBox Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" HorizontalAlignment="Left" Margin="55,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
 
         <Label Content="Type:" HorizontalAlignment="Left" Margin="72,50,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource CallTypeCollectionKey}}"  
@@ -28,21 +28,21 @@
                   HorizontalAlignment="Left" Margin="55,54,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
 
         <Label Content="Description:" HorizontalAlignment="Left" Margin="72,98,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding CurrenCall.Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="36"/>
+        <TextBox Text="{Binding CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="36"/>
 
         <Label Content="Address:" HorizontalAlignment="Left" Margin="72,20,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox Text="{Binding CurrenCall.FullAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding CurrentCall.FullAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
 
         <Label Content="TimeOpened:" HorizontalAlignment="Left" Margin="70,65,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox Text="{Binding CurrenCall.TimeOpened, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="58,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding CurrentCall.TimeOpened, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="58,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
 
 
         <Label Content="MaxTimeToClose:" HorizontalAlignment="Left" Margin="60,124,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox Text="{Binding CurrenCall.MaxTimeToClose, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="74,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding CurrentCall.MaxTimeToClose, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="74,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
 
         <Label Content="Status:" HorizontalAlignment="Left" Margin="77,173,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  
-          SelectedValue="{Binding CurrenCall.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+          SelectedValue="{Binding CurrentCall.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
           HorizontalAlignment="Left" Margin="70,177,0,0"  VerticalAlignment="Top" DisplayMemberPath="ToString" Width="120" Grid.Column="1" Grid.Row="1"/>
 
         <Button Content="{Binding ButtonText}" Click="buttonAddUpdate_Click" HorizontalAlignment="Left" Margin="55,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.024" Height="26" Width="84" Grid.Column="1" Grid.Row="1"/>

@@ -89,8 +89,10 @@ namespace PL
 
                     if (mbResult == MessageBoxResult.Yes)
                         new MainWindow().Show();
+                    else
+                        new VolunteerWindow().Show();
                 }
-                else
+              else
                 new VolunteerWindow().Show();
 
 
