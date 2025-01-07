@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 
 namespace PL.Call
@@ -44,12 +47,12 @@ namespace PL.Call
         private void CallFilter(object sender, SelectionChangedEventArgs e)
         {
             CallInList = (BO.ECallInList)(((ComboBox)sender).SelectedItem);
-            CallList = s_bl?.Calls.GetCallInLists(null, CallInList, null)!;
+            CallList = s_bl?.Calls.GetCallInLists(null, null, CallInList)!;
         }
 
         private void QueryCallList()
         => CallList = (CallInList == BO.ECallInList.Id) ?
-        s_bl?.Calls.GetCallInLists(null, null, null)! : s_bl?.Calls.GetCallInLists(null, CallInList, null)!;
+        s_bl?.Calls.GetCallInLists(null, null, null)! : s_bl?.Calls.GetCallInLists(null, null, CallInList)!;
 
         private void CallListObserver() => QueryCallList();
 
@@ -104,6 +107,25 @@ namespace PL.Call
                 }
             }
         }
+
+
+
+
+        public class MainViewModel : INotifyPropertyChanged
+        {
+            public ObservableCollection<string> StatusOrTypeOptions { get; set; }
+            public string SelectedStatusOrType { get; set; }
+            public object SelectedSecondOption { get; set; }
+
+            public MainViewModel()
+            {
+                StatusOrTypeOptions = new ObservableCollection<string> { "Status", "CallType" };
+            }
+
+            public event PropertyChangedEventHandler? PropertyChanged;
+        }
+
+
     }
 }
 

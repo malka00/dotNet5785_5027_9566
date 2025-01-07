@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+using BO;
 
 namespace PL
 {
@@ -72,4 +73,41 @@ namespace PL
             return false;
         }
     }
+
+
+
+
+ 
+
+        public class ConvertStatusOrTypeToEnum : IValueConverter
+        {
+            // המרת הערך שנבחר ב-ComboBox הראשון לערכים המתאימים ב-ComboBox השני
+            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                if (value == null)
+                    return null;
+
+                // אם הערך שנבחר הוא Status, מחזירים את כל הערכים מתוך ה-StatusTreat Enum
+                if (value.ToString() == "Status")
+                {
+                    return Enum.GetValues(typeof(StatusTreat));
+                }
+                // אם הערך שנבחר הוא CallType, מחזירים את כל הערכים מתוך ה-CallType Enum
+                else if (value.ToString() == "CallType")
+                {
+                    return Enum.GetValues(typeof(CallType));
+                }
+
+                return null; // אם הערך לא תואם לשום דבר, מחזירים null
+            }
+
+            // המרת חזרה (לא נדרשת במקרה הזה)
+            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            {
+                return null;
+            }
+        }
+    
+
 }
+
