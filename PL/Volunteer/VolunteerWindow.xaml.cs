@@ -53,9 +53,7 @@ namespace PL.Volunteer
 
         }
 
-        private void btnPersonalDetails_Click(object sender, RoutedEventArgs e)
-        {
-        }
+      
         private void btnCallsHistory_Click(object sender, RoutedEventArgs e)
         {
             new HistoryCalls(userId).Show();

@@ -210,20 +210,6 @@
     <maxDistance>20</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>207488065</ID>
-    <fullName>Ruth Cohen</fullName>
-    <phone>0501234567</phone>
-    <email>ruth@example.com</email>
-    <password>P@ssw0rd</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>King George St 20, Jerusalem, Israel</address>
-    <longitude>35.2159448</longitude>
-    <latitude>31.7777204</latitude>
-    <maxDistance>17</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>214425027</ID>
     <fullName>Efrat Sharabi</fullName>
     <phone>0586526683</phone>
@@ -236,5 +222,19 @@
     <longitude>35.2257626</longitude>
     <latitude>31.7788242</latitude>
     <maxDistance>10</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>207488065</ID>
+    <fullName>Ruth Cohen</fullName>
+    <phone>0501234567</phone>
+    <email>ruth@example.com</email>
+    <password>P@ssw0rd</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>King George St 20, Jerusalem, Israel</address>
+    <longitude>35.2159448</longitude>
+    <latitude>31.7777204</latitude>
+    <maxDistance>6</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>
