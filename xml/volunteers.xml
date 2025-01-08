@@ -196,20 +196,6 @@
     <latitude>31.796294</latitude>
   </Volunteer>
   <Volunteer>
-    <ID>207669508</ID>
-    <fullName>Yossi Levy</fullName>
-    <phone>0529876543</phone>
-    <email>yossi@example.com</email>
-    <password>A1b2C3</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>bit hadfus 7  ,Jerusalem, Israel</address>
-    <longitude>35.215315</longitude>
-    <latitude>31.759595</latitude>
-    <maxDistance>20</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>214425027</ID>
     <fullName>Efrat Sharabi</fullName>
     <phone>0586526683</phone>
@@ -236,5 +222,19 @@
     <longitude>35.2159448</longitude>
     <latitude>31.7777204</latitude>
     <maxDistance>6</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>207669508</ID>
+    <fullName>Yossi Levy</fullName>
+    <phone>0529876543</phone>
+    <email>yossi@example.com</email>
+    <password>A1111</password>
+    <isActive>false</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>bit hadfus 7  ,Jerusalem, Israel</address>
+    <longitude>35.215315</longitude>
+    <latitude>31.759595</latitude>
+    <maxDistance>20</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

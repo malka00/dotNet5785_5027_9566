@@ -90,10 +90,10 @@ namespace PL
                     if (mbResult == MessageBoxResult.Yes)
                         new MainWindow().Show();
                     else
-                        new VolunteerWindow().Show();
+                        new VolunteerWindow(Id).Show();
                 }
               else
-                new VolunteerWindow().Show();
+                new VolunteerWindow(Id).Show();
 
 
             }

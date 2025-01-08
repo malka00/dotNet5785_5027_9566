@@ -8,7 +8,6 @@
         Title="VolunteerWindow" Height="450" Width="800"
    	 DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="67*"/>
@@ -18,9 +17,55 @@
             <ColumnDefinition Width="21*"/>
             <ColumnDefinition Width="139*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Content="Calls History" Click="btnCallsHistory_Click" HorizontalAlignment="Left" Margin="96,114,0,0" Grid.Row="1" VerticalAlignment="Top" Height="52" Width="128"/>
+        <Button Grid.Column="1" Content="Calls History" Click="btnCallsHistory_Click" HorizontalAlignment="Left" Margin="491,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="52" Width="128"/>
         <Button Grid.Column="1" Content="Choose Call" HorizontalAlignment="Left" Margin="318,14,0,0" Grid.Row="1" VerticalAlignment="Top" Height="55" Width="111"/>
         <Button Grid.Column="1" Content="Current Call" HorizontalAlignment="Left" Margin="318,114,0,0" Grid.Row="1" VerticalAlignment="Top" Height="52" Width="111"/>
+
+
+
+        <Label Content="Id:" HorizontalAlignment="Left" Margin="72,20,0,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  IsReadOnly="True" HorizontalAlignment="Left" Margin="55,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+
+        <Label Content="FullName:" HorizontalAlignment="Left" Margin="72,50,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding CurrentVolunteer.FullName, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,54,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+
+        <Label Content="PhoneNumber:" HorizontalAlignment="Left" Margin="72,80,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TextBox Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,84,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+
+        <Label Content="Email:" HorizontalAlignment="Left" Margin="72,110,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <TextBox Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,114,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1" Height="22" Grid.RowSpan="2"/>
+
+        <Label Content="TypeDistance:" HorizontalAlignment="Left" Margin="72,6,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource DistanceCollectionKey}}"  
+                  SelectedValue="{Binding CurrentVolunteer.TypeDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                 HorizontalAlignment="Left" Margin="55,10,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+
+
+
+        <Label Content="Role:" HorizontalAlignment="Left" Margin="72,36,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" Width="40"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource RoleCollectionKey}}" 
+                 SelectedValue="{Binding CurrentVolunteer.Job, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+HorizontalAlignment="Left" Margin="55,40,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+
+        <Label Content="Active:" HorizontalAlignment="Left" Margin="72,66,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <CheckBox   IsChecked="{Binding CurrentVolunteer.Active, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+           HorizontalAlignment="Left" Margin="55,70,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+
+
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="72,96,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <TextBox  Visibility="{Binding IsTextBoxVisibleKey, Converter={StaticResource BooleanToVisibilityKey}}" 
+        Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="55,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="FullAddress:" HorizontalAlignment="Left" Margin="72,135,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <TextBox Text="{Binding CurrentVolunteer.FullAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1" Height="36"/>
+
+        <Label Content="MaxReading:" HorizontalAlignment="Left" Margin="72,178,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <TextBox Text="{Binding CurrentVolunteer.MaxReading, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
+
+      
+
+        <Button Content="Update" Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="295,220,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.024" Height="26" Width="84" Grid.Column="1" Grid.Row="1"/>
+   
+
 
 
     </Grid>
