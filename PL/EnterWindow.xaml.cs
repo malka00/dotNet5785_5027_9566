@@ -23,10 +23,10 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public int Id { get; set; }
         public string Password { get; set; }
 
 
+         public int Id { get; set; }
 
         public EnterWindow()
         {

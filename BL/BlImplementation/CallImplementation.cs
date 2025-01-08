@@ -502,9 +502,6 @@ internal class CallImplementation : ICall
         boCall.Latitude = latitude;
         boCall.Longitude = longitude;
         CallManager.CheckLogic(boCall);
-      
-
-
         DO.Call doCall = new
                     (
                     boCall.Id,

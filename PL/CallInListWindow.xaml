@@ -100,13 +100,14 @@
                                     <Style TargetType="TextBlock">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Status}" Value="Open">
-                                                <Setter Property="Foreground" Value="Yellow" />
+                                                <Setter Property="Foreground" Value="#FFD700" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Status}" Value="Treat">
                                                 <Setter Property="Foreground" Value="Orange" />
+                                              
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Status}" Value="Close">
-                                                <Setter Property="Foreground" Value="Green" />
+                                                <Setter Property="Foreground" Value="#98FB98" />
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Status}" Value="Expired">
                                                 <Setter Property="Foreground" Value="Blue" />

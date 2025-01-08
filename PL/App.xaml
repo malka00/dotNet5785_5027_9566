@@ -17,7 +17,3 @@
         <local:ClosedCallColection x:Key="ClosedCallColectionKey"/>
     </Application.Resources>
 </Application>
-
-
-
-
