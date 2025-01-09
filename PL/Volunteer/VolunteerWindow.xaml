@@ -84,8 +84,8 @@
         <!--   Buttons -->
         <Button Content="Histoy Calls" Click="btnCallsHistory_Click" HorizontalAlignment="Left" Margin="270,164,0,0" VerticalAlignment="Top"/>
         <Border BorderBrush="Black" BorderThickness="1"/>
-        <Button Content="Close Call" HorizontalAlignment="Left" Margin="290,204,0,0" VerticalAlignment="Top"/>
-        <Button Content="Choose Call" HorizontalAlignment="Left" Margin="310,245,0,0" VerticalAlignment="Top"/>
+        <Button Content="Close Call" IsEnabled="{Binding CurrentVolunteer.CallIn, Converter={StaticResource BoolConvertIsCallInProssesKey}, ConverterParameter=False}"  HorizontalAlignment="Left" Margin="290,204,0,0" VerticalAlignment="Top"/>
+        <Button Content="Choose Call"   IsEnabled="{Binding CurrentVolunteer.CallIn, Converter={StaticResource BoolConvertIsCallInProssesKey}, ConverterParameter=True}" HorizontalAlignment="Left" Margin="310,245,0,0" VerticalAlignment="Top"/>
         <!-- Name -->
         <StackPanel Orientation="Horizontal" Margin="10,10,0,0" VerticalAlignment="Top">
             <Label Content="Name:" FontSize="14" VerticalAlignment="Center"/>

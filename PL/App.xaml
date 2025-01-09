@@ -12,6 +12,7 @@
         <local:StatusCollection x:Key="StatusCollectionKey"/>
 
         <local:ConvertIsCallInProsses x:Key="ConvertIsCallInProssesKey"/>
+        <local:BoolConvertIsCallInProsses x:Key="BoolConvertIsCallInProssesKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
         <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey"/>
         <local:BooleanToVisibility x:Key="BooleanToVisibilityKey"/>
