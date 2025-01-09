@@ -10,6 +10,8 @@
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
         <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
         <local:StatusCollection x:Key="StatusCollectionKey"/>
+
+        <local:ConvertIsCallInProsses x:Key="ConvertIsCallInProssesKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
         <local:ConvertUpdateToVisible x:Key="ConvertUpdateToVisibleKey"/>
         <local:BooleanToVisibility x:Key="BooleanToVisibilityKey"/>

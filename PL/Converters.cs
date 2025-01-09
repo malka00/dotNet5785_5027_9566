@@ -7,10 +7,28 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
+
 using BO;
 
 namespace PL
 {
+
+    public class ConvertIsCallInProsses : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return Visibility.Collapsed; ; // אם ב-"עדכון", הופך ל-True
+            }
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class ConvertUpdateToTrue : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -72,6 +90,7 @@ namespace PL
             }
             return false;
         }
+
     }
 
 
@@ -108,6 +127,6 @@ namespace PL
             }
         }
     
-
 }
+
 
