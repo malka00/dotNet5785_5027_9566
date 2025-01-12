@@ -37,7 +37,6 @@ namespace PL.Volunteer
         public VolunteerListWindow()
         { 
             InitializeComponent();
-          
         }
 
         private void VolunteerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

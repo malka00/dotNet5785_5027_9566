@@ -197,20 +197,6 @@
     <maxDistance>47</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>209606318</ID>
-    <fullName>Galit Cohen</fullName>
-    <phone>0556547891</phone>
-    <email>galit@example.com</email>
-    <password>Choco7</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>Ben Yehuda St 1, Jerusalem, Israel</address>
-    <longitude>35.2203</longitude>
-    <latitude>31.7822</latitude>
-    <maxDistance>29</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>326209566</ID>
     <fullName>Malka Haupt</fullName>
     <phone>0501111111</phone>
