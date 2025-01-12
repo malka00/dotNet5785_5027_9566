@@ -199,12 +199,19 @@ internal class VolunteerManager
             CheckEmail(boVolunteer.Email);
             CheckPassword(boVolunteer.Password);
             CheckAddress(boVolunteer);
+            CheckActive(boVolunteer);
 
         }
         catch (BO.BlWrongItemException ex)
         {
             throw new BO.BlWrongItemException($"the item have logic problem", ex);
         }
+    }
+
+    internal static void CheckActive(BO.Volunteer volunteer)
+    {
+        if (!volunteer.Active && (volunteer.CallIn != null))
+            throw new BO.BlWrongItemException($"Volunteer canot be unActive with call in treat");
     }
 
     /// <summary>

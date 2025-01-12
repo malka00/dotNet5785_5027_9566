@@ -62,9 +62,20 @@ namespace PL.Volunteer
 
         private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (SelectedVolunteer!= null)
-                new VolunteerDetailsWindow(SelectedVolunteer.Id).Show();
+            var dataGrid = sender as DataGrid;
+            var selectedVolunteer = dataGrid?.SelectedItem as BO.VolunteerInList;
+
+            if (selectedVolunteer != null)
+            {
+                new VolunteerDetailsWindow(selectedVolunteer.Id).Show();
+            }
+            else
+            {
+                MessageBox.Show("No volunteer selected. Please select a volunteer.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
+  
+
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -92,6 +103,32 @@ namespace PL.Volunteer
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             } 
+        }
+        private bool isFiltered = false;
+
+        private void btnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (isFiltered)
+                {
+                    // אם הרשימה מסוננת, נבטל את הסינון ונחזיר את הרשימה המלאה
+                    VolunteerList = s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
+                    isFiltered = false;
+                    ((Button)sender).Content = "Filter active volunteer";
+                }
+                else
+                {
+                    // אם הרשימה לא מסוננת, נסנן לפי מתנדבים פעילים
+                    VolunteerList = s_bl?.Volunteers.GetVolunteerList(true, VolunteerInList)!;
+                    isFiltered = true;
+                    ((Button)sender).Content = "Show all volunteers";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }

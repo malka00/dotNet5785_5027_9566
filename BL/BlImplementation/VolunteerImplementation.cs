@@ -61,10 +61,11 @@ internal class VolunteerImplementation : IVolunteer
     {
         DO.Volunteer? doVolunteer = _dal.Volunteer.Read(id);
         IEnumerable < DO.Assignment> assignments= _dal.Assignment.ReadAll(ass=>ass.VolunteerId==id);
-        
+
         if (assignments != null&& assignments.Count(ass => ass.TimeEnd == null) > 0)
-       
-            throw new BO.BlWrongInputException("can not delete have assignment in treat");
+            throw new BO.BlWrongInputException("A volunteer handling a call cannot be deleted");
+        if (assignments != null && assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated) > 0)
+            throw new BO.BlWrongInputException("A volunteer who has handled calls in the past cannot be deleted");
         try
         {
             _dal.Volunteer.Delete(id);
@@ -146,7 +147,7 @@ internal class VolunteerImplementation : IVolunteer
         DO.Volunteer doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
         DO.Volunteer ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)
-            throw new BO.BlWrongInputException("id and  does not correct or not manager");
+            throw new BO.BlWrongInputException("id and does not correct or not manager");
         
             double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
             boVolunteer.Latitude = coordinate[0];
