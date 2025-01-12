@@ -17,15 +17,15 @@ namespace PL.Volunteer
         public static readonly DependencyProperty CurrentVolunteerProperty =
             DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
 
-        public int userId { get; set; }
+        public int UserId { get; set; }
 
         public VolunteerWindow(int id = 0)
         {
-            userId = id;
+            UserId = id;
 
             try
             {
-                CurrentVolunteer = s_bl.Volunteers.Read(userId);
+                CurrentVolunteer = s_bl.Volunteers.Read(UserId);
             }
             catch (BO.BlDoesNotExistException ex)
             {
@@ -38,15 +38,16 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
-            s_bl.Volunteers.AddObserver(userId, VolunteerObserver);
+            s_bl.Volunteers.AddObserver(UserId, VolunteerObserver);
             InitializeComponent();
         }
 
         private void VolunteerObserver()
         {
-            CurrentVolunteer = s_bl.Volunteers.Read(userId);
+            CurrentVolunteer = s_bl.Volunteers.Read(UserId);
         }
-
+       
+      
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (CurrentVolunteer!.Id != 0)
@@ -60,7 +61,7 @@ namespace PL.Volunteer
 
         private void btnCallsHistory_Click(object sender, RoutedEventArgs e)
         {
-            new HistoryCalls(userId).Show();
+            new HistoryCalls(UserId).Show();
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -69,7 +70,7 @@ namespace PL.Volunteer
             {
                 s_bl.Volunteers.Update(CurrentVolunteer.Id, CurrentVolunteer!);
                 MessageBox.Show($" Successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                s_bl.Volunteers.AddObserver(userId, VolunteerObserver);
+                s_bl.Volunteers.AddObserver(UserId, VolunteerObserver);
             }
             catch (BO.BlDoesNotExistException ex)
             {
@@ -83,7 +84,7 @@ namespace PL.Volunteer
 
         private void btnChooseCall_Click(object sender, RoutedEventArgs e)
         {
-            new ChooseCallWindow(userId).Show();
+            new ChooseCallWindow(UserId).Show();
             s_bl.Volunteers.AddObserver(CurrentVolunteer.Id, VolunteerObserver);
         }
 
@@ -91,7 +92,7 @@ namespace PL.Volunteer
         {
             try
             {
-                s_bl.Calls.CloseTreat(userId, CurrentVolunteer.CallIn.Id);
+                s_bl.Calls.CloseTreat(UserId, CurrentVolunteer.CallIn.Id);
                 MessageBox.Show($"Call was successfully Closed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 s_bl.Volunteers.AddObserver(CurrentVolunteer.Id, VolunteerObserver);
             }
@@ -109,7 +110,7 @@ namespace PL.Volunteer
         {
             try
             {
-                s_bl.Calls.CancelTreat(userId, CurrentVolunteer.CallIn.Id);
+                s_bl.Calls.CancelTreat(UserId, CurrentVolunteer.CallIn.Id);
                 MessageBox.Show($"Call was successfully Canceld!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 s_bl.Volunteers.AddObserver(CurrentVolunteer.Id, VolunteerObserver);
             }
