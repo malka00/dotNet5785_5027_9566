@@ -104,5 +104,9 @@ namespace PL.Volunteer
 
         }
 
+        private void btnChooseCall_Click(object sender, RoutedEventArgs e)
+        {
+            new ChooseCallWindow(userId).Show();
+        }
     }
 }

@@ -112,8 +112,7 @@ public enum EOpenCallInList
     FullAddress,
     TimeOpen,
     MaxTimeToClose,
-    distanceCallVolunteer,
-    
+    distanceCallVolunteer, 
 }
 
 /// <summary>

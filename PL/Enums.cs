@@ -33,6 +33,14 @@ internal class CallInListCollection : IEnumerable
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
 
+internal class OpenCallInListCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.EOpenCallInList> s_enums =
+        (Enum.GetValues(typeof(BO.EOpenCallInList)) as IEnumerable<BO.EOpenCallInList>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}
+
 internal class DistanceCollection : IEnumerable
 {
     static readonly IEnumerable<BO.Distance> s_enums =

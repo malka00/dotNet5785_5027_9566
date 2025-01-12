@@ -6,6 +6,7 @@
     <Application.Resources>
         <local:VolunteerInListCollection x:Key="VolunteerInListCollectionKey"/>
         <local:CallInListCollection x:Key="CallInListCollectionKey"/>
+        <local:OpenCallInListCollection x:Key="OpenCallInListCollectionKey"/>
         <local:RoleCollection x:Key="RoleCollectionKey"/>
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
         <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
