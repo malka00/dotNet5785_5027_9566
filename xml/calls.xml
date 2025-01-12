@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCall xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Call>
-    <Id>1000</Id>
-    <Type>Puncture</Type>
-    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
-    <FullAddress>King David St 15, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7767</Latitude>
-    <Longitude>35.2252</Longitude>
-    <TimeOpened>2025-01-01T12:03:06</TimeOpened>
-    <MaxTimeToClose>2025-01-02T08:54:06</MaxTimeToClose>
-  </Call>
-  <Call>
-    <Id>1001</Id>
-    <Type>Cables</Type>
-    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
-    <FullAddress>Keren Hayesod St 24, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7745</Latitude>
-    <Longitude>35.2168</Longitude>
-    <TimeOpened>2025-01-01T21:39:06</TimeOpened>
-    <MaxTimeToClose xsi:nil="true" />
-  </Call>
-  <Call>
-    <Id>1002</Id>
-    <Type>Cables</Type>
-    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
-    <FullAddress>HaRav Kook St 8, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7839</Latitude>
-    <Longitude>35.215</Longitude>
-    <TimeOpened>2025-01-01T20:45:06</TimeOpened>
-    <MaxTimeToClose xsi:nil="true" />
-  </Call>
-  <Call>
     <Id>1003</Id>
     <Type>Puncture</Type>
     <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
@@ -39,16 +9,6 @@
     <Longitude>35.2174</Longitude>
     <TimeOpened>2025-01-01T22:29:06</TimeOpened>
     <MaxTimeToClose xsi:nil="true" />
-  </Call>
-  <Call>
-    <Id>1004</Id>
-    <Type>LockedCar</Type>
-    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
-    <FullAddress>Radak St 9, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7785</Latitude>
-    <Longitude>35.2132</Longitude>
-    <TimeOpened>2025-01-01T22:57:06</TimeOpened>
-    <MaxTimeToClose>2025-01-02T14:36:06</MaxTimeToClose>
   </Call>
   <Call>
     <Id>1005</Id>
@@ -61,16 +21,6 @@
     <MaxTimeToClose xsi:nil="true" />
   </Call>
   <Call>
-    <Id>1006</Id>
-    <Type>Puncture</Type>
-    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
-    <FullAddress>Shmuel HaNagid St 16, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7809</Latitude>
-    <Longitude>35.2138</Longitude>
-    <TimeOpened>2025-01-01T16:56:06</TimeOpened>
-    <MaxTimeToClose>2025-01-02T03:48:06</MaxTimeToClose>
-  </Call>
-  <Call>
     <Id>1007</Id>
     <Type>Cables</Type>
     <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
@@ -79,16 +29,6 @@
     <Longitude>35.2245</Longitude>
     <TimeOpened>2025-01-02T05:27:06</TimeOpened>
     <MaxTimeToClose>2025-01-02T17:04:06</MaxTimeToClose>
-  </Call>
-  <Call>
-    <Id>1008</Id>
-    <Type>LockedCar</Type>
-    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
-    <FullAddress>Shivtei Israel St 28, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7825</Latitude>
-    <Longitude>35.2241</Longitude>
-    <TimeOpened>2025-01-02T10:04:06</TimeOpened>
-    <MaxTimeToClose xsi:nil="true" />
   </Call>
   <Call>
     <Id>1009</Id>
@@ -499,5 +439,65 @@
     <Longitude>35.207448</Longitude>
     <TimeOpened>2025-01-01T13:08:06</TimeOpened>
     <MaxTimeToClose>2025-01-02T04:14:06</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1002</Id>
+    <Type>LockedCar</Type>
+    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
+    <FullAddress>HaRav Kook St 8, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7831088</Latitude>
+    <Longitude>35.2203032</Longitude>
+    <TimeOpened>2025-01-01T20:45:06</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1001</Id>
+    <Type>LockedCar</Type>
+    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
+    <FullAddress>Keren Hayesod St 24, Jerusalem, Israel</FullAddress>
+    <Latitude>31.772766</Latitude>
+    <Longitude>35.2209702</Longitude>
+    <TimeOpened>2025-01-01T21:39:06</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1008</Id>
+    <Type>LockedCar</Type>
+    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
+    <FullAddress>Shivtei Israel St 28, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7840431</Latitude>
+    <Longitude>35.2247538</Longitude>
+    <TimeOpened>2025-01-02T10:04:06</TimeOpened>
+    <MaxTimeToClose>2025-01-08T09:32:00</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1004</Id>
+    <Type>LockedCar</Type>
+    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
+    <FullAddress>Radak St 9, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7704322</Latitude>
+    <Longitude>35.2140486</Longitude>
+    <TimeOpened>2025-01-01T22:57:06</TimeOpened>
+    <MaxTimeToClose>2025-01-20T17:36:06</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1000</Id>
+    <Type>Puncture</Type>
+    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
+    <FullAddress>King David St 15, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7730517</Latitude>
+    <Longitude>35.2225163</Longitude>
+    <TimeOpened>2025-01-01T12:03:06</TimeOpened>
+    <MaxTimeToClose>2025-01-20T08:54:06</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1006</Id>
+    <Type>Puncture</Type>
+    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
+    <FullAddress>Shmuel HaNagid St 16, Jerusalem, Israel</FullAddress>
+    <Latitude>31.780466</Latitude>
+    <Longitude>35.2149978</Longitude>
+    <TimeOpened>2025-01-01T16:56:06</TimeOpened>
+    <MaxTimeToClose>2025-01-20T03:48:06</MaxTimeToClose>
   </Call>
 </ArrayOfCall>

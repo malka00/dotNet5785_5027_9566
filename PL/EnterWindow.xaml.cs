@@ -23,10 +23,10 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public int Id { get; set; }
         public string Password { get; set; }
 
 
+         public int Id { get; set; }
 
         public EnterWindow()
         {
@@ -90,10 +90,10 @@ namespace PL
                     if (mbResult == MessageBoxResult.Yes)
                         new MainWindow().Show();
                     else
-                        new VolunteerWindow().Show();
+                        new VolunteerWindow(Id).Show();
                 }
               else
-                new VolunteerWindow().Show();
+                new VolunteerWindow(Id).Show();
 
 
             }

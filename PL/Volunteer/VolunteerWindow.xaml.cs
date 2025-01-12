@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Volunteer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -26,43 +27,82 @@ namespace PL.Volunteer
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-
-        //string ButtonText
-        //{
-        //    get => (string)GetValue(ButtonTextProperty);
-        //    init => SetValue(ButtonTextProperty, value);
-        //}
-        //public static readonly DependencyProperty ButtonTextProperty =
-        // DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow));
-
-        public int userId {  get; set; }
-        public VolunteerWindow(int id = 0)
+        public BO.Volunteer? CurrentVolunteer
         {
-            userId=id;
-         InitializeComponent();
-
+            get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
+            set { SetValue(CurrentVolunteerProperty, value); }
         }
 
+        public static readonly DependencyProperty CurrentVolunteerProperty =
+       DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+        public int userId { get; set; }
+
+        public VolunteerWindow(int id = 0)
+        {
+            userId = id;
+            InitializeComponent();
+            try
+            {
+                CurrentVolunteer = s_bl.Volunteers.Read(userId);
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                CurrentVolunteer = null;
+                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+
+            s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
+        }
+
+        private void VolunteerObserver()
         {
 
+            CurrentVolunteer = null;
+            CurrentVolunteer = s_bl.Volunteers.Read(userId);
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (CurrentVolunteer!.Id != 0)
+                s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
         }
         private void Window_Closed(object sender, EventArgs e)
         {
-
+            s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
         }
 
-        private void btnPersonalDetails_Click(object sender, RoutedEventArgs e)
-        {
-        }
+
         private void btnCallsHistory_Click(object sender, RoutedEventArgs e)
         {
             new HistoryCalls(userId).Show();
         }
+      
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                s_bl.Volunteers.Update(CurrentVolunteer.Id, CurrentVolunteer!);
+                MessageBox.Show($" Successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            }
+            catch (BO.BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
 
 
+        }
 
     }
-
 }
