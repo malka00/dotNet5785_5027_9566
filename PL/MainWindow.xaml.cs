@@ -32,6 +32,14 @@ namespace PL
         public static readonly DependencyProperty MaxRangeProperty =
         DependencyProperty.Register("MaxRange", typeof(TimeSpan), typeof(MainWindow));
 
+        public int[] CountCall
+        {
+            get { return (int[])GetValue(CountCallProperty); }
+            set { SetValue(CountCallProperty, value); }
+        }
+        public static readonly DependencyProperty CountCallProperty =
+        DependencyProperty.Register("CountCall", typeof(int[]), typeof(MainWindow));
+
         public MainWindow()
         {
             InitializeComponent();
@@ -73,7 +81,8 @@ namespace PL
             MaxRange = s_bl.Admin.GetMaxRange();
             CurrentTime = s_bl.Admin.GetClock();
             MaxRange = s_bl.Admin.GetMaxRange();
-            
+            CountCall = s_bl.Calls.CountCall();
+
             s_bl.Admin.AddClockObserver(clockObserver);
             s_bl.Admin.AddConfigObserver(configObserver);
 
