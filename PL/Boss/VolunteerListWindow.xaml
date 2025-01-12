@@ -39,7 +39,7 @@
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonAdd_Click"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False"  
-                 IsReadOnly="False" SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick">
+                 IsReadOnly="True" SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick">
             
 
 

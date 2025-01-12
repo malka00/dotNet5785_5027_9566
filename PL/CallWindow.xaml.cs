@@ -65,8 +65,6 @@ namespace PL
         public CallWindow(int id = 0)
         {
             ButtonText = id == 0 ? "Add" : "Update";
-            InitializeComponent();
-
             try
             {
                 CurrentCall = (id != 0) ? s_bl.Calls.Read(id)! : new BO.Call() { Id = 0, Type = BO.CallType.None, Description = "", FullAddress = "", Latitude =0, Longitude = 0, TimeOpened = DateTime.Now };
@@ -84,6 +82,7 @@ namespace PL
             }
 
             s_bl.Calls.AddObserver(CurrentCall!.Id, CallObserver);
+            InitializeComponent();
         }
 
         private void CallObserver()

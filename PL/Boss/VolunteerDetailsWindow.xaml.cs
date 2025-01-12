@@ -32,8 +32,10 @@ namespace PL.Volunteer
         }
         public static readonly DependencyProperty ButtonTextProperty =
          DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerDetailsWindow));
+       
+        public int ManagerId { get; set; }
 
-        public VolunteerDetailsWindow(int id=0)
+        public VolunteerDetailsWindow(int id=0, int bossId=0)
         {
             ButtonText = id == 0 ? "Add" : "Update";
             InitializeComponent();
@@ -52,7 +54,7 @@ namespace PL.Volunteer
             {
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-
+            ManagerId = bossId;
             s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
         }
 
@@ -123,10 +125,6 @@ namespace PL.Volunteer
             }
         }
 
-
-
-
-
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             if (ButtonText == "Add")
@@ -145,7 +143,7 @@ namespace PL.Volunteer
                 }
             else
                 try { 
-                s_bl.Volunteers.Update(CurrentVolunteer.Id, CurrentVolunteer!);
+                s_bl.Volunteers.Update(ManagerId, CurrentVolunteer!);
                     MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }

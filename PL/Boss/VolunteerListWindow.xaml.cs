@@ -33,9 +33,10 @@ namespace PL.Volunteer
         public BO.VolunteerInList? SelectedVolunteer { get; set; }
 
         public BO.EVolunteerInList VolunteerInList { get; set; } = BO.EVolunteerInList.Id;
-
-        public VolunteerListWindow()
-        { 
+        public int Id { get; set; }
+        public VolunteerListWindow(int bossdId)
+        {
+            Id = bossdId;
             InitializeComponent();
         }
 
@@ -65,7 +66,7 @@ namespace PL.Volunteer
             if (sender is DataGrid dataGrid && dataGrid.SelectedItem is BO.VolunteerInList selectedVolunteer)
             {
                 // פתח חלון לעריכת המתנדב
-                VolunteerDetailsWindow detailsWindow = new VolunteerDetailsWindow(selectedVolunteer.Id);
+                VolunteerDetailsWindow detailsWindow = new VolunteerDetailsWindow(SelectedVolunteer.Id,Id );
                 detailsWindow.Show();
             }
             else
@@ -74,8 +75,6 @@ namespace PL.Volunteer
             }
         }
   
-
-
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerDetailsWindow().Show();

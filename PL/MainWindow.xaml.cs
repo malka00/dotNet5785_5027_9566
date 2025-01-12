@@ -39,9 +39,11 @@ namespace PL
         }
         public static readonly DependencyProperty CountCallProperty =
         DependencyProperty.Register("CountCall", typeof(int[]), typeof(MainWindow));
-
-        public MainWindow()
+        
+        public int Id { get; set; }
+        public MainWindow(int bossId)
         {
+            Id=bossId;
             InitializeComponent();
         }
         private void btnAddOneMinute_Click(object sender, RoutedEventArgs e)
@@ -95,7 +97,7 @@ namespace PL
 
 
         private void ButtonVolunteer_Click(object sender, RoutedEventArgs e)
-        { new VolunteerListWindow().Show(); }
+        { new VolunteerListWindow(Id).Show(); }
 
 
         private void btnInitDB_Click(object sender, RoutedEventArgs e)

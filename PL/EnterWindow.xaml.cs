@@ -55,9 +55,6 @@ namespace PL
             // אפשר להוסיף כאן לוגיקה כדי להסיר ערך ברירת מחדל אם יש
         }
 
-
-      
-
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
             BO.Volunteer currentVolunteer = null;
@@ -90,7 +87,7 @@ namespace PL
 
 
                         if (mbResult == MessageBoxResult.Yes)
-                            new MainWindow().Show();
+                            new MainWindow(Id).Show();
                         else
                             new VolunteerWindow(Id).Show();
                     }

@@ -10,6 +10,7 @@
         <local:RoleCollection x:Key="RoleCollectionKey"/>
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
         <local:StatusCollection x:Key="StatusCollectionKey"/>
+        <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
 
         <local:ConvertIsCallInProsses x:Key="ConvertIsCallInProssesKey"/>
         <local:BoolConvertIsCallInProsses x:Key="BoolConvertIsCallInProssesKey"/>

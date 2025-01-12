@@ -43,20 +43,6 @@
     <maxDistance>64</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>207862384</ID>
-    <fullName>Meirav Israeli</fullName>
-    <phone>0541237894</phone>
-    <email>meirav@example.com</email>
-    <password>Pa55word</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>Hapalmach St 25, Jerusalem, Israel</address>
-    <longitude>35.2065</longitude>
-    <latitude>31.7642</latitude>
-    <maxDistance>50</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>207926692</ID>
     <fullName>Dan Mizrahi</fullName>
     <phone>0556789123</phone>
@@ -111,20 +97,6 @@
     <longitude>35.2156</longitude>
     <latitude>31.7515</latitude>
     <maxDistance>70</maxDistance>
-  </Volunteer>
-  <Volunteer>
-    <ID>208749978</ID>
-    <fullName>Ofer Mizrahi</fullName>
-    <phone>0545678912</phone>
-    <email>ofer@example.com</email>
-    <password>L0gin9</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>Bezalel St 12, Jerusalem, Israel</address>
-    <longitude>35.215</longitude>
-    <latitude>31.7812</latitude>
-    <maxDistance>45</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209184217</ID>
@@ -236,5 +208,33 @@
     <longitude>35.214391</longitude>
     <latitude>31.912659</latitude>
     <maxDistance>5</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>207862384</ID>
+    <fullName>Meirav Israeli</fullName>
+    <phone>0541237894</phone>
+    <email>meirav@example.com</email>
+    <password>Pa55word</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>Hapalmach St 25, Jerusalem, Israel</address>
+    <longitude>35.176402</longitude>
+    <latitude>31.916661</latitude>
+    <maxDistance>50</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>208749978</ID>
+    <fullName>Ofer Mizrahi</fullName>
+    <phone>0545678912</phone>
+    <email>ofer@example.com</email>
+    <password>L0gin9</password>
+    <isActive>false</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>Bezalel St 12, Jerusalem, Israel</address>
+    <longitude>35.2084651</longitude>
+    <latitude>31.7829486</latitude>
+    <maxDistance>45</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>
