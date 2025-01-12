@@ -123,7 +123,9 @@ public static class Initialization
         //    managerId = s_rand.Next(100000000, 1000000000);
         //while (s_dal!.Volunteer.Read(managerId) != null);
 
-        s_dal!.Volunteer.Create(new Volunteer(managerId, "Admin Man", "050-1111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "A1234", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
+        s_dal!.Volunteer.Create(new Volunteer(326209566, "Malka Haupt", "0501111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "A1234", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
+        s_dal!.Volunteer.Create(new Volunteer(214425027, "Efrat Sharabi ", "0501111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "A1234", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
+
     }
 
 
@@ -179,6 +181,26 @@ public static class Initialization
             "Car locked at beach parking, urgent help required for entry." };
 
     string[] DescriptionsC = {
+              "Battery drained in the middle of a long bridge, customer needs immediate help.",
+    "Dead battery at a theme park parking lot, family stranded with children.",
+    "Battery failed at a rural farm, customer requires assistance urgently.",
+    "Engine won’t start in an underground garage after leaving lights on.",
+    "Vehicle stranded on a snowy mountain pass, jump-start cables required.",
+    "Customer left the air conditioning running, now needs cable assistance in a desert area.",
+    "Dead battery at a hotel driveway, guest stranded before checkout.",
+    "Battery failure during a road trip, customer stuck at a scenic overlook.",
+    "Vehicle won’t start after fishing trip, stranded near a remote lake.",
+    "Car battery died at a golf course parking lot, jump-start needed urgently.",
+    "Customer’s battery failed at a local park during a picnic, needs help.",
+    "Dead battery after a football game, stranded near the stadium exit.",
+    "Battery drained in heavy fog, car stuck on a rural highway.",
+    "Vehicle won’t start after leaving hazard lights on, parked on a quiet street.",
+    "Dead battery at a university campus, urgent assistance requested.",
+    "Battery failure at a movie theater parking lot, customer stranded late at night.",
+    "Car won’t start after a rainy night, parked near a construction site.",
+    "Battery died while waiting in a ferry line, assistance needed immediately.",
+    "Engine won’t start after customer left headlights on in a supermarket parking lot.",
+    "Dead battery on a remote hiking trail parking area, customer stranded with no signal.",
             "Battery dead, requires jump-start cables near a busy intersection.",
             "Customer stranded with a weak battery, needs cables urgently.",
             "Dead battery in a dark area, customer requests cable assistance.",
@@ -198,7 +220,18 @@ public static class Initialization
             "Vehicle requires jump-start, stranded near a major shopping complex.",
             "Customer requesting cable assistance after battery failure on beach.",
             "Battery needs a jump-start, parked near a train station.",
-            "Engine won’t start in a heavy rainstorm, requires jump-start cables."
+            "Engine won’t start in a heavy rainstorm, requires jump-start cables.",
+            "Customer left interior lights on, needs jump-start in a hospital parking lot.",
+"Dead battery on a busy downtown street, urgent cable assistance required.",
+"Car won’t start after a camping trip, stranded near a mountain trail.",
+"Battery failure after overnight snowfall, customer needs jump-start in a neighborhood driveway.",
+"Vehicle stalled with a dead battery at a school pickup zone, urgent assistance needed.",
+"Battery drained at a gas station, customer requesting cable help.",
+"Customer stranded in a remote village, requires urgent jump-start assistance.",
+"Car battery died after music system was left on, parked near a community center.",
+"Engine won’t start at a marina parking lot, cable assistance needed urgently.",
+"Battery failure on a scenic route, customer stranded with no nearby help."
+
         };
   
     string[] addresses = new string[]
@@ -286,14 +319,14 @@ public static class Initialization
       31.7901, 31.7947, 31.8014, 31.7903, 31.792351
     };
 
-
+        int p = 0, l = 0, c = 0;
         ///created 50 readings
         for (int i = 0; i < 50; i++)
         {
             CallType cType; 
             string nDescription;
             //The rest of the division is a dish that came out diverse..
-            int p = 0, l = 0, c = 0;
+
             if (i % 3 == 0)
             {
                 cType = CallType.Puncture;
@@ -303,14 +336,16 @@ public static class Initialization
             else if (i % 4 == 0)
             {
                 cType = CallType.LockedCar;
-                nDescription = DescriptionsP[l];
+                nDescription = DescriptionsL[l];
                 l++;
             }
             else
             {
+             
                 cType = CallType.Cables;            // else value if no condition is met
-                nDescription = DescriptionsP[c];
+                nDescription = DescriptionsC[c];
                 c++;
+               
             }
             DateTime start = s_dal!.Config.Clock.AddDays(-1);
 

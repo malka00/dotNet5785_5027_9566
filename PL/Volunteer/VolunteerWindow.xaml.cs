@@ -24,7 +24,6 @@ namespace PL.Volunteer
     /// </summary>
     public partial class VolunteerWindow : Window
     {
-
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         public BO.Volunteer? CurrentVolunteer
@@ -39,10 +38,10 @@ namespace PL.Volunteer
 
         public int userId { get; set; }
 
-        public VolunteerWindow(int id = 0)
+        public VolunteerWindow(int id = 0)   
         {
             userId = id;
-            InitializeComponent();
+            
             try
             {
                 CurrentVolunteer = s_bl.Volunteers.Read(userId);
@@ -59,12 +58,12 @@ namespace PL.Volunteer
             }
 
             s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
+            InitializeComponent();
         }
 
         private void VolunteerObserver()
         {
-
-            CurrentVolunteer = null;
+           // CurrentVolunteer = null;
             CurrentVolunteer = s_bl.Volunteers.Read(userId);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -90,7 +89,7 @@ namespace PL.Volunteer
             {
                 s_bl.Volunteers.Update(CurrentVolunteer.Id, CurrentVolunteer!);
                 MessageBox.Show($" Successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                s_bl.Volunteers.AddObserver(userId, VolunteerObserver);
             }
             catch (BO.BlDoesNotExistException ex)
             {
@@ -107,6 +106,28 @@ namespace PL.Volunteer
         private void btnChooseCall_Click(object sender, RoutedEventArgs e)
         {
             new ChooseCallWindow(userId).Show();
+        }
+
+        private void btnClosed_Call(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                s_bl.Calls.CloseTreat(userId, CurrentVolunteer.CallIn.Id);
+                MessageBox.Show($"Call was successfully Closed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+               
+                s_bl.Volunteers.AddObserver(userId, VolunteerObserver);
+            }
+
+            catch (BO.BlDeleteNotPossibleException ex)
+
+            {
+                MessageBox.Show(ex.Message, "Close Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+          
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Close Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
     }
 }

@@ -71,7 +71,7 @@ internal class VolunteerManager
     internal static BO.CallInProgress GetCallIn(DO.Volunteer doVolunteer)
     {
         var assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
-        DO.Assignment? assignmentTreat = assignments.Find(ass => ass.TimeEnd == null || ass.TypeEndTreat==null);
+        DO.Assignment? assignmentTreat = assignments.Find(ass => /*ass.TimeEnd == null ||*/ ass.TypeEndTreat==null);
         if (assignmentTreat == null) { return null; }
         DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
         if (callTreat == null) { throw new BO.BlWrongInputException($"there is no call with this DI {assignmentTreat.CallId}"); }

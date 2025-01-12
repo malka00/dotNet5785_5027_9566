@@ -67,7 +67,7 @@ public partial class CallInListWindow : Window
 
     private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        if (SelectedCall?.Id != null) // בדיקה אם SelectedCall ו-Id אינם null
+        if (SelectedCall?.CallId != null) // בדיקה אם SelectedCall ו-Id אינם null
         {
             new CallWindow(SelectedCall.CallId).Show();
         }
