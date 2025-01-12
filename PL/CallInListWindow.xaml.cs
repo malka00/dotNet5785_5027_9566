@@ -36,6 +36,8 @@ public partial class CallInListWindow : Window
 
     public BO.CallInList? SelectedCall { get; set; }
 
+    public BO.StatusTreat StatusCallInList { get; set; }
+    
     public BO.ECallInList CallInList { get; set; } = BO.ECallInList.Id;
 
     public CallInListWindow()
@@ -110,25 +112,11 @@ public partial class CallInListWindow : Window
             }
         }
     }
-
-
-
-
-    //public class MainViewModel : INotifyPropertyChanged
-    //{
-    //    public ObservableCollection<string> StatusOrTypeOptions { get; set; }
-    //    public string SelectedStatusOrType { get; set; }
-    //    public object SelectedSecondOption { get; set; }
-
-    //    public MainViewModel()
-    //    {
-    //        StatusOrTypeOptions = new ObservableCollection<string> { "Status", "CallType" };
-    //    }
-
-    //    public event PropertyChangedEventHandler? PropertyChanged;
-    //}
-
-
+    private void Call_Filter(object sender, SelectionChangedEventArgs e)
+    {
+        CallInList = (BO.ECallInList)(((ComboBox)sender).SelectedItem);
+        CallList = s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, null)!;
+    }
 }
 
 

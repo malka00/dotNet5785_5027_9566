@@ -9,7 +9,6 @@
         <local:OpenCallInListCollection x:Key="OpenCallInListCollectionKey"/>
         <local:RoleCollection x:Key="RoleCollectionKey"/>
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
-        <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
         <local:StatusCollection x:Key="StatusCollectionKey"/>
 
         <local:ConvertIsCallInProsses x:Key="ConvertIsCallInProssesKey"/>

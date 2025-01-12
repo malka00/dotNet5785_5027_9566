@@ -62,12 +62,11 @@ namespace PL.Volunteer
 
         private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var dataGrid = sender as DataGrid;
-            var selectedVolunteer = dataGrid?.SelectedItem as BO.VolunteerInList;
-
-            if (selectedVolunteer != null)
+            if (sender is DataGrid dataGrid && dataGrid.SelectedItem is BO.VolunteerInList selectedVolunteer)
             {
-                new VolunteerDetailsWindow(selectedVolunteer.Id).Show();
+                // פתח חלון לעריכת המתנדב
+                VolunteerDetailsWindow detailsWindow = new VolunteerDetailsWindow(selectedVolunteer.Id);
+                detailsWindow.Show();
             }
             else
             {
