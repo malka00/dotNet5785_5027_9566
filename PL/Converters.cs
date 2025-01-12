@@ -13,20 +13,55 @@ using BO;
 namespace PL
 {
 
+    //public class BoolConvertIsCallInProsses : IValueConverter
+    //{
+    //    public object Convert(Object  value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        // אם הערך הוא null, מחזיר false
+    //        bool result = (value.CallIn != null && value.Active);
+            
+
+    //        // אם יש פרמטר, בודקים אם הוא שווה ל-False והופכים את התוצאה
+    //        if (parameter is string param && bool.TryParse(param, out bool invert) && invert)
+    //        {
+    //            result = !result;
+    //        }
+
+    //        return result;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
+
     public class BoolConvertIsCallInProsses : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // אם הערך הוא null, מחזיר false
-            bool result = value != null;
-
-            // אם יש פרמטר, בודקים אם הוא שווה ל-False והופכים את התוצאה
-            if (parameter is string param && bool.TryParse(param, out bool invert) && invert)
+            // בדיקה אם value הוא null
+            if (value == null)
             {
-                result = !result;
+                return false;
             }
 
-            return result;
+            // המרה לסוג המתאים
+            if (value is BO.Volunteer myValue) // החלף את MyType בשם הסוג המתאים
+            {
+                bool result = myValue.CallIn != null && myValue.Active;
+
+                // אם יש פרמטר, בודקים אם הוא שווה ל-False והופכים את התוצאה
+                if (parameter is string param && bool.TryParse(param, out bool invert) && invert)
+                {
+                    result = !result;
+                }
+
+                return result;
+            }
+
+            // אם value אינו מהסוג המתאים, מחזירים false
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -34,6 +69,7 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
 
     public class ConvertIsCallInProsses : IValueConverter
     {
