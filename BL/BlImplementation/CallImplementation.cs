@@ -54,6 +54,8 @@ internal class CallImplementation : ICall
         try
         {
             _dal.Assignment.Update(assigmnetToUP);
+            VolunteerManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(idVol);
         }
         catch ( DO.DalExistException ex)
         {
@@ -93,6 +95,7 @@ internal class CallImplementation : ICall
         {
             // Try to create the assignment in the database.
             _dal.Assignment.Create(assigmnetToCreat);
+
         }
         catch (DO.DalDeleteImpossible)
         {
