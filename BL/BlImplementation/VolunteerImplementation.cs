@@ -124,6 +124,7 @@ internal class VolunteerImplementation : IVolunteer
     public BO.Volunteer Read(int id)
     {
         var doVolunteer = _dal.Volunteer.Read(id) ??throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+
         return new()
         {
             Id = id,
@@ -138,7 +139,12 @@ internal class VolunteerImplementation : IVolunteer
             FullAddress = doVolunteer.FullAddress,
             Latitude = doVolunteer.Latitude,
             Longitude = doVolunteer.Longitude,
-            CallIn = VolunteerManager.GetCallIn(doVolunteer),
+            SumCalls = _dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.Treated),
+                SumCanceled = _dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id &&
+                    (a.TypeEndTreat == DO.TypeEnd.ManagerCancel || a.TypeEndTreat == DO.TypeEnd.SelfCancel)), // ביטול עצמי או מהנל
+                SumExpired = _dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.ExpiredCancel),
+
+         CallIn = VolunteerManager.GetCallIn(doVolunteer),
         };
     }
 

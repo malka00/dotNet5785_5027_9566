@@ -249,8 +249,8 @@
     <TypeEndTreat>ExpiredCancel</TypeEndTreat>
   </Assignment>
   <Assignment>
-    <Id>1039</Id>
-    <CallId>1015</CallId>
+    <Id>1040</Id>
+    <CallId>1033</CallId>
     <VolunteerId>207862384</VolunteerId>
     <TimeStart>2025-01-12T19:26:44</TimeStart>
     <TimeEnd>2025-01-12T19:26:44</TimeEnd>
@@ -575,5 +575,21 @@
     <TimeStart>2025-01-12T19:26:44</TimeStart>
     <TimeEnd>2025-01-12T19:26:44</TimeEnd>
     <TypeEndTreat>ExpiredCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1039</Id>
+    <CallId>1037</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-12T18:21:55</TimeStart>
+    <TimeEnd>2025-01-12T18:21:55</TimeEnd>
+    <TypeEndTreat>SelfCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1074</Id>
+    <CallId>1009</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-12T18:21:55</TimeStart>
+    <TimeEnd>2025-01-12T18:21:55</TimeEnd>
+    <TypeEndTreat>SelfCancel</TypeEndTreat>
   </Assignment>
 </ArrayOfAssignment>
