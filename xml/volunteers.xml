@@ -211,19 +211,6 @@
     <maxDistance>16</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>326209566</ID>
-    <fullName>Malka Haupt</fullName>
-    <phone>0501111111</phone>
-    <email>admin@example.com</email>
-    <password>A1234</password>
-    <isActive>true</isActive>
-    <role>Boss</role>
-    <distance>Aerial</distance>
-    <address>Harounoff  street 2, Jerusalem, Israel</address>
-    <longitude>35.218994</longitude>
-    <latitude>31.796294</latitude>
-  </Volunteer>
-  <Volunteer>
     <ID>214425027</ID>
     <fullName>Efrat Sharabi </fullName>
     <phone>0501111111</phone>
@@ -235,5 +222,19 @@
     <address>Harounoff  street 2, Jerusalem, Israel</address>
     <longitude>35.218994</longitude>
     <latitude>31.796294</latitude>
+  </Volunteer>
+  <Volunteer>
+    <ID>326209566</ID>
+    <fullName>Malka Haupt</fullName>
+    <phone>0501111111</phone>
+    <email>admin@example.com</email>
+    <password>A1234</password>
+    <isActive>true</isActive>
+    <role>Boss</role>
+    <distance>Aerial</distance>
+    <address>Harounoff  street 2, Jerusalem, Israel</address>
+    <longitude>35.214391</longitude>
+    <latitude>31.912659</latitude>
+    <maxDistance>5</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>
