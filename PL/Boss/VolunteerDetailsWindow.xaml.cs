@@ -158,5 +158,15 @@ namespace PL.Volunteer
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ShowDescription(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

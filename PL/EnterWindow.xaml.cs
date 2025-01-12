@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,7 +31,6 @@ namespace PL
 
         public EnterWindow()
         {
-
             InitializeComponent();
 
         }
@@ -56,9 +56,10 @@ namespace PL
         }
 
 
+      
+
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-
             BO.Volunteer currentVolunteer = null;
             try
             {
@@ -84,7 +85,7 @@ namespace PL
                 MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
                 if (currentVolunteer.Job == BO.Role.Boss)
                 {
-                    MessageBoxResult mbResult = MessageBox.Show("are u want the Mannge Window?", "mannege or volunteer",
+                    MessageBoxResult mbResult = MessageBox.Show("Are you want the Mannge Window?", "mannege or volunteer",
                                                      MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (mbResult == MessageBoxResult.Yes)
