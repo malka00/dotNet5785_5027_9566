@@ -399,6 +399,7 @@ public static class Initialization
             if (callToAssig.MaxTimeToClose != null && callToAssig.MaxTimeToClose >= s_dal!.Config?.Clock)
             {
                 finish = TypeEnd.ExpiredCancel;
+                finishTime = s_dal.Config.Clock;
             }
             else
             {
@@ -409,8 +410,11 @@ public static class Initialization
                         finish = TypeEnd.Treated;
                         finishTime = s_dal!.Config!.Clock;
                         break;
-                    case 1: finish = TypeEnd.SelfCancel; break;
-                    case 2: finish = TypeEnd.ManagerCancel; break;
+                    case 1: finish = TypeEnd.SelfCancel;
+                        finishTime = s_dal.Config.Clock;
+                        break;
+                    case 2: finish = TypeEnd.ManagerCancel;
+                        finishTime = s_dal.Config.Clock; break;
                 }
             }
             s_dal.Assignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssign.Id, s_dal!.Config!.Clock, finishTime, finish));

@@ -12,7 +12,7 @@
     <address>King George St 20, Jerusalem, Israel</address>
     <longitude>35.2193</longitude>
     <latitude>31.7784</latitude>
-    <maxDistance>65</maxDistance>
+    <maxDistance>28</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207669508</ID>
@@ -26,7 +26,7 @@
     <address>bit hadfus 7  ,Jerusalem, Israel</address>
     <longitude>35.189689</longitude>
     <latitude>31.78542</latitude>
-    <maxDistance>66</maxDistance>
+    <maxDistance>61</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207733817</ID>
@@ -40,7 +40,7 @@
     <address>Agripas St 10, Jerusalem, Israel</address>
     <longitude>35.2129</longitude>
     <latitude>31.7801</latitude>
-    <maxDistance>94</maxDistance>
+    <maxDistance>20</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207862384</ID>
@@ -54,7 +54,7 @@
     <address>Hapalmach St 25, Jerusalem, Israel</address>
     <longitude>35.2065</longitude>
     <latitude>31.7642</latitude>
-    <maxDistance>74</maxDistance>
+    <maxDistance>41</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207926692</ID>
@@ -68,7 +68,7 @@
     <address>Emek Refaim St 43, Jerusalem, Israel</address>
     <longitude>35.2117</longitude>
     <latitude>31.7655</latitude>
-    <maxDistance>41</maxDistance>
+    <maxDistance>86</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208317958</ID>
@@ -82,7 +82,7 @@
     <address>Hapisga St 18, Jerusalem, Israel</address>
     <longitude>35.212416</longitude>
     <latitude>31.751709</latitude>
-    <maxDistance>71</maxDistance>
+    <maxDistance>78</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208448738</ID>
@@ -96,7 +96,7 @@
     <address>Hillel St 7, Jerusalem, Israel</address>
     <longitude>35.2142</longitude>
     <latitude>31.7809</latitude>
-    <maxDistance>88</maxDistance>
+    <maxDistance>98</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208731323</ID>
@@ -110,7 +110,7 @@
     <address>Derech Hebron 105, Jerusalem, Israel</address>
     <longitude>35.2156</longitude>
     <latitude>31.7515</latitude>
-    <maxDistance>39</maxDistance>
+    <maxDistance>54</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208749978</ID>
@@ -124,7 +124,7 @@
     <address>Bezalel St 12, Jerusalem, Israel</address>
     <longitude>35.215</longitude>
     <latitude>31.7812</latitude>
-    <maxDistance>58</maxDistance>
+    <maxDistance>55</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209184217</ID>
@@ -138,7 +138,7 @@
     <address>HaNeviim St 29, Jerusalem, Israel</address>
     <longitude>35.2175</longitude>
     <latitude>31.7837</latitude>
-    <maxDistance>45</maxDistance>
+    <maxDistance>39</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209307123</ID>
@@ -166,7 +166,7 @@
     <address>Azza St 50, Jerusalem, Israel</address>
     <longitude>35.2123</longitude>
     <latitude>31.7698</latitude>
-    <maxDistance>68</maxDistance>
+    <maxDistance>39</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209567445</ID>
@@ -180,7 +180,7 @@
     <address>Kriyat Hayuvel St 5, Jerusalem, Israel</address>
     <longitude>35.18130622417343</longitude>
     <latitude>31.770868836791788</latitude>
-    <maxDistance>53</maxDistance>
+    <maxDistance>32</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209567890</ID>
@@ -195,6 +195,20 @@
     <longitude>35.2191</longitude>
     <latitude>31.7815</latitude>
     <maxDistance>47</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>209606318</ID>
+    <fullName>Galit Cohen</fullName>
+    <phone>0556547891</phone>
+    <email>galit@example.com</email>
+    <password>Choco7</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>Ben Yehuda St 1, Jerusalem, Israel</address>
+    <longitude>35.2203</longitude>
+    <latitude>31.7822</latitude>
+    <maxDistance>16</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>326209566</ID>

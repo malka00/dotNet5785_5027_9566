@@ -36,17 +36,18 @@ internal class VolunteerManager
         var assignmentToCallID = assignments.Find(ass => ass.TimeEnd == null);
         int? idCall;
         BO.CallType ctype;
-        if (assignmentToCallID == null)
-        {
-            idCall = null;
-            ctype=BO.CallType.None;
-        }
-        else
+        if (assignmentToCallID != null&& assignmentToCallID.TimeEnd==null)
         {
             idCall = assignmentToCallID.CallId;
             DO.Call call = s_dal.Call.Read(assignmentToCallID.CallId);
-            ctype=(BO.CallType)call.Type;
-        } 
+            ctype = (BO.CallType)call.Type;
+        }
+        else
+       
+        {
+            idCall = null;
+            ctype = BO.CallType.None;
+        }
         return new()
         {
             Id = doVolunteer.Id,
