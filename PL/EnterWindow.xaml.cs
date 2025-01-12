@@ -69,35 +69,37 @@ namespace PL
             {
 
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                this.Close();
+             
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-            if (currentVolunteer!.Password != Password)
-                MessageBox.Show("wrong password!", "Error", MessageBoxButton.OK);
 
-
-
-            else
+            if (currentVolunteer != null)
             {
-                MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
-                if (currentVolunteer.Job == BO.Role.Boss)
+                if (currentVolunteer!.Password != Password)
+                    MessageBox.Show("wrong password!", "Error", MessageBoxButton.OK);
+                else
                 {
-                    MessageBoxResult mbResult = MessageBox.Show("Are you want the Mannge Window?", "mannege or volunteer",
-                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
+                    if (currentVolunteer.Job == BO.Role.Boss)
+                    {
+                        MessageBoxResult mbResult = MessageBox.Show("Do you want to open the Manage Window?", "Manage or Volunteer",
+                                             MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                    if (mbResult == MessageBoxResult.Yes)
-                        new MainWindow().Show();
+
+                        if (mbResult == MessageBoxResult.Yes)
+                            new MainWindow().Show();
+                        else
+                            new VolunteerWindow(Id).Show();
+                    }
                     else
                         new VolunteerWindow(Id).Show();
+
                 }
-              else
-                new VolunteerWindow(Id).Show();
-
-
             }
+            
 
         }
     }
