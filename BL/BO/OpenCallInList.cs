@@ -14,5 +14,6 @@ public class OpenCallInList
     public DateTime TimeOpen { get; set; }
     public DateTime? MaxTimeToClose { get; set; }
     public  double distanceCallVolunteer { get; set; }
+    public StatusTreat Status {  get; set; }
     public override string ToString() => this.ToStringProperty();
 }

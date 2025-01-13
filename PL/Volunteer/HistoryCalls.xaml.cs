@@ -40,7 +40,7 @@ namespace PL.Volunteer
         public int IdVolunteer  { get; set; }
 
         public HistoryCalls(int id)
-        {;
+        {
             IdVolunteer = id;
             InitializeComponent();
             DataContext = this;
