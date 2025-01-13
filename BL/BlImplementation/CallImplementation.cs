@@ -41,7 +41,7 @@ internal class CallImplementation : ICall
             else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager or not in this call");
         }
         if (assigmnetToCancel.TypeEndTreat != null || (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > AdminManager.Now)| assigmnetToCancel.TimeEnd != null)
-            throw new BO.BlDeleteNotPossibleException("The assigmnet not open or exspaired");
+            throw new BO.BlDeleteNotPossibleException("The assigmnet not open or exspired");
 
         DO.Assignment assigmnetToUP = new DO.Assignment {
             Id = assigmnetToCancel.Id,
@@ -218,16 +218,16 @@ internal class CallImplementation : ICall
     {
         try
         {
-            if (Read(id).Status == BO.StatusTreat.Open)
+            if ((Read(id).Status == BO.StatusTreat.Open)&&(Read(id).AssignmentsToCalls ==null))
             {
                 _dal.Call.Delete(id);
                 return;
             }
-            throw new BO.BlDeleteNotPossibleException($"Call with id={id} can not be deleted");
+            throw new BO.BlDeleteNotPossibleException($"Call {id} can not be deleted");
         }
         catch (DO.DalExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Call with id={id} does not exist");
+            throw new BO.BlDoesNotExistException($"Call {id} does not exist");
         }
         CallManager.Observers.NotifyListUpdated();  //stage 5 
     }

@@ -36,7 +36,7 @@
         </Grid>
 
 
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonAdd_Click"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAdd_Click"/>
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False"  
                  IsReadOnly="True" SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick">
@@ -99,7 +99,7 @@
                 <DataGridTemplateColumn Header="Actions">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Click="ButtonDelete_Click" />
+                            <Button Content="Delete" Click="btnDelete_Click" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

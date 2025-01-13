@@ -156,6 +156,6 @@ namespace PL
         { }
 
         private void ButtonCall_Click(object sender, RoutedEventArgs e)
-        { new CallInListWindow().Show(); }
+        { new CallInListWindow(Id).Show(); }
     }
 }

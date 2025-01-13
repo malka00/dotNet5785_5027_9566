@@ -40,8 +40,10 @@ public partial class CallInListWindow : Window
     
     public BO.ECallInList CallInList { get; set; } = BO.ECallInList.Id;
 
-    public CallInListWindow()
+    public int Id { get; set; }
+    public CallInListWindow(int id=0)
     {
+        Id = Id;
         InitializeComponent();
         DataContext = this;
     }
@@ -79,12 +81,12 @@ public partial class CallInListWindow : Window
         }
     }
 
-    private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+    private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
         new CallWindow().Show();
     }
 
-    private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+    private void btnDelete_Click(object sender, RoutedEventArgs e)
     {
         MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to delete this call?", "Reset Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -92,14 +94,7 @@ public partial class CallInListWindow : Window
         {
             try
             {
-                if (SelectedCall?.Id != null)
-                {
-                    s_bl.Calls.Delete(SelectedCall.Id.Value);
-                }
-                else
-                {
-                    MessageBox.Show("No call selected for deletion.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                s_bl.Calls.Delete(SelectedCall.CallId);
             }
             catch (BO.BlDeleteNotPossibleException ex)
             {
@@ -116,6 +111,28 @@ public partial class CallInListWindow : Window
     {
         CallInList = (BO.ECallInList)(((ComboBox)sender).SelectedItem);
         CallList = s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, null)!;
+    }
+
+    private void btnCancelAssignment_Click(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to cancel this assignment?", "Reset Confirmation",
+                                                   MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (mbResult == MessageBoxResult.Yes)
+        {
+            try
+            {
+               s_bl.Calls.CancelTreat(Id, (int)SelectedCall.Id);
+            }
+            catch (BO.BlDeleteNotPossibleException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+        }
     }
 }
 

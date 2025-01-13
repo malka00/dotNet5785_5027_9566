@@ -75,12 +75,12 @@ namespace PL.Volunteer
             }
         }
   
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerDetailsWindow().Show();
         }
 
-        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to delete this volunteer?", "Reset Confirmation",
                                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -92,7 +92,6 @@ namespace PL.Volunteer
                 }
                 catch (BO.BlDeleteNotPossibleException ex)
                 {
-                   
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     this.Close();
                 }

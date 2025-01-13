@@ -41,9 +41,9 @@
 
         </Grid>
 
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="ButtonAdd_Click"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="btnAdd_Click"/>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding CallList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedCall}" MouseDoubleClick="dtgList_MouseDoubleClick" >
+        <DataGrid Grid.Row="1" ItemsSource="{Binding CallList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedCall}" MouseDoubleClick="dtgList_MouseDoubleClick"  CanUserAddRows="False">
             <!--הגדרת סגנון לכותרות-->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -128,12 +128,21 @@
                 <DataGridTemplateColumn Header="Actions">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Click="ButtonDelete_Click" />
+                            <!-- שימוש ב-StackPanel כדי להוסיף כפתור נוסף -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <!-- כפתור למחיקת קריאה -->
+                                <Button Content="Delete" Click="btnDelete_Click"/>
+
+                                <!-- כפתור לביטול הקצאה -->
+                                <Button Content="Cancel Assignment" Click="btnCancelAssignment_Click"/>
+                            </StackPanel>
                         </DataTemplate>
+                               
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
 
+               
         </DataGrid>
     </Grid>
 </Window>
