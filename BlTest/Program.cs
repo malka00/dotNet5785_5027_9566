@@ -875,19 +875,19 @@ Call Options:
                                     case "2":
                                         sortField = BO.EOpenCallInList.CType;
                                         break;
+                                    //case "3":
+                                    //    sortField = BO.EOpenCallInList.Description;
+                                    //    break;
                                     case "3":
-                                        sortField = BO.EOpenCallInList.Description;
-                                        break;
-                                    case "4":
                                         sortField = BO.EOpenCallInList.FullAddress;
                                         break;
-                                    case "5":
+                                    case "4":
                                         sortField = BO.EOpenCallInList.TimeOpen;
                                         break;
-                                    case "6":
+                                    case "5":
                                         sortField = BO.EOpenCallInList.MaxTimeToClose;
                                         break;
-                                    case "7":
+                                    case "6":
                                         sortField = BO.EOpenCallInList.distanceCallVolunteer;
                                         break;
                                     default:

@@ -576,4 +576,12 @@
     <TimeEnd xsi:nil="true" />
     <TypeEndTreat xsi:nil="true" />
   </Assignment>
+  <Assignment>
+    <Id>1097</Id>
+    <CallId>1019</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-02-13T21:51:13</TimeStart>
+    <TimeEnd>2025-02-13T21:51:13</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
+  </Assignment>
 </ArrayOfAssignment>

@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -37,13 +38,17 @@ namespace PL.Volunteer
         public BO.ClosedCallInList? SelectedColsedCall { get; set; }
 
         public BO.EClosedCallInList ClosedCallInList { get; set; }
+       
         public int IdVolunteer  { get; set; }
+
+        public BO.CallType? TypeCallInList { get; set; }
 
         public HistoryCalls(int id)
         {
             IdVolunteer = id;
             InitializeComponent();
             DataContext = this;
+
         }
 
         private void cbVSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,14 +56,15 @@ namespace PL.Volunteer
             queryClosedCallList();
         }
 
-        private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
+        private void Call_Filter(object sender, SelectionChangedEventArgs e)
         {
             ClosedCallInList = (BO.EClosedCallInList)(((ComboBox)sender).SelectedItem);
-            ClosedCallList = s_bl?.Calls.GetClosedCall(IdVolunteer, null, ClosedCallInList)!;
+            ClosedCallList = s_bl?.Calls.GetClosedCall(IdVolunteer, TypeCallInList, ClosedCallInList)!;
         }
+       
 
         private void queryClosedCallList()
-    => ClosedCallList = s_bl?.Calls.GetClosedCall(IdVolunteer, null, ClosedCallInList)!;
+    => ClosedCallList = s_bl?.Calls.GetClosedCall(IdVolunteer, TypeCallInList, ClosedCallInList)!;
 
     
     }
