@@ -115,7 +115,7 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Enter Time:" FontSize="14" FontWeight="Bold" />
+                <Label Content="Start treat Time:" FontSize="14" FontWeight="Bold" />
                 <TextBox Text="{Binding CurrentVolunteer.CallIn.StartTreat, StringFormat=G}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
             </StackPanel>
 

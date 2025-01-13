@@ -87,7 +87,7 @@
                 <DataGridTextColumn Binding="{Binding TimeOpen}" Header="Time Opened" Width="*"/>
                 <DataGridTextColumn Binding="{Binding MaxTimeToClose}" Header="Max Time To Close" Width="*"/>
                 <DataGridTextColumn Binding="{Binding distanceCallVolunteer}" Header="distance Call Volunteer" Width="*"/>
-              
+                <DataGridTextColumn Binding="{Binding Status}" Header="Status" Width="*"/>
 
                
             
