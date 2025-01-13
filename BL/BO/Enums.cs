@@ -108,7 +108,6 @@ public enum EOpenCallInList
 {
     Id,
     CType,
-    Description,
     FullAddress,
     TimeOpen,
     MaxTimeToClose,

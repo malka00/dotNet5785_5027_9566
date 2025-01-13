@@ -49,19 +49,18 @@ namespace PL
             // המרה לסוג המתאים
             if (value is BO.Volunteer myValue) // החלף את MyType בשם הסוג המתאים
             {
-                bool result = myValue.CallIn != null && myValue.Active;
+                return myValue.CallIn == null&& myValue.Active;
 
                 // אם יש פרמטר, בודקים אם הוא שווה ל-False והופכים את התוצאה
-                if (parameter is string param && bool.TryParse(param, out bool invert) && invert)
-                {
-                    result = !result;
-                }
+                //if (parameter is string param && bool.TryParse(param, out bool invert) && invert)
+                //{
+                //    result = !result;
+                //}
 
-                return result;
+             
             }
-
-            // אם value אינו מהסוג המתאים, מחזירים false
-            return false;
+            return true;
+         
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

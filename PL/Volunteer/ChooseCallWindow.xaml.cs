@@ -1,6 +1,8 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,24 +35,27 @@ namespace PL.Volunteer
         public static readonly DependencyProperty OpenCallListProperty =
             DependencyProperty.Register("OpenCallList", typeof(IEnumerable<BO.OpenCallInList>), typeof(ChooseCallWindow), new PropertyMetadata(null));
 
+        public BO.CallType ? TypeCallInList { get; set; }
+
         public ChooseCallWindow(int id)
         {
             VolunteerId = id;
             InitializeComponent();
         }
 
+        private void Call_Filter(object sender, SelectionChangedEventArgs e)
+        {
+            OpenCallInList = (BO.EOpenCallInList)(((ComboBox)sender).SelectedItem);
+            
+            OpenCallList = s_bl?.Calls.GetOpenCall(VolunteerId, TypeCallInList, OpenCallInList)!;
+        }
+
         private void CallSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         { QueryCallList(); }
 
-        private void CallFilter(object sender, SelectionChangedEventArgs e)
-        {
-            OpenCallInList = (BO.EOpenCallInList)(((ComboBox)sender).SelectedItem);
-            OpenCallList = s_bl?.Calls.GetOpenCall(VolunteerId, null, OpenCallInList)!;
-        }
-
         private void QueryCallList()
         => OpenCallList = (OpenCallInList == BO.EOpenCallInList.Id) ?
-        s_bl?.Calls.GetOpenCall(VolunteerId, null, null)! : s_bl?.Calls.GetOpenCall(VolunteerId, null, OpenCallInList)!;
+        s_bl?.Calls.GetOpenCall(VolunteerId, null, null)! : s_bl?.Calls.GetOpenCall(VolunteerId, TypeCallInList, OpenCallInList)!;
 
         private void CallListObserver() => QueryCallList();
 
@@ -62,7 +67,7 @@ namespace PL.Volunteer
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            MessageBox.Show(SelectedCall.Description, $"Description {SelectedCall.Id}", MessageBoxButton.OK);
         }
 
         private void BtnChoose_Click(object sender, RoutedEventArgs e)
@@ -99,51 +104,9 @@ namespace PL.Volunteer
 
 
 
-//    private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-//    {
-//        if (SelectedCall?.Id != null) // בדיקה אם SelectedCall ו-Id אינם null
-//        {
-//            new CallWindow(SelectedCall.CallId).Show();
-//        }
-//        else
-//        {
-//            MessageBox.Show("No call selected for editing.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-//        }
-//    }
 
-//    private void ButtonAdd_Click(object sender, RoutedEventArgs e)
-//    {
-//        new CallWindow().Show();
-//    }
 
-//    private void ButtonDelete_Click(object sender, RoutedEventArgs e)
-//    {
-//        MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to delete this call?", "Reset Confirmation",
-//                                                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-//        if (mbResult == MessageBoxResult.Yes)
-//        {
-//            try
-//            {
-//                if (SelectedCall?.Id != null)
-//                {
-//                    s_bl.Calls.Delete(SelectedCall.Id.Value);
-//                }
-//                else
-//                {
-//                    MessageBox.Show("No call selected for deletion.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-//                }
-//            }
-//            catch (BO.BlDeleteNotPossibleException ex)
-//            {
-//                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-//                this.Close();
-//            }
-//            catch (Exception ex)
-//            {
-//                MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-//            }
-//        }
-//    }
+
 
 
 

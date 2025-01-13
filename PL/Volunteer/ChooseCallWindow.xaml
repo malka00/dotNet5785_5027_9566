@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="ChooseCallWindow" Height="450" Width="800">
-  
+
 
     <!--External Grid-->
     <Grid>
@@ -21,25 +21,25 @@
 
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="59*"/>
+                <ColumnDefinition Width="341*"/>
+                <ColumnDefinition Width="400*"/>
             </Grid.ColumnDefinitions>
-
+            <!--Sort comobox-->
             <ComboBox ItemsSource="{Binding Source={StaticResource OpenCallInListCollectionKey}}"  SelectionChanged="CallSelector_SelectionChanged" 
-                      SelectedValue="{Binding OpenCallInList, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                      SelectedValue="{Binding OpenCallInList, Mode=TwoWay}" Grid.Column="2" Margin="200,0,0,0"/>
 
 
-            <!--ComboBox ראשון-->
-            <ComboBox  Margin="167,0,0,0"
-                  ItemsSource="{Binding StatusOrTypeOptions}" 
-            SelectedItem="{Binding SelectedStatusOrType, Mode=TwoWay}"/>
-
-            <!--ComboBox שני-->
-            <ComboBox Margin="0,0,224,0"
-               ItemsSource="{Binding SelectedStatusOrType, Converter={StaticResource ConvertStatusOrTypeToEnumKey}}"
-            SelectedItem="{Binding SelectedSecondOption, Mode=TwoWay}" />
-
-
+            <!--ComboBox filter-->
+            <ComboBox Margin="70,2,95,-2"
+             ItemsSource= "{Binding Source={StaticResource CallTypeCollectionKey}}"
+             SelectionChanged="Call_Filter" 
+             SelectedValue="{Binding TypeCallInList, Mode=TwoWay}" Grid.Column="1" />
+            <Label Content="Select Call Type:" 
+                Grid.Column="0" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Margin="19,0,0,0" Grid.ColumnSpan="2"/>
 
         </Grid>
 
@@ -82,15 +82,14 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*"/>
                 <DataGridTextColumn Binding="{Binding FullAddress}" Header=" Call Address" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TimeOpen}" Header="Time Opened" Width="*"/>
                 <DataGridTextColumn Binding="{Binding MaxTimeToClose}" Header="Max Time To Close" Width="*"/>
                 <DataGridTextColumn Binding="{Binding distanceCallVolunteer}" Header="distance Call Volunteer" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Status}" Header="Status" Width="*"/>
 
-               
-            
+
+
 
                 <DataGridTemplateColumn Header="Actions">
                     <DataGridTemplateColumn.CellTemplate>
@@ -102,6 +101,11 @@
             </DataGrid.Columns>
 
         </DataGrid>
+        <Label Content="Select sort value:" 
+            Grid.Column="0" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Margin="478,1,0,0"/>
     </Grid>
 </Window>
 

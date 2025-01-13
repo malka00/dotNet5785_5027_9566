@@ -33,9 +33,16 @@
             <ComboBox  ItemsSource="{Binding Source={StaticResource ClosedCallColectionKey}}"  
                       SelectionChanged="cbVSelector_SelectionChanged" 
                       SelectedValue="{Binding ClosedCallInList, Mode=TwoWay}" 
-                      Grid.Column="1" 
-                      HorizontalAlignment="Stretch" 
-                      VerticalAlignment="Stretch"/>
+                      Grid.Column="1" Margin="242,0,0,0"/>
+            <ComboBox Margin="135,0,30,0"
+   ItemsSource= "{Binding Source={StaticResource CallTypeCollectionKey}}"
+   SelectionChanged="Call_Filter" 
+   SelectedValue="{Binding TypeCallInList, Mode=TwoWay}" />
+            <Label Content="select sort  value :" 
+                Grid.Column="1" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center" 
+                Margin="100,0,0,0" Width="135"/>
         </Grid>
 
         <!-- שורה שנייה: DataGrid להצגת הנתונים -->

@@ -399,6 +399,8 @@ internal class CallImplementation : ICall
 
     public IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EOpenCallInList? sortBy)
     {
+        if (type == BO.CallType.None)
+            type = null;
         DO.Volunteer volunteer = _dal.Volunteer.Read(id);
         if (volunteer == null)
             throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist");
@@ -441,7 +443,7 @@ internal class CallImplementation : ICall
             {
                 BO.EOpenCallInList.Id => filteredCalls.OrderBy(c => c.Id),
                 BO.EOpenCallInList.CType => filteredCalls.OrderBy(c => c.CType),
-                BO.EOpenCallInList.Description => filteredCalls.OrderBy(c => c.Description),
+                //BO.EOpenCallInList.Description => filteredCalls.OrderBy(c => c.Description),
                 BO.EOpenCallInList.FullAddress => filteredCalls.OrderBy(c => c.FullAddress),
                 BO.EOpenCallInList.TimeOpen => filteredCalls.OrderBy(c => c.TimeOpen),
                 BO.EOpenCallInList.MaxTimeToClose => filteredCalls.OrderBy(c => c.MaxTimeToClose),
