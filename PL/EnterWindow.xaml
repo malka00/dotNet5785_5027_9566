@@ -37,7 +37,8 @@
                LostFocus="PasswordBox_LostFocus" 
                Margin="0,228,0,0" VerticalAlignment="Top" Width="400" Height="30" 
   FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
-  BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" />
+  BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" 
+                     />
 
         <!-- כפתור כניסה -->
         <Button Content="Enter" Click="btnEnter_Click" HorizontalAlignment="Center" 
