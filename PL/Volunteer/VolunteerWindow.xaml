@@ -8,7 +8,7 @@
         <!--   Buttons -->
         <Button Content="Histoy Calls" Click="btnCallsHistory_Click" HorizontalAlignment="Left" Margin="280,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.379,0.314"/>
         <Border BorderBrush="Black" BorderThickness="1" Margin="-6,-24,6,24"/>
-       <Button Content="Choose Call"   IsEnabled="{Binding CurrentVolunteer, Converter={StaticResource BoolConvertIsCallInProssesKey}}" HorizontalAlignment="Left" Margin="276,245,0,0" VerticalAlignment="Top" Click="btnChooseCall_Click"/>
+        <Button Content="Choose Call"   IsEnabled="{Binding CurrentVolunteer, Converter={StaticResource BoolConvertIsCallInProssesKey}}" HorizontalAlignment="Left" Margin="276,245,0,0" VerticalAlignment="Top" Click="btnChooseCall_Click"/>
 
 
         <!-- Name -->
@@ -131,5 +131,14 @@
 
         </StackPanel>
         <Button Content="Update"  Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="63,292,0,0" VerticalAlignment="Top"/>
+
+        <Button HorizontalAlignment="Left" Margin="22,507,0,0" VerticalAlignment="Top" Click="btnBack_Click">
+            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+Fill="Black" 
+Width="20" 
+Height="20" 
+VerticalAlignment="Top"/>
+        </Button>
+
     </Grid>
 </Window>

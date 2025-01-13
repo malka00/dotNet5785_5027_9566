@@ -49,5 +49,12 @@
 
         <Button Content="{Binding ButtonText}" Click="buttonAddUpdate_Click" HorizontalAlignment="Left" Margin="55,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.024" Height="26" Width="84" Grid.Column="1" Grid.Row="1"/>
 
+        <Button HorizontalAlignment="Left" Margin="14,255,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnBack_Click">
+            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+  Fill="Black" 
+  Width="20" 
+  Height="20" 
+  VerticalAlignment="Center"/>
+        </Button>
     </Grid>
 </Window>

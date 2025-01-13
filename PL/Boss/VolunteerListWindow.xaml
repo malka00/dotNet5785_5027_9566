@@ -40,7 +40,7 @@
 
         <DataGrid Grid.Row="1" ItemsSource="{Binding VolunteerList}" AutoGenerateColumns="False"  
                  IsReadOnly="True" SelectedItem="{Binding SelectedVolunteer}" MouseDoubleClick="dtgList_MouseDoubleClick">
-            
+
 
 
             <!-- הגדרת סגנון לכותרות -->
@@ -106,5 +106,14 @@
             </DataGrid.Columns>
 
         </DataGrid>
+        <Button HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="2" VerticalAlignment="Top" Click="btnBack_Click">
+            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+          Fill="Black" 
+          Width="20" 
+          Height="20" 
+          VerticalAlignment="Center"/>
+        </Button>
+
+
     </Grid>
 </Window>

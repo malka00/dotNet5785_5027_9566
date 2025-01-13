@@ -66,6 +66,16 @@ namespace PL.Volunteer
         private void queryClosedCallList()
     => ClosedCallList = s_bl?.Calls.GetClosedCall(IdVolunteer, TypeCallInList, ClosedCallInList)!;
 
-    
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            var VolunteerWindow = System.Windows.Application.Current.MainWindow;
+            if (VolunteerWindow != null)
+            {
+                VolunteerWindow.Show();
+            }
+
+            // סגור את החלון הנוכחי
+            this.Close();
+        }
     }
 }

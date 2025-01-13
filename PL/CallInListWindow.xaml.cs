@@ -43,7 +43,7 @@ public partial class CallInListWindow : Window
     public int Id { get; set; }
     public CallInListWindow(int id=0)
     {
-        Id = Id;
+        Id = id;
         InitializeComponent();
         DataContext = this;
     }
@@ -99,7 +99,7 @@ public partial class CallInListWindow : Window
             catch (BO.BlDeleteNotPossibleException ex)
             {
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                this.Close();
+                
             }
             catch (Exception ex)
             {
@@ -126,7 +126,6 @@ public partial class CallInListWindow : Window
             catch (BO.BlDeleteNotPossibleException ex)
             {
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                this.Close();
             }
             catch (Exception ex)
             {
@@ -134,7 +133,21 @@ public partial class CallInListWindow : Window
             }
         }
     }
+
+    private void btnBack_Click(object sender, RoutedEventArgs e)
+    {
+   
+        var mainWindow = Application.Current.MainWindow;
+        if (mainWindow != null)
+        {
+            mainWindow.Show();
+        }
+
+        // סגור את החלון הנוכחי
+        this.Close();
+    }
 }
+
 
 
 

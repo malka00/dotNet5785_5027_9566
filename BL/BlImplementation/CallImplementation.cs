@@ -57,13 +57,14 @@ internal class CallImplementation : ICall
         try
         {
             _dal.Assignment.Update(assigmnetToUP);
-            VolunteerManager.Observers.NotifyListUpdated();
-            VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(idVol);
         }
         catch ( DO.DalExistException ex)
         {
             throw new BO.BlDeleteNotPossibleException("can not delete in DO");
         }
+        
     }
 
     /// <summary>
@@ -231,13 +232,15 @@ internal class CallImplementation : ICall
             if ((Read(id).Status == BO.StatusTreat.Open)&&(Read(id).AssignmentsToCalls ==null))
             {
                 _dal.Call.Delete(id);
-                return;
             }
-            throw new BO.BlDeleteNotPossibleException($"Call {id} can not be deleted");
+            else
+            {
+                throw new BO.BlDeleteNotPossibleException($"Call {id} can not be deleted");
+            }
         }
         catch (DO.DalExistException ex)
         {
-            throw new BO.BlDoesNotExistException($"Call {id} does not exist");
+            throw new BO.BlDeleteNotPossibleException($"Call {id} does not exist");
         }
         CallManager.Observers.NotifyListUpdated();  //stage 5 
     }

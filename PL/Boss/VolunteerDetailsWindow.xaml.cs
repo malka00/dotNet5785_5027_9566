@@ -166,5 +166,18 @@ namespace PL.Volunteer
         {
 
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            var VolunteerListWindow = System.Windows.Application.Current.MainWindow;
+            if (VolunteerListWindow != null)
+            {
+                VolunteerListWindow.Show();
+            }
+
+            // סגור את החלון הנוכחי
+            this.Close();
+        }
+
     }
 }

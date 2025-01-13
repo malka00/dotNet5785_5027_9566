@@ -43,7 +43,7 @@
 
         </Grid>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding OpenCallList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedCall}" SelectionChanged="DataGrid_SelectionChanged" >
+        <DataGrid ItemsSource="{Binding OpenCallList}" AutoGenerateColumns="False"  SelectedItem="{Binding SelectedCall}" SelectionChanged="DataGrid_SelectionChanged" Margin="0,46,0,44" Grid.Row="1" >
             <!--הגדרת סגנון לכותרות-->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -106,6 +106,23 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Top" 
             Margin="478,1,0,0"/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="-39,10,39,50" Grid.RowSpan="2"/>
+
+
+        <Button  HorizontalAlignment="Left" Margin="10,369,0,0" VerticalAlignment="Top" Click="btnBack_Click" Height="23" Width="28" RenderTransformOrigin="0.107,3.219" Grid.Row="1">
+            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+Fill="Black" 
+Width="17" 
+Height="20" 
+VerticalAlignment="Center" Stretch="Fill" RenderTransformOrigin="0.182,0.812"/>
+        </Button>
+
+
+
+
+
+
+
     </Grid>
 </Window>
 

@@ -136,6 +136,20 @@ namespace PL
                 }
 
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            var CallInListWindow = System.Windows.Application.Current.MainWindow;
+            if (CallInListWindow != null)
+            {
+                CallInListWindow.Show();
+            }
+
+            // סגור את החלון הנוכחי
+            this.Close();
+        }
+
+
     }
 }
 

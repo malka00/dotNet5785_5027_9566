@@ -39,11 +39,11 @@ namespace PL
         }
         public static readonly DependencyProperty CountCallProperty =
         DependencyProperty.Register("CountCall", typeof(int[]), typeof(MainWindow));
-        
+
         public int Id { get; set; }
         public MainWindow(int bossId)
         {
-            Id=bossId;
+            Id = bossId;
             InitializeComponent();
         }
         private void btnAddOneMinute_Click(object sender, RoutedEventArgs e)
@@ -102,7 +102,7 @@ namespace PL
 
         private void btnInitDB_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mbResult = MessageBox.Show("Are u sure u want to Init the DB?", "Init Confirmation",
+            MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to initialize the DB?", "Init Confirmation",
                                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (mbResult == MessageBoxResult.Yes)
@@ -118,7 +118,7 @@ namespace PL
                 // start the Icon
                 Mouse.OverrideCursor = Cursors.Wait;
 
-                s_bl.Admin.initialization(); 
+                s_bl.Admin.initialization();
                 MaxRange = s_bl.Admin.GetMaxRange();
                 // stop the Icon
                 Mouse.OverrideCursor = null;
@@ -126,7 +126,7 @@ namespace PL
         }
         private void btnResetDB_Click(object sender, RoutedEventArgs e) //stage 5
         {
-            MessageBoxResult mbResult = MessageBox.Show("Are u sure u want to Reset the DB?", "Reset Confirmation",
+            MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to reset the DB?", "Reset Confirmation",
                                                         MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (mbResult == MessageBoxResult.Yes)
@@ -141,7 +141,7 @@ namespace PL
                 }
                 //start the Icon
                 Mouse.OverrideCursor = Cursors.Wait;
-                s_bl.Admin.Reset(); 
+                s_bl.Admin.Reset();
                 MaxRange = s_bl.Admin.GetMaxRange();
 
                 // stop the Icon
@@ -157,5 +157,27 @@ namespace PL
 
         private void ButtonCall_Click(object sender, RoutedEventArgs e)
         { new CallInListWindow(Id).Show(); }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+
+            var enterWindow = Application.Current.Windows.OfType<EnterWindow>().FirstOrDefault();
+
+            // אם החלון כבר קיים, מציג אותו
+            if (enterWindow != null)
+            {
+                enterWindow.Show();
+            }
+            else
+            {
+                // אם לא נמצא, יוצר את החלון ומציג אותו
+                EnterWindow newEnterWindow = new EnterWindow();
+                newEnterWindow.Show();
+            }
+
+            // סגור את החלון הנוכחי
+            this.Close();
+        }
+
     }
 }

@@ -50,6 +50,7 @@
                   ItemsSource="{Binding ClosedCallList}" 
                   AutoGenerateColumns="False">
 
+
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="*"/>
                 <DataGridTextColumn Binding="{Binding Type}" Header="Type" Width="*"/>
@@ -66,6 +67,18 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
+
+
         </DataGrid>
+
+
+        <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="28,0,0,28" 
+                Click="btnBack_Click" Height="23" Width="28" Grid.Row="1">
+            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+                  Fill="Black" Width="17" Height="20" VerticalAlignment="Center" Stretch="Fill"/>
+        </Button>
+
+
     </Grid>
+
 </Window>

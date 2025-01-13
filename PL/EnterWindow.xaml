@@ -11,38 +11,39 @@
     <Grid>
         <!-- כותרת -->
         <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                   FontSize="36" FontFamily="Segoe UI" Foreground="#333333" Margin="0,30,0,0"/>
+                   FontSize="36" FontFamily="Segoe UI" Foreground="#333333" Margin="0,27,0,0"/>
 
         <!--  ID -->
-        <Label Content="Enter ID:" HorizontalAlignment="Left" Margin="200,100,0,0" 
+        <Label Content="Enter ID:" HorizontalAlignment="Left" Margin="224,100,0,0" 
                VerticalAlignment="Top" FontSize="16" Foreground="#555555"/>
-        <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" HorizontalAlignment="Left" 
-                 Margin="200,130,0,0" VerticalAlignment="Top" Width="400" Height="30" 
+        <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" HorizontalAlignment="Center" 
+                 Margin="0,136,0,0" VerticalAlignment="Top" Width="340" Height="30" 
                  FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
                  BorderBrush="#CCCCCC" BorderThickness="1" Padding="5"/>
 
-        <!-- Password--><!--
+        <!-- Password-->
+        <!--
      
         <TextBox Text="{Binding Path=Password, Mode=TwoWay}" HorizontalAlignment="Center" 
             Margin="0,228,0,0" VerticalAlignment="Top" Width="400" Height="30" 
             FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
             BorderBrush="#CCCCCC" BorderThickness="1" Padding="5"/>-->
 
-        <Label Content="Enter Password:" HorizontalAlignment="Left" Margin="200,180,0,0" 
+        <Label Content="Enter Password:" HorizontalAlignment="Left" Margin="224,197,0,0" 
           VerticalAlignment="Top" FontSize="16" Foreground="#555555"/>
 
         <!-- PasswordBox -->
         <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"
                GotFocus="PasswordBox_GotFocus" 
                LostFocus="PasswordBox_LostFocus" 
-               Margin="0,228,0,0" VerticalAlignment="Top" Width="400" Height="30" 
+               Margin="230,233,230,0" VerticalAlignment="Top" Height="30" 
   FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
   BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" 
                      />
 
         <!-- כפתור כניסה -->
         <Button Content="Enter" Click="btnEnter_Click" HorizontalAlignment="Center" 
-                VerticalAlignment="Bottom" Margin="0,0,0,50" Width="150" Height="50" 
+                VerticalAlignment="Top" Margin="0,305,0,0" Width="150" Height="50" 
                 FontSize="18" FontFamily="Segoe UI" Foreground="#FFFFFF" Background="#4CAF50" 
                 BorderBrush="#388E3C" BorderThickness="1" Cursor="Hand">
             <Button.Effect>

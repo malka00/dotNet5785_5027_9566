@@ -35,7 +35,7 @@ namespace PL.Volunteer
         public static readonly DependencyProperty OpenCallListProperty =
             DependencyProperty.Register("OpenCallList", typeof(IEnumerable<BO.OpenCallInList>), typeof(ChooseCallWindow), new PropertyMetadata(null));
 
-        public BO.CallType ? TypeCallInList { get; set; }
+        public BO.CallType? TypeCallInList { get; set; }
 
         public ChooseCallWindow(int id)
         {
@@ -46,7 +46,7 @@ namespace PL.Volunteer
         private void Call_Filter(object sender, SelectionChangedEventArgs e)
         {
             OpenCallInList = (BO.EOpenCallInList)(((ComboBox)sender).SelectedItem);
-            
+
             OpenCallList = s_bl?.Calls.GetOpenCall(VolunteerId, TypeCallInList, OpenCallInList)!;
         }
 
@@ -91,15 +91,25 @@ namespace PL.Volunteer
             }
 
         }
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            var VolunteerWindow = System.Windows.Application.Current.MainWindow;
+            if (VolunteerWindow != null)
+            {
+                VolunteerWindow.Show();
+            }
+
+            // סגור את החלון הנוכחי
+            this.Close();
+        }
     }
+
 }
 
 
 
 
-//   
 
-//    
 
 
 

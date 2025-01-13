@@ -170,7 +170,7 @@ namespace PL.Volunteer
             {
                 s_bl.Calls.CancelTreat(UserId, CurrentVolunteer.CallIn.Id);
                 MessageBox.Show($"Call was successfully Canceld!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-               
+
             }
             catch (BO.BlDeleteNotPossibleException ex)
             {
@@ -181,5 +181,18 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Cancel Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
+       private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+
+            var MainWindow = Application.Current.MainWindow;
+            if (MainWindow != null)
+            {
+                MainWindow.Show();
+            }
+
+            // סגור את החלון הנוכחי
+            this.Close();
+        }
     }
 }
+

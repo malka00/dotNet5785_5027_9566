@@ -127,6 +127,18 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow;
+            if (mainWindow != null)
+            {
+                mainWindow.Show();
+            }
+
+            // סגור את החלון הנוכחי
+            this.Close();
+        }
     }
 }
 
