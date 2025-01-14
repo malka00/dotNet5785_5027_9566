@@ -76,7 +76,8 @@
 
 
         <!--Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource NullToVisibilityConverterKey}}"
-                    DataContext="{Binding CurrentVolunteer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">--><!--
+                    DataContext="{Binding CurrentVolunteer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">-->
+        <!--
        
         </ContentControl.Style>-->
         <!--<Grid ShowGridLines="True" Margin="4,4,-49,4">
@@ -96,16 +97,16 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <Label Content="Id" Grid.Row="0" Grid.Column="0" RenderTransformOrigin="0.5,0.5"/>
             <TextBox Text="{Binding CurrentVolunteer.CallIn.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Row="0" Grid.Column="1" IsReadOnly="true" />
 
             <Label Content="Call Id" Grid.Row="1" Grid.Column="0"/>
             <TextBox Text="{Binding CurrentVolunteer.CallIn.IdCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Row="1" Grid.Column="1" IsReadOnly="true"/>
-           
+
             <Label Content="Call Type:"  Grid.Row="2" Grid.Column="0"/>
             <TextBox Text="{Binding CurrentVolunteer.CallIn.Type, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="2" Grid.Column="1" IsReadOnly="true"/>
-           
+
             <Label Content="Description:" Grid.Row="0" Grid.Column="2" RenderTransformOrigin="0.5,0.5"/>
             <TextBox Text="{Binding CurrentVolunteer.CallIn.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"  Grid.Row="0" Grid.Column="3" MouseEnter="ShowDescription" IsReadOnly="true" />
             <Label Content="Call Address:" Grid.Row="1" Grid.Column="2"/>
@@ -118,7 +119,7 @@
             <TextBox Text="{Binding CurrentVolunteer.CallIn.distanceCallVolunteer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Grid.Column="5" IsReadOnly="true"/>
             <Label Content="status:"  Grid.Row="2" Grid.Column="4"/>
             <TextBox Text="{Binding CurrentVolunteer.CallIn.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Row="1" Grid.Column="5" IsReadOnly="true" Grid.ColumnSpan="2" Margin="0,42,0,0" Grid.RowSpan="2"/>
-            
+
         </Grid>
 
         <Button HorizontalAlignment="Left" Margin="14,255,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnBack_Click">
@@ -128,6 +129,7 @@ Width="20"
 Height="20" 
 VerticalAlignment="Center"/>
         </Button>
+        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="53" Margin="569,20,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
 
     </Grid>
 

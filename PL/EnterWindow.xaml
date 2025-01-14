@@ -50,5 +50,7 @@
                 <DropShadowEffect BlurRadius="8" ShadowDepth="4" Color="#888888"/>
             </Button.Effect>
         </Button>
+        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="53" Margin="690,14,0,0" VerticalAlignment="Top" Width="100"/>
+
     </Grid>
 </Window>

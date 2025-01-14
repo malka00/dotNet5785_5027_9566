@@ -28,9 +28,9 @@
                 <ColumnDefinition Width="400*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Select a file to sort by" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" Width="184" Grid.Column="2"/>
+            <Label Content="Select a file to sort by" HorizontalAlignment="Left" Margin="102,0,0,0" VerticalAlignment="Top" Width="184" Grid.Column="2"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource CallInListCollectionKey}}"  SelectionChanged="CallSelector_SelectionChanged" 
-                      SelectedValue="{Binding CallInList, Mode=TwoWay}" Grid.Column="2" Margin="0,0,233,0"/>
+                      SelectedValue="{Binding CallInList, Mode=TwoWay}" Grid.Column="2" Margin="0,0,310,0"/>
 
 
             <Label Content="Select a call status to filter" HorizontalAlignment="Left" Margin="206,0,0,2" VerticalAlignment="Bottom" Width="184" Grid.ColumnSpan="2"/>
@@ -149,6 +149,8 @@
   Height="20" 
   VerticalAlignment="Center"/>
         </Button>
+        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="24" Margin="690,0,0,0" VerticalAlignment="Top" Width="80"/>
+
     </Grid>
 </Window>
 

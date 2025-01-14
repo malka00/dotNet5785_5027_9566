@@ -33,7 +33,7 @@
             <ComboBox  ItemsSource="{Binding Source={StaticResource ClosedCallColectionKey}}"  
                       SelectionChanged="cbVSelector_SelectionChanged" 
                       SelectedValue="{Binding ClosedCallInList, Mode=TwoWay}" 
-                      Grid.Column="1" Margin="242,0,0,0"/>
+                      Grid.Column="1" Margin="98,0,144,0"/>
             <ComboBox Margin="135,0,30,0"
    ItemsSource= "{Binding Source={StaticResource CallTypeCollectionKey}}"
    SelectionChanged="Call_Filter" 
@@ -41,8 +41,7 @@
             <Label Content="select sort  value :" 
                 Grid.Column="1" 
                 HorizontalAlignment="Left" 
-                VerticalAlignment="Center" 
-                Margin="100,0,0,0" Width="135"/>
+                VerticalAlignment="Center" Width="135"/>
         </Grid>
 
         <!-- שורה שנייה: DataGrid להצגת הנתונים -->
@@ -78,6 +77,7 @@
                   Fill="Black" Width="17" Height="20" VerticalAlignment="Center" Stretch="Fill"/>
         </Button>
 
+        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="53" Margin="674,0,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 

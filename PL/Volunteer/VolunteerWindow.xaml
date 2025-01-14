@@ -139,6 +139,7 @@ Width="20"
 Height="20" 
 VerticalAlignment="Top"/>
         </Button>
+        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="53" Margin="690,14,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>
