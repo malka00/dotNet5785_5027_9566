@@ -431,8 +431,13 @@ internal class CallImplementation : ICall
                                                            Status = boCall.Status,
                                                            distanceCallVolunteer = volunteer?.FullAddress != null ? VolunteerManager.CalculateDistance
                                                            (latVol, lonVol, boCall.Latitude, boCall.Longitude) : 0  // Calculate the distance between the volunteer and the call
+          
                                                        };
+        filteredCalls = from call in filteredCalls
+                        where (volunteer.MaxReading == null || volunteer.MaxReading > call.distanceCallVolunteer)
+                        select call;
 
+        
         // Filter by call type if provided
         if (type.HasValue)
         {
