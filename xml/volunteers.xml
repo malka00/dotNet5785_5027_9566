@@ -232,9 +232,9 @@
     <isActive>true</isActive>
     <role>Boss</role>
     <distance>Aerial</distance>
-    <address>Harounoff  street 2, Jerusalem, Israel</address>
-    <longitude>35.214391</longitude>
-    <latitude>31.912659</latitude>
-    <maxDistance>14000</maxDistance>
+    <address>beit hadfus street , Jerusalem, Israel</address>
+    <longitude>35.185542</longitude>
+    <latitude>31.712492</latitude>
+    <maxDistance>150</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

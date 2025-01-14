@@ -444,7 +444,7 @@ internal class VolunteerManager
         const double EarthRadius = 6371000; // Earth's radius in meters
 
         // Convert latitude and longitude from degrees to radians
-        double lat1Rad = lat1 * Math.PI / 180;
+      double lat1Rad = lat1 * Math.PI / 180;
         double lon1Rad = lon1 * Math.PI / 180;
         double lat2Rad = lat2 * Math.PI / 180;
         double lon2Rad = lon2 * Math.PI / 180;
@@ -461,7 +461,9 @@ internal class VolunteerManager
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
         // Final distance in meters
-        return EarthRadius * c;
+        // return EarthRadius * c;
+        return (EarthRadius * c) / 1000;
+
 
     }
 }
