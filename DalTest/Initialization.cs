@@ -72,21 +72,21 @@ public static class Initialization
 
         string[] passwords =
         {
-    "P@ssw0rd",
-    "A1b2C3",
-    "Hello5",
-    "Pa55word",
-    "C0ding",
-    "1234Aq",
-    "Secur3",
-    "Qw3rty",
-    "L0gin9",
-    "T3stMe",
-    "Adm1n!",
-    "C#1234",
-    "P4ssMe",
-    "C0ffee",
-    "Choco7"
+"SCvvz3ug",
+    "D4e5F6",
+    "Khoor8",
+    "Sd88zrug",
+    "F3glqj",
+    "4567Dt",
+    "Vhfxu6",
+    "Tz6uw|",
+    "O3jlq<",
+    "W6vwPh",
+    "Dgp4q$",
+    "F&4567",
+    "S7vvPh",
+    "F3iihh",
+    "Fkrfr:"
         };
         int[] volunteerId = {207488065,207669508,207733817,207862384,207926692,208317958,208448738,
             208731323,208749978,209184217,209307123,209314277,209567445,209567890,209606318,209668409,
@@ -123,8 +123,8 @@ public static class Initialization
         //    managerId = s_rand.Next(100000000, 1000000000);
         //while (s_dal!.Volunteer.Read(managerId) != null);
 
-        s_dal!.Volunteer.Create(new Volunteer(326209566, "Malka Haupt", "0501111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "A1234", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
-        s_dal!.Volunteer.Create(new Volunteer(214425027, "Efrat Sharabi ", "0501111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "A1234", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
+        s_dal!.Volunteer.Create(new Volunteer(326209566, "Malka Haupt", "0501111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "D4567", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
+        s_dal!.Volunteer.Create(new Volunteer(214425027, "Efrat Sharabi ", "0501111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "D4567", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
 
     }
 

@@ -46,6 +46,8 @@ namespace PL
             Id = bossId;
             InitializeComponent();
         }
+
+
         private void btnAddOneMinute_Click(object sender, RoutedEventArgs e)
         {
             s_bl.Admin.ForwardClock(BO.TimeUnit.MINUTE);

@@ -29,6 +29,7 @@ internal class VolunteerImplementation : IVolunteer
         boVolunteer.Longitude = longitude;
         VolunteerManager.CheckLogic(boVolunteer);
         VolunteerManager.CheckFormat(boVolunteer);
+        string password=VolunteerManager.EncryptPassword(boVolunteer.Password);
         DO.Volunteer doVolunteer = new
             (
             boVolunteer.Id,
@@ -38,7 +39,7 @@ internal class VolunteerImplementation : IVolunteer
             (DO.Distance)boVolunteer.TypeDistance,
             (DO.Role)boVolunteer.Job,
             boVolunteer.Active,
-            boVolunteer.Password,
+            password,
             boVolunteer.FullAddress,
              boVolunteer.Latitude,
             boVolunteer.Longitude,
@@ -135,7 +136,7 @@ internal class VolunteerImplementation : IVolunteer
             TypeDistance = (BO.Distance)doVolunteer.TypeDistance,
             Job = (BO.Role)doVolunteer.Job,
             Active = doVolunteer.Active,
-            Password = doVolunteer.Password,
+            Password =VolunteerManager.DecryptPassword( doVolunteer.Password),
             FullAddress = doVolunteer.FullAddress,
             Latitude = doVolunteer.Latitude,
             Longitude = doVolunteer.Longitude,
@@ -182,7 +183,7 @@ internal class VolunteerImplementation : IVolunteer
       (DO.Distance)boVolunteer.TypeDistance,
       (DO.Role)boVolunteer.Job,
       boVolunteer.Active,
-      boVolunteer.Password,
+      VolunteerManager.EncryptPassword(boVolunteer.Password),
       boVolunteer.FullAddress,
       boVolunteer.Latitude,
       boVolunteer.Longitude,

@@ -87,7 +87,16 @@ namespace PL
 
 
                         if (mbResult == MessageBoxResult.Yes)
-                            new MainWindow(Id).Show();
+                            try {
+                                new MainWindow(Id).Show();
+                            }
+                            catch (Exception ex)
+                            {
+                               
+                               // (currentVolunteer!.Password != Password)
+                //    MessageBox.Show(ex, "Error", MessageBoxButton.OK);
+                            }
+
                         else
                             new VolunteerWindow(Id).Show();
                     }
