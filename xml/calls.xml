@@ -71,16 +71,6 @@
     <MaxTimeToClose>2025-01-13T08:26:45</MaxTimeToClose>
   </Call>
   <Call>
-    <Id>1007</Id>
-    <Type>Cables</Type>
-    <Description>Engine won’t start in an underground garage after leaving lights on.</Description>
-    <FullAddress>David HaMelech St 4, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7763</Latitude>
-    <Longitude>35.2245</Longitude>
-    <TimeOpened>2025-01-13T17:58:45</TimeOpened>
-    <MaxTimeToClose xsi:nil="true" />
-  </Call>
-  <Call>
     <Id>1008</Id>
     <Type>LockedCar</Type>
     <Description>Child accidentally locked inside the car; urgent assistance needed.</Description>
