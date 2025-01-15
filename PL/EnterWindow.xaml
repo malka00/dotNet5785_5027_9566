@@ -8,58 +8,80 @@
         Title="Welcome" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Background="#F7F7F7">
-    <Grid>
-        <!-- הגדרת שורות ועמודות -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" MinHeight="138" />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid>
+            <!-- Define the grid's rows -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <!-- Spacer row at the top -->
+                <RowDefinition Height="Auto" />
+                <!-- Row for the title -->
+                <RowDefinition Height="Auto" />
+                <!-- Row for the ID label -->
+                <RowDefinition Height="Auto" />
+                <!-- Row for the ID TextBox -->
+                <RowDefinition Height="Auto" />
+                <!-- Row for the password label -->
+                <RowDefinition Height="Auto" />
+                <!-- Row for the PasswordBox -->
+                <RowDefinition Height="Auto" />
+                <!-- Row for the button -->
+                <RowDefinition Height="*" />
+                <!-- Spacer row at the bottom -->
 
-        <!-- כותרת -->
-        <TextBlock Text="Login" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"
-                   FontSize="36" FontFamily="Segoe UI" Foreground="#333333" Margin="148,17,0,117" Grid.RowSpan="2" Width="88"/>
+            </Grid.RowDefinitions>
 
-        <!-- ID -->
-        <Label Content="Enter ID:" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"
-               VerticalAlignment="Top" FontSize="16" Foreground="#555555" Height="32" Width="70" Margin="6,27,0,0"/>
-        <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" Grid.Row="1" Grid.Column="1"
-                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="340" Height="30"
-                 FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333"
-                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" Margin="0,68,0,0"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <!-- Left spacer column -->
+                <ColumnDefinition Width="2*" />
+                <!-- Main content column -->
+                <ColumnDefinition Width="*" />
+                <!-- Right spacer column -->
+            </Grid.ColumnDefinitions>
 
-        <!-- Password -->
-        <Label Content="Enter Password:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"
-               VerticalAlignment="Top" FontSize="16" Foreground="#555555" Margin="0,35,0,0" Height="31" Width="120"/>
-        <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"
-                     GotFocus="PasswordBox_GotFocus"
-                     LostFocus="PasswordBox_LostFocus"
-                     Grid.Row="2" Grid.Column="1"
-                     HorizontalAlignment="Center" VerticalAlignment="Top"
-                     Width="340" Height="30" FontSize="14" FontFamily="Segoe UI"
-                     Background="#FFFFFF" Foreground="#333333"
-                     BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" Margin="0,71,0,0"/>
+            <!-- Title -->
+            <TextBlock Text="Login" Grid.Row="1" Grid.Column="1" 
+               HorizontalAlignment="Center" FontSize="36" 
+               FontFamily="Segoe UI" Foreground="#333333" />
 
-        <!-- כפתור כניסה -->
-        <Button Content="Enter" Click="btnEnter_Click" Grid.Row="2" Grid.Column="1"
-                HorizontalAlignment="Left" VerticalAlignment="Top"
-                Width="150" Height="50" FontSize="18" FontFamily="Segoe UI"
-                Foreground="#FFFFFF" Background="#4CAF50" BorderBrush="#388E3C"
-                BorderThickness="1" Cursor="Hand" Margin="106,137,0,0">
-            <Button.Effect>
-                <DropShadowEffect BlurRadius="8" ShadowDepth="4" Color="#888888"/>
-            </Button.Effect>
-        </Button>
+            <!-- ID Label -->
+            <Label Content="Enter ID:" Grid.Row="2" Grid.Column="1" 
+           HorizontalAlignment="Left" VerticalAlignment="Center" 
+           FontSize="16" Foreground="#555555" Margin="10,0,0,5" />
 
-        <!-- תמונה -->
-        <Image Source="logo.png" Grid.Row="0" Grid.Column="2"
-               HorizontalAlignment="Right" VerticalAlignment="Top" Height="53" Width="100" Margin="0,14,10,0"/>
-    </Grid>
+            <!-- ID TextBox -->
+            <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" 
+             Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" 
+             Width="340" Height="30" FontSize="14" FontFamily="Segoe UI" 
+             Background="#FFFFFF" Foreground="#333333" 
+             BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" />
+
+            <!-- Password Label -->
+            <Label Content="Enter Password:" Grid.Row="4" Grid.Column="1" 
+           HorizontalAlignment="Left" VerticalAlignment="Center" 
+           FontSize="16" Foreground="#555555" Margin="10,10,0,5" />
+
+            <!-- PasswordBox -->
+            <PasswordBox PasswordChanged="PasswordBox_PasswordChanged" 
+                 GotFocus="PasswordBox_GotFocus" 
+                 LostFocus="PasswordBox_LostFocus" 
+                 Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" 
+                 Width="340" Height="30" FontSize="14" FontFamily="Segoe UI" 
+                 Background="#FFFFFF" Foreground="#333333" 
+                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" />
+
+            <!-- Enter Button -->
+            <Button Content="Enter" Click="btnEnter_Click" Grid.Row="6" Grid.Column="1" 
+            HorizontalAlignment="Left" Width="88" 
+            FontSize="18" FontFamily="Segoe UI" Foreground="#FFFFFF" 
+            Background="#4CAF50" BorderBrush="#388E3C" 
+            BorderThickness="1" Cursor="Hand" Margin="122,11,0,20">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="8" ShadowDepth="4" Color="#888888" />
+                </Button.Effect>
+            </Button>
+        </Grid>
+    </Viewbox>
+
 </Window>
