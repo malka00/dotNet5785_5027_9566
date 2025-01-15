@@ -128,7 +128,8 @@ namespace PL.Volunteer
             {
                 s_bl.Volunteers.Update(CurrentVolunteer.Id, CurrentVolunteer!);
                 MessageBox.Show($" Successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-             
+                
+
             }
             catch (BO.BlDoesNotExistException ex)
             {

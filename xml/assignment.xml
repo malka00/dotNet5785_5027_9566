@@ -576,4 +576,12 @@
     <TimeEnd>2025-01-14T23:18:38</TimeEnd>
     <TypeEndTreat>Treated</TypeEndTreat>
   </Assignment>
+  <Assignment>
+    <Id>1072</Id>
+    <CallId>1003</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-14T23:18:38</TimeStart>
+    <TimeEnd>2025-01-14T23:18:38</TimeEnd>
+    <TypeEndTreat>SelfCancel</TypeEndTreat>
+  </Assignment>
 </ArrayOfAssignment>
