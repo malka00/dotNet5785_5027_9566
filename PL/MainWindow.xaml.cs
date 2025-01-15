@@ -41,8 +41,14 @@ namespace PL
         DependencyProperty.Register("CountCall", typeof(int[]), typeof(MainWindow));
 
         public int Id { get; set; }
+
+        public static bool IsOpen { get; set; } = false;
+      
         public MainWindow(int bossId)
         {
+            if (IsOpen)
+                throw  new Exception("There already is one manager in the system");
+            else IsOpen=true;
             Id = bossId;
             InitializeComponent();
         }
@@ -95,6 +101,7 @@ namespace PL
         {
             s_bl.Admin.RemoveClockObserver(clockObserver);
             s_bl.Admin.RemoveConfigObserver(configObserver);
+            IsOpen = false;
         }
 
 

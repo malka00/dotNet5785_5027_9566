@@ -93,8 +93,7 @@ namespace PL
                             catch (Exception ex)
                             {
                                
-                               // (currentVolunteer!.Password != Password)
-                //    MessageBox.Show(ex, "Error", MessageBoxButton.OK);
+                                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
                             }
 
                         else
