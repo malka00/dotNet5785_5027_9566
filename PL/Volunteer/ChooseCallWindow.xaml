@@ -116,7 +116,7 @@ Width="17"
 Height="20" 
 VerticalAlignment="Center" Stretch="Fill" RenderTransformOrigin="0.182,0.812"/>
         </Button>
-        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="28" Margin="700,0,0,0" VerticalAlignment="Center" Width="85"/>
+        <Image Source ="logo.png" HorizontalAlignment="Left" Height="28" Margin="700,0,0,0" VerticalAlignment="Center" Width="85"/>
 
     </Grid>
 </Window>

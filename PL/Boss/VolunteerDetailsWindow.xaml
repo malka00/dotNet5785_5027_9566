@@ -83,7 +83,7 @@
         <!--<Grid ShowGridLines="True" Margin="4,4,-49,4">
             <Grid.ColumnDefinitions>-->
 
-        <Grid ShowGridLines="True" Margin="32,140,104,34" Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid ShowGridLines="True"   Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource ConvertIsCallInProssesKey}}"  Margin="32,140,104,34" Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
@@ -129,7 +129,7 @@ Width="20"
 Height="20" 
 VerticalAlignment="Center"/>
         </Button>
-        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="53" Margin="569,20,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <Image Source ="logo.png" HorizontalAlignment="Left" Height="53" Margin="569,20,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
 
     </Grid>
 

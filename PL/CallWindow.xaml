@@ -56,7 +56,7 @@
   Height="20" 
   VerticalAlignment="Center"/>
         </Button>
-        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="53" Margin="560,20,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
+        <Image Source ="logo.png" HorizontalAlignment="Left" Height="53" Margin="560,20,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
 
     </Grid>
 </Window>

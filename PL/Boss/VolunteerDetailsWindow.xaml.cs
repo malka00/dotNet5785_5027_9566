@@ -34,6 +34,7 @@ namespace PL.Volunteer
          DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerDetailsWindow));
        
         public int ManagerId { get; set; }
+        
 
         public VolunteerDetailsWindow(int id=0, int bossId=0)
         {
