@@ -429,8 +429,8 @@ internal class CallImplementation : ICall
                                                            TimeOpen = call.TimeOpened,
                                                            MaxTimeToClose = boCall.MaxTimeToClose,
                                                            Status = boCall.Status,
-                                                           distanceCallVolunteer = volunteer?.FullAddress != null ? VolunteerManager.CalculateDistance
-                                                           (latVol, lonVol, boCall.Latitude, boCall.Longitude) : 0  // Calculate the distance between the volunteer and the call
+                                                           distanceCallVolunteer = /*volunteer?.FullAddress != null ?*/
+                                                          VolunteerManager.CalculateDistance(latVol, lonVol, boCall.Latitude, boCall.Longitude)/* : 0*/  // Calculate the distance between the volunteer and the call
           
                                                        };
         filteredCalls = from call in filteredCalls

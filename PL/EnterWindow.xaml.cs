@@ -87,7 +87,15 @@ namespace PL
 
 
                         if (mbResult == MessageBoxResult.Yes)
-                            new MainWindow(Id).Show();
+                            try {
+                                new MainWindow(Id).Show();
+                            }
+                            catch (Exception ex)
+                            {
+                               
+                                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
+                            }
+
                         else
                             new VolunteerWindow(Id).Show();
                     }

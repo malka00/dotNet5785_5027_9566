@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
+using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -59,6 +60,39 @@ internal class VolunteerManager
             IdCall = idCall,
             CType = ctype
         };
+    }
+
+
+  
+    internal  static string EncryptPassword(string password)
+    {
+        int shift = 3;
+        StringBuilder encryptedPassword = new StringBuilder();
+
+        foreach (char c in password)
+        {
+            // Shift every character by the given value (ASCII manipulation)
+            char encryptedChar = (char)(c + shift);
+            encryptedPassword.Append(encryptedChar);
+        }
+
+        return encryptedPassword.ToString();
+    }
+
+    internal static string DecryptPassword(string encryptedPassword)
+    {
+        int shift = 3;
+      
+        StringBuilder decryptedPassword = new StringBuilder();
+
+        foreach (char c in encryptedPassword)
+        {
+            // Shift the character back to its original value
+            char decryptedChar = (char)(c - shift);
+            decryptedPassword.Append(decryptedChar);
+        }
+
+        return decryptedPassword.ToString();
     }
 
     /// <summary>
@@ -192,8 +226,8 @@ internal class VolunteerManager
     /// <exception cref="BO.BlWrongItemException"></exception>
     internal static void CheckLogic(BO.Volunteer boVolunteer)
     {
-        try
-        {
+        //try
+        //{
             CheckId(boVolunteer.Id);
             CheckPhoneNumber(boVolunteer.PhoneNumber);
             CheckEmail(boVolunteer.Email);
@@ -201,11 +235,11 @@ internal class VolunteerManager
             CheckAddress(boVolunteer);
             CheckActive(boVolunteer);
 
-        }
-        catch (BO.BlWrongItemException ex)
-        {
-            throw new BO.BlWrongItemException($"the item have logic problem", ex);
-        }
+        //}
+        //catch (BO.BlWrongItemException ex)
+        //{
+        //    throw new BO.BlWrongItemException($"the item have logic problem", ex);
+        //}
     }
 
     internal static void CheckActive(BO.Volunteer volunteer)
@@ -441,30 +475,28 @@ internal class VolunteerManager
     /// <returns>Distance in meters between the two points</returns>
     internal static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
     {
-        const double EarthRadius = 6371000; // Earth's radius in meters
 
-        // Convert latitude and longitude from degrees to radians
-      double lat1Rad = lat1 * Math.PI / 180;
-        double lon1Rad = lon1 * Math.PI / 180;
-        double lat2Rad = lat2 * Math.PI / 180;
-        double lon2Rad = lon2 * Math.PI / 180;
 
-        // Differences in latitude and longitude
-        double deltaLat = lat2Rad - lat1Rad;
-        double deltaLon = lon2Rad - lon1Rad;
 
-        // Haversine formula
-        double a = Math.Sin(deltaLat / 2) * Math.Sin(deltaLat / 2) +
+        //  // Convert latitude and longitude from degrees to radians
+        double lat1Rad = lat1 * (Math.PI / 180);
+        double lon1Rad = lon1 * (Math.PI / 180);
+        double lat2Rad = lat2 * (Math.PI / 180);
+        double lon2Rad = lon2 * (Math.PI / 180);
+
+
+         const double R = 6371; // Radius of the Earth in kilometers
+
+        double dLat = lat2Rad - lat1Rad;
+        double dLon = lon2Rad - lon1Rad;
+
+        double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
                    Math.Cos(lat1Rad) * Math.Cos(lat2Rad) *
-                   Math.Sin(deltaLon / 2) * Math.Sin(deltaLon / 2);
+                   Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-        // Final distance in meters
-        // return EarthRadius * c;
-        return (EarthRadius * c) / 1000;
-
-
+      return   R * c; // Distance in kilometers
     }
 }
 
