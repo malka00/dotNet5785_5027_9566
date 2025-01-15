@@ -9,48 +9,57 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Background="#F7F7F7">
     <Grid>
+        <!-- הגדרת שורות ועמודות -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="138" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
         <!-- כותרת -->
-        <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                   FontSize="36" FontFamily="Segoe UI" Foreground="#333333" Margin="0,27,0,0"/>
+        <TextBlock Text="Login" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"
+                   FontSize="36" FontFamily="Segoe UI" Foreground="#333333" Margin="148,17,0,117" Grid.RowSpan="2" Width="88"/>
 
-        <!--  ID -->
-        <Label Content="Enter ID:" HorizontalAlignment="Left" Margin="224,100,0,0" 
-               VerticalAlignment="Top" FontSize="16" Foreground="#555555"/>
-        <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" HorizontalAlignment="Center" 
-                 Margin="0,136,0,0" VerticalAlignment="Top" Width="340" Height="30" 
-                 FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
-                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5"/>
+        <!-- ID -->
+        <Label Content="Enter ID:" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"
+               VerticalAlignment="Top" FontSize="16" Foreground="#555555" Height="32" Width="70" Margin="6,27,0,0"/>
+        <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" Grid.Row="1" Grid.Column="1"
+                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="340" Height="30"
+                 FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333"
+                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" Margin="0,68,0,0"/>
 
-        <!-- Password-->
-        <!--
-     
-        <TextBox Text="{Binding Path=Password, Mode=TwoWay}" HorizontalAlignment="Center" 
-            Margin="0,228,0,0" VerticalAlignment="Top" Width="400" Height="30" 
-            FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
-            BorderBrush="#CCCCCC" BorderThickness="1" Padding="5"/>-->
-
-        <Label Content="Enter Password:" HorizontalAlignment="Left" Margin="224,197,0,0" 
-          VerticalAlignment="Top" FontSize="16" Foreground="#555555"/>
-
-        <!-- PasswordBox -->
+        <!-- Password -->
+        <Label Content="Enter Password:" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"
+               VerticalAlignment="Top" FontSize="16" Foreground="#555555" Margin="0,35,0,0" Height="31" Width="120"/>
         <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"
-               GotFocus="PasswordBox_GotFocus" 
-               LostFocus="PasswordBox_LostFocus" 
-               Margin="230,233,230,0" VerticalAlignment="Top" Height="30" 
-  FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
-  BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" 
-                     />
+                     GotFocus="PasswordBox_GotFocus"
+                     LostFocus="PasswordBox_LostFocus"
+                     Grid.Row="2" Grid.Column="1"
+                     HorizontalAlignment="Center" VerticalAlignment="Top"
+                     Width="340" Height="30" FontSize="14" FontFamily="Segoe UI"
+                     Background="#FFFFFF" Foreground="#333333"
+                     BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" Margin="0,71,0,0"/>
 
         <!-- כפתור כניסה -->
-        <Button Content="Enter" Click="btnEnter_Click" HorizontalAlignment="Center" 
-                VerticalAlignment="Top" Margin="0,305,0,0" Width="150" Height="50" 
-                FontSize="18" FontFamily="Segoe UI" Foreground="#FFFFFF" Background="#4CAF50" 
-                BorderBrush="#388E3C" BorderThickness="1" Cursor="Hand">
+        <Button Content="Enter" Click="btnEnter_Click" Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Width="150" Height="50" FontSize="18" FontFamily="Segoe UI"
+                Foreground="#FFFFFF" Background="#4CAF50" BorderBrush="#388E3C"
+                BorderThickness="1" Cursor="Hand" Margin="106,137,0,0">
             <Button.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="4" Color="#888888"/>
             </Button.Effect>
         </Button>
-        <Image Source ="C:\Users\efrat\Documents\מיני פרויקט\logo.png" HorizontalAlignment="Left" Height="53" Margin="690,14,0,0" VerticalAlignment="Top" Width="100"/>
 
+        <!-- תמונה -->
+        <Image Source="logo.png" Grid.Row="0" Grid.Column="2"
+               HorizontalAlignment="Right" VerticalAlignment="Top" Height="53" Width="100" Margin="0,14,10,0"/>
     </Grid>
 </Window>
