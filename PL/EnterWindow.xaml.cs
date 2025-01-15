@@ -99,5 +99,61 @@ namespace PL
             
 
         }
+
+        private void id_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var textBox = sender as TextBox;
+                textBox?.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            }
+        }
+
+        private void enter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+
+            {
+                BO.Volunteer currentVolunteer = null;
+                try
+                {
+                    currentVolunteer = s_bl.Volunteers.Read(Id);
+                }
+                catch (BO.BlDoesNotExistException ex)
+                {
+
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+
+                if (currentVolunteer != null)
+                {
+                    if (currentVolunteer!.Password != Password)
+                        MessageBox.Show("wrong password!", "Error", MessageBoxButton.OK);
+                    else
+                    {
+                        MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
+                        if (currentVolunteer.Job == BO.Role.Boss)
+                        {
+                            MessageBoxResult mbResult = MessageBox.Show("Do you want to open an administrator screen?", "Manage or Volunteer",
+                                                 MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+
+                            if (mbResult == MessageBoxResult.Yes)
+                                new MainWindow(Id).Show();
+                            else
+                                new VolunteerWindow(Id).Show();
+                        }
+                        else
+                            new VolunteerWindow(Id).Show();
+
+                    }
+                }
+            }
+        }
     }
 }

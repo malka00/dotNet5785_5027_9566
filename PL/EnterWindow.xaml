@@ -19,7 +19,7 @@
         <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" HorizontalAlignment="Center" 
                  Margin="0,136,0,0" VerticalAlignment="Top" Width="340" Height="30" 
                  FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
-                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5"/>
+                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" KeyDown="id_KeyDown"/>
 
         <!-- Password-->
         <!--
@@ -39,13 +39,13 @@
                Margin="230,233,230,0" VerticalAlignment="Top" Height="30" 
   FontSize="14" FontFamily="Segoe UI" Background="#FFFFFF" Foreground="#333333" 
   BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" 
-                     />
+                    KeyDown="enter_KeyDown" />
 
         <!-- כפתור כניסה -->
         <Button Content="Enter" Click="btnEnter_Click" HorizontalAlignment="Center" 
                 VerticalAlignment="Top" Margin="0,305,0,0" Width="150" Height="50" 
                 FontSize="18" FontFamily="Segoe UI" Foreground="#FFFFFF" Background="#4CAF50" 
-                BorderBrush="#388E3C" BorderThickness="1" Cursor="Hand">
+                BorderBrush="#388E3C" BorderThickness="1" Cursor="Hand" >
             <Button.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="4" Color="#888888"/>
             </Button.Effect>
