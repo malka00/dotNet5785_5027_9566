@@ -5,11 +5,13 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
-        <!--   Buttons -->
-        <Button Content="Histoy Calls" Click="btnCallsHistory_Click" HorizontalAlignment="Left" Margin="280,150,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.379,0.314"/>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="-6,-24,6,24"/>
-        <Button Content="Choose Call"   IsEnabled="{Binding CurrentVolunteer, Converter={StaticResource BoolConvertIsCallInProssesKey}}" HorizontalAlignment="Left" Margin="276,245,0,0" VerticalAlignment="Top" Click="btnChooseCall_Click"/>
-
+        <!--   Buttons - Exactly as original -->
+        <Button Content="Histoy Calls" Click="btnCallsHistory_Click" 
+                HorizontalAlignment="Left" Margin="280,150,0,0" VerticalAlignment="Top" 
+                RenderTransformOrigin="0.379,0.314"/>
+        <Button Content="Choose Call" Click="btnChooseCall_Click"
+                IsEnabled="{Binding CurrentVolunteer, Converter={StaticResource BoolConvertIsCallInProssesKey}}" 
+                HorizontalAlignment="Left" Margin="276,245,0,0" VerticalAlignment="Top"/>
 
         <!-- Name -->
         <StackPanel Orientation="Horizontal" Margin="10,10,0,0" VerticalAlignment="Top">
@@ -59,6 +61,17 @@
             <TextBox Text="{Binding CurrentVolunteer.TypeDistance}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
+        <!-- Update Button - Keep original position -->
+        <Button Content="Update" Click="btnUpdate_Click" 
+                HorizontalAlignment="Left" Margin="63,292,0,0" VerticalAlignment="Top"/>
+
+        <!-- Back Button - Keep original position -->
+        <Button HorizontalAlignment="Left" Margin="22,507,0,0" VerticalAlignment="Top" 
+                Click="btnBack_Click">
+            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+                  Fill="Black" Width="20" Height="20" VerticalAlignment="Top"/>
+        </Button>
+
         <!-- Total Handled Calls -->
         <StackPanel Orientation="Horizontal" Margin="400,10,0,0" VerticalAlignment="Top">
             <Label Content="Total Handled Calls:" FontSize="14" VerticalAlignment="Center"/>
@@ -76,70 +89,63 @@
             <Label Content="Total Expired Calls:" FontSize="14" VerticalAlignment="Center"/>
             <TextBox Text="{Binding CurrentVolunteer.SumExpired}" IsReadOnly="True" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
+
         <!-- Current Call -->
-        <StackPanel Orientation="Vertical" Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource ConvertIsCallInProssesKey}}"  Margin="400,100,0,0" VerticalAlignment="Top" Height="460">
-
-            <TextBox Text="Current Call:"   FontSize="16" FontWeight="Bold" Margin="0,0,0,10" />
+        <StackPanel Orientation="Vertical" 
+                    Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource ConvertIsCallInProssesKey}}"  
+                    Margin="400,100,0,0" VerticalAlignment="Top" Height="460">
+            <TextBox Text="Current Call:" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Call ID:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.IdCall}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Call ID:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.IdCall}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Description:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.Description}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
-            </StackPanel>
-
-
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Call Type:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.Type}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Description:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.Description}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content=" Call Address:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.FullCallAddress}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Call Type:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.Type}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Open Time:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.TimeOpen, StringFormat=G}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Call Address:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.FullCallAddress}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Max Completion Time:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.MaxTimeToClose, StringFormat=G}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Open Time:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.TimeOpen, StringFormat=G}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Start treat Time:" FontSize="14" FontWeight="Bold" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.StartTreat, StringFormat=G}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Max Completion Time:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.MaxTimeToClose, StringFormat=G}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Distance from CurrentVolunteer:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.distanceCallVolunteer}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Start treat Time:" FontSize="14" FontWeight="Bold"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.StartTreat, StringFormat=G}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label Content="Status:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" />
-                <TextBox Text="{Binding CurrentVolunteer.CallIn.Status}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Distance from Volunteer:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.distanceCallVolunteer}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Status:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding CurrentVolunteer.CallIn.Status}" FontSize="14" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            </StackPanel>
+
             <Button Content="Close Call" Click="btnClosed_Call" Width="180" Height="41"/>
-            <Button Content="Canseled Call" Click="btnCansel_Call" Width="180" Height="38"/>
-
+            <Button Content="Cancel Call" Click="btnCansel_Call" Width="180" Height="38"/>
         </StackPanel>
-        <Button Content="Update"  Click="btnUpdate_Click" HorizontalAlignment="Left" Margin="63,292,0,0" VerticalAlignment="Top"/>
 
-        <Button HorizontalAlignment="Left" Margin="22,507,0,0" VerticalAlignment="Top" Click="btnBack_Click">
-            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
-Fill="Black" 
-Width="20" 
-Height="20" 
-VerticalAlignment="Top"/>
-        </Button>
-        <Image Source ="logo.png" HorizontalAlignment="Left" Height="53" Margin="690,14,0,0" VerticalAlignment="Top" Width="100"/>
-
+        <Image Source="logo.png" HorizontalAlignment="Left" Height="53" 
+               Margin="690,14,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>
