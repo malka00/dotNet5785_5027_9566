@@ -27,7 +27,7 @@ namespace PL
         public string Password { get; set; }
 
 
-         public int Id { get; set; }
+        public int Id { get; set; }
 
         public EnterWindow()
         {
@@ -66,7 +66,7 @@ namespace PL
             {
 
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-             
+
             }
             catch (Exception ex)
             {
@@ -87,12 +87,13 @@ namespace PL
 
 
                         if (mbResult == MessageBoxResult.Yes)
-                            try {
+                            try
+                            {
                                 new MainWindow(Id).Show();
                             }
                             catch (Exception ex)
                             {
-                               
+
                                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
                             }
 
@@ -104,7 +105,7 @@ namespace PL
 
                 }
             }
-            
+
 
         }
 

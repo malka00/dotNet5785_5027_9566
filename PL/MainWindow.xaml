@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.MainWindow"
+﻿<!--<Window x:Class="PL.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,7 +16,7 @@
 
         </Border>
 
-        <!--Internal, Upper Grid-->
+        --><!--Internal, Upper Grid--><!--
 
         <Label Content="{Binding CurrentTime}" HorizontalAlignment="Left" Margin="422,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.667,0.548"/>
         <Button Content="Add One Minute" HorizontalAlignment="Left" Margin="400,77,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneMinute_Click"/>
@@ -25,7 +25,7 @@
         <Button Content="Add One Month" HorizontalAlignment="Left" Margin="400,137,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneMonth_Click"/>
         <Button Content="Add One Year" HorizontalAlignment="Left" Margin="400,157,0,0" VerticalAlignment="Top" Height="20" Width="147" Click="btnAddOneYear_Click"/>
 
-        <!--config-->
+        --><!--config--><!--
         <Label Content="enter a risk time for call" HorizontalAlignment="Left" Margin="509,232,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding MaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="516,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
         <Button Content="update" HorizontalAlignment="Left" Margin="556,276,0,0" VerticalAlignment="Top" Click="btnUpdateMaxRange_Click" />
@@ -35,7 +35,7 @@
         <Button Content="Handle Calls" HorizontalAlignment="Left" Margin="32,62,0,0" VerticalAlignment="Top" Height="40" Width="115" Click="ButtonCall_Click"/>
 
         <Grid Margin="52,264,459,157" RenderTransformOrigin="0.5,0.5">
-            <!-- Apply transformations to the grid -->
+            --><!-- Apply transformations to the grid --><!--
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
@@ -45,7 +45,7 @@
                 </TransformGroup>
             </Grid.RenderTransform>
 
-            <!-- Define the rows of the grid -->
+            --><!-- Define the rows of the grid --><!--
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -53,53 +53,53 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- Define the columns of the grid -->
+            --><!-- Define the columns of the grid --><!--
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="379*" />
                 <ColumnDefinition Width="368*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Headers -->
+            --><!-- Headers --><!--
             <Label Content="Status" Grid.Row="0" Grid.Column="0" FontWeight="Bold" Margin="0,0,0,26" Grid.RowSpan="2" />
-            <!-- Header for the Status column -->
+            --><!-- Header for the Status column --><!--
             <Label Content="Sum" Grid.Row="0" Grid.Column="1" FontWeight="Bold" Margin="0,0,0,26" Grid.RowSpan="2" />
-            <!-- Header for the Sum column -->
+            --><!-- Header for the Sum column -->
 
-            <!-- Row 1: Open -->
+            <!-- Row 1: Open --><!--
             <Label Content="Open" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,22,142,20" />
-            <!-- Display "Open" status-->
+            --><!-- Display "Open" status--><!--
             <Label Content="{Binding CountCall[0]}" Grid.RowSpan="3" Grid.Column="1" Margin="0,16,0,26" />
-            <!--Bind count for "Open" status-->
+            --><!--Bind count for "Open" status-->
 
-            <!--Row 2: Treat-->
+            <!--Row 2: Treat--><!--
             <Label Content="Treat" Grid.Row="2" Grid.Column="0" Margin="0,0,0,8" />
-            <!--Display "Treat" status-->
+            --><!--Display "Treat" status--><!--
             <Label Content="{Binding CountCall[1]}" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" />
-            <!--Bind count for "Treat" status-->
+            --><!--Bind count for "Treat" status-->
 
-            <!--Row 3: Close-->
+            <!--Row 3: Close--><!--
             <Label Content="Close" Grid.Row="2" Grid.Column="0" Margin="0,32,0,0" Grid.RowSpan="2" />
-            <!--Display "Close" status-->
+            --><!--Display "Close" status--><!--
             <Label Content="{Binding CountCall[2]}" Grid.Row="2" Grid.Column="1" Margin="0,32,0,0" Grid.RowSpan="2" />
-            <!--Bind count for "Close" status-->
+            --><!--Bind count for "Close" status-->
 
-            <!--Row 4: Expired-->
+            <!--Row 4: Expired--><!--
             <Label Content="Expired" Grid.Row="3" Grid.Column="0" Margin="0,8,142,-28" Grid.ColumnSpan="2" />
-            <!--Display "Expired" status-->
+            --><!--Display "Expired" status--><!--
             <Label Content="{Binding CountCall[3]}" Grid.Row="3" Grid.Column="1" Margin="0,8,0,-28" />
-            <!--Bind count for "Expired" status-->
+            --><!--Bind count for "Expired" status-->
 
-            <!--Row 5: RiskOpen-->
+            <!--Row 5: RiskOpen--><!--
             <Label Content="RiskOpen" Grid.Row="3" Grid.Column="0" Margin="0,40,142,-60" Grid.ColumnSpan="2" />
-            <!--Display "RiskOpen" status-->
+            --><!--Display "RiskOpen" status--><!--
             <Label Content="{Binding CountCall[4]}" Grid.Row="3" Grid.Column="1" Margin="0,40,0,-60" />
-            <!--Bind count for "RiskOpen" status-->
+            --><!--Bind count for "RiskOpen" status-->
 
-            <!--Row 6: TreatInRisk-->
+            <!--Row 6: TreatInRisk--><!--
             <Label Content="TreatInRisk" Grid.Row="3" Grid.Column="0" Margin="0,72,142,-92" Grid.ColumnSpan="2" />
-            <!--Display "TreatInRisk" status-->
+            --><!--Display "TreatInRisk" status--><!--
             <Label Content="{Binding CountCall[5]}" Grid.Row="3" Grid.Column="1" Margin="0,72,0,-92" />
-            <!--Bind count for "TreatInRisk" status-->
+            --><!--Bind count for "TreatInRisk" status--><!--
         </Grid>
 
 
@@ -115,4 +115,224 @@ VerticalAlignment="Center" Stretch="Fill"/>
 
     </Grid>
 
+</Window>-->
+
+
+<Window x:Class="PL.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Volunteer Management System" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Closed="Window_Closed"
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1976D2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Time Control Button Style -->
+        <Style x:Key="TimeControlButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="Width" Value="147"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <!-- Stats Label Style -->
+        <Style x:Key="StatsLabel" TargetType="Label">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <Border Background="#F5F5F5" Padding="20,10">
+            <Grid>
+                <Image Source="C:\Users\efrat\Documents\מיני פרויקט\PL\logo.png"  HorizontalAlignment="Right" Height="60" Width="120"/>
+                <TextBlock Text="{Binding CurrentTime}" 
+                         FontSize="24" 
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Section: Main Controls -->
+            <StackPanel>
+                <!-- Main Action Buttons -->
+                <UniformGrid Columns="2" Margin="0,0,0,10">
+                    <Button Content="Handle Calls" 
+                            Style="{StaticResource ModernButton}"
+                            Margin="5"
+                            Height="50"
+                            Click="ButtonCall_Click"/>
+                    <Button Content="Handle Volunteers" 
+                            Style="{StaticResource ModernButton}"
+                            Margin="5"
+                            Height="50"
+                            Click="ButtonVolunteer_Click"/>
+                </UniformGrid>
+
+                <UniformGrid Columns="2" Margin="0,0,0,10">
+                    <Button Content="Init DB" 
+                            Style="{StaticResource ModernButton}"
+                            Background="#FF9800"
+                            Margin="5"
+                            Height="50"
+                            Click="btnInitDB_Click"/>
+                    <Button Content="Reset DB" 
+                            Style="{StaticResource ModernButton}"
+                            Background="#F44336"
+                            Margin="5"
+                            Height="50"
+                            Click="btnResetDB_Click"/>
+                </UniformGrid>
+
+                <!-- Stats Grid -->
+                <Border Background="White" 
+                        BorderBrush="#DDDDDD" 
+                        BorderThickness="1" 
+                        CornerRadius="4"
+                        Padding="15"
+                        Margin="0,30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Headers -->
+                        <TextBlock Text="Status" 
+                                 FontWeight="Bold" 
+                                 Grid.Column="0"
+                                 Margin="0,0,0,10"/>
+                        <TextBlock Text="Count" 
+                                 FontWeight="Bold" 
+                                 Grid.Column="1"
+                                 Margin="0,0,0,10"/>
+
+                        <!-- Stats Rows -->
+                        <TextBlock Text="Open" Grid.Row="1"/>
+                        <TextBlock Text="{Binding CountCall[0]}" Grid.Row="1" Grid.Column="1"/>
+
+                        <TextBlock Text="Treat" Grid.Row="2"/>
+                        <TextBlock Text="{Binding CountCall[1]}" Grid.Row="2" Grid.Column="1"/>
+
+                        <TextBlock Text="Close" Grid.Row="3"/>
+                        <TextBlock Text="{Binding CountCall[2]}" Grid.Row="3" Grid.Column="1"/>
+
+                        <TextBlock Text="Expired" Grid.Row="4"/>
+                        <TextBlock Text="{Binding CountCall[3]}" Grid.Row="4" Grid.Column="1"/>
+
+                        <TextBlock Text="Risk Open" Grid.Row="5"/>
+                        <TextBlock Text="{Binding CountCall[4]}" Grid.Row="5" Grid.Column="1"/>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <!-- Right Section: Time Controls -->
+            <StackPanel Grid.Column="1" Margin="20,0,0,0">
+                <!-- Time Control Buttons -->
+                <Button Content="Add One Minute" 
+                        Style="{StaticResource TimeControlButton}"
+                        Click="btnAddOneMinute_Click"/>
+                <Button Content="Add One Hour" 
+                        Style="{StaticResource TimeControlButton}"
+                        Click="btnAddOneHour_Click"/>
+                <Button Content="Add One Day" 
+                        Style="{StaticResource TimeControlButton}"
+                        Click="btnAddOneDay_Click"/>
+                <Button Content="Add One Month" 
+                        Style="{StaticResource TimeControlButton}"
+                        Click="btnAddOneMonth_Click"/>
+                <Button Content="Add One Year" 
+                        Style="{StaticResource TimeControlButton}"
+                        Click="btnAddOneYear_Click"/>
+
+                <!-- Risk Time Configuration -->
+                <Border Background="White" 
+                        BorderBrush="#DDDDDD" 
+                        BorderThickness="1" 
+                        CornerRadius="4"
+                        Padding="15"
+                        Margin="0,20">
+                    <StackPanel>
+                        <Label Content="Enter Risk Time for Call"
+                               FontWeight="Bold"/>
+                        <TextBox Text="{Binding MaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Padding="5"
+                                Margin="0,5"
+                                TextChanged="TextBox_TextChanged"/>
+                        <Button Content="Update"
+                                Style="{StaticResource ModernButton}"
+                                Click="btnUpdateMaxRange_Click"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <!-- Back Button -->
+        <Button Grid.Row="1"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom"
+                Margin="20"
+                Style="{StaticResource ModernButton}"
+                Background="#757575"
+                Click="btnBack_Click">
+            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+                  Fill="White" 
+                  Width="17" 
+                  Height="20" 
+                  Stretch="Fill"/>
+        </Button>
+    </Grid>
 </Window>
