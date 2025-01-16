@@ -67,39 +67,39 @@
 
             <!-- Row 1: Open -->
             <Label Content="Open" Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="0" Margin="0,22,142,20" />
-            <!-- Display "Open" status -->
+            <!-- Display "Open" status-->
             <Label Content="{Binding CountCall[0]}" Grid.RowSpan="3" Grid.Column="1" Margin="0,16,0,26" />
-            <!-- Bind count for "Open" status -->
+            <!--Bind count for "Open" status-->
 
-            <!-- Row 2: Treat -->
+            <!--Row 2: Treat-->
             <Label Content="Treat" Grid.Row="2" Grid.Column="0" Margin="0,0,0,8" />
-            <!-- Display "Treat" status -->
+            <!--Display "Treat" status-->
             <Label Content="{Binding CountCall[1]}" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" />
-            <!-- Bind count for "Treat" status -->
+            <!--Bind count for "Treat" status-->
 
-            <!-- Row 3: Close -->
+            <!--Row 3: Close-->
             <Label Content="Close" Grid.Row="2" Grid.Column="0" Margin="0,32,0,0" Grid.RowSpan="2" />
-            <!-- Display "Close" status -->
+            <!--Display "Close" status-->
             <Label Content="{Binding CountCall[2]}" Grid.Row="2" Grid.Column="1" Margin="0,32,0,0" Grid.RowSpan="2" />
-            <!-- Bind count for "Close" status -->
+            <!--Bind count for "Close" status-->
 
-            <!-- Row 4: Expired -->
+            <!--Row 4: Expired-->
             <Label Content="Expired" Grid.Row="3" Grid.Column="0" Margin="0,8,142,-28" Grid.ColumnSpan="2" />
-            <!-- Display "Expired" status -->
+            <!--Display "Expired" status-->
             <Label Content="{Binding CountCall[3]}" Grid.Row="3" Grid.Column="1" Margin="0,8,0,-28" />
-            <!-- Bind count for "Expired" status -->
+            <!--Bind count for "Expired" status-->
 
-            <!-- Row 5: RiskOpen -->
+            <!--Row 5: RiskOpen-->
             <Label Content="RiskOpen" Grid.Row="3" Grid.Column="0" Margin="0,40,142,-60" Grid.ColumnSpan="2" />
-            <!-- Display "RiskOpen" status -->
+            <!--Display "RiskOpen" status-->
             <Label Content="{Binding CountCall[4]}" Grid.Row="3" Grid.Column="1" Margin="0,40,0,-60" />
-            <!-- Bind count for "RiskOpen" status -->
+            <!--Bind count for "RiskOpen" status-->
 
-            <!-- Row 6: TreatInRisk -->
+            <!--Row 6: TreatInRisk-->
             <Label Content="TreatInRisk" Grid.Row="3" Grid.Column="0" Margin="0,72,142,-92" Grid.ColumnSpan="2" />
-            <!-- Display "TreatInRisk" status -->
+            <!--Display "TreatInRisk" status-->
             <Label Content="{Binding CountCall[5]}" Grid.Row="3" Grid.Column="1" Margin="0,72,0,-92" />
-            <!-- Bind count for "TreatInRisk" status -->
+            <!--Bind count for "TreatInRisk" status-->
         </Grid>
 
 
