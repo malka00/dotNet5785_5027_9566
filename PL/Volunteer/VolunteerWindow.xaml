@@ -5,7 +5,9 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
-        --><!--   Buttons - Exactly as original --><!--
+        -->
+<!--   Buttons - Exactly as original -->
+<!--
         <Button Content="Histoy Calls" Click="btnCallsHistory_Click" 
                 HorizontalAlignment="Left" Margin="280,150,0,0" VerticalAlignment="Top" 
                 RenderTransformOrigin="0.379,0.314"/>
@@ -210,14 +212,13 @@
         <!-- Header with Logo -->
         <Border Grid.ColumnSpan="2" Background="#F5F5F5" Height="80" VerticalAlignment="Top">
             <Grid>
-                <Image Source="C:\Users\efrat\Documents\מיני פרויקט\PL\logo.png" HorizontalAlignment="Right" Height="53" Width="100" Margin="0,0,20,0"/>
+                <Image Source="PL\logo.png" HorizontalAlignment="Right" Height="53" Width="100" Margin="0,0,20,0"/>
                 <TextBlock Text="Volunteer Information" FontSize="24" VerticalAlignment="Center" Margin="20,0"/>
             </Grid>
         </Border>
 
         <!-- Left Column - Volunteer Information -->
         <StackPanel Margin="20,100,20,20">
-            <!-- Volunteer Details -->
             <Border Background="White" BorderBrush="#DDDDDD" BorderThickness="1" CornerRadius="4" Padding="15" Margin="0,0,0,20">
                 <StackPanel>
                     <!-- Name -->
@@ -267,7 +268,11 @@
                         <Label Content="Distance Type:" Style="{StaticResource ModernLabel}" Width="120"/>
                         <TextBox Text="{Binding CurrentVolunteer.TypeDistance}" Style="{StaticResource ModernTextBox}"/>
                     </DockPanel>
+
+                    <!-- Update Button -->
+                    <Button Content="Update" Click="btnUpdate_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="120"/>
                 </StackPanel>
+           
             </Border>
 
             <!-- Statistics Section -->
@@ -303,6 +308,11 @@
                         IsEnabled="{Binding CurrentVolunteer, Converter={StaticResource BoolConvertIsCallInProssesKey}}"/>
             </StackPanel>
         </StackPanel>
+        <!-- Buttons Above the Border --><!--
+        <StackPanel   Grid.Column="1" Margin="20,100,20,20" Orientation="Horizontal">
+            <Button Content="Choose Call" Click="btnChooseCall_Click" Style="{StaticResource ModernButton}" />
+            <Button Content="History Calls" Click="btnCallsHistory_Click" Style="{StaticResource ModernButton}"/> 
+        </StackPanel>-->
 
         <!-- Right Column - Current Call Information -->
         <Border Grid.Column="1" Margin="20,100,20,20"

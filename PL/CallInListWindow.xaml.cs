@@ -54,12 +54,12 @@ public partial class CallInListWindow : Window
     private void CallFilter(object sender, SelectionChangedEventArgs e)
     {
         CallInList = (BO.ECallInList)(((ComboBox)sender).SelectedItem);
-        CallList = s_bl?.Calls.GetCallInLists(null, null, CallInList)!;
+        CallList = s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, CallInList)!;
     }
 
     private void QueryCallList()
     => CallList = (CallInList == BO.ECallInList.Id) ?
-    s_bl?.Calls.GetCallInLists(null, null, null)! : s_bl?.Calls.GetCallInLists(null, null, CallInList)!;
+    s_bl?.Calls.GetCallInLists(null, null, null)! : s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, CallInList)!;
 
     private void CallListObserver() => QueryCallList();
 
@@ -88,7 +88,7 @@ public partial class CallInListWindow : Window
 
     private void btnDelete_Click(object sender, RoutedEventArgs e)
     {
-        MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to delete this call?", "Reset Confirmation",
+        MessageBoxResult mbResult = MessageBox.Show($"Are you sure you want to delete {SelectedCall.CallId} call?", "Reset Confirmation",
                                                     MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (mbResult == MessageBoxResult.Yes)
         {
@@ -110,7 +110,7 @@ public partial class CallInListWindow : Window
     private void Call_Filter(object sender, SelectionChangedEventArgs e)
     {
         CallInList = (BO.ECallInList)(((ComboBox)sender).SelectedItem);
-        CallList = s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, null)!;
+        CallList = s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, CallInList)!;
     }
 
     private void btnCancelAssignment_Click(object sender, RoutedEventArgs e)

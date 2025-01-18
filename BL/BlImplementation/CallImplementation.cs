@@ -289,6 +289,8 @@ internal class CallImplementation : ICall
                     boCallsInList = boCallsInList.Where(item => item.TotalTime == (TimeSpan)obj);
                     break;
                 case BO.ECallInList.Status:
+                    if ((BO.StatusTreat)obj == BO.StatusTreat.None)
+                        break;
                     boCallsInList = boCallsInList.Where(item => item.Status == (BO.StatusTreat)obj);
                     break;
                 case BO.ECallInList.SumAssignment:

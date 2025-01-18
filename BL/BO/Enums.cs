@@ -36,6 +36,7 @@ public enum CallType
 /// </summary>
 public enum StatusTreat
 {
+    None,
     Open,
     Treat,
     Close,

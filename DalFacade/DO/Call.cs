@@ -16,7 +16,7 @@ public record Call
 (
         int Id,
         CallType Type,
-        string Description,
+        string? Description,
         string FullAddress,
         double Latitude,
         double Longitude,

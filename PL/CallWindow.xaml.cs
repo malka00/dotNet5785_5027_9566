@@ -108,7 +108,7 @@ namespace PL
                 try
                 {
                     s_bl.Calls.Create(CurrentCall!);
-                    MessageBox.Show($"Call {CurrentCall?.Id} was successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Call was successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
                 catch (BO.BlAlreadyExistsException ex)
