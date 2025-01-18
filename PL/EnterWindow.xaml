@@ -55,7 +55,7 @@
              Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" 
              Width="340" Height="30" FontSize="14" FontFamily="Segoe UI" 
              Background="#FFFFFF" Foreground="#333333" 
-             BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" />
+             BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" KeyDown="id_KeyDown"/>
 
             <!-- Password Label -->
             <Label Content="Enter Password:" Grid.Row="4" Grid.Column="1" 
@@ -69,7 +69,7 @@
                  Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" 
                  Width="340" Height="30" FontSize="14" FontFamily="Segoe UI" 
                  Background="#FFFFFF" Foreground="#333333" 
-                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" />
+                 BorderBrush="#CCCCCC" BorderThickness="1" Padding="5" KeyDown="enter_KeyDown"/>
 
             <!-- Enter Button -->
             <Button Content="Enter" Click="btnEnter_Click" Grid.Row="6" Grid.Column="1" 

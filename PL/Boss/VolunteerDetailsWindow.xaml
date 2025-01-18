@@ -1,4 +1,4 @@
-﻿<Window x:Class="PL.Volunteer.VolunteerDetailsWindow"
+﻿<!--<Window x:Class="PL.Volunteer.VolunteerDetailsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -49,8 +49,10 @@
 
 
         <Label Content="Password:" HorizontalAlignment="Left" Margin="298,85,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <!--<TextBox  Visibility="{Binding IsTextBoxVisibleKey, Converter={StaticResource BooleanToVisibilityKey}}" 
+        -->
+<!--<TextBox  Visibility="{Binding IsTextBoxVisibleKey, Converter={StaticResource BooleanToVisibilityKey}}" 
          Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  HorizontalAlignment="Left" Margin="55,100,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>-->
+<!--
 
         <PasswordBox Visibility="{Binding IsPasswordBoxVisibleKey, Converter={StaticResource BooleanToVisibilityKey}}" PasswordChanged="PasswordBox_PasswordChanged"  Grid.Column="1" HorizontalAlignment="Left" Margin="386,89,0,0" VerticalAlignment="Top" Width="120"/>
         <CheckBox Content="Show Password" IsChecked="{Binding IsPasswordVisible, Mode=TwoWay}" Checked="IsPasswordVisibleChanged" Unchecked="IsPasswordVisibleChanged"
@@ -75,13 +77,15 @@
 
 
 
-        <!--Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource NullToVisibilityConverterKey}}"
+        -->
+<!--Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource NullToVisibilityConverterKey}}"
                     DataContext="{Binding CurrentVolunteer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">-->
-        <!--
+<!--
        
         </ContentControl.Style>-->
-        <!--<Grid ShowGridLines="True" Margin="4,4,-49,4">
+<!--<Grid ShowGridLines="True" Margin="4,4,-49,4">
             <Grid.ColumnDefinitions>-->
+<!--
 
         <Grid ShowGridLines="True"   Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource ConvertIsCallInProssesKey}}"  Margin="32,140,104,34" Grid.Row="1" Grid.ColumnSpan="2" >
             <Grid.ColumnDefinitions>
@@ -134,8 +138,301 @@ VerticalAlignment="Center"/>
     </Grid>
 
 
+</Window>-->
+
+
+
+<Window x:Class="PL.Volunteer.VolunteerDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Volunteer"
+        mc:Ignorable="d"
+        Title="VolunteerDetailsWindow" Height="550" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <Window.Resources>
+        <!-- Back Button Style -->
+        <Style x:Key="BackButton" TargetType="Button">
+            <Setter Property="Background" Value="#757575"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+                                  Fill="White" 
+                                  Width="17" 
+                                  Height="20" 
+                                  Stretch="Fill"/>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#616161"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern Input Style -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+
+        <!-- Modern ComboBox Style -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+
+        <!-- Modern Label Style -->
+        <Style x:Key="ModernLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#424242"/>
+            <Setter Property="Margin" Value="0,5,10,5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
+                            </Border.Effect>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1976D2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern CheckBox Style -->
+        <Style x:Key="ModernCheckBox" TargetType="CheckBox">
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <Border Background="#F5F5F5" Padding="20,10">
+            <Grid>
+                <Image Source="C:\Users\efrat\Documents\מיני פרויקט\PL\logo.png" HorizontalAlignment="Right" Height="60" Width="120"/>
+                <TextBlock Text="Volunteer Management" 
+                         FontSize="24" 
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Border Grid.Row="1" Background="White" Margin="20">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Left Column -->
+                    <Label Content="Id:" Style="{StaticResource ModernLabel}" Grid.Row="0"/>
+                    <TextBox Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="0" Grid.Column="1"/>
+
+                    <Label Content="Full Name:" Style="{StaticResource ModernLabel}" Grid.Row="1"/>
+                    <TextBox Text="{Binding CurrentVolunteer.FullName, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="1" Grid.Column="1"/>
+
+                    <Label Content="Phone Number:" Style="{StaticResource ModernLabel}" Grid.Row="2"/>
+                    <TextBox Text="{Binding CurrentVolunteer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="2" Grid.Column="1"/>
+
+                    <Label Content="Email:" Style="{StaticResource ModernLabel}" Grid.Row="3"/>
+                    <TextBox Text="{Binding CurrentVolunteer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="3" Grid.Column="1"/>
+
+                    <Label Content="Type Distance:" Style="{StaticResource ModernLabel}" Grid.Row="4"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource DistanceCollectionKey}}"
+                             SelectedValue="{Binding CurrentVolunteer.TypeDistance, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernComboBox}"
+                             Grid.Row="4" Grid.Column="1"/>
+
+                    <!-- Right Column -->
+                    <Label Content="Role:" Style="{StaticResource ModernLabel}" Grid.Row="0" Grid.Column="2"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource RoleCollectionKey}}"
+                             SelectedValue="{Binding CurrentVolunteer.Job, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernComboBox}"
+                             Grid.Row="0" Grid.Column="3"/>
+
+                    <Label Content="Active:" Style="{StaticResource ModernLabel}" Grid.Row="1" Grid.Column="2"/>
+                    <CheckBox IsChecked="{Binding CurrentVolunteer.Active, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernCheckBox}"
+                             Grid.Row="1" Grid.Column="3" Margin="20,0,21,0"/>
+
+                    <Label Content="Password:" Style="{StaticResource ModernLabel}" Grid.Row="2" Grid.Column="2"/>
+                    <TextBox Text="{Binding CurrentVolunteer.Password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="2" Grid.Column="3"/>
+
+                    <Label Content="Full Address:" Style="{StaticResource ModernLabel}" Grid.Row="3" Grid.Column="2"/>
+                    <TextBox Text="{Binding CurrentVolunteer.FullAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="3" Grid.Column="3"
+                             Height="60"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"/>
+
+                    <Label Content="Max Reading:" Style="{StaticResource ModernLabel}" Grid.Row="4" Grid.Column="2"/>
+                    <TextBox Text="{Binding CurrentVolunteer.MaxReading, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="4" Grid.Column="3"/>
+
+                    <!-- Call In Grid (when visible) -->
+                    <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" 
+                          Visibility="{Binding CurrentVolunteer.CallIn, Converter={StaticResource ConvertIsCallInProssesKey}}"
+                          Margin="0,20,0,0">
+                        <Border Background="#F5F5F5" CornerRadius="4" Padding="15">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1.5*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1.5*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Call In Details -->
+                                <Label Content="Id" Style="{StaticResource ModernLabel}" Grid.Row="0" Grid.Column="0"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="0" Grid.Column="1"/>
+
+                                <Label Content="Call Id" Style="{StaticResource ModernLabel}" Grid.Row="1" Grid.Column="0"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.IdCall, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="1" Grid.Column="1"/>
+
+                                <Label Content="Call Type:" Style="{StaticResource ModernLabel}" Grid.Row="2" Grid.Column="0"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.Type, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="2" Grid.Column="1"/>
+
+                                <Label Content="Description:" Style="{StaticResource ModernLabel}" Grid.Row="0" Grid.Column="2"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True" MouseEnter="ShowDescription"
+                                         Grid.Row="0" Grid.Column="3"/>
+
+                                <Label Content="Call Address:" Style="{StaticResource ModernLabel}" Grid.Row="1" Grid.Column="2"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.FullCallAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="1" Grid.Column="3"/>
+
+                                <Label Content="Open time:" Style="{StaticResource ModernLabel}" Grid.Row="2" Grid.Column="2"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.TimeOpen, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="2" Grid.Column="3"/>
+
+                                <Label Content="Entry time:" Style="{StaticResource ModernLabel}" Grid.Row="0" Grid.Column="4"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.StartTreat, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="0" Grid.Column="5"/>
+
+                                <Label Content="Distance:" Style="{StaticResource ModernLabel}" Grid.Row="1" Grid.Column="4"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.distanceCallVolunteer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="1" Grid.Column="5"/>
+
+                                <Label Content="Status:" Style="{StaticResource ModernLabel}" Grid.Row="2" Grid.Column="4"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CallIn.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                         Style="{StaticResource ModernTextBox}" IsReadOnly="True"
+                                         Grid.Row="2" Grid.Column="5"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <!-- Submit Button -->
+                    <Button Content="{Binding ButtonText}"
+                            Click="btnAddUpdate_Click"
+                            Style="{StaticResource ModernButton}"
+                            Width="120"
+                            Grid.Row="7"
+                            Grid.Column="1"
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Left"/>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Back Button -->
+        <Button Style="{StaticResource BackButton}"
+                Grid.Row="1"
+                Click="btnBack_Click"/>
+    </Grid>
 </Window>
-
-
-     
-

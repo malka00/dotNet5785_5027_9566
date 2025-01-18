@@ -139,6 +139,11 @@ namespace PL.Volunteer
             // סגור את החלון הנוכחי
             this.Close();
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
 
