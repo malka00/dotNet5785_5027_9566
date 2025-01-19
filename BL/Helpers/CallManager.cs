@@ -98,17 +98,9 @@ internal class CallManager
     /// </summary>
     internal static void CheckLogic(BO.Call boCall)
     {
-        try
-        {
             CheckAddress(boCall);
-            if ((boCall.MaxTimeToClose <= AdminManager.Now) || (boCall.MaxTimeToClose <= boCall.TimeOpened))
-                throw new BO.BlWrongItemException("Error input");
-
-        }
-        catch (BO.BlWrongItemException ex)
-        {
-            throw new BO.BlWrongItemException($"the item have logic problem", ex);
-        }
+            if (/*(boCall.MaxTimeToClose <= AdminManager.Now) ||*/ (boCall.MaxTimeToClose <= boCall.TimeOpened))
+                throw new BO.BlWrongItemException("Time to close must be after time open");
     }
 
     /// <summary>
@@ -142,7 +134,7 @@ internal class CallManager
             CallId = doCall.Id,
             Type = (BO.CallType)doCall.Type,
             TimeOpened = doCall.TimeOpened,
-            TimeLeft = doCall.MaxTimeToClose != null ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
+            TimeLeft = (doCall.MaxTimeToClose != null&& doCall.MaxTimeToClose >= s_dal.Config.Clock) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
             LastVolunteer = (lastAssignmentsForCall != null)
       ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
       : null,

@@ -425,7 +425,7 @@ internal class VolunteerManager
 
                     if (results == null || results.Length == 0)
                     {
-                        throw new Exception("No coordinates found for the given address.");
+                        throw new BO.BlWrongInputException("No coordinates found for the given address.");
                     }
 
                     return new double[] { double.Parse(results[0].Lat), double.Parse(results[0].Lon) };
@@ -434,7 +434,8 @@ internal class VolunteerManager
         }
         catch (WebException ex) when (ex.Response is HttpWebResponse httpResponse)
         {
-            throw new Exception($"HTTP Error: {(int)httpResponse.StatusCode} {httpResponse.StatusDescription}");
+            //throw new Exception($"HTTP Error: {(int)httpResponse.StatusCode} {httpResponse.StatusDescription}");
+            throw new BO.BlWrongInputException ("The address is not good");
         }
         catch (Exception ex)
         {

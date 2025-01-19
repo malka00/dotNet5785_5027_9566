@@ -115,6 +115,11 @@ namespace PL
                 {
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
+                catch(BO.BlWrongInputException ex)
+                {
+                  
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
