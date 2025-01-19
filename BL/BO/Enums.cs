@@ -39,7 +39,7 @@ public enum StatusTreat
     None,
     Open,
     Treat,
-    Close,
+    Closed,
     Expired,
     RiskOpen,
     TreatInRisk

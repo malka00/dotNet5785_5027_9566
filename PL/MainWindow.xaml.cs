@@ -170,19 +170,19 @@ namespace PL
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
 
-            var enterWindow = Application.Current.Windows.OfType<EnterWindow>().FirstOrDefault();
+            var managerWindow = Application.Current.Windows.OfType<ManagerWindow>().FirstOrDefault();
 
             // אם החלון כבר קיים, מציג אותו
-            if (enterWindow != null)
+            if (managerWindow != null)
             {
-                enterWindow.Show();
+                managerWindow.Show();
             }
             else
-            {
+            
                 // אם לא נמצא, יוצר את החלון ומציג אותו
-                EnterWindow newEnterWindow = new EnterWindow();
-                newEnterWindow.Show();
-            }
+               new ManagerWindow(Id).Show();
+                
+            
 
             // סגור את החלון הנוכחי
             this.Close();

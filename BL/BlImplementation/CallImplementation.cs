@@ -45,7 +45,8 @@ internal class CallImplementation : ICall
         if (assigmnetToCancel.TypeEndTreat != null ||/* (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > AdminManager.Now)||*/ assigmnetToCancel.TimeEnd != null)
             throw new BO.BlDeleteNotPossibleException("The assigmnet not open");
 
-        DO.Assignment assigmnetToUP = new DO.Assignment {
+        DO.Assignment assigmnetToUP = new DO.Assignment 
+        {
             Id = assigmnetToCancel.Id,
             CallId = assigmnetToCancel.CallId,
             VolunteerId =assigmnetToCancel.VolunteerId,
@@ -57,8 +58,8 @@ internal class CallImplementation : ICall
         try
         {
             _dal.Assignment.Update(assigmnetToUP);
-            CallManager.Observers.NotifyListUpdated();
-            CallManager.Observers.NotifyItemUpdated(idVol);
+            VolunteerManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(idVol);
         }
         catch ( DO.DalExistException ex)
         {
