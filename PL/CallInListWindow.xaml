@@ -279,7 +279,7 @@
                   AlternatingRowBackground="#F5F5F5"
                   GridLinesVisibility="Horizontal"
                   HorizontalGridLinesBrush="#E0E0E0"
-                  RowHeight="35">
+                  RowHeight="40">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -394,9 +394,11 @@
                                 <Button Content="Delete"
                                         Visibility="{Binding CallId, Converter={StaticResource ConvertIsCanDeletCallKey}}"
                                         Click="btnDelete_Click"
-                                        Margin="0,0,3,0"
+                                        Margin="0"
                                         Height="27"
-                                        Width="65">
+                                        Width="65"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource ModernButton}">
                                             <Setter Property="Background" Value="#F44336"/>
@@ -412,7 +414,10 @@
                                 <Button Content="Cancel Assignment"
                                         Click="btnCancelAssignment_Click"
                                         Height="26"
-                                        Width="110">
+                                        Width="131"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="0">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource ModernButton}">
                                             <Setter Property="Background" Value="#FF9800"/>

@@ -211,7 +211,7 @@
                       Margin="89,15,247,15" Grid.ColumnSpan="3"/>
 
             <Image Grid.Column="4"
-                   Source="C:\Users\efrat\Documents\מיני פרויקט\PL\logo.png"
+                   Source="/logo.png"
                    Height="40"
                    Width="85"
                    HorizontalAlignment="Right"/>
@@ -315,6 +315,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Delete"
+                                    Visibility="{Binding Id, Converter={StaticResource ConvertIsCanDeletVolunteerKey}}"
                                     Click="btnDelete_Click"
                                     Height="26"
                                     Width="70"

@@ -106,4 +106,6 @@ public interface IVolunteer: IObservable
     /// 4. Handles exceptions from the data layer and converts them to meaningful business exceptions.
     /// </remarks>
     void Create(BO.Volunteer boVolunteer);
+
+    bool CanDelete(int id);
 }

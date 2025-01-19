@@ -408,6 +408,17 @@ internal class CallImplementation : ICall
         return filteredCalls;
     }
 
+    /// <summary>
+    /// This function retrieves open or risk-open calls assigned to a specific volunteer, filters them based on optional call type and sorting criteria, 
+    /// and returns the filtered and sorted list, including information such as call details, distance from the volunteer, and call status.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="type"></param>
+    /// <param name="sortBy"></param>
+    /// <returns></returns>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+
+
     public IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EOpenCallInList? sortBy)
     {
         if (type == BO.CallType.None)
@@ -477,128 +488,7 @@ internal class CallImplementation : ICall
     }
 
 
-    /// <summary>
-    /// This function retrieves open or risk-open calls assigned to a specific volunteer, filters them based on optional call type and sorting criteria, 
-    /// and returns the filtered and sorted list, including information such as call details, distance from the volunteer, and call status.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="type"></param>
-    /// <param name="sortBy"></param>
-    /// <returns></returns>
-    /// <exception cref="BO.BlDoesNotExistException"></exception>
-    //public IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EOpenCallInList? sortBy)
-    //{
-    //    DO.Volunteer volunteer = _dal.Volunteer.Read(id);
-    //    if (volunteer == null)
-    //        throw new BO.BlDoesNotExistException($"Volunteer with ID={id} does not exist");
 
-    //    // Retrieve all calls from the BO
-    //    IEnumerable<BO.CallInList> allCalls = GetCallInLists(null, null, null);
-
-    //    // Retrieve all assignments from the DAL
-    //    var calls = _dal.Assignment.ReadAll();
-    //    double lonVol = (double)volunteer.Longitude;
-    //    double latVol = (double)volunteer.Latitude;
-
-    //    // Filter for only "Open" or "Risk Open" status
-    //    IEnumerable<BO.OpenCallInList> filteredCalls = from call in allCalls
-    //                                                   join assignment in allAssignments on call.Id equals assignment.CallId into callAssignments
-    //                                                   from assignment in callAssignments.DefaultIfEmpty()
-    //                                                   where (call.Status == BO.StatusTreat.Open || call.Status == BO.StatusTreat.RiskOpen)
-    //                                                   let boCall = Read(call.CallId)
-    //                                                   select new BO.OpenCallInList
-    //                                                   {
-    //                                                       Id = call.CallId,
-    //                                                       CType = call.Type,
-    //                                                       Description = boCall.Description,
-    //                                                       FullAddress = boCall.FullAddress,
-    //                                                       TimeOpen = call.TimeOpened,
-    //                                                       MaxTimeToClose = boCall.MaxTimeToClose,
-    //                                                       distanceCallVolunteer = volunteer?.FullAddress != null ? VolunteerManager.CalculateDistance
-    //                                                       (latVol, lonVol, boCall.Latitude, boCall.Longitude) : 0  // Calculate the distance between the volunteer and the call
-    //                                                   };
-
-    //    // Filter by call type if provided
-    //    if (type.HasValue)
-    //    {
-    //        filteredCalls = filteredCalls.Where(c => c.CType == type.Value);
-    //    }
-
-    //    // Sort by the requested field or by default (call ID)
-    //    if (sortBy.HasValue)
-    //    {
-    //        filteredCalls = sortBy.Value switch
-    //        {
-    //            BO.EOpenCallInList.Id => filteredCalls.OrderBy(c => c.Id),
-    //            BO.EOpenCallInList.CType => filteredCalls.OrderBy(c => c.CType),
-    //            BO.EOpenCallInList.Description => filteredCalls.OrderBy(c => c.Description),
-    //            BO.EOpenCallInList.FullAddress => filteredCalls.OrderBy(c => c.FullAddress),
-    //            BO.EOpenCallInList.TimeOpen => filteredCalls.OrderBy(c => c.TimeOpen),
-    //            BO.EOpenCallInList.MaxTimeToClose => filteredCalls.OrderBy(c => c.MaxTimeToClose),
-    //            BO.EOpenCallInList.distanceCallVolunteer => filteredCalls.OrderBy(c => c.distanceCallVolunteer),
-    //            _ => filteredCalls.OrderBy(c => c.Id)
-    //        };
-    //    }
-    //    else
-    //    {
-    //        filteredCalls = filteredCalls.OrderBy(c => c.Id);
-    //    }
-
-    //    return filteredCalls;
-    //}
-
-
-
-
-    //IEnumerable<OpenCallInList> BlApi.ICall.ReadOpenCallsVolunteer(int id, BO.CallType? callT, FiledOfOpenCallInList? filedTosort)
-    //{
-
-
-    //    IEnumerable<DO.Call> previousCalls = _dal.Call.ReadAll(null);
-    //    List<BO.OpenCallInList> Calls = new List<BO.OpenCallInList>();
-
-    //    Calls.AddRange(from item in previousCalls
-    //                   let DataCall = ReadCall(item.ID)
-    //                   where DataCall.statusC == BO.Status.Open || DataCall.statusC == BO.Status.OpenInRisk
-    //                   let volunteerData = _dal.Volunteer.Read(v => v.ID == id)
-    //                   where volunteerData.maxDistance == null ? true : volunteerData.maxDistance >= Tools.CalculateDistance(volunteerData.Latitude ?? DataCall.latitude, volunteerData.Longitude ?? DataCall.longitude, DataCall.latitude, DataCall.longitude, (BO.Distance)volunteerData.distanceType)
-    //                   select CallsManager.ConvertDOCallToBOOpenCallInList(item, id));
-
-    //    IEnumerable<BO.OpenCallInList> openCallInLists = Calls;
-
-    //    if (callT != null)
-    //    {
-    //        openCallInLists = openCallInLists.Where(c => c.callT == callT);
-    //    }
-
-    //    if (filedTosort != null)
-    //    {
-    //        switch (filedTosort)
-    //        {
-    //            case BO.FiledOfOpenCallInList.ID:
-    //                openCallInLists = openCallInLists.OrderBy(item => item.ID);
-    //                break;
-    //            case BO.FiledOfOpenCallInList.address:
-    //                openCallInLists = openCallInLists.OrderBy(item => item.address);
-    //                break;
-    //            case BO.FiledOfOpenCallInList.callT:
-    //                openCallInLists = openCallInLists.OrderBy(item => item.callT);
-    //                break;
-    //            case BO.FiledOfOpenCallInList.openTime:
-    //                openCallInLists = openCallInLists.OrderBy(item => item.openTime);
-    //                break;
-    //            case BO.FiledOfOpenCallInList.maxTime:
-    //                openCallInLists = openCallInLists.OrderBy(item => item.maxTime);
-    //                break;
-    //            case BO.FiledOfOpenCallInList.verbalDescription:
-    //                openCallInLists = openCallInLists.OrderBy(item => item.verbalDescription);
-    //                break;
-    //        }
-
-    //    }
-
-    //    return openCallInLists;
-    //}
 
     /// <summary>
     /// The Read function retrieves a call by its ID and maps the data from the database (DO objects) into a business object (BO). 
@@ -635,7 +525,7 @@ internal class CallImplementation : ICall
     : null,
 
         };
-        }
+    }
 
     /// <summary>
     /// Updating the reading and checking whether there was an exception from the DAL layer

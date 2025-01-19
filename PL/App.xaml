@@ -12,6 +12,7 @@
         <local:StatusCollection x:Key="StatusCollectionKey"/>
         <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
         <local:ConvertIsCanDeletCall x:Key="ConvertIsCanDeletCallKey"/>
+        <local:ConvertIsCanDeletVolunteer x:Key="ConvertIsCanDeletVolunteerKey"/>
 
 
         <local:ConvertIsCallInProsses x:Key="ConvertIsCallInProssesKey"/>

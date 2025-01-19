@@ -58,6 +58,13 @@ internal class VolunteerImplementation : IVolunteer
         VolunteerManager.Observers.NotifyListUpdated(); //stage 5 
     }
 
+    public bool CanDelete(int id)
+    {
+        return (Read(id).CallIn == null) && (Read(id).SumCalls == 0);
+    }
+    
+
+
     public void Delete(int id)
     {
         DO.Volunteer? doVolunteer = _dal.Volunteer.Read(id);

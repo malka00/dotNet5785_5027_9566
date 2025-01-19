@@ -65,6 +65,24 @@ namespace PL
         }
     }
 
+    public class ConvertIsCanDeletVolunteer : IValueConverter
+    {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (s_bl.Volunteers.CanDelete((int)value))
+            {
+                return Visibility.Visible;
+            }
+            return Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class ConvertIsCallInProsses : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

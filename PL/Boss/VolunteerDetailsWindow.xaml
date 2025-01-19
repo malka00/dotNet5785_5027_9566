@@ -258,7 +258,7 @@ VerticalAlignment="Center"/>
         <!-- Header Section -->
         <Border Background="#F5F5F5" Padding="20,10">
             <Grid>
-                <Image Source="C:\Users\efrat\Documents\מיני פרויקט\PL\logo.png" HorizontalAlignment="Right" Height="60" Width="120"/>
+                <Image Source="/image/logo.png" HorizontalAlignment="Right" Height="60" Width="120"/>
                 <TextBlock Text="Volunteer Management" 
                          FontSize="24" 
                          VerticalAlignment="Center"
