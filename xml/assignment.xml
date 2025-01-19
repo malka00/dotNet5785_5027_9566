@@ -97,14 +97,6 @@
     <TypeEndTreat xsi:nil="true" />
   </Assignment>
   <Assignment>
-    <Id>1015</Id>
-    <CallId>1000</CallId>
-    <VolunteerId>208448738</VolunteerId>
-    <TimeStart>2025-01-18T23:50:25</TimeStart>
-    <TimeEnd xsi:nil="true" />
-    <TypeEndTreat xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <Id>1016</Id>
     <CallId>1028</CallId>
     <VolunteerId>208448738</VolunteerId>
@@ -297,14 +289,6 @@
     <TypeEndTreat>SelfCancel</TypeEndTreat>
   </Assignment>
   <Assignment>
-    <Id>1041</Id>
-    <CallId>1039</CallId>
-    <VolunteerId>207862384</VolunteerId>
-    <TimeStart>2025-01-18T23:50:25</TimeStart>
-    <TimeEnd xsi:nil="true" />
-    <TypeEndTreat xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <Id>1042</Id>
     <CallId>1014</CallId>
     <VolunteerId>207862384</VolunteerId>
@@ -409,14 +393,6 @@
     <TypeEndTreat>ExpiredCancel</TypeEndTreat>
   </Assignment>
   <Assignment>
-    <Id>1055</Id>
-    <CallId>1021</CallId>
-    <VolunteerId>208749978</VolunteerId>
-    <TimeStart>2025-01-18T23:50:25</TimeStart>
-    <TimeEnd xsi:nil="true" />
-    <TypeEndTreat xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <Id>1056</Id>
     <CallId>1006</CallId>
     <VolunteerId>207926692</VolunteerId>
@@ -511,5 +487,29 @@
     <TimeStart>2025-01-18T23:50:25</TimeStart>
     <TimeEnd>2025-01-18T23:50:25</TimeEnd>
     <TypeEndTreat>ExpiredCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1015</Id>
+    <CallId>1000</CallId>
+    <VolunteerId>208448738</VolunteerId>
+    <TimeStart>2025-01-18T23:50:25</TimeStart>
+    <TimeEnd>2025-01-18T23:50:25</TimeEnd>
+    <TypeEndTreat>ManagerCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1055</Id>
+    <CallId>1021</CallId>
+    <VolunteerId>208749978</VolunteerId>
+    <TimeStart>2025-01-18T23:50:25</TimeStart>
+    <TimeEnd>2025-01-18T23:50:25</TimeEnd>
+    <TypeEndTreat>ManagerCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1041</Id>
+    <CallId>1039</CallId>
+    <VolunteerId>207862384</VolunteerId>
+    <TimeStart>2025-01-18T23:50:25</TimeStart>
+    <TimeEnd>2025-01-18T23:50:25</TimeEnd>
+    <TypeEndTreat>ManagerCancel</TypeEndTreat>
   </Assignment>
 </ArrayOfAssignment>

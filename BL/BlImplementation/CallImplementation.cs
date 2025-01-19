@@ -43,7 +43,7 @@ internal class CallImplementation : ICall
             else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager or not in this call");
         }
         if (assigmnetToCancel.TypeEndTreat != null ||/* (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > AdminManager.Now)||*/ assigmnetToCancel.TimeEnd != null)
-            throw new BO.BlDeleteNotPossibleException("The assigmnet not open");
+            throw new BO.BlDeleteNotPossibleException("The assigmnet not in treat");
 
         DO.Assignment assigmnetToUP = new DO.Assignment {
             Id = assigmnetToCancel.Id,

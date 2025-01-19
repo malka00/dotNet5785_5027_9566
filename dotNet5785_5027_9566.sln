@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D59192C4-2340-422C-ADE6-62D8469C559E}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		..\..\Pictures\Screenshots\logo.png = ..\..\Pictures\Screenshots\logo.png
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{3483BD0B-A876-4EC1-9F4D-46DCC84038AA}"
@@ -17,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{6B228642-7A24-4F2D-BA09-A7998EFE1E7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{7EBFFB64-CEC6-4321-A6FD-61BA5F86FCEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{7EBFFB64-CEC6-4321-A6FD-61BA5F86FCEF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{F8C50C98-92EA-4709-90D4-A3B9A4FD8904}"
 	ProjectSection(SolutionItems) = preProject
@@ -28,11 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{F8C50C98-92E
 		xml\volunteers.xml = xml\volunteers.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{D18B83EC-EF32-4DE0-B8A0-616096DE800A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{D18B83EC-EF32-4DE0-B8A0-616096DE800A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{E158D261-6F82-4E89-897A-321BC55C99C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{E158D261-6F82-4E89-897A-321BC55C99C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{5DFAB0D6-AC5A-4BD2-8B68-B0278A3791FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{5DFAB0D6-AC5A-4BD2-8B68-B0278A3791FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
