@@ -269,8 +269,6 @@
                         <TextBox Text="{Binding CurrentVolunteer.TypeDistance}" Style="{StaticResource ModernTextBox}"/>
                     </DockPanel>
 
-                    <!-- Update Button -->
-                    <Button Content="Update" Click="btnUpdate_Click" Margin="0,10,0,0" HorizontalAlignment="Right" Width="120"/>
                 </StackPanel>
            
             </Border>
@@ -308,11 +306,7 @@
                         IsEnabled="{Binding CurrentVolunteer, Converter={StaticResource BoolConvertIsCallInProssesKey}}"/>
             </StackPanel>
         </StackPanel>
-        <!-- Buttons Above the Border --><!--
-        <StackPanel   Grid.Column="1" Margin="20,100,20,20" Orientation="Horizontal">
-            <Button Content="Choose Call" Click="btnChooseCall_Click" Style="{StaticResource ModernButton}" />
-            <Button Content="History Calls" Click="btnCallsHistory_Click" Style="{StaticResource ModernButton}"/> 
-        </StackPanel>-->
+      
 
         <!-- Right Column - Current Call Information -->
         <Border Grid.Column="1" Margin="20,100,20,20"
