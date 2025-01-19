@@ -208,7 +208,8 @@
                   AlternatingRowBackground="#F5F5F5"
                   GridLinesVisibility="Horizontal"
                   HorizontalGridLinesBrush="#E0E0E0"
-                  RowHeight="35" Grid.ColumnSpan="2">
+                  RowHeight="35" Grid.ColumnSpan="2" SelectionChanged="DataGrid_SelectionChanged"
+                  IsReadOnly="True">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
