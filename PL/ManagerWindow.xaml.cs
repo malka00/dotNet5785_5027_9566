@@ -29,7 +29,14 @@ namespace PL
 
         private void btnMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow(Id).Show();
+            try
+            {
+                new MainWindow(Id).Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK);
+            }
         }
 
         private void btnVolunteerWindow_Click(object sender, RoutedEventArgs e)

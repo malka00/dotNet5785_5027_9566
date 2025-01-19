@@ -434,8 +434,8 @@ internal class VolunteerManager
         }
         catch (WebException ex) when (ex.Response is HttpWebResponse httpResponse)
         {
-            //throw new Exception($"HTTP Error: {(int)httpResponse.StatusCode} {httpResponse.StatusDescription}");
-            throw new BO.BlWrongInputException ("The address is not good");
+            throw new Exception($"HTTP Error: {(int)httpResponse.StatusCode} {httpResponse.StatusDescription}");
+            // throw new BO.BlWrongInputException ("The address is not good");
         }
         catch (Exception ex)
         {
