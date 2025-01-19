@@ -560,4 +560,52 @@
     <TimeEnd>2025-01-19T17:53:20</TimeEnd>
     <TypeEndTreat>ExpiredCancel</TypeEndTreat>
   </Assignment>
+  <Assignment>
+    <Id>1070</Id>
+    <CallId>1006</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-19T17:53:20</TimeStart>
+    <TimeEnd>2025-01-19T17:53:20</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1071</Id>
+    <CallId>1006</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-19T17:53:20</TimeStart>
+    <TimeEnd>2025-01-19T17:53:20</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1072</Id>
+    <CallId>1006</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-19T17:53:20</TimeStart>
+    <TimeEnd>2025-01-19T17:53:20</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1073</Id>
+    <CallId>1006</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-19T17:53:20</TimeStart>
+    <TimeEnd>2025-01-19T17:53:20</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1074</Id>
+    <CallId>1002</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-19T17:53:20</TimeStart>
+    <TimeEnd>2025-01-19T17:53:20</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1075</Id>
+    <CallId>1008</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-19T17:53:20</TimeStart>
+    <TimeEnd>2025-01-19T17:53:20</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
+  </Assignment>
 </ArrayOfAssignment>

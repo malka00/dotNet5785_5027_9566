@@ -57,15 +57,15 @@ internal class CallManager
     {
         if (doCall.MaxTimeToClose < s_dal.Config.Clock)
             return BO.StatusTreat.Expired;
-        var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.TimeStart).FirstOrDefault();
-
+        // var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.TimeStart).FirstOrDefault();
+        var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.Id).FirstOrDefault();
         if (lastAssignment == null)
         {
             if (IsInRisk(doCall!))
                 return BO.StatusTreat.RiskOpen;
             else return BO.StatusTreat.Open;
         }
-        if (lastAssignment.TypeEndTreat.ToString() == "Treated")
+        if (lastAssignment.TypeEndTreat==DO.TypeEnd.Treated)
         {
             return BO.StatusTreat.Closed;
         }

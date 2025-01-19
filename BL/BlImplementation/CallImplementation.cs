@@ -143,7 +143,7 @@ internal class CallImplementation : ICall
             TimeEnd = AdminManager.Now,
             TypeEndTreat = DO.TypeEnd.Treated,
         };
-
+        
         try
         {
             // Attempt to update the assignment in the database.
@@ -266,7 +266,7 @@ internal class CallImplementation : ICall
         IEnumerable<DO.Call> calls = _dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
 
         // Convert all DO calls to BO calls in list.
-        IEnumerable<BO.CallInList> boCallsInList = _dal.Call.ReadAll().Select(call => CallManager.ConvertDOCallToBOCallInList(call));
+        IEnumerable<BO.CallInList> boCallsInList = _dal.Call.ReadAll().Select(call => CallManager.ConvertDOCallToBOCallInList(call)).ToList();
 
         // Apply filter if specified.
         if (filter != null && obj != null)
