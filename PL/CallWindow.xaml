@@ -1,73 +1,4 @@
-﻿<!--<Window x:Class="PL.CallWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        Title="CallWindow" Height="450" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="67*"/>
-            <RowDefinition Height="150*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="21*"/>
-            <ColumnDefinition Width="139*"/>
-        </Grid.ColumnDefinitions>
-
-        <Label Content="Id:" HorizontalAlignment="Left" Margin="72,20,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" HorizontalAlignment="Left" Margin="55,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-
-        <Label Content="Type:" HorizontalAlignment="Left" Margin="72,50,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource CallTypeCollectionKey}}"  
-                  SelectedValue="{Binding CurrentCall.Type, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-                  HorizontalAlignment="Left" Margin="55,54,0,0"  VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-
-        <Label Content="Description:" HorizontalAlignment="Left" Margin="72,98,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <TextBox Text="{Binding CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Height="36"/>
-
-        <Label Content="Address:" HorizontalAlignment="Left" Margin="72,20,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox Text="{Binding CurrentCall.FullAddress, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="55,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
-
-        <Label Content="TimeOpened:" HorizontalAlignment="Left" Margin="70,65,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox Text="{Binding CurrentCall.TimeOpened, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" IsReadOnly="True" HorizontalAlignment="Left" Margin="58,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
-
-
-        <Label Content="MaxTimeToClose:" HorizontalAlignment="Left" Margin="60,124,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <TextBox Text="{Binding CurrentCall.MaxTimeToClose, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" HorizontalAlignment="Left" Margin="74,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1" Grid.Row="1"/>
-
-        <Label Content="Status:" HorizontalAlignment="Left" Margin="77,173,0,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2"/>
-        -->
-<!--<ComboBox ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  
-          SelectedValue="{Binding CurrentCall.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
-          HorizontalAlignment="Left" Margin="70,177,0,0"  VerticalAlignment="Top" DisplayMemberPath="ToString" Width="120" Grid.Column="1" Grid.Row="1"/>-->
-<!--
-        <TextBox Text="{Binding Status}"  IsReadOnly="True" HorizontalAlignment="Left" Margin="70,177,0,0"  VerticalAlignment="Top"  Width="120" Grid.Column="1" Grid.Row="1"/>
-
-
-        <Button Content="{Binding ButtonText}" Click="buttonAddUpdate_Click" HorizontalAlignment="Left" Margin="55,246,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,1.024" Height="26" Width="84" Grid.Column="1" Grid.Row="1"/>
-
-        <Button HorizontalAlignment="Left" Margin="14,255,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnBack_Click">
-            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
-  Fill="Black" 
-  Width="20" 
-  Height="20" 
-  VerticalAlignment="Center"/>
-        </Button>
-        <Image Source ="logo.png" HorizontalAlignment="Left" Height="53" Margin="560,20,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1"/>
-
-    </Grid>
-</Window>-->
-
-
-    
-    
-    
-<Window x:Class="PL.CallWindow"
+﻿<Window x:Class="PL.CallWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -78,71 +9,38 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Window.Resources>
-        <!-- Back Button Style -->
-        <Style x:Key="BackButton" TargetType="Button">
-            <Setter Property="Background" Value="#757575"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Padding" Value="15,8"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Margin" Value="20"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
-                            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
-                                  Fill="White" 
-                                  Width="17" 
-                                  Height="20" 
-                                  Stretch="Fill"/>
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
-                            </Border.Effect>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#616161"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Modern Input Style -->
+        <!-- Styles -->
         <Style x:Key="ModernTextBox" TargetType="TextBox">
             <Setter Property="Padding" Value="8,5"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="#DDDDDD"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0,5"/>
         </Style>
 
-        <!-- Modern ComboBox Style -->
         <Style x:Key="ModernComboBox" TargetType="ComboBox">
             <Setter Property="Padding" Value="8,5"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="#DDDDDD"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="0,5"/>
         </Style>
 
-        <!-- Modern Label Style -->
         <Style x:Key="ModernLabel" TargetType="Label">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="#424242"/>
-            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Margin" Value="0,5,10,5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
-        <!-- Modern Button Style -->
         <Style x:Key="ModernButton" TargetType="Button">
             <Setter Property="Background" Value="#2196F3"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Padding" Value="15,8"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0,10"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -165,98 +63,161 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Header Section -->
-        <Border Background="#F5F5F5" Padding="20,10">
+    <DockPanel LastChildFill="True">
+        <!-- Header -->
+        <Border DockPanel.Dock="Top" Background="#F5F5F5" Padding="20,10">
             <Grid>
-                <Image Source="logo.png" HorizontalAlignment="Right" Height="60" Width="120"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
                 <TextBlock Text="Call Management" 
                          FontSize="24" 
                          VerticalAlignment="Center"
                          HorizontalAlignment="Center"/>
+
+                <Image Source="logo.png" 
+                       Grid.Column="1"
+                       Height="60" 
+                       Width="120" 
+                       Margin="10,0,0,0"/>
             </Grid>
         </Border>
 
         <!-- Main Content -->
-        <Border Grid.Row="1" Background="White" Margin="20">
-            <Grid Margin="20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
+            <!-- Form Section -->
+            <StackPanel Grid.Column="0">
                 <!-- Form Fields -->
-                <Label Content="Id:" Style="{StaticResource ModernLabel}" Grid.Row="0"/>
-                <TextBox Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         IsReadOnly="true"
-                         Style="{StaticResource ModernTextBox}"
-                         Grid.Row="0" Grid.Column="1"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Label Content="Type:" Style="{StaticResource ModernLabel}" Grid.Row="1"/>
-                <ComboBox ItemsSource="{Binding Source={StaticResource CallTypeCollectionKey}}"
-                         SelectedValue="{Binding CurrentCall.Type, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         Style="{StaticResource ModernComboBox}"
-                         Grid.Row="1" Grid.Column="1"/>
+                    <!-- Id -->
+                    <Label Content="Id:" Style="{StaticResource ModernLabel}" Grid.Row="0"/>
+                    <TextBox Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             IsReadOnly="True"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="0" Grid.Column="1"/>
 
-                <Label Content="Description:" Style="{StaticResource ModernLabel}" Grid.Row="2"/>
-                <TextBox Text="{Binding CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         Style="{StaticResource ModernTextBox}"
-                         Height="60"
-                         TextWrapping="Wrap"
-                         AcceptsReturn="True"
-                         Grid.Row="2" Grid.Column="1"/>
+                    <!-- Type -->
+                    <Label Content="Type:" Style="{StaticResource ModernLabel}" Grid.Row="1"/>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource CallTypeCollectionKey}}"
+                             SelectedValue="{Binding CurrentCall.Type, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernComboBox}"
+                             Grid.Row="1" Grid.Column="1"/>
 
-                <Label Content="Address:" Style="{StaticResource ModernLabel}" Grid.Row="3"/>
-                <TextBox Text="{Binding CurrentCall.FullAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         Style="{StaticResource ModernTextBox}"
-                         Grid.Row="3" Grid.Column="1"/>
+                    <!-- Description -->
+                    <Label Content="Description:" Style="{StaticResource ModernLabel}" Grid.Row="2"/>
+                    <TextBox Text="{Binding CurrentCall.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Height="60"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             Grid.Row="2" Grid.Column="1"/>
 
-                <Label Content="Time Opened:" Style="{StaticResource ModernLabel}" Grid.Row="4"/>
-                <TextBox Text="{Binding CurrentCall.TimeOpened, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         IsReadOnly="True"
-                         Style="{StaticResource ModernTextBox}"
-                         Grid.Row="4" Grid.Column="1"/>
+                    <!-- Address -->
+                    <Label Content="Address:" Style="{StaticResource ModernLabel}" Grid.Row="3"/>
+                    <TextBox Text="{Binding CurrentCall.FullAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="3" Grid.Column="1"/>
 
-                <Label Content="Max Time To Close:" Style="{StaticResource ModernLabel}" Grid.Row="5"/>
-                <TextBox Text="{Binding CurrentCall.MaxTimeToClose, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         Style="{StaticResource ModernTextBox}"
-                         Grid.Row="5" Grid.Column="1"/>
+                    <!-- Time Opened -->
+                    <Label Content="Time Opened:" Style="{StaticResource ModernLabel}" Grid.Row="4"/>
+                    <TextBox Text="{Binding CurrentCall.TimeOpened, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             IsReadOnly="True"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="4" Grid.Column="1"/>
 
-                <Label Content="Status:" Style="{StaticResource ModernLabel}" Grid.Row="6"/>
-                <TextBox Text="{Binding Status}"
-                         IsReadOnly="True"
-                         Style="{StaticResource ModernTextBox}"
-                         Grid.Row="6" Grid.Column="1"/>
+                    <!-- Max Time To Close -->
+                    <Label Content="Max Time To Close:" Style="{StaticResource ModernLabel}" Grid.Row="5"/>
+                    <TextBox Text="{Binding CurrentCall.MaxTimeToClose, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="5" Grid.Column="1"/>
 
-                <!-- Submit Button -->
-                <Button Content="{Binding ButtonText}"
-                        Click="buttonAddUpdate_Click"
-                        Style="{StaticResource ModernButton}"
-                        Width="120"
-                        Grid.Row="7"
-                        Grid.Column="1"
-                        Margin="0,20,0,0"/>
-            </Grid>
-        </Border>
+                    <!-- Status -->
+                    <Label Content="Status:" Style="{StaticResource ModernLabel}" Grid.Row="6"/>
+                    <TextBox Text="{Binding Status}"
+                             IsReadOnly="True"
+                             Style="{StaticResource ModernTextBox}"
+                             Grid.Row="6" Grid.Column="1"/>
 
-        <!-- Back Button -->
-        <Button Style="{StaticResource BackButton}"
-                Grid.Row="1"
-                Click="btnBack_Click"/>
-    </Grid>
+                    <!-- Submit Button -->
+                    <Button Content="{Binding ButtonText}"
+                            Click="buttonAddUpdate_Click"
+                            Style="{StaticResource ModernButton}"
+                            Width="120"
+                            HorizontalAlignment="Left"
+                            Grid.Row="7" Grid.Column="1"/>
+                </Grid>
+            </StackPanel>
+
+            <!-- Assignments List -->
+            <ListBox Grid.Column="1"
+                     ItemsSource="{Binding CurrentCall.AssignmentsToCalls}"
+                     Margin="20,0,0,0"
+                     Width="300"
+                     MaxHeight="400"
+                     VerticalAlignment="Top">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="5">
+                            <StackPanel>
+                                <TextBlock>
+                                    <Run Text="Volunteer ID: " FontWeight="Bold"/>
+                                    <Run Text="{Binding VolunteerId}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <Run Text="Name: " FontWeight="Bold"/>
+                                    <Run Text="{Binding VolunteerName}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <Run Text="Start Treatment: " FontWeight="Bold"/>
+                                    <Run Text="{Binding StartTreat, StringFormat={}{0:yyyy-MM-dd HH:mm}}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <Run Text="Finish Treatment: " FontWeight="Bold"/>
+                                    <Run Text="{Binding TimeClose, StringFormat={}{0:yyyy-MM-dd HH:mm}}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <Run Text="Finish Type: " FontWeight="Bold"/>
+                                    <Run Text="{Binding TypeEndTreat}"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Original Back Button -->
+            <Button HorizontalAlignment="Left" 
+                    Margin="14,255,0,0" 
+                    VerticalAlignment="Bottom" 
+                    Click="btnBack_Click">
+                <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
+                      Fill="Black" 
+                      Width="20" 
+                      Height="20" 
+                      VerticalAlignment="Center"/>
+            </Button>
+        </Grid>
+    </DockPanel>
 </Window>

@@ -1,32 +1,4 @@
-﻿<!--<Window x:Class="PL.ManagerWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="ManagerWindow" Height="450" Width="800">
-    <Grid>
-        <Button Content="administrator screen" 
-               HorizontalAlignment="Left" 
-                Margin="115,113,0,0" 
-                VerticalAlignment="Top" 
-                Height="119" 
-                Width="171"
-                Click="btnMainWindow_Click"/>
-        <Button Content="Volunteer" 
-                HorizontalAlignment="Left" 
-                Margin="417,113,0,0" 
-                VerticalAlignment="Top" 
-                Height="119" 
-                Width="171"
-                Click="btnVolunteerWindow_Click"/>
-
-    </Grid>
-</Window>-->
-
-<Window x:Class="PL.ManagerWindow"
+﻿<Window x:Class="PL.ManagerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -45,6 +17,7 @@
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
+
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
                                 CornerRadius="8"
@@ -78,6 +51,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
 
         <!-- Style for Back Button -->
         <Style x:Key="BackButton" TargetType="Button">
@@ -113,17 +87,28 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <!-- Rectangle container for the buttons -->
+        <Rectangle Width="587" 
+                   Height="325" 
+                 Fill="AliceBlue"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   RadiusX="10" 
+                   RadiusY="10"/>
+        <Image Source="/logo.png"  HorizontalAlignment="Left" Width="82" Margin="694,-9,0,348" RenderTransformOrigin="1.507,-3.131"/>
+
+
         <StackPanel Orientation="Horizontal" 
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center">
             <Button Content="Administrator Screen" 
-                    Height="119" 
-                    Width="171"
+                    Height="154" 
+                    Width="199"
                     Margin="0,0,50,0"
                     Click="btnMainWindow_Click"/>
             <Button Content="Volunteer Screen" 
-                    Height="119" 
-                    Width="171"
+                    Height="148" 
+                    Width="204"
                     Click="btnVolunteerWindow_Click"/>
         </StackPanel>
 
