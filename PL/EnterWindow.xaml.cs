@@ -81,33 +81,13 @@ namespace PL
                 {
                     MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
                     if (currentVolunteer.Job == BO.Role.Boss)
-                    {
-                        MessageBoxResult mbResult = MessageBox.Show("Do you want to open an administrator screen?", "Manage or Volunteer",
-                                             MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-
-                        if (mbResult == MessageBoxResult.Yes)
-                            try
-                            {
-
-                                new MainWindow(Id).Show();
-                            }
-                            catch (Exception ex)
-                            {
-
-                                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK);
-                            }
-
-                        else
-                            new VolunteerWindow(Id).Show();
-                    }
+                        //MessageBoxResult mbResult = MessageBox.Show("Do you want to open an administrator screen?", "Manage or Volunteer",
+                        //                     MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        new ManagerWindow(Id).Show();
                     else
                         new VolunteerWindow(Id).Show();
-
                 }
             }
-
-
         }
 
         private void id_KeyDown(object sender, KeyEventArgs e)
@@ -122,7 +102,6 @@ namespace PL
         private void enter_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-
             {
                 BO.Volunteer currentVolunteer = null;
                 try
@@ -148,16 +127,7 @@ namespace PL
                     {
                         MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
                         if (currentVolunteer.Job == BO.Role.Boss)
-                        {
-                            MessageBoxResult mbResult = MessageBox.Show("Do you want to open an administrator screen?", "Manage or Volunteer",
-                                                 MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-
-                            if (mbResult == MessageBoxResult.Yes)
-                                new MainWindow(Id).Show();
-                            else
-                                new VolunteerWindow(Id).Show();
-                        }
+                             new ManagerWindow(Id).Show();
                         else
                             new VolunteerWindow(Id).Show();
 

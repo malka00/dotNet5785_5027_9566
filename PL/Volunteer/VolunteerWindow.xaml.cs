@@ -149,46 +149,56 @@ namespace PL.Volunteer
 
         private void btnClosed_Call(object sender, RoutedEventArgs e)
         {
-            try
+            MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to close this call?", "Reset Confirmation",
+                                                   MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (mbResult == MessageBoxResult.Yes)
             {
-                s_bl.Calls.CloseTreat(UserId, CurrentVolunteer.CallIn.Id);
-                MessageBox.Show($"Call was successfully Closed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-               
-            }
-            catch (BO.BlDeleteNotPossibleException ex)
-            {
-                MessageBox.Show(ex.Message, "Close Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Close Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                try
+                {
+                    s_bl.Calls.CloseTreat(UserId, CurrentVolunteer.CallIn.Id);
+                    MessageBox.Show($"Call was successfully Closed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+                catch (BO.BlDeleteNotPossibleException ex)
+                {
+                    MessageBox.Show(ex.Message, "Close Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Close Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
             }
         }
 
         private void btnCansel_Call(object sender, RoutedEventArgs e)
         {
-            try
+            MessageBoxResult mbResult = MessageBox.Show("Are you sure you want to cancel this call?", "Reset Confirmation",
+                                                   MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (mbResult == MessageBoxResult.Yes)
             {
-                s_bl.Calls.CancelTreat(UserId, CurrentVolunteer.CallIn.Id);
-                MessageBox.Show($"Call was successfully Canceld!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                try
+                {
+                    s_bl.Calls.CancelTreat(UserId, CurrentVolunteer.CallIn.Id);
+                    MessageBox.Show($"Call was successfully Canceld!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            }
-            catch (BO.BlDeleteNotPossibleException ex)
-            {
-                MessageBox.Show(ex.Message, "Cancel Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Cancel Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                catch (BO.BlDeleteNotPossibleException ex)
+                {
+                    MessageBox.Show(ex.Message, "Cancel Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Cancel Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
             }
         }
        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
 
-            var MainWindow = Application.Current.MainWindow;
-            if (MainWindow != null)
+            var ManagerWindow = Application.Current.MainWindow;
+            if (ManagerWindow != null)
             {
-                MainWindow.Show();
+                ManagerWindow.Show();
             }
 
             // סגור את החלון הנוכחי

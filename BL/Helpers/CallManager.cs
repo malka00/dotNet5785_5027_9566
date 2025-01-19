@@ -64,7 +64,7 @@ internal class CallManager
         }
         if (lastAssignment.TypeEndTreat.ToString() == "Treated")
         {
-            return BO.StatusTreat.Close;
+            return BO.StatusTreat.Closed;
         }
         if (lastAssignment.TypeEndTreat == null)
         {
@@ -78,7 +78,7 @@ internal class CallManager
             return BO.StatusTreat.Open;
 
         }
-        return BO.StatusTreat.Close;//default
+        return BO.StatusTreat.Closed;//default
     }
 
     /// <summary>
