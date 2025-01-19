@@ -203,7 +203,7 @@
                 <!-- Form Fields -->
                 <Label Content="Id:" Style="{StaticResource ModernLabel}" Grid.Row="0"/>
                 <TextBox Text="{Binding CurrentCall.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}"
+                         IsReadOnly="true"
                          Style="{StaticResource ModernTextBox}"
                          Grid.Row="0" Grid.Column="1"/>
 

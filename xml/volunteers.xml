@@ -57,20 +57,6 @@
     <maxDistance>58</maxDistance>
   </Volunteer>
   <Volunteer>
-    <ID>207926692</ID>
-    <fullName>Dan Mizrahi</fullName>
-    <phone>0556789123</phone>
-    <email>dan@example.com</email>
-    <password>F3glqj</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>Emek Refaim St 43, Jerusalem, Israel</address>
-    <longitude>35.2117</longitude>
-    <latitude>31.7655</latitude>
-    <maxDistance>53</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>208317958</ID>
     <fullName>Ayelet Israeli</fullName>
     <phone>0503456789</phone>
@@ -233,7 +219,21 @@
     <role>Boss</role>
     <distance>Aerial</distance>
     <address>Harounoff  street 2, Jerusalem, Israel</address>
-    <longitude>35.218994</longitude>
-    <latitude>31.796294</latitude>
+    <longitude>35.214391</longitude>
+    <latitude>31.912659</latitude>
+  </Volunteer>
+  <Volunteer>
+    <ID>207926692</ID>
+    <fullName>Dan Mizrahi</fullName>
+    <phone>0556789123</phone>
+    <email>dan@example.com</email>
+    <password>F3glqj</password>
+    <isActive>false</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>Emek Refaim St 43, Jerusalem, Israel</address>
+    <longitude>35.215315</longitude>
+    <latitude>31.759595</latitude>
+    <maxDistance>53</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

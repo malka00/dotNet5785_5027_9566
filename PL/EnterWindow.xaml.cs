@@ -89,6 +89,7 @@ namespace PL
                         if (mbResult == MessageBoxResult.Yes)
                             try
                             {
+
                                 new MainWindow(Id).Show();
                             }
                             catch (Exception ex)

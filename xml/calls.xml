@@ -231,16 +231,6 @@
     <MaxTimeToClose xsi:nil="true" />
   </Call>
   <Call>
-    <Id>1023</Id>
-    <Type>Cables</Type>
-    <Description>Dead battery after a football game, stranded near the stadium exit.</Description>
-    <FullAddress>Hebron Rd 76, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7473</Latitude>
-    <Longitude>35.2092</Longitude>
-    <TimeOpened>2025-01-18T22:37:25</TimeOpened>
-    <MaxTimeToClose xsi:nil="true" />
-  </Call>
-  <Call>
     <Id>1024</Id>
     <Type>Puncture</Type>
     <Description>Flat front tire, customer has no spare available.</Description>
@@ -499,5 +489,45 @@
     <Longitude>35.207448</Longitude>
     <TimeOpened>2025-01-18T00:32:25</TimeOpened>
     <MaxTimeToClose>2025-01-18T02:45:25</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1051</Id>
+    <Type>Cables</Type>
+    <Description>agxHZJ ugiuxzh </Description>
+    <FullAddress>Jerusalem</FullAddress>
+    <Latitude>31.7788242</Latitude>
+    <Longitude>35.2257626</Longitude>
+    <TimeOpened>2025-01-19T14:18:48.1433608+02:00</TimeOpened>
+    <MaxTimeToClose>2025-01-20T14:18:48</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1052</Id>
+    <Type>Cables</Type>
+    <Description>hhghn jhjb</Description>
+    <FullAddress>Jerusalem</FullAddress>
+    <Latitude>31.7788242</Latitude>
+    <Longitude>35.2257626</Longitude>
+    <TimeOpened>2025-01-19T14:25:07.6239649+02:00</TimeOpened>
+    <MaxTimeToClose>2025-01-20T14:25:07</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1023</Id>
+    <Type>LockedCar</Type>
+    <Description>Dead battery after a football game, stranded near the stadium exit.</Description>
+    <FullAddress>Hebron Rd 76, Jerusalem, Israel</FullAddress>
+    <Latitude>31.769342</Latitude>
+    <Longitude>35.22597</Longitude>
+    <TimeOpened>2025-01-18T22:37:25</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1053</Id>
+    <Type>LockedCar</Type>
+    <Description />
+    <FullAddress>9 Halamed heh, Alon Shvut</FullAddress>
+    <Latitude>31.6541396</Latitude>
+    <Longitude>35.1273728</Longitude>
+    <TimeOpened>2025-01-19T14:40:20.3696963+02:00</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
   </Call>
 </ArrayOfCall>

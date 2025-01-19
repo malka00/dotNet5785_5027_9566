@@ -174,7 +174,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="CallInListWindow" Height="450" Width="800"
+        Title="Calls List" Height="640" Width="800"
         Closed="Window_Closed"
         Loaded="Window_Loaded"
         Background="#F5F5F5">
@@ -213,70 +213,64 @@
     </Window.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="57*"/>
-            <ColumnDefinition Width="34*"/>
-            <ColumnDefinition Width="44*"/>
-            <ColumnDefinition Width="25*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="32*"/>
-            <RowDefinition Height="155*"/>
-            <RowDefinition Height="Auto" MinHeight="60.04"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-
-
-        <Grid Height="44" Width="auto" Margin="10,0,10,0" VerticalAlignment="Center" Grid.ColumnSpan="4">
+        <!-- Upper Controls -->
+        <Grid Height="60" Margin="10,10,10,10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="134*"/>
-                <ColumnDefinition Width="9*"/>
-                <ColumnDefinition Width="52*"/>
-                <ColumnDefinition Width="195*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Sort by:" 
-                   Margin="99,0,316,0" 
-                   VerticalAlignment="Center" 
+            <Label Content="Filter Call Status:" 
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   FontFamily="Segoe UI"
+                   FontSize="14"
+                   Margin="0,0,10,0"/>
+
+            <ComboBox Grid.Column="1"
+                      Style="{StaticResource ModernComboBox}"
+                      ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"
+                      SelectionChanged="Call_Filter"
+                      SelectedValue="{Binding StatusCallInList, Mode=TwoWay}"
+                      Margin="0,0,20,0"/>
+
+            <Label Content="Sort By:"
                    Grid.Column="2"
+                   VerticalAlignment="Center"
                    FontFamily="Segoe UI"
-                   FontSize="14" Grid.ColumnSpan="2" Height="28"/>
+                   FontSize="14"
+                   Margin="0,0,10,0"/>
 
-            <ComboBox Style="{StaticResource ModernComboBox}"
-                      ItemsSource="{Binding Source={StaticResource CallInListCollectionKey}}"  
-                      SelectionChanged="CallSelector_SelectionChanged" 
-                      SelectedValue="{Binding CallInList, Mode=TwoWay}" 
-                      Margin="9,6,9,8" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <ComboBox Grid.Column="3"
+                      Style="{StaticResource ModernComboBox}"
+                      ItemsSource="{Binding Source={StaticResource CallInListCollectionKey}}"
+                      SelectionChanged="CallSelector_SelectionChanged"
+                      SelectedValue="{Binding CallInList, Mode=TwoWay}"
+                      Margin="0,0,20,0"/>
 
-            <Label Content="Filter call status:" 
-                   HorizontalAlignment="Left" 
-                   Margin="161,6,0,0" 
-                   VerticalAlignment="Top" 
-                   Width="107"
-                   FontFamily="Segoe UI"
-                   FontSize="14" Height="29"/>
-
-            <ComboBox Style="{StaticResource ModernComboBox}"
-                      ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}"  
-                      SelectionChanged="Call_Filter" 
-                      SelectedValue="{Binding StatusCallInList, Mode=TwoWay}" 
-                      Margin="4,4,123,10"/>
+            <Image Grid.Column="4"
+                   Source="C:\Users\efrat\Documents\מיני פרויקט\PL\logo.png"
+                   Height="40"
+                   Width="85"
+                   HorizontalAlignment="Right"/>
         </Grid>
 
-
-        <Button Content="Add" 
-                Grid.Row="2" 
-                Style="{StaticResource ModernButton}"
-                HorizontalAlignment="Left" 
-                Width="100" 
-                Margin="73,10,0,10" 
-                Click="btnAdd_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
-
-        <DataGrid 
-                  ItemsSource="{Binding CallList}" 
-                  AutoGenerateColumns="False"  
-                  SelectedItem="{Binding SelectedCall}" 
-                  MouseDoubleClick="dtgList_MouseDoubleClick"  
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="1"
+                  Margin="10,10,10,10"
+                  ItemsSource="{Binding CallList}"
+                  AutoGenerateColumns="False"
+                  SelectedItem="{Binding SelectedCall}"
+                  MouseDoubleClick="dtgList_MouseDoubleClick"
                   CanUserAddRows="False"
                   Background="White"
                   BorderBrush="#E0E0E0"
@@ -285,8 +279,7 @@
                   AlternatingRowBackground="#F5F5F5"
                   GridLinesVisibility="Horizontal"
                   HorizontalGridLinesBrush="#E0E0E0"
-                  RowHeight="35"
-                  Margin="10,54,10,21" Grid.RowSpan="2" Grid.ColumnSpan="4">
+                  RowHeight="35">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -306,7 +299,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                <Border Padding="{TemplateBinding Padding}" 
+                                <Border Padding="{TemplateBinding Padding}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="{TemplateBinding BorderThickness}"
                                         Background="{TemplateBinding Background}">
@@ -321,7 +314,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CallId}" Header="CallId" Width="*"/>
 
-                <DataGridTemplateColumn Header="Call Type">
+                <DataGridTemplateColumn Header="Call Type" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Type}" HorizontalAlignment="Center">
@@ -353,7 +346,7 @@
                 <DataGridTextColumn Binding="{Binding LastVolunteer}" Header="Last Volunteer" Width="*"/>
                 <DataGridTextColumn Binding="{Binding TotalTime}" Header="Total Time" Width="*"/>
 
-                <DataGridTemplateColumn Header="Status">
+                <DataGridTemplateColumn Header="Status" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Status}" HorizontalAlignment="Center">
@@ -392,17 +385,17 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Binding="{Binding SumAssignment}" Header="SumAssignment" Width="*"/>
+                <DataGridTextColumn Binding="{Binding SumAssignment}" Header="Sum Assignment" Width="*"/>
 
-                <DataGridTemplateColumn Header="Actions" Width="200">
+                <DataGridTemplateColumn Header="Actions" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
-                                <Button Content="Delete" 
-                        Click="btnDelete_Click"
-                        Margin="0,0,3,0"
-                        Height="27"
-                        Width="65">
+                                <Button Content="Delete"
+                                        Click="btnDelete_Click"
+                                        Margin="0,0,3,0"
+                                        Height="27"
+                                        Width="65">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource ModernButton}">
                                             <Setter Property="Background" Value="#F44336"/>
@@ -415,10 +408,10 @@
                                     </Button.Style>
                                 </Button>
 
-                                <Button Content="Cancel Assignment" 
-                        Click="btnCancelAssignment_Click"
-                        Height="26"
-                        Width="110">
+                                <Button Content="Cancel Assignment"
+                                        Click="btnCancelAssignment_Click"
+                                        Height="26"
+                                        Width="110">
                                     <Button.Style>
                                         <Style TargetType="Button" BasedOn="{StaticResource ModernButton}">
                                             <Setter Property="Background" Value="#FF9800"/>
@@ -437,31 +430,33 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <!-- Bottom Controls -->
+        <Grid Grid.Row="2" Margin="10,10,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
+            <Button Grid.Column="0"
+                    Style="{StaticResource ModernButton}"
+                    Background="#757575"
+                    Click="btnBack_Click"
+                    Height="30"
+                    Width="47">
+                <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z"
+                      Fill="White"
+                      Width="17"
+                      Height="20"
+                      Stretch="Fill"/>
+            </Button>
 
-
-
-
-        <!-- Back Button -->
-        <Button Grid.Row="2"
-          HorizontalAlignment="Left" 
-          VerticalAlignment="Center"
-          Margin="20,0,0,0"
-          Style="{StaticResource ModernButton}"
-          Background="#757575"
-          Click="btnBack_Click" Height="30" Width="47">
-            <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
-            Fill="White" 
-            Width="17" 
-            Height="20" 
-            Stretch="Fill"/>
-        </Button>
-
-        <Image Source="C:\Users\efrat\Documents\מיני פרויקט\PL\logo.png" 
-               HorizontalAlignment="Left" 
-               Height="38" 
-               Margin="17,11,0,0" 
-               VerticalAlignment="Top" 
-               Width="99" Grid.Column="3"/>
+            <Button Grid.Column="1"
+                    Content="Add"
+                    Style="{StaticResource ModernButton}"
+                    Width="100"
+                    Height="30"
+                    Click="btnAdd_Click" VerticalAlignment="Top"/>
+        </Grid>
     </Grid>
 </Window>
