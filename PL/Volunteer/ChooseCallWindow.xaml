@@ -108,7 +108,7 @@
                   AlternatingRowBackground="#F5F5F5"
                   GridLinesVisibility="Horizontal"
                   HorizontalGridLinesBrush="#E0E0E0"
-                  RowHeight="40">
+                  RowHeight="35">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
@@ -184,9 +184,7 @@
                                     Style="{StaticResource ModernButton}"
                                     Height="26"
                                     Width="70"
-                                    Margin="0"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"/>
+                                    Margin="5"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
