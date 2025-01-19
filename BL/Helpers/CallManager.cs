@@ -17,6 +17,9 @@ internal class CallManager
 
     internal static ObserverManager Observers = new(); //stage 5 
 
+
+    
+
     ///// <summary>
     ///// Converts an object of type DO.Call to an object of type BO.CallInList
     ///// </summary>

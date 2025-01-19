@@ -17,5 +17,6 @@ public interface ICall : IObservable
     void CloseTreat(int idVol, int idAssig);
     void CancelTreat(int idVol, int idAssig);
     void ChoseForTreat(int idVol, int idCall);
+    bool CanDelete(int id);
 }
 
