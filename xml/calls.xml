@@ -71,16 +71,6 @@
     <MaxTimeToClose xsi:nil="true" />
   </Call>
   <Call>
-    <Id>1007</Id>
-    <Type>Cables</Type>
-    <Description>Engine won’t start in an underground garage after leaving lights on.</Description>
-    <FullAddress>David HaMelech St 4, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7763</Latitude>
-    <Longitude>35.2245</Longitude>
-    <TimeOpened>2025-01-18T20:56:25</TimeOpened>
-    <MaxTimeToClose>2025-01-19T04:01:25</MaxTimeToClose>
-  </Call>
-  <Call>
     <Id>1008</Id>
     <Type>LockedCar</Type>
     <Description>Child accidentally locked inside the car; urgent assistance needed.</Description>
@@ -129,16 +119,6 @@
     <Longitude>35.2214</Longitude>
     <TimeOpened>2025-01-18T05:05:25</TimeOpened>
     <MaxTimeToClose xsi:nil="true" />
-  </Call>
-  <Call>
-    <Id>1013</Id>
-    <Type>Cables</Type>
-    <Description>Dead battery at a hotel driveway, guest stranded before checkout.</Description>
-    <FullAddress>Yoel Moshe Salomon St 18, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7823</Latitude>
-    <Longitude>35.2155</Longitude>
-    <TimeOpened>2025-01-18T22:31:25</TimeOpened>
-    <MaxTimeToClose>2025-01-19T01:45:25</MaxTimeToClose>
   </Call>
   <Call>
     <Id>1014</Id>
@@ -341,16 +321,6 @@
     <MaxTimeToClose xsi:nil="true" />
   </Call>
   <Call>
-    <Id>1034</Id>
-    <Type>Cables</Type>
-    <Description>Car won’t start after a rainy night, parked near a construction site.</Description>
-    <FullAddress>Golda Meir Blvd 75, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7784</Latitude>
-    <Longitude>35.1963</Longitude>
-    <TimeOpened>2025-01-18T05:00:25</TimeOpened>
-    <MaxTimeToClose>2025-01-18T22:09:25</MaxTimeToClose>
-  </Call>
-  <Call>
     <Id>1035</Id>
     <Type>Cables</Type>
     <Description>Battery died while waiting in a ferry line, assistance needed immediately.</Description>
@@ -499,5 +469,35 @@
     <Longitude>35.207448</Longitude>
     <TimeOpened>2025-01-18T00:32:25</TimeOpened>
     <MaxTimeToClose>2025-01-18T02:45:25</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1013</Id>
+    <Type>Cables</Type>
+    <Description>Dead battery at a hotel driveway, guest stranded before checkout.</Description>
+    <FullAddress>Yoel Moshe Salomon St 18, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7814248</Latitude>
+    <Longitude>35.2197573</Longitude>
+    <TimeOpened>2025-01-18T22:31:25</TimeOpened>
+    <MaxTimeToClose>2025-01-19T01:45:25</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1007</Id>
+    <Type>Puncture</Type>
+    <Description>Engine won’t start in an underground garage after leaving lights on.</Description>
+    <FullAddress>David HaMelech St 4, Jerusalem, Israel</FullAddress>
+    <Latitude>31.759595</Latitude>
+    <Longitude>35.215315</Longitude>
+    <TimeOpened>2025-01-18T20:56:25</TimeOpened>
+    <MaxTimeToClose>2025-01-20T04:01:25</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1034</Id>
+    <Type>Cables</Type>
+    <Description>Car won’t start after a rainy night, parked near a construction site.</Description>
+    <FullAddress>Golda Meir Blvd 75, Jerusalem, Israel</FullAddress>
+    <Latitude>31.759595</Latitude>
+    <Longitude>35.215315</Longitude>
+    <TimeOpened>2025-01-18T05:00:25</TimeOpened>
+    <MaxTimeToClose>2025-01-18T22:09:25</MaxTimeToClose>
   </Call>
 </ArrayOfCall>
