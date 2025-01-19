@@ -15,6 +15,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Boss\logo.png" />
+    <None Remove="logo.png" />
+    <None Remove="Volunteer\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="logo-transparent-bacground.ico" />
   </ItemGroup>
 
@@ -24,6 +30,12 @@
 
   <ItemGroup>
     <Folder Include="image\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Boss\logo.png" />
+    <Resource Include="logo.png" />
+    <Resource Include="Volunteer\logo.png" />
   </ItemGroup>
 
 </Project>

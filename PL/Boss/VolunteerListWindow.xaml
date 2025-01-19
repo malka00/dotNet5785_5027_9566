@@ -211,7 +211,7 @@
                       Margin="89,15,247,15" Grid.ColumnSpan="3"/>
 
             <Image Grid.Column="4"
-                   Source="/logo.png"
+                   Source="/Boss/logo.png"
                    Height="40"
                    Width="85"
                    HorizontalAlignment="Right"/>
