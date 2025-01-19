@@ -392,6 +392,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2">
                                 <Button Content="Delete"
+                                        Visibility="{Binding CallId, Converter={StaticResource ConvertIsCanDeletCallKey}}"
                                         Click="btnDelete_Click"
                                         Margin="0,0,3,0"
                                         Height="27"

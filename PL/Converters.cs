@@ -12,29 +12,7 @@ using BO;
 
 namespace PL
 {
-
-    //public class BoolConvertIsCallInProsses : IValueConverter
-    //{
-    //    public object Convert(Object  value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        // אם הערך הוא null, מחזיר false
-    //        bool result = (value.CallIn != null && value.Active);
-            
-
-    //        // אם יש פרמטר, בודקים אם הוא שווה ל-False והופכים את התוצאה
-    //        if (parameter is string param && bool.TryParse(param, out bool invert) && invert)
-    //        {
-    //            result = !result;
-    //        }
-
-    //        return result;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
+    
 
     public class BoolConvertIsCallInProsses : IValueConverter
     {
@@ -69,6 +47,23 @@ namespace PL
         }
     }
 
+    public class ConvertIsCanDeletCall : IValueConverter
+    {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (s_bl.Calls.CanDelete((int)value))
+            {
+                return Visibility.Visible;
+            }
+            return Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public class ConvertIsCallInProsses : IValueConverter
     {

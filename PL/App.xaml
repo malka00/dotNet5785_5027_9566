@@ -11,8 +11,9 @@
         <local:DistanceCollection x:Key="DistanceCollectionKey"/>
         <local:StatusCollection x:Key="StatusCollectionKey"/>
         <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
+        <local:ConvertIsCanDeletCall x:Key="ConvertIsCanDeletCallKey"/>
 
-        
+
         <local:ConvertIsCallInProsses x:Key="ConvertIsCallInProssesKey"/>
         <local:BoolConvertIsCallInProsses x:Key="BoolConvertIsCallInProssesKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>

@@ -246,6 +246,11 @@ internal class CallImplementation : ICall
         CallManager.Observers.NotifyListUpdated();  //stage 5 
     }
 
+  public  bool CanDelete(int id)
+    {
+        return (Read(id).Status == BO.StatusTreat.Open) && (Read(id).AssignmentsToCalls == null);
+    }
+
     /// <summary>
     /// The function retrieves calls from the database, applies filters if specified, 
     /// sorts them by a given field, and then returns the result as a list of CallInList objects.
