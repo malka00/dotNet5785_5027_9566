@@ -212,7 +212,7 @@
         <!-- Header with Logo -->
         <Border Grid.ColumnSpan="2" Background="#F5F5F5" Height="80" VerticalAlignment="Top">
             <Grid>
-                <Image Source="image/logo.png" HorizontalAlignment="Right" Height="53" Width="100" Margin="0,0,20,0"/>
+                <Image Source="/Volunteer/logo.png" HorizontalAlignment="Right" Height="53" Width="100" Margin="0,0,20,0"/>
                 <TextBlock Text="Volunteer Information" FontSize="24" VerticalAlignment="Center" Margin="20,0"/>
             </Grid>
         </Border>

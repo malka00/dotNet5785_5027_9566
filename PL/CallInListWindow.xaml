@@ -258,7 +258,7 @@
                       Margin="0,0,20,0"/>
 
             <Image Grid.Column="4"
-                   Source="logo.png"
+                   Source="/logo.png"
                    Height="40"
                    Width="85"
                    HorizontalAlignment="Right"/>

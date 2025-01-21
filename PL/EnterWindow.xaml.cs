@@ -127,7 +127,16 @@ namespace PL
                     {
                         MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
                         if (currentVolunteer.Job == BO.Role.Boss)
-                             new ManagerWindow(Id).Show();
+                            try
+                            {
+                                new ManagerWindow(Id).Show();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK);
+                            }
+
+
                         else
                             new VolunteerWindow(Id).Show();
 
