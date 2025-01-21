@@ -65,7 +65,6 @@ namespace PL.Volunteer
         {
             if (sender is DataGrid dataGrid && dataGrid.SelectedItem is BO.VolunteerInList selectedVolunteer)
             {
-                // פתח חלון לעריכת המתנדב
                 VolunteerDetailsWindow detailsWindow = new VolunteerDetailsWindow(SelectedVolunteer.Id,Id );
                 detailsWindow.Show();
             }
@@ -109,14 +108,13 @@ namespace PL.Volunteer
             {
                 if (isFiltered)
                 {
-                    // אם הרשימה מסוננת, נבטל את הסינון ונחזיר את הרשימה המלאה
                     VolunteerList = s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
                     isFiltered = false;
                     ((Button)sender).Content = "Filter active volunteer";
                 }
                 else
                 {
-                    // אם הרשימה לא מסוננת, נסנן לפי מתנדבים פעילים
+                    
                     VolunteerList = s_bl?.Volunteers.GetVolunteerList(true, VolunteerInList)!;
                     isFiltered = true;
                     ((Button)sender).Content = "Show all volunteers";
@@ -135,8 +133,6 @@ namespace PL.Volunteer
             {
                 mainWindow.Show();
             }
-
-            // סגור את החלון הנוכחי
             this.Close();
         }
 

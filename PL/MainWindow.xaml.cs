@@ -172,19 +172,15 @@ namespace PL
 
             var managerWindow = Application.Current.Windows.OfType<ManagerWindow>().FirstOrDefault();
 
-            // אם החלון כבר קיים, מציג אותו
+         
             if (managerWindow != null)
             {
                 managerWindow.Show();
             }
             else
             
-                // אם לא נמצא, יוצר את החלון ומציג אותו
                new ManagerWindow(Id).Show();
                 
-            
-
-            // סגור את החלון הנוכחי
             this.Close();
         }
 

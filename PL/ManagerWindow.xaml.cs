@@ -46,13 +46,13 @@ namespace PL
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            // יצירת מופע חדש של חלון הכניסה
+            
             var loginWindow = new EnterWindow();
 
-            // הצגת חלון הכניסה
+          
             new EnterWindow().Show();
 
-            // סגירת החלון הנוכחי
+           
             this.Close();
         }
     }

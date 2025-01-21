@@ -149,8 +149,6 @@ namespace PL
             {
                 CallInListWindow.Show();
             }
-
-            // סגור את החלון הנוכחי
             this.Close();
         }
 

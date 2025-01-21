@@ -97,8 +97,6 @@ namespace PL.Volunteer
             {
                 VolunteerWindow.Show();
             }
-
-            // סגור את החלון הנוכחי
             this.Close();
         }
 

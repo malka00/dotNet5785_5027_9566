@@ -134,8 +134,6 @@ namespace PL.Volunteer
             {
                 VolunteerListWindow.Show();
             }
-
-            // סגור את החלון הנוכחי
             this.Close();
         }
     }
