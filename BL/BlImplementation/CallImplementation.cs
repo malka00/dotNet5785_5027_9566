@@ -60,6 +60,9 @@ internal class CallImplementation : ICall
             _dal.Assignment.Update(assigmnetToUP);
             VolunteerManager.Observers.NotifyListUpdated();
             VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(assigmnetToCancel.CallId);
+
         }
         catch ( DO.DalExistException ex)
         {
@@ -102,6 +105,8 @@ internal class CallImplementation : ICall
             _dal.Assignment.Create(assigmnetToCreat);
             VolunteerManager.Observers.NotifyListUpdated();
             VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(idCall);
 
         }
         catch (DO.DalDeleteImpossible)
@@ -150,6 +155,9 @@ internal class CallImplementation : ICall
             _dal.Assignment.Update(assignmentToUP);
             VolunteerManager.Observers.NotifyListUpdated();
             VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(assignmentToClose.CallId);
+
         }
         catch (DO.DalExistException ex)
         {
@@ -357,11 +365,15 @@ internal class CallImplementation : ICall
     /// <returns> BO.ClosedCallInList </returns>
     public IEnumerable<BO.ClosedCallInList> GetClosedCall(int id, BO.CallType? type, BO.EClosedCallInList? sortBy)
     {
+        
         // Retrieve all calls from the DAL
         var allCalls = _dal.Call.ReadAll();
 
         // Retrieve all assignments from the DAL
         var allAssignments = _dal.Assignment.ReadAll();
+
+        if (type == BO.CallType.None)
+            type = null;
 
         // Filter by volunteer ID and closed status (calls that have an end treatment type)
         IEnumerable<BO.ClosedCallInList> filteredCalls = from call in allCalls

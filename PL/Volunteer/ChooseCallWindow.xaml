@@ -100,7 +100,7 @@
                   ItemsSource="{Binding OpenCallList}"
                   AutoGenerateColumns="False"
                   SelectedItem="{Binding SelectedCall}"
-                  SelectionChanged="DataGrid_SelectionChanged"
+                  MouseLeftButtonUp="mouseEnterLeft"
                   Background="White"
                   BorderBrush="#E0E0E0"
                   BorderThickness="1"

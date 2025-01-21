@@ -40,6 +40,8 @@ namespace PL.Volunteer
         public ChooseCallWindow(int id)
         {
             VolunteerId = id;
+            this.Closed += Window_Closed;
+            this.Loaded += Window_Loaded;
             InitializeComponent();
         }
 
@@ -65,17 +67,14 @@ namespace PL.Volunteer
         private void Window_Closed(object sender, EventArgs e)
             => s_bl.Calls.RemoveObserver(CallListObserver);
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MessageBox.Show(SelectedCall.Description, $"Description {SelectedCall.Id}", MessageBoxButton.OK);
-        }
+    
 
         private void BtnChoose_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 s_bl.Calls.ChoseForTreat(VolunteerId, SelectedCall.Id);
-                MessageBox.Show($"Call {SelectedCall.Id} was successfully Chosen!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Call was successfully Chosen!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
 
@@ -101,6 +100,13 @@ namespace PL.Volunteer
 
             // סגור את החלון הנוכחי
             this.Close();
+        }
+
+        
+
+        private void mouseEnterLeft(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show(SelectedCall.Description, $"Description {SelectedCall.Id}", MessageBoxButton.OK);
         }
     }
 
