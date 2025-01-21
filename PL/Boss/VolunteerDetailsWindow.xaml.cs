@@ -84,47 +84,6 @@ namespace PL.Volunteer
         public static readonly DependencyProperty CurrentVolunteerProperty =
             DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerDetailsWindow), new PropertyMetadata(null));
 
-        //public bool IsTextBoxVisible
-        //{
-        //    get { return (bool)GetValue(IsTextBoxVisibleProperty); }
-        //    set { SetValue(IsTextBoxVisibleProperty, value); }
-        //}
-        //public static readonly DependencyProperty IsTextBoxVisibleProperty =
-        //    DependencyProperty.Register("IsTextBoxVisible", typeof(bool), typeof(VolunteerDetailsWindow), new PropertyMetadata(false));
-
-        //public bool IsPasswordBoxVisible
-        //{
-        //    get { return (bool)GetValue(IsPasswordBoxVisibleProperty); }
-        //    set { SetValue(IsPasswordBoxVisibleProperty, value); }
-        //}
-        //public static readonly DependencyProperty IsPasswordBoxVisibleProperty =
-        //    DependencyProperty.Register("IsPasswordBoxVisible", typeof(bool), typeof(VolunteerDetailsWindow), new PropertyMetadata(true));
-
-        //public bool IsPasswordVisible
-        //{
-        //    get { return (bool)GetValue(IsPasswordVisibleProperty); }
-        //    set { SetValue(IsPasswordVisibleProperty, value); }
-        //}
-        //public static readonly DependencyProperty IsPasswordVisibleProperty =
-        //    DependencyProperty.Register("IsPasswordVisible", typeof(bool), typeof(VolunteerDetailsWindow), new PropertyMetadata(false));
-
-
-        //private void IsPasswordVisibleChanged(object sender, RoutedEventArgs e)
-        //{
-        //    IsTextBoxVisible = IsPasswordVisible;  // אם נבחר, הצג את ה-TextBox
-        //    IsPasswordBoxVisible = !IsPasswordVisible;  // אם לא נבחר, הצג את ה-PasswordBox
-        //}
-
- 
-
-        //private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        //{
-        //    // עדכון הסיסמה ב-CurrentVolunteer
-        //    if (CurrentVolunteer != null)
-        //    {
-        //        CurrentVolunteer.Password = ((PasswordBox)sender).Password;
-        //    }
-        //}
 
         private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
         {
