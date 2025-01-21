@@ -114,39 +114,47 @@ internal class CallManager
     /// <returns> BO.CallInList </returns>
     internal static BO.CallInList ConvertDOCallToBOCallInList(DO.Call doCall)
     {
-        var assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.Id);
+        IEnumerable<Assignment>? assignmentsForCall;
+        lock (AdminManager.BlMutex)
+             assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.Id);
         var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.TimeStart).FirstOrDefault();
 
-        int? id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id;
-        int callId = doCall.Id;
-        BO.CallType type = (BO.CallType)doCall.Type;
-        DateTime timeOpened = doCall.TimeOpened;
-        TimeSpan? timeLeft = (doCall.MaxTimeToClose != null) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null;
-        // string? lastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null;
-        string? lastVolunteer = (lastAssignmentsForCall != null)
-      ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
-      : null;
-
+        lock (AdminManager.BlMutex)
+        {
+            int? id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id;
+            int callId = doCall.Id;
+            BO.CallType type = (BO.CallType)doCall.Type;
+            DateTime timeOpened = doCall.TimeOpened;
+            TimeSpan? timeLeft = (doCall.MaxTimeToClose != null) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null;
+            // string? lastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null;
+            string? lastVolunteer = (lastAssignmentsForCall != null)
+          ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
+          : null;
+        }
+           
         TimeSpan? totalTime = (lastAssignmentsForCall != null && lastAssignmentsForCall.TimeEnd != null) ? lastAssignmentsForCall.TimeEnd - lastAssignmentsForCall.TimeStart : null;
         BO.StatusTreat status = GetCallStatus(doCall);
         int sumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count();
 
-        return new()
+        lock (AdminManager.BlMutex)
         {
-            Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,
-            CallId = doCall.Id,
-            Type = (BO.CallType)doCall.Type,
-            TimeOpened = doCall.TimeOpened,
-            TimeLeft = (doCall.MaxTimeToClose != null&& doCall.MaxTimeToClose >= s_dal.Config.Clock) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
-            LastVolunteer = (lastAssignmentsForCall != null)
-      ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
-      : null,
-            //LastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null,
-            TotalTime = (lastAssignmentsForCall != null && lastAssignmentsForCall.TimeEnd != null) ? lastAssignmentsForCall.TimeEnd - lastAssignmentsForCall.TimeStart : null,
-            Status = GetCallStatus(doCall),
-            SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
+            return new()
+            {
+                Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,
+                CallId = doCall.Id,
+                Type = (BO.CallType)doCall.Type,
+                TimeOpened = doCall.TimeOpened,
+                TimeLeft = (doCall.MaxTimeToClose != null && doCall.MaxTimeToClose >= s_dal.Config.Clock) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
+                LastVolunteer = (lastAssignmentsForCall != null)
+                ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
+                : null,
+                //LastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null,
+                TotalTime = (lastAssignmentsForCall != null && lastAssignmentsForCall.TimeEnd != null) ? lastAssignmentsForCall.TimeEnd - lastAssignmentsForCall.TimeStart : null,
+                Status = GetCallStatus(doCall),
+                SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
 
-        };
+            };
+        }
     }
 
     /// <summary>
@@ -156,7 +164,9 @@ internal class CallManager
     /// <returns> BO.Call </returns>
     internal static BO.Call convertDOtoBO(DO.Call doCall)
     {
-        Func<DO.Assignment, bool> func = item => item.CallId == doCall.Id;
+        Func<DO.Assignment, bool> func;
+        lock (AdminManager.BlMutex)
+            func = item => item.CallId == doCall.Id;
         IEnumerable<DO.Assignment> dataOfAssignments = s_dal.Assignment.ReadAll(func);
         return new()
         {

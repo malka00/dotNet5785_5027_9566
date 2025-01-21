@@ -21,42 +21,54 @@ internal class AdminImplementation : IAdmin
     public void RemoveConfigObserver(Action configObserver) =>
     AdminManager.ConfigUpdatedObservers -= configObserver;
     #endregion Stage 5
-    public void Definition(TimeSpan time)
+    public void setMaxRange(TimeSpan time)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         //_dal.ResetDB();
         //Initialization.Do();
         //ClockManager.UpdateClock(ClockManager.Now);
         AdminManager.MaxRange= time;
     }
 
-    public void ForwardClock(BO.TimeUnit unit) => AdminManager.UpdateClock(unit switch
+    public void ForwardClock(BO.TimeUnit unit)
     {
-        BO.TimeUnit.MINUTE => AdminManager.Now.AddMinutes(1),
-        BO.TimeUnit.HOUR => AdminManager.Now.AddHours(1),
-        BO.TimeUnit.DAY => AdminManager.Now.AddDays(1),
-        BO.TimeUnit.MONTH => AdminManager.Now.AddMonths(1),
-        BO.TimeUnit.YEAR => AdminManager.Now.AddYears(1),
-        _ => DateTime.MinValue
-    });
-  
+        AdminManager.ThrowOnSimulatorIsRunning();
+        AdminManager.UpdateClock(unit switch
+        {
+
+            BO.TimeUnit.MINUTE => AdminManager.Now.AddMinutes(1),
+            BO.TimeUnit.HOUR => AdminManager.Now.AddHours(1),
+            BO.TimeUnit.DAY => AdminManager.Now.AddDays(1),
+            BO.TimeUnit.MONTH => AdminManager.Now.AddMonths(1),
+            BO.TimeUnit.YEAR => AdminManager.Now.AddYears(1),
+            _ => DateTime.MinValue
+        });
+    }
+
+
+    public void StartSimulator(int interval)  //stage 7
+    {
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.Start(interval); //stage 7
+    }
+    public void StopSimulator()
+        => AdminManager.Stop(); //stage 7
     public DateTime GetClock() => AdminManager.Now; 
    
     public TimeSpan GetMaxRange()
     {
-       return AdminManager.MaxRange; ;
+        return AdminManager.MaxRange; 
     }
 
     public void initialization()
     {
-        DalTest.Initialization.Do();
-        AdminManager.UpdateClock(AdminManager.Now);
-        AdminManager.MaxRange = AdminManager.MaxRange;
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.InitializeDB(); //stage 7
     }
 
     public void Reset()
     {
-        _dal.ResetDB(); 
-        AdminManager.UpdateClock(AdminManager.Now);
-        AdminManager.MaxRange = AdminManager.MaxRange;
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.ResetDB(); //stage 7
     }
 }

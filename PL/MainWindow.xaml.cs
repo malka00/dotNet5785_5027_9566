@@ -76,7 +76,7 @@ namespace PL
         }
         private void btnUpdateMaxRange_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.Admin.Definition(MaxRange);
+            s_bl.Admin.setMaxRange(MaxRange);
         }
         private void clockObserver()
         {

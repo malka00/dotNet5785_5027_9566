@@ -2,11 +2,11 @@
 using DalApi;
 using DO;
 using System.Data.Common;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Dal
 {
-    
     internal class AssignmentImplementation : IAssignment
     {
         /// <summary>
@@ -15,6 +15,7 @@ namespace Dal
         /// <param name="s"></param>
         /// <returns></returns>
         /// <exception cref="FormatException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         static Assignment getAssignment(XElement s)
         {
             Assignment a = new DO.Assignment()
@@ -31,6 +32,7 @@ namespace Dal
         /// <summary>
         /// Creating a new task in an XML file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Create(Assignment item)
         {
             List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
@@ -46,6 +48,7 @@ namespace Dal
         /// <summary>
         /// update assignment
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Update(Assignment item)
         {
             List<Assignment> Assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
@@ -58,6 +61,7 @@ namespace Dal
         /// <summary>
         /// Delete assignment from the xml file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Delete(int id)
         {
             List<Assignment> Assignment = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignment_xml);
@@ -65,6 +69,9 @@ namespace Dal
                 throw new DalDeleteImpossible($"Assignemt with ID={id} does Not exist");
             XMLTools.SaveListToXMLSerializer(Assignment, Config.s_assignment_xml);
         }
+
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteAll()
         {
             XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_assignment_xml);
@@ -73,6 +80,7 @@ namespace Dal
         /// <summary>
         /// read assignment from the xml file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Assignment? Read(int id)
         {
             // Load the existing list of assignments from the XML file
@@ -85,6 +93,7 @@ namespace Dal
         /// <summary>
         /// Read All assignments from the xml file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
         {
             // Load the existing list of assignments from the XML file
@@ -99,6 +108,7 @@ namespace Dal
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Assignment? Read(Func<Assignment, bool> filter)
         {
             return XMLTools.LoadListFromXMLElement(Config.s_assignment_xml).Elements().Select(s => getAssignment(s)).FirstOrDefault(filter); 

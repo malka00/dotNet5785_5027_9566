@@ -1,18 +1,20 @@
 ﻿using DalApi;
 using DO;
 using System.Data.Common;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Dal
 {
     internal class CallImplementation : ICall
     {
-       /// <summary>
-       /// help func return the call that is in the XElement 
-       /// </summary>
-       /// <param name="c">read call from xml</param>
-       /// <returns> call </returns>
-       /// <exception cref="FormatException"></exception>
+        /// <summary>
+        /// help func return the call that is in the XElement 
+        /// </summary>
+        /// <param name="c">read call from xml</param>
+        /// <returns> call </returns>
+        /// <exception cref="FormatException"></exception>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         static Call getCall(XElement s)
         {
             Call c = new DO.Call()
@@ -32,6 +34,7 @@ namespace Dal
         /// <summary>
         /// Creating a new call in the XML file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Create(Call item)
         {
             // Load the existing list of calls from the XML file
@@ -53,6 +56,7 @@ namespace Dal
         /// <summary>
         /// Update the call in the xml file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Update(Call item)
         {
             List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
@@ -65,6 +69,7 @@ namespace Dal
         /// <summary>
         /// Delete call from the xml file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void Delete(int id)
         {
             List<Call> Courses = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
@@ -76,6 +81,7 @@ namespace Dal
         /// <summary>
         /// delete all calls
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteAll()
         {
             XMLTools.SaveListToXMLSerializer(new List<Call>(), Config.s_calls_xml);
@@ -84,6 +90,7 @@ namespace Dal
         /// <summary>
         /// read call from the xml file
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Call? Read(int id)
         {
             // Load the existing list of calls from the XML file
@@ -92,10 +99,11 @@ namespace Dal
             // Return the call with the specified ID, or null if not found
             return Calls.FirstOrDefault(call => call.Id == id);
         }
-        
+
         /// <summary>
         /// read all calls
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Call> ReadAll(Func<Call, bool>? filter = null)
         {
             // Load the existing list of calls from the XML file
@@ -110,6 +118,7 @@ namespace Dal
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Call? Read(Func<Call, bool> filter)
         {
             return XMLTools.LoadListFromXMLElement(Config.s_calls_xml).Elements().Select(s => getCall(s)).FirstOrDefault(filter);

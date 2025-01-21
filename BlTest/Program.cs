@@ -173,7 +173,7 @@ Admin Options:
                         throw new BO.BlWrongInputException("Invalid input. Please enter a valid time span.");
                     }
 
-                    s_bl.Admin.Definition(time);
+                    s_bl.Admin.setMaxRange(time);
                     break;
                 case IAdmin.RESET:
                     s_bl.Admin.Reset();

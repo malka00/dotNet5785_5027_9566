@@ -1,6 +1,7 @@
 ﻿using DalApi;
 using DO;
 using System;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace Dal;
@@ -13,6 +14,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <param name="s">n XElement vatrible </param>
     /// <returns>  the volunteer  from the XElement</returns>
     /// <exception cref="FormatException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     static Volunteer getVolunteer(XElement s)
     {
         Volunteer v = new DO.Volunteer()
@@ -38,8 +40,9 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="volunteer"> volunteer from the user </param>
     /// <returns></returns>
- 
-static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
+
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     {
         //return  new XElement("Volunteer",
         yield return new XElement("ID", volunteer.Id);
@@ -67,6 +70,7 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     /// </summary>
     /// <param name="item"> volunteer to add to the </param>
     /// <exception cref="DO.DalAlreadyExistsException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Volunteer item)
     {
         XElement volunteerRootElem = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
@@ -85,6 +89,7 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="DalDeletImposible"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         XElement volunteersRoot = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
@@ -99,6 +104,7 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     /// <summary>
     /// delete all volunteers from the xml file
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void DeleteAll()
     {
         XElement volunteersRoot = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
@@ -109,6 +115,7 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     /// <summary>
     /// read volunteer from the xml file
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Volunteer? Read(int id)
     {
         XElement? volunteerElem =
@@ -119,6 +126,7 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     /// <summary>
     /// read volunteer from the xml file
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
         return XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml).Elements().Select(v => getVolunteer(v)).FirstOrDefault(filter);
@@ -127,6 +135,7 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
     /// <summary>
     /// update volunteer in the xml file
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Volunteer item)
     {
         XElement volunteersRoot = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml);
@@ -141,10 +150,11 @@ static IEnumerable<XElement> createVolunteerElement(Volunteer volunteer)
         XMLTools.SaveListToXMLElement(volunteersRoot, Config.s_volunteers_xml);
     }
 
-/// <summary>
-/// read all volunteers from the xml file
-/// </summary>
-public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
+    /// <summary>
+    /// read all volunteers from the xml file
+    /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
     {
         var volunteers = XMLTools.LoadListFromXMLElement(Config.s_volunteers_xml)
                                             .Elements()

@@ -22,6 +22,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Create(BO.Volunteer boVolunteer)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
         double latitude = coordinate[0];
         double longitude = coordinate[1];
@@ -63,10 +64,9 @@ internal class VolunteerImplementation : IVolunteer
         return (Read(id).CallIn == null) && (Read(id).SumCalls == 0);
     }
     
-
-
     public void Delete(int id)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         DO.Volunteer? doVolunteer = _dal.Volunteer.Read(id);
         IEnumerable < DO.Assignment> assignments= _dal.Assignment.ReadAll(ass=>ass.VolunteerId==id);
 
@@ -158,6 +158,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public void Update(int id, BO.Volunteer boVolunteer)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         DO.Volunteer doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
         DO.Volunteer ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)

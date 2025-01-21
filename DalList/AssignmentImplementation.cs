@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿using System.Runtime.CompilerServices;
+using DalApi;
 using DO;
 
 namespace Dal;
@@ -9,6 +10,7 @@ internal class AssignmentImplementation : IAssignment
     /// Create a new assignment
     /// </summary>
     /// <param name="item"></param>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Assignment item)
     {
         int newId = Config.NextAssignmentID ;
@@ -22,6 +24,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="DalDeleteImpossible"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         var assignment = DataSource.Assignments.FirstOrDefault(a => a.Id == id);
@@ -34,6 +37,7 @@ internal class AssignmentImplementation : IAssignment
     /// <summary>
     /// Delete all the assignments
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void DeleteAll()
     {
         DataSource.Assignments.Clear(); 
@@ -44,6 +48,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Assignment? Read(int id)
     {
         return DataSource.Assignments.FirstOrDefault(item => item.Id == id); //stage 2
@@ -54,6 +59,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Assignment? Read(Func<Assignment, bool> filter)
     {
         return DataSource.Assignments.FirstOrDefault(filter); //stage 2
@@ -64,6 +70,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
         => filter == null ? DataSource.Assignments.Select(item => item)
            : DataSource.Assignments.Where(filter);
@@ -73,6 +80,7 @@ internal class AssignmentImplementation : IAssignment
     /// </summary>
     /// <param name="item"></param>
     /// <exception cref="DO.DalDeleteImpossible"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Assignment item)
     {
         Assignment? old = DataSource.Assignments.Find(x => x?.Id == item.Id);
