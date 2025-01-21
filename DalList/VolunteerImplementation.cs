@@ -3,6 +3,7 @@ using DO;
 using DalApi;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -11,6 +12,7 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="item"></param>
     /// <exception cref="DalDeletImposible"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Create(Volunteer item)
     {
         // Check if an object with the same ID exists
@@ -26,6 +28,7 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Volunteer? Read(int id)
     {
         //return DataSource.Volunteers.FirstOrDefault(v => v.Id == id); //stage 1
@@ -37,15 +40,17 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public IEnumerable<Volunteer> ReadAll(Func<Volunteer, bool>? filter = null)
         => filter == null ? DataSource.Volunteers.Select(item => item)
            :DataSource.Volunteers.Where(filter);
-    
+
     /// <summary>
     /// Update volunteer 
     /// </summary>
     /// <param name="item"></param>
     /// <exception cref="DO.DalDeletImposible"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Update(Volunteer item)
     {
         Volunteer? old = DataSource.Volunteers.Find(x => x?.Id == item.Id);
@@ -67,6 +72,7 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="id"></param>
     /// <exception cref="DalExistException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void Delete(int id)
     {
         var volunteer = DataSource.Volunteers.FirstOrDefault(v => v.Id == id) 
@@ -78,6 +84,7 @@ internal class VolunteerImplementation : IVolunteer
     /// <summary>
     /// Delete all the volunteers
     /// </summary>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public void DeleteAll()
     {
         DataSource.Volunteers.Clear();
@@ -88,6 +95,7 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
+    [MethodImpl(MethodImplOptions.Synchronized)]
     public Volunteer? Read(Func<Volunteer, bool> filter)
     {
         return DataSource.Volunteers.FirstOrDefault(filter); //stage 2

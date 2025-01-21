@@ -142,8 +142,6 @@ public partial class CallInListWindow : Window
         {
             mainWindow.Show();
         }
-
-        // סגור את החלון הנוכחי
         this.Close();
     }
 }

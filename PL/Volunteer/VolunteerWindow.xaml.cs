@@ -17,18 +17,6 @@ namespace PL.Volunteer
         public static readonly DependencyProperty CurrentVolunteerProperty =
             DependencyProperty.Register("CurrentVolunteer", typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
 
-        //public BO.Call? Call
-        //{
-        //    get { return (BO.Call?)GetValue(CallProperty); }
-        //    set { SetValue(CallProperty, value); }
-        //}
-
-        ///// <summary>
-        ///// Dependency property for CurrentVolunteer
-        ///// </summary>
-        //public static readonly DependencyProperty CallProperty =
-        //    DependencyProperty.Register("Call", typeof(BO.Call), typeof(VolunteerWindow), new PropertyMetadata(null));
-
 
         public int UserId { get; set; }
 
@@ -41,8 +29,6 @@ namespace PL.Volunteer
             try
             {
                 CurrentVolunteer = s_bl.Volunteers.Read(UserId);
-                //if (CurrentVolunteer.CallIn != null) 
-                //Call = s_bl.Calls.Read(CurrentVolunteer.CallIn.IdCall); 
             }
             catch (BO.BlDoesNotExistException ex)
             {
@@ -73,34 +59,23 @@ namespace PL.Volunteer
         private void QueryCall()
         {
             QueryVolunteer();
-            //if (Call != null) 
             if (CurrentVolunteer.CallIn != null)
             {
-                if (CurrentVolunteer.CallIn == null/* || CurrentVolunteer.CallIn.IdCall != Call.Id*/)
+                if (CurrentVolunteer.CallIn == null)
                 {
                     s_bl.Calls.RemoveObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
 
                 }
 
             }
-            //if (CurrentVolunteer.CallIn != null && Call != null && CurrentVolunteer.CallIn.IdCall != Call.Id)
             if (CurrentVolunteer.CallIn != null)
             {
                 s_bl.Calls.AddObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
             }
-            //else
-
-            //    Call = null;
-            //if (CurrentVolunteer.CallIn != null)
-            //{
-
-            //    Call = s_bl.Calls.Read(CurrentVolunteer.CallIn.IdCall);
-            //}
         }
 
         private void VolunteerObserver()
         {
-            //CurrentVolunteer = s_bl.Volunteers.Read(UserId);
             QueryCall();
         }
        
@@ -109,8 +84,6 @@ namespace PL.Volunteer
         {
             if (CurrentVolunteer!.Id != 0)
                 s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
-            //if (Call != null)
-            //s_bl.Calls.AddObserver(Call.Id, CallObserver);
             if (CurrentVolunteer.CallIn != null)
                 s_bl.Calls.AddObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
 
@@ -119,8 +92,6 @@ namespace PL.Volunteer
         private void Window_Closed(object sender, EventArgs e)
         {
             s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
-            // if (Call != null)
-            // s_bl.Calls.RemoveObserver(Call.Id, CallObserver);
             if (CurrentVolunteer.CallIn != null)
                 s_bl.Calls.RemoveObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
 
@@ -210,7 +181,7 @@ namespace PL.Volunteer
                 ManagerWindow.Show();
             }
 
-            // סגור את החלון הנוכחי
+   
             this.Close();
         }
     }

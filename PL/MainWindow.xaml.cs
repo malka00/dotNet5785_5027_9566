@@ -76,7 +76,7 @@ namespace PL
         }
         private void btnUpdateMaxRange_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.Admin.Definition(MaxRange);
+            s_bl.Admin.setMaxRange(MaxRange);
         }
         private void clockObserver()
         {
@@ -172,19 +172,15 @@ namespace PL
 
             var managerWindow = Application.Current.Windows.OfType<ManagerWindow>().FirstOrDefault();
 
-            // אם החלון כבר קיים, מציג אותו
+         
             if (managerWindow != null)
             {
                 managerWindow.Show();
             }
             else
             
-                // אם לא נמצא, יוצר את החלון ומציג אותו
                new ManagerWindow(Id).Show();
                 
-            
-
-            // סגור את החלון הנוכחי
             this.Close();
         }
 

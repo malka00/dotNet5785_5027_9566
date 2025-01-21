@@ -46,13 +46,12 @@ namespace PL
         {
             if (string.IsNullOrWhiteSpace(Password))
             {
-                // אפשר להוסיף כאן לוגיקה כדי להחזרת ערך ברירת מחדל או שינוי צבע
             }
         }
 
         private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            // אפשר להוסיף כאן לוגיקה כדי להסיר ערך ברירת מחדל אם יש
+            
         }
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)

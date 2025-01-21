@@ -87,5 +87,17 @@ namespace BO
         public BlWrongInputException(string message, Exception innerException)
                 : base(message, innerException) { }
     }
+
+    /// <summary>
+    /// Exception for Temporary Not Available
+    /// </summary>
+    [Serializable]
+    public class BLTemporaryNotAvailableException : Exception
+    {
+        public BLTemporaryNotAvailableException(string? message) : base(message) { }
+        public BLTemporaryNotAvailableException(string message, Exception innerException)
+                : base(message, innerException) { }
+    }
+
 }
 

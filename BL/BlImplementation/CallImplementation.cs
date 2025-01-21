@@ -33,7 +33,8 @@ internal class CallImplementation : ICall
     /// <param name="idAssig"></param>
     /// <exception cref="BO.BlDeleteNotPossibleException"></exception>
     public void CancelTreat(int idVol, int idAssig)
-    {  
+    {
+        AdminManager.ThrowOnSimulatorIsRunning();
         DO.Assignment assigmnetToCancel = _dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
         bool ismanager=false;
         if (assigmnetToCancel.VolunteerId != idVol)
@@ -80,6 +81,7 @@ internal class CallImplementation : ICall
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public void ChoseForTreat(int idVol, int idCall)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         // Retrieve volunteer and call; throw exception if not found.
         DO.Volunteer vol = _dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException($"There is no volunteer with this ID {idVol}");
         BO.Call boCall = Read(idCall) ?? throw new BO.BlNullPropertyException($"There is no call with this ID {idCall}");
@@ -125,6 +127,7 @@ internal class CallImplementation : ICall
     /// <exception cref="BO.BlWrongInputException"></exception>
     public void CloseTreat(int idVol, int idAssig)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         // Retrieve the assignment by its ID; throw an exception if not found.
         DO.Assignment assignmentToClose = _dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("There is no assignment with this ID");
 
@@ -203,6 +206,7 @@ internal class CallImplementation : ICall
     /// </summary>
     public void Create(BO.Call boCall)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         double[] coordinate = VolunteerManager.GetCoordinates(boCall.FullAddress);
         double latitude = coordinate[0];
         double longitude = coordinate[1];
@@ -236,6 +240,7 @@ internal class CallImplementation : ICall
     /// </summary>
     public void Delete(int id)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
             if ((Read(id).Status == BO.StatusTreat.Open)&&(Read(id).AssignmentsToCalls ==null))
@@ -501,9 +506,6 @@ internal class CallImplementation : ICall
         return filteredCalls;
     }
 
-
-
-
     /// <summary>
     /// The Read function retrieves a call by its ID and maps the data from the database (DO objects) into a business object (BO). 
     /// It also retrieves the assignments associated with that call and returns them along with the call details in a structured format.
@@ -546,6 +548,7 @@ internal class CallImplementation : ICall
     /// </summary>
     public void Update(BO.Call boCall)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         double[] coordinate = VolunteerManager.GetCoordinates(boCall.FullAddress);
         double latitude = coordinate[0];
         double longitude = coordinate[1];

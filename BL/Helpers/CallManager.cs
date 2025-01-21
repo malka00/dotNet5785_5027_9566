@@ -114,7 +114,9 @@ internal class CallManager
     /// <returns> BO.CallInList </returns>
     internal static BO.CallInList ConvertDOCallToBOCallInList(DO.Call doCall)
     {
-        var assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.Id);
+        IEnumerable<Assignment>? assignmentsForCall;
+        lock (AdminManager.BlMutex)
+             assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.Id);
         var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.TimeStart).FirstOrDefault();
 
         //  int? id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id;
@@ -148,7 +150,8 @@ internal class CallManager
            Status = status,
             SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
 
-        };
+            };
+        }
     }
 
     /// <summary>
@@ -158,7 +161,9 @@ internal class CallManager
     /// <returns> BO.Call </returns>
     internal static BO.Call convertDOtoBO(DO.Call doCall)
     {
-        Func<DO.Assignment, bool> func = item => item.CallId == doCall.Id;
+        Func<DO.Assignment, bool> func;
+        lock (AdminManager.BlMutex)
+            func = item => item.CallId == doCall.Id;
         IEnumerable<DO.Assignment> dataOfAssignments = s_dal.Assignment.ReadAll(func);
         return new()
         {

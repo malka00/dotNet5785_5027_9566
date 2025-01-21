@@ -8,7 +8,7 @@ public interface IAdmin
     DateTime GetClock();
     void ForwardClock(BO.TimeUnit unit);
     TimeSpan GetMaxRange();
-    void Definition(TimeSpan time);
+    void setMaxRange(TimeSpan time);
     void Reset();
     void initialization();
 
@@ -18,5 +18,9 @@ public interface IAdmin
     void AddClockObserver(Action clockObserver);
     void RemoveClockObserver(Action clockObserver);
     #endregion Stage 5
+
+
+    void StartSimulator(int interval); //stage 7
+    void StopSimulator(); //stage 7
 
 }
