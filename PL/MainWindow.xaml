@@ -223,7 +223,7 @@ VerticalAlignment="Center" Stretch="Fill"/>
         <!-- Header Section -->
         <Border Background="#F5F5F5" Padding="20,10">
             <Grid>
-                <Image Source="C:\Users\nkfv0\source\repos\dotNet5785_5027_9566\PL\logo.png"  HorizontalAlignment="Left" Width="120" Margin="606,0,0,3"/>
+                <Image Source="/logo.png"  HorizontalAlignment="Left" Width="120" Margin="606,0,0,3"/>
                 <TextBlock Text="{Binding CurrentTime}" 
                          FontSize="24" 
                          VerticalAlignment="Center"
