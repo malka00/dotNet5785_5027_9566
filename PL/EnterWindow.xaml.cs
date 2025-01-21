@@ -81,8 +81,6 @@ namespace PL
                 {
                     MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
                     if (currentVolunteer.Job == BO.Role.Boss)
-                        //MessageBoxResult mbResult = MessageBox.Show("Do you want to open an administrator screen?", "Manage or Volunteer",
-                        //                     MessageBoxButton.YesNo, MessageBoxImage.Question);
                         new ManagerWindow(Id).Show();
                     else
                         new VolunteerWindow(Id).Show();
