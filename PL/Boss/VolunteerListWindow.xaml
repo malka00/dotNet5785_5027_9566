@@ -233,7 +233,7 @@
                   AlternatingRowBackground="#F5F5F5"
                   GridLinesVisibility="Horizontal"
                   HorizontalGridLinesBrush="#E0E0E0"
-                  RowHeight="35">
+                  RowHeight="43">
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
