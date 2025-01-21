@@ -371,6 +371,8 @@ internal class CallImplementation : ICall
 
         // Retrieve all assignments from the DAL
         var allAssignments = _dal.Assignment.ReadAll();
+        if(type == BO.CallType.None)
+            type = null;
 
         if (type == BO.CallType.None)
             type = null;
