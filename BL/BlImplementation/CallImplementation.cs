@@ -362,6 +362,8 @@ internal class CallImplementation : ICall
 
         // Retrieve all assignments from the DAL
         var allAssignments = _dal.Assignment.ReadAll();
+        if(type == BO.CallType.None)
+            type = null;
 
         // Filter by volunteer ID and closed status (calls that have an end treatment type)
         IEnumerable<BO.ClosedCallInList> filteredCalls = from call in allCalls

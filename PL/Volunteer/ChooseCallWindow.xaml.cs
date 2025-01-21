@@ -40,6 +40,8 @@ namespace PL.Volunteer
         public ChooseCallWindow(int id)
         {
             VolunteerId = id;
+           
+            s_bl.Calls.AddObserver(CallListObserver);
             InitializeComponent();
         }
 
