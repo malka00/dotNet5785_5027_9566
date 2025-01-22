@@ -29,7 +29,9 @@ internal class VolunteerManager
     /// <returns> BO.VolunteerInList </returns>
     internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
     {
-        var assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
+        List<DO.Assignment> assignments
+        lock (AdminManager.BlMutex) //stage 7
+             assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
         int sumCanceld = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
         int sumExpired = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
@@ -40,7 +42,9 @@ internal class VolunteerManager
         if (assignmentToCallID != null&& assignmentToCallID.TimeEnd==null)
         {
             idCall = assignmentToCallID.CallId;
-            DO.Call call = s_dal.Call.Read(assignmentToCallID.CallId);
+            DO.Call call;
+            lock (AdminManager.BlMutex) //stage 7
+                 call = s_dal.Call.Read(assignmentToCallID.CallId);
             ctype = (BO.CallType)call.Type;
         }
         else
@@ -105,10 +109,14 @@ internal class VolunteerManager
     /// <exception cref="BO.BlWrongInputException"></exception>
     internal static BO.CallInProgress GetCallIn(DO.Volunteer doVolunteer)
     {
-        var assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
+        List<DO.Assignment> assignments;
+        lock (AdminManager.BlMutex)//stage 7
+             assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         DO.Assignment? assignmentTreat = assignments.Find(ass => /*ass.TimeEnd == null ||*/ ass.TypeEndTreat==null);
         if (assignmentTreat == null) { return null; }
-        DO.Call? callTreat = s_dal.Call.Read(assignmentTreat.CallId);
+        DO.Call? callTreat;
+        lock (AdminManager.BlMutex)//stage 7
+            callTreat = s_dal.Call.Read(assignmentTreat.CallId);
         if (callTreat == null) { throw new BO.BlWrongInputException($"there is no call with this DI {assignmentTreat.CallId}"); }
         double[] cordinate = GetCoordinates(doVolunteer.FullAddress);
         double latitude = cordinate[0];
