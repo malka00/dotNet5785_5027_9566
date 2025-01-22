@@ -133,26 +133,26 @@ internal class CallManager
 
         //int sumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count();
         BO.StatusTreat status = GetCallStatus(doCall);
-        lock(AdminManager.BlMutex)
-        return new()
-        {
-            Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,
-            CallId = doCall.Id,
-            Type = (BO.CallType)doCall.Type,
-            TimeOpened = doCall.TimeOpened,
-            TimeLeft = (doCall.MaxTimeToClose != null&& doCall.MaxTimeToClose >= s_dal.Config.Clock&& status != BO.StatusTreat.Closed) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
-            LastVolunteer = (lastAssignmentsForCall != null)
-      ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
-      : null,
-            //LastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null,
-     
-         TotalTime = /*(lastAssignmentsForCall != null && lastAssignmentsForCall.TimeEnd != null) */status==BO.StatusTreat.Closed? lastAssignmentsForCall.TimeEnd - doCall.TimeOpened : null,
-           // Status = GetCallStatus(doCall),
-           Status = status,
-            SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
+        lock (AdminManager.BlMutex)
+            return new()
+            {
+                Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,
+                CallId = doCall.Id,
+                Type = (BO.CallType)doCall.Type,
+                TimeOpened = doCall.TimeOpened,
+                TimeLeft = (doCall.MaxTimeToClose != null && doCall.MaxTimeToClose >= s_dal.Config.Clock && status != BO.StatusTreat.Closed) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
+                LastVolunteer = (lastAssignmentsForCall != null)
+          ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
+          : null,
+                //LastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null,
+
+                TotalTime = /*(lastAssignmentsForCall != null && lastAssignmentsForCall.TimeEnd != null) */status == BO.StatusTreat.Closed ? lastAssignmentsForCall.TimeEnd - doCall.TimeOpened : null,
+                // Status = GetCallStatus(doCall),
+                Status = status,
+                SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
+
 
             };
-        }
     }
 
     /// <summary>

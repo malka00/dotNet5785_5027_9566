@@ -29,7 +29,7 @@ internal class VolunteerManager
     /// <returns> BO.VolunteerInList </returns>
     internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
     {
-        List<DO.Assignment> assignments
+        List<DO.Assignment> assignments;
         lock (AdminManager.BlMutex) //stage 7
              assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
