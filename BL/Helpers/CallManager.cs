@@ -133,6 +133,7 @@ internal class CallManager
 
         //int sumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count();
         BO.StatusTreat status = GetCallStatus(doCall);
+        lock(AdminManager.BlMutex)
         return new()
         {
             Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,

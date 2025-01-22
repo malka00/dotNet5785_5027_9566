@@ -71,6 +71,7 @@ namespace BO
     /// <summary>
     /// Exception for a value that cannot be null
     /// </summary>
+     [Serializable]
     public class BlNullPropertyException : Exception
     {
         public BlNullPropertyException(string? message) : base(message) { }

@@ -49,7 +49,8 @@ internal class VolunteerImplementation : IVolunteer
 
         try
         {
-            _dal.Volunteer.Create(doVolunteer);
+            lock (AdminManager.BlMutex) //stage 7
+                _dal.Volunteer.Create(doVolunteer);
         }
         catch (DO.DalExistException ex)
         {
@@ -63,12 +64,16 @@ internal class VolunteerImplementation : IVolunteer
     {
         return (Read(id).CallIn == null) && (Read(id).SumCalls == 0);
     }
-    
+
     public void Delete(int id)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        DO.Volunteer? doVolunteer = _dal.Volunteer.Read(id);
-        IEnumerable < DO.Assignment> assignments= _dal.Assignment.ReadAll(ass=>ass.VolunteerId==id);
+        IEnumerable<DO.Assignment> assignments;
+        lock (AdminManager.BlMutex) //stage 7
+        {
+            DO.Volunteer? doVolunteer = _dal.Volunteer.Read(id);
+            assignments = _dal.Assignment.ReadAll(ass => ass.VolunteerId == id);
+        }
 
         if (assignments != null&& assignments.Count(ass => ass.TimeEnd == null) > 0)
             throw new BO.BlWrongInputException("A volunteer handling a call cannot be deleted");
@@ -76,7 +81,8 @@ internal class VolunteerImplementation : IVolunteer
             throw new BO.BlWrongInputException("A volunteer who has handled calls in the past cannot be deleted");
         try
         {
-            _dal.Volunteer.Delete(id);
+            lock (AdminManager.BlMutex) //stage 7
+                _dal.Volunteer.Delete(id);
         }
         catch (DO.DalDeleteImpossible doEx)
         {
@@ -87,15 +93,20 @@ internal class VolunteerImplementation : IVolunteer
   
     public BO.Role EnterSystem(int usingName, string password)
     {
-        DO.Volunteer volunteer = _dal.Volunteer.Read(usingName) ?? throw new BO.BlNullPropertyException("the volunteer is null");
-       if (volunteer.Password != password) throw new BO.BlWrongInputException("The password do not match");
+        DO.Volunteer volunteer;
+        lock (AdminManager.BlMutex) //stage 7
+            volunteer = _dal.Volunteer.Read(usingName) ?? throw new BO.BlNullPropertyException("the volunteer is null");
+        
+        if (volunteer.Password != password) throw new BO.BlWrongInputException("The password do not match");
         return (BO.Role)volunteer.Job;
     }
 
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? active, BO.EVolunteerInList? sortBy)
     {
-        // Retrieve all volunteers from the data layer
-        IEnumerable<DO.Volunteer> volunteers = _dal.Volunteer.ReadAll()??throw new BO.BlNullPropertyException ("There are not volunteers int database");
+        IEnumerable<DO.Volunteer> volunteers;
+        lock (AdminManager.BlMutex)
+            // Retrieve all volunteers from the data layer
+          volunteers = _dal.Volunteer.ReadAll()??throw new BO.BlNullPropertyException ("There are not volunteers int database");
 
         // Convert IEnumerable<DO.Volunteer> to IEnumerable<BO.VolunteerInList>
         // Using the 'convertDOToBOInList' method to map each DO.Volunteer to BO.VolunteerInList
@@ -131,7 +142,9 @@ internal class VolunteerImplementation : IVolunteer
 
     public BO.Volunteer Read(int id)
     {
-        var doVolunteer = _dal.Volunteer.Read(id) ??throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+        DO.Volunteer doVolunteer;
+        lock (AdminManager.BlMutex)//stage 7
+             doVolunteer = _dal.Volunteer.Read(id) ??throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
 
         return new()
         {
@@ -159,8 +172,13 @@ internal class VolunteerImplementation : IVolunteer
     public void Update(int id, BO.Volunteer boVolunteer)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        DO.Volunteer doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
-        DO.Volunteer ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+        DO.Volunteer doVolunteer;
+        DO.Volunteer ismanager;
+        lock (AdminManager.BlMutex) //stage 7
+        {
+           doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
+           ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+        }
         if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and does not correct or not manager");
         
@@ -199,7 +217,8 @@ internal class VolunteerImplementation : IVolunteer
       );
         try
         {
-            _dal.Volunteer.Update(volunteerUpdate);
+            lock (AdminManager.BlMutex) //stage 7
+                _dal.Volunteer.Update(volunteerUpdate);
         }
         catch (DO.DalExistException ex)
         {
