@@ -213,7 +213,7 @@ internal class CallManager
         IEnumerable<BO.Call> boCalls;
         lock (AdminManager.BlMutex)
         {
-            calls = s_dal.Call.ReadAll();
+            calls = s_dal.Call.ReadAll().ToList();
              boCalls = from dCall in calls
                                            where (dCall.MaxTimeToClose == null ? true : dCall.MaxTimeToClose < s_dal.Config.Clock)
                                            select (convertDOtoBO(dCall));
@@ -226,7 +226,9 @@ internal class CallManager
                 lock (AdminManager.BlMutex)
                     s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
             }
-             
+            
+
+
             else
             {
                 var lastAss = call.AssignmentsToCalls.OrderByDescending(a => a.StartTreat).First();
@@ -235,10 +237,12 @@ internal class CallManager
                     assignmentUpdated = true; //stage 5
                     lock (AdminManager.BlMutex)
                          assignment = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.TimeEnd == null && a.TypeEndTreat == null);
-                    Observers.NotifyItemUpdated(assignment.Id); //stage 5
+
                     lock (AdminManager.BlMutex)
                         s_dal.Assignment.Update(new DO.Assignment(assignment.Id, assignment.CallId, assignment.VolunteerId, lastAss.StartTreat, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+                    Observers.NotifyItemUpdated(assignment.Id); //stage 5
                 }
+                
             }
         }
         if(assignmentUpdated)

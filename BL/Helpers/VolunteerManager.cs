@@ -17,7 +17,64 @@ namespace Helpers;
 /// Auxiliary functions for the implementation of the volunteer
 /// </summary>
 internal class VolunteerManager
+{ 
+private static readonly Random s_rand = new();
+private static int s_simulatorCounter = 0;
+
+internal static void SimulateVolunteerActivity() //stage 7
 {
+    Thread.CurrentThread.Name = $"Simulator{++s_simulatorCounter}";
+
+//    LinkedList<int> volunteersToUpdate = new(); //stage 7
+//        var boVolunteerList = BO.VolunteerImplementation.GetVolunteerList(true, null);
+
+//    lock (AdminManager.BlMutex) //stage 7
+//            doVolunteerList = s_dal.Volunteer.ReadAll(st => st.Active == true).ToList();
+
+//    foreach (var doStudent in doVolunteerList)
+//    {
+//       // int studentId = 0;
+//       if(doStudent)
+//        lock (AdminManager.BlMutex) //stage 7
+//        {
+//            BO.Year studentYear = GetStudentCurrentYear(doStudent.RegistrationDate);
+
+//            //the above method, includes network requests to compute the distances
+//            //between courses address and current student address
+//            //these network requests are done synchronically
+//            var coursesNotRegistered = CourseManager.GetUnRegisteredCoursesForStudent(doStudent.Id, studentYear);
+
+//            int cntNotRegCourses = coursesNotRegistered.Count();
+//            if (cntNotRegCourses != 0)
+//            {
+//                int courseId = coursesNotRegistered.Skip(s_rand.Next(0, cntNotRegCourses)).First()!.Id;
+//                LinkManager.LinkStudentToCourse(doStudent.Id, courseId);
+//                studentId = doStudent.Id;
+//            }
+
+//            //simulate setting grade of course for selected student
+//            var coursesRegistered =
+//                s_dal.Course.ReadAll(course => LinkManager.IsStudentLinkedToCourse(doStudent.Id, course.Id) && course.InYear == (DO.Year)studentYear);
+//            int cntRegCourses = coursesRegistered.Count();
+//            if (cntRegCourses != 0)
+//            {
+//                int courseId = coursesRegistered.Skip(s_rand.Next(0, cntRegCourses)).First()!.Id;
+//                LinkManager.UpdateCourseGradeForStudent(doStudent.Id, courseId, Math.Round(s_rand.NextDouble() * 100, 2));
+//                studentId = doStudent.Id;
+//            }
+
+//            if (studentId != 0)
+//                studentsToUpdate.AddLast(doStudent.Id);
+//        } //lock
+//    }
+
+//    foreach (int id in studentsToUpdate)
+//        Observers.NotifyItemUpdated(id);
+}
+
+
+
+
     private static IDal s_dal = Factory.Get;   //stage 4
 
     internal static ObserverManager Observers = new(); //stage 5 
@@ -402,6 +459,7 @@ internal class VolunteerManager
     /// <param name="address">The address to be geocoded</param>
     /// <returns>A double array containing the latitude and longitude</returns>
     /// 
+
 
     public static double[] GetCoordinates(string address)
     {
