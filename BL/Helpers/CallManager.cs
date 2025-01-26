@@ -18,7 +18,7 @@ internal class CallManager
     internal static ObserverManager Observers = new(); //stage 5 
 
 
-    
+
 
     ///// <summary>
     ///// Converts an object of type DO.Call to an object of type BO.CallInList
@@ -46,7 +46,10 @@ internal class CallManager
     /// <param name="condition"></param>
     /// <returns> CallInList </returns>
     internal static IEnumerable<BO.CallInList> GetCallsInList(Predicate<DO.Call> condition)
-        => s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
+    {
+        lock (AdminManager.BlMutex)//stage 7
+        return s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
+    }
 
     /// <summary>
     /// Static helper function for retrieving read call
@@ -58,7 +61,9 @@ internal class CallManager
         if (doCall.MaxTimeToClose < s_dal.Config.Clock)
             return BO.StatusTreat.Expired;
         // var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.TimeStart).FirstOrDefault();
-        var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.Id).FirstOrDefault();
+        Assignment? lastAssignment;
+        lock (AdminManager.BlMutex)//stage 7
+             lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.Id).FirstOrDefault();
         if (lastAssignment == null)
         {
             if (IsInRisk(doCall!))
@@ -133,20 +138,23 @@ internal class CallManager
 
         //int sumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count();
         BO.StatusTreat status = GetCallStatus(doCall);
+        TimeSpan? timeLeft;
         lock (AdminManager.BlMutex)
+             timeLeft = (doCall.MaxTimeToClose != null && doCall.MaxTimeToClose >= s_dal.Config.Clock && status != BO.StatusTreat.Closed) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null;
+
             return new()
             {
                 Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,
                 CallId = doCall.Id,
                 Type = (BO.CallType)doCall.Type,
                 TimeOpened = doCall.TimeOpened,
-                TimeLeft = (doCall.MaxTimeToClose != null && doCall.MaxTimeToClose >= s_dal.Config.Clock && status != BO.StatusTreat.Closed) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null,
+
+                TimeLeft = timeLeft,
                 LastVolunteer = (lastAssignmentsForCall != null)
           ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
           : null,
-                //LastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)!.FullName : null,
 
-                TotalTime = /*(lastAssignmentsForCall != null && lastAssignmentsForCall.TimeEnd != null) */status == BO.StatusTreat.Closed ? lastAssignmentsForCall.TimeEnd - doCall.TimeOpened : null,
+                TotalTime = status == BO.StatusTreat.Closed ? lastAssignmentsForCall.TimeEnd - doCall.TimeOpened : null,
                 // Status = GetCallStatus(doCall),
                 Status = status,
                 SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
@@ -163,32 +171,36 @@ internal class CallManager
     internal static BO.Call convertDOtoBO(DO.Call doCall)
     {
         Func<DO.Assignment, bool> func;
+        IEnumerable<DO.Assignment> dataOfAssignments;
         lock (AdminManager.BlMutex)
+        {
             func = item => item.CallId == doCall.Id;
-        IEnumerable<DO.Assignment> dataOfAssignments = s_dal.Assignment.ReadAll(func);
-        return new()
-        {
-            Id = doCall.Id,
-            Type = (BO.CallType)doCall.Type,
-            Description = doCall.Description,
-            FullAddress = doCall.FullAddress,
-            Latitude = doCall.Latitude,
-            Longitude = doCall.Longitude,
-            TimeOpened = doCall.TimeOpened,
-            MaxTimeToClose = doCall.MaxTimeToClose,
-            Status = GetCallStatus(doCall),
-            AssignmentsToCalls = dataOfAssignments.Any()
-        ? dataOfAssignments.Select(assign => new BO.CallAssignInList
-        {
-            VolunteerId = assign.VolunteerId,
-            VolunteerName = s_dal.Volunteer.Read(assign.VolunteerId)?.FullName,
-            StartTreat = assign.TimeStart,
-            TimeClose = assign.TimeEnd,
-            TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
-        }).ToList()
-        : null,
+            dataOfAssignments = s_dal.Assignment.ReadAll(func);
 
-        };
+            return new()
+            {
+                Id = doCall.Id,
+                Type = (BO.CallType)doCall.Type,
+                Description = doCall.Description,
+                FullAddress = doCall.FullAddress,
+                Latitude = doCall.Latitude,
+                Longitude = doCall.Longitude,
+                TimeOpened = doCall.TimeOpened,
+                MaxTimeToClose = doCall.MaxTimeToClose,
+                Status = GetCallStatus(doCall),
+                AssignmentsToCalls = dataOfAssignments.Any()
+            ? dataOfAssignments.Select(assign => new BO.CallAssignInList
+            {
+                VolunteerId = assign.VolunteerId,
+                VolunteerName = s_dal.Volunteer.Read(assign.VolunteerId)?.FullName,
+                StartTreat = assign.TimeStart,
+                TimeClose = assign.TimeEnd,
+                TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
+            }).ToList()
+            : null,
+
+            };
+        }
     }
 
     /// <summary>
@@ -197,16 +209,22 @@ internal class CallManager
     internal static void UpdateExpiredCalls()
     {
         bool assignmentUpdated = false; //stage 5
-
-        IEnumerable<DO.Call> calls = s_dal.Call.ReadAll();
-        IEnumerable<BO.Call> boCalls = from dCall in calls
-                                       where (dCall.MaxTimeToClose == null ? true : dCall.MaxTimeToClose < s_dal.Config.Clock)
-                                       select (convertDOtoBO(dCall));
+        IEnumerable<DO.Call> calls;
+        IEnumerable<BO.Call> boCalls;
+        lock (AdminManager.BlMutex)
+        {
+            calls = s_dal.Call.ReadAll();
+             boCalls = from dCall in calls
+                                           where (dCall.MaxTimeToClose == null ? true : dCall.MaxTimeToClose < s_dal.Config.Clock)
+                                           select (convertDOtoBO(dCall));
+        }
+        Assignment? assignment;
         foreach (BO.Call call in boCalls)
         {
             if (call.AssignmentsToCalls == null)
-            { 
-                s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+            {
+                lock (AdminManager.BlMutex)
+                    s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
             }
              
             else
@@ -215,9 +233,11 @@ internal class CallManager
                 if (lastAss.TypeEndTreat == null)
                 {
                     assignmentUpdated = true; //stage 5
-                    var assignment = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.TimeEnd == null && a.TypeEndTreat == null);
+                    lock (AdminManager.BlMutex)
+                         assignment = s_dal.Assignment.Read(a => a.VolunteerId == lastAss.VolunteerId && a.TimeEnd == null && a.TypeEndTreat == null);
                     Observers.NotifyItemUpdated(assignment.Id); //stage 5
-                    s_dal.Assignment.Update(new DO.Assignment(assignment.Id, assignment.CallId, assignment.VolunteerId, lastAss.StartTreat, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+                    lock (AdminManager.BlMutex)
+                        s_dal.Assignment.Update(new DO.Assignment(assignment.Id, assignment.CallId, assignment.VolunteerId, lastAss.StartTreat, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
                 }
             }
         }
