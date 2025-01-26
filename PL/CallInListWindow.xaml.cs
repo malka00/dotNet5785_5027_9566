@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BO;
+using PL.Volunteer;
 
 
 namespace PL;
@@ -73,7 +74,7 @@ public partial class CallInListWindow : Window
     {
         if (SelectedCall?.CallId != null) // בדיקה אם SelectedCall ו-Id אינם null
         {
-            new CallWindow(SelectedCall.CallId).Show();
+            new CallWindow(SelectedCall.CallId) { Owner = this }.Show();      //    new CallWindow(SelectedCall.CallId).Show();
         }
         else
         {
@@ -83,7 +84,8 @@ public partial class CallInListWindow : Window
 
     private void btnAdd_Click(object sender, RoutedEventArgs e)
     {
-        new CallWindow().Show();
+        new CallWindow() { Owner = this }.Show();
+        //   new CallWindow().Show();
     }
 
     private void btnDelete_Click(object sender, RoutedEventArgs e)

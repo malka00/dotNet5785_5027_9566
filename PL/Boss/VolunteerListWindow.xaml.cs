@@ -65,8 +65,9 @@ namespace PL.Volunteer
         {
             if (sender is DataGrid dataGrid && dataGrid.SelectedItem is BO.VolunteerInList selectedVolunteer)
             {
-                VolunteerDetailsWindow detailsWindow = new VolunteerDetailsWindow(SelectedVolunteer.Id,Id );
-                detailsWindow.Show();
+
+                new VolunteerDetailsWindow(SelectedVolunteer.Id, Id) { Owner = this }.Show();
+
             }
             else
             {
@@ -76,7 +77,8 @@ namespace PL.Volunteer
   
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            new VolunteerDetailsWindow().Show();
+            new VolunteerDetailsWindow() { Owner = this }.Show();
+           // new VolunteerDetailsWindow().Show();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

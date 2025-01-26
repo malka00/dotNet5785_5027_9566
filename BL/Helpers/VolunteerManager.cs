@@ -1,4 +1,6 @@
-﻿using BlImplementation;
+﻿namespace Helpers;
+using BlImplementation;
+using BO;
 using DalApi;
 using System;
 using System.Net;
@@ -10,75 +12,105 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-namespace Helpers;
+
 
 
 /// <summary>
 /// Auxiliary functions for the implementation of the volunteer
 /// </summary>
 internal class VolunteerManager
-{ 
-private static readonly Random s_rand = new();
-private static int s_simulatorCounter = 0;
-
-internal static void SimulateVolunteerActivity() //stage 7
 {
-    Thread.CurrentThread.Name = $"Simulator{++s_simulatorCounter}";
-
-//    LinkedList<int> volunteersToUpdate = new(); //stage 7
-//        var boVolunteerList = BO.VolunteerImplementation.GetVolunteerList(true, null);
-
-//    lock (AdminManager.BlMutex) //stage 7
-//            doVolunteerList = s_dal.Volunteer.ReadAll(st => st.Active == true).ToList();
-
-//    foreach (var doStudent in doVolunteerList)
-//    {
-//       // int studentId = 0;
-//       if(doStudent)
-//        lock (AdminManager.BlMutex) //stage 7
-//        {
-//            BO.Year studentYear = GetStudentCurrentYear(doStudent.RegistrationDate);
-
-//            //the above method, includes network requests to compute the distances
-//            //between courses address and current student address
-//            //these network requests are done synchronically
-//            var coursesNotRegistered = CourseManager.GetUnRegisteredCoursesForStudent(doStudent.Id, studentYear);
-
-//            int cntNotRegCourses = coursesNotRegistered.Count();
-//            if (cntNotRegCourses != 0)
-//            {
-//                int courseId = coursesNotRegistered.Skip(s_rand.Next(0, cntNotRegCourses)).First()!.Id;
-//                LinkManager.LinkStudentToCourse(doStudent.Id, courseId);
-//                studentId = doStudent.Id;
-//            }
-
-//            //simulate setting grade of course for selected student
-//            var coursesRegistered =
-//                s_dal.Course.ReadAll(course => LinkManager.IsStudentLinkedToCourse(doStudent.Id, course.Id) && course.InYear == (DO.Year)studentYear);
-//            int cntRegCourses = coursesRegistered.Count();
-//            if (cntRegCourses != 0)
-//            {
-//                int courseId = coursesRegistered.Skip(s_rand.Next(0, cntRegCourses)).First()!.Id;
-//                LinkManager.UpdateCourseGradeForStudent(doStudent.Id, courseId, Math.Round(s_rand.NextDouble() * 100, 2));
-//                studentId = doStudent.Id;
-//            }
-
-//            if (studentId != 0)
-//                studentsToUpdate.AddLast(doStudent.Id);
-//        } //lock
-//    }
-
-//    foreach (int id in studentsToUpdate)
-//        Observers.NotifyItemUpdated(id);
-}
-
-
-
-
     private static IDal s_dal = Factory.Get;   //stage 4
+    private static readonly Random s_rand = new();
+    private static int s_simulatorCounter = 0;
+
+    internal static void SimulateVolunteerActivity() //stage 7
+    {
+        // var volunteerImplementation = new VolunteerImplementation();
+        Thread.CurrentThread.Name = $"Simulator{++s_simulatorCounter}";
+
+        // var volunteerList = volunteerImplementation.GetVolunteerList(true,null);
+        var volunteerlist = GetVolunteerListHelp(true, null).ToList();
+        double probability = 0.2;
+
+        // יצירת מספר אקראי בטווח 0 עד 1
+        double randomValue = s_rand.NextDouble(); // מספר בין 0.0 ל-1.0
+
+        // בדיקה אם המספר האקראי קטן מההסתברות
+
+        foreach (var volunteer in volunteerlist)
+        {
+            if (volunteer.IdCall == null && randomValue < probability)
+            {
+                var openCallInListsToChose = CallManager.GetOpenCallHelp(volunteer.Id, null, null).ToList();
+
+                if (openCallInListsToChose != null && openCallInListsToChose.Count > 0)
+                {
+                    var randomIndex = s_rand.Next(openCallInListsToChose.Count);
+                    var chosenCall = openCallInListsToChose[randomIndex];
+
+                    CallManager.ChoseForTreatHelp(volunteer.Id, chosenCall.Id);
+                }
+                else    //there is call in treat
+                {
+                    //var callIn = GetCallIn();
+
+                    //if (s_dal.Config.Clock- callIn.StartTreat)
+
+                }
+            }
+        }
+    }
+
+
+
+        
+      
+
+
+        internal static IEnumerable<BO.VolunteerInList> GetVolunteerListHelp(bool? active, BO.EVolunteerInList? sortBy)
+        {
+            IEnumerable<DO.Volunteer> volunteers;
+            lock (AdminManager.BlMutex)
+                // Retrieve all volunteers from the data layer
+                volunteers = s_dal.Volunteer.ReadAll().ToList() ?? throw new BO.BlNullPropertyException("There are not volunteers int database");
+
+            // Convert IEnumerable<DO.Volunteer> to IEnumerable<BO.VolunteerInList>
+            // Using the 'convertDOToBOInList' method to map each DO.Volunteer to BO.VolunteerInList
+            IEnumerable<BO.VolunteerInList> boVolunteersInList = volunteers
+                .Select(doVolunteer => VolunteerManager.convertDOToBOInList(doVolunteer));
+
+            // If an 'active' filter is provided, filter the volunteers based on their active status
+            // Otherwise, keep all volunteers without filtering
+            var filteredVolunteers = active.HasValue
+                  ? boVolunteersInList.Where(v => v.Active == active)
+                  : boVolunteersInList;
+
+            // If a 'sortBy' criteria is provided, sort the filtered volunteers by the selected property
+            var sortedVolunteers = sortBy.HasValue
+                ? filteredVolunteers.OrderBy(v =>
+                    sortBy switch
+                    {
+                        // Sorting by different properties of the volunteer (ID, Full Name, etc.)
+                        BO.EVolunteerInList.Id => (object)v.Id, // Sorting by ID (T.Z)
+                        BO.EVolunteerInList.FullName => v.FullName, // Sorting by full name
+                        BO.EVolunteerInList.Active => v.Active, // Sorting by active status
+                        BO.EVolunteerInList.SumCalls => v.SumCalls, // Sorting by total number of calls
+                        BO.EVolunteerInList.SumCanceled => v.SumCanceled, // Sorting by total number of cancellations
+                        BO.EVolunteerInList.SumExpired => v.SumExpired, // Sorting by total number of expired calls
+                        BO.EVolunteerInList.IdCall => v.IdCall ?? null, // Sorting by call ID (nullable)
+                        BO.EVolunteerInList.CType => v.CType.ToString(), // Sorting by call type (converted to string)
+                    })
+                : filteredVolunteers.OrderBy(v => v.Id); // Default sorting by ID (T.Z) if no 'sortBy' is provided
+
+            // Return the sorted and filtered list of volunteers
+            return sortedVolunteers;
+        }
+    
+
 
     internal static ObserverManager Observers = new(); //stage 5 
-   
+
     /// <summary>
     /// func for convert DO.volunteer for BO.VolunteerInList
     /// </summary>
@@ -88,7 +120,7 @@ internal static void SimulateVolunteerActivity() //stage 7
     {
         List<DO.Assignment> assignments;
         lock (AdminManager.BlMutex) //stage 7
-             assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
+            assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
         int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
         int sumCanceld = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
         int sumExpired = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
@@ -96,16 +128,16 @@ internal static void SimulateVolunteerActivity() //stage 7
         var assignmentToCallID = assignments.Find(ass => ass.TimeEnd == null);
         int? idCall;
         BO.CallType ctype;
-        if (assignmentToCallID != null&& assignmentToCallID.TimeEnd==null)
+        if (assignmentToCallID != null && assignmentToCallID.TimeEnd == null)
         {
             idCall = assignmentToCallID.CallId;
             DO.Call call;
             lock (AdminManager.BlMutex) //stage 7
-                 call = s_dal.Call.Read(assignmentToCallID.CallId);
+                call = s_dal.Call.Read(assignmentToCallID.CallId);
             ctype = (BO.CallType)call.Type;
         }
         else
-       
+
         {
             idCall = null;
             ctype = BO.CallType.None;
@@ -124,8 +156,8 @@ internal static void SimulateVolunteerActivity() //stage 7
     }
 
 
-  
-    internal  static string EncryptPassword(string password)
+
+    internal static string EncryptPassword(string password)
     {
         int shift = 3;
         StringBuilder encryptedPassword = new StringBuilder();
@@ -143,7 +175,7 @@ internal static void SimulateVolunteerActivity() //stage 7
     internal static string DecryptPassword(string encryptedPassword)
     {
         int shift = 3;
-      
+
         StringBuilder decryptedPassword = new StringBuilder();
 
         foreach (char c in encryptedPassword)
@@ -168,8 +200,8 @@ internal static void SimulateVolunteerActivity() //stage 7
     {
         List<DO.Assignment> assignments;
         lock (AdminManager.BlMutex)//stage 7
-             assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
-        DO.Assignment? assignmentTreat = assignments.Find(ass => /*ass.TimeEnd == null ||*/ ass.TypeEndTreat==null);
+            assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
+        DO.Assignment? assignmentTreat = assignments.Find(ass => /*ass.TimeEnd == null ||*/ ass.TypeEndTreat == null);
         if (assignmentTreat == null) { return null; }
         DO.Call? callTreat;
         lock (AdminManager.BlMutex)//stage 7
@@ -179,7 +211,7 @@ internal static void SimulateVolunteerActivity() //stage 7
         double latitude = cordinate[0];
         double longitude = cordinate[1];
         AdminImplementation admin = new AdminImplementation();
-        BO.StatusTreat status=CallManager.GetCallStatus(callTreat);
+        BO.StatusTreat status = CallManager.GetCallStatus(callTreat);
 
         return new()
         {
@@ -237,7 +269,7 @@ internal static void SimulateVolunteerActivity() //stage 7
         /// </summary>
         if (boVolunteer.FullName.Any(c => !Char.IsLetter(c) && !Char.IsWhiteSpace(c)))
         {
-            throw new    BO.BlWrongItemException($"FullName {boVolunteer.FullName} contains invalid characters.");
+            throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} contains invalid characters.");
         }
         /// <summary>
         /// Validate the Email field.
@@ -293,12 +325,12 @@ internal static void SimulateVolunteerActivity() //stage 7
     {
         //try
         //{
-            CheckId(boVolunteer.Id);
-            CheckPhoneNumber(boVolunteer.PhoneNumber);
-            CheckEmail(boVolunteer.Email);
-            CheckPassword(boVolunteer.Password);
-            CheckAddress(boVolunteer);
-            CheckActive(boVolunteer);
+        CheckId(boVolunteer.Id);
+        CheckPhoneNumber(boVolunteer.PhoneNumber);
+        CheckEmail(boVolunteer.Email);
+        CheckPassword(boVolunteer.Password);
+        CheckAddress(boVolunteer);
+        CheckActive(boVolunteer);
 
         //}
         //catch (BO.BlWrongItemException ex)
@@ -554,7 +586,7 @@ internal static void SimulateVolunteerActivity() //stage 7
         double lon2Rad = lon2 * (Math.PI / 180);
 
 
-         const double R = 6371; // Radius of the Earth in kilometers
+        const double R = 6371; // Radius of the Earth in kilometers
 
         double dLat = lat2Rad - lat1Rad;
         double dLon = lon2Rad - lon1Rad;
@@ -565,7 +597,7 @@ internal static void SimulateVolunteerActivity() //stage 7
 
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-      return   R * c; // Distance in kilometers
+        return R * c; // Distance in kilometers
     }
 }
 

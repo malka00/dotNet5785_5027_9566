@@ -103,41 +103,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? active, BO.EVolunteerInList? sortBy)
     {
-        IEnumerable<DO.Volunteer> volunteers;
-        lock (AdminManager.BlMutex)
-            // Retrieve all volunteers from the data layer
-          volunteers = _dal.Volunteer.ReadAll()??throw new BO.BlNullPropertyException ("There are not volunteers int database");
-
-        // Convert IEnumerable<DO.Volunteer> to IEnumerable<BO.VolunteerInList>
-        // Using the 'convertDOToBOInList' method to map each DO.Volunteer to BO.VolunteerInList
-        IEnumerable<BO.VolunteerInList> boVolunteersInList = volunteers
-            .Select(doVolunteer => VolunteerManager.convertDOToBOInList(doVolunteer));
-
-        // If an 'active' filter is provided, filter the volunteers based on their active status
-        // Otherwise, keep all volunteers without filtering
-        var filteredVolunteers = active.HasValue
-              ? boVolunteersInList.Where(v => v.Active == active)
-              : boVolunteersInList;
-
-        // If a 'sortBy' criteria is provided, sort the filtered volunteers by the selected property
-        var sortedVolunteers = sortBy.HasValue
-            ? filteredVolunteers.OrderBy(v =>
-                sortBy switch
-                {
-                    // Sorting by different properties of the volunteer (ID, Full Name, etc.)
-                    BO.EVolunteerInList.Id => (object)v.Id, // Sorting by ID (T.Z)
-                    BO.EVolunteerInList.FullName => v.FullName, // Sorting by full name
-                    BO.EVolunteerInList.Active => v.Active, // Sorting by active status
-                    BO.EVolunteerInList.SumCalls => v.SumCalls, // Sorting by total number of calls
-                    BO.EVolunteerInList.SumCanceled => v.SumCanceled, // Sorting by total number of cancellations
-                    BO.EVolunteerInList.SumExpired => v.SumExpired, // Sorting by total number of expired calls
-                    BO.EVolunteerInList.IdCall => v.IdCall ?? null, // Sorting by call ID (nullable)
-                    BO.EVolunteerInList.CType => v.CType.ToString(), // Sorting by call type (converted to string)
-                })
-            : filteredVolunteers.OrderBy(v => v.Id); // Default sorting by ID (T.Z) if no 'sortBy' is provided
-
-        // Return the sorted and filtered list of volunteers
-        return sortedVolunteers;
+        return VolunteerManager.GetVolunteerListHelp(active, sortBy);
     }
 
     public BO.Volunteer Read(int id)

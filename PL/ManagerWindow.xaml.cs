@@ -41,6 +41,7 @@ namespace PL
 
         private void btnVolunteerWindow_Click(object sender, RoutedEventArgs e)
         {
+
             new VolunteerWindow(Id).Show();
         }
 

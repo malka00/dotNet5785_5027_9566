@@ -106,7 +106,10 @@ namespace PL
 
 
         private void ButtonVolunteer_Click(object sender, RoutedEventArgs e)
-        { new VolunteerListWindow(Id).Show(); }
+        {
+            new VolunteerListWindow(Id) { Owner = this }.Show();
+          //  new VolunteerListWindow(Id).Show();
+          }
 
 
         private void btnInitDB_Click(object sender, RoutedEventArgs e)
@@ -165,7 +168,10 @@ namespace PL
         { }
 
         private void ButtonCall_Click(object sender, RoutedEventArgs e)
-        { new CallInListWindow(Id).Show(); }
+        {
+            new CallInListWindow(Id) { Owner = this }.Show();
+          //  new CallInListWindow(Id).Show();
+        }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
