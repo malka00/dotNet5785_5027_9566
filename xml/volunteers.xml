@@ -226,14 +226,14 @@
   <Volunteer>
     <ID>214425027</ID>
     <fullName>Efrat Sharabi </fullName>
-    <phone>0501111111</phone>
+    <phone>0501111112</phone>
     <email>admin@example.com</email>
     <password>D4567</password>
     <isActive>true</isActive>
     <role>Boss</role>
     <distance>Aerial</distance>
     <address>Harounoff  street 2, Jerusalem, Israel</address>
-    <longitude>35.218994</longitude>
-    <latitude>31.796294</latitude>
+    <longitude>35.214391</longitude>
+    <latitude>31.912659</latitude>
   </Volunteer>
 </ArrayOfVolunteer>
