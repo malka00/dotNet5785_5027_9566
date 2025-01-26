@@ -16,7 +16,26 @@ internal class CallManager
     private static IDal s_dal = Factory.Get;   //stage 4
 
     internal static ObserverManager Observers = new(); //stage 5 
-  internal static void ChoseForTreatHelp(int idVol, int idCall)
+    internal static async Task updateCoordinatesForCallsAddressAsync(DO.Call doCall)
+    {
+        if (doCall.FullAddress is not null)
+        {
+
+            double[] coordinates = await VolunteerManager.GetCoordinatesAsync(doCall.FullAddress);
+
+
+            if (coordinates is not null)
+            {
+                doCall = doCall with { Latitude = coordinates[0], Longitude = coordinates[1] };
+                lock (AdminManager.BlMutex)
+                    s_dal.Call.Update(doCall);
+                Observers.NotifyListUpdated();
+                Observers.NotifyItemUpdated(doCall.Id);
+            }
+        }
+    }
+
+    internal static void ChoseForTreatHelp(int idVol, int idCall)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
         // Retrieve volunteer and call; throw exception if not found.
@@ -93,7 +112,7 @@ internal class CallManager
                                                            MaxTimeToClose = boCall.MaxTimeToClose,
                                                            Status = boCall.Status,
                                                            distanceCallVolunteer = /*volunteer?.FullAddress != null ?*/
-                                                          VolunteerManager.CalculateDistance(latVol, lonVol, boCall.Latitude, boCall.Longitude)/* : 0*/  // Calculate the distance between the volunteer and the call
+                                                          VolunteerManager.CalculateDistance(latVol, lonVol, (double)boCall.Latitude, (double)boCall.Longitude)/* : 0*/  // Calculate the distance between the volunteer and the call
 
                                                        };
         filteredCalls = from call in filteredCalls
@@ -337,19 +356,19 @@ internal class CallManager
     /// </summary>
     /// <param name="call"></param>
     /// <exception cref="BO.BlWrongItemException"></exception>
-    internal static void CheckAddress(BO.Call call)
-    {
-        double[] coordinates = VolunteerManager.GetCoordinates(call.FullAddress);
-        if (coordinates[0] != call.Latitude || coordinates[1] != call.Longitude)
-            throw new BO.BlWrongItemException($"not math coordinates");
-    }
+    //internal static void CheckAddress(BO.Call call)
+    //{
+    //    double[] coordinates = VolunteerManager.GetCoordinatesAsync(call.FullAddress);
+    //    if (coordinates[0] != call.Latitude || coordinates[1] != call.Longitude)
+    //        throw new BO.BlWrongItemException($"not math coordinates");
+    //}
 
     /// <summary>
     /// check the call from a logical point of view - correct address and maximum time (which has not yet passed)
     /// </summary>
     internal static void CheckLogic(BO.Call boCall)
     {
-            CheckAddress(boCall);
+          //  CheckAddress(boCall);
             if (/*(boCall.MaxTimeToClose <= AdminManager.Now) ||*/ (boCall.MaxTimeToClose <= boCall.TimeOpened))
                 throw new BO.BlWrongItemException("Time to close must be after time open");
     }

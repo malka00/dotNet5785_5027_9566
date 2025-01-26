@@ -62,12 +62,6 @@ internal class VolunteerManager
         }
     }
 
-
-
-        
-      
-
-
         internal static IEnumerable<BO.VolunteerInList> GetVolunteerListHelp(bool? active, BO.EVolunteerInList? sortBy)
         {
             IEnumerable<DO.Volunteer> volunteers;
@@ -207,9 +201,9 @@ internal class VolunteerManager
         lock (AdminManager.BlMutex)//stage 7
             callTreat = s_dal.Call.Read(assignmentTreat.CallId);
         if (callTreat == null) { throw new BO.BlWrongInputException($"there is no call with this DI {assignmentTreat.CallId}"); }
-        double[] cordinate = GetCoordinates(doVolunteer.FullAddress);
-        double latitude = cordinate[0];
-        double longitude = cordinate[1];
+        //double[] cordinate = GetCoordinatesAsync(doVolunteer.FullAddress);
+        //double latitude = cordinate[0];
+        //double longitude = cordinate[1];
         AdminImplementation admin = new AdminImplementation();
         BO.StatusTreat status = CallManager.GetCallStatus(callTreat);
 
@@ -223,7 +217,7 @@ internal class VolunteerManager
             TimeOpen = callTreat.TimeOpened,
             MaxTimeToClose = callTreat.MaxTimeToClose,
             StartTreat = assignmentTreat.TimeStart,
-            distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, latitude, longitude),
+            distanceCallVolunteer = CalculateDistance(callTreat.Latitude,   callTreat.Longitude,doVolunteer.Latitude,doVolunteer.Longitude),
             //Status = status,
             Status = (callTreat.MaxTimeToClose - AdminManager.Now <= s_dal.Config.RiskRange ? BO.StatusTreat.TreatInRisk : BO.StatusTreat.TreatInRisk),
         };
@@ -329,7 +323,7 @@ internal class VolunteerManager
         CheckPhoneNumber(boVolunteer.PhoneNumber);
         CheckEmail(boVolunteer.Email);
         CheckPassword(boVolunteer.Password);
-        CheckAddress(boVolunteer);
+        // CheckAddress(boVolunteer);
         CheckActive(boVolunteer);
 
         //}
@@ -484,6 +478,25 @@ internal class VolunteerManager
             throw new BO.BlWrongItemException($"Password{password} must contain at least one digit.");
     }
 
+    internal static async Task updateCoordinatesForVolunteerAddressAsync(DO.Volunteer doVolunteer)
+    {
+        if (doVolunteer.FullAddress is not null)
+        {
+          
+                double[] coordinates = await GetCoordinatesAsync(doVolunteer.FullAddress);
+            
+         
+            if (coordinates is not null)
+            {
+                doVolunteer = doVolunteer with { Latitude = coordinates[0], Longitude = coordinates[1] };
+                lock (AdminManager.BlMutex)
+                    s_dal.Volunteer.Update(doVolunteer);
+                Observers.NotifyListUpdated();
+                Observers.NotifyItemUpdated(doVolunteer.Id);
+            }
+        }
+    }
+
     /// <summary>
     /// This method takes an address as input and returns an array with the latitude and longitude.
     /// The request is synchronous, meaning it waits for the response before continuing.
@@ -493,7 +506,7 @@ internal class VolunteerManager
     /// 
 
 
-    public static double[] GetCoordinates(string address)
+    public static async Task<double[]> GetCoordinatesAsync(string address)
     {
         if (string.IsNullOrWhiteSpace(address))
         {
@@ -505,12 +518,12 @@ internal class VolunteerManager
 
         try
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest request =  (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
             {
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -527,6 +540,7 @@ internal class VolunteerManager
                     {
                         throw new BO.BlWrongInputException("No coordinates found for the given address.");
                     }
+                    if (results.Length > 1) { throw new BO.BlWrongInputException("No spesific address."); }
 
                     return new double[] { double.Parse(results[0].Lat), double.Parse(results[0].Lon) };
                 }
@@ -559,12 +573,12 @@ internal class VolunteerManager
     /// </summary>
     /// <param name="volunteer"></param>
     /// <exception cref="BO.BlWrongItemException"></exception>
-    internal static void CheckAddress(BO.Volunteer volunteer)
-    {
-        double[] cordinates = GetCoordinates(volunteer.FullAddress);
-        if (cordinates[0] != volunteer.Latitude || cordinates[1] != volunteer.Longitude)
-            throw new BO.BlWrongItemException($"not math cordinates");
-    }
+    //internal static void CheckAddress(BO.Volunteer volunteer)
+    //{
+    //    double[] cordinates = GetCoordinatesAsync(volunteer.FullAddress);
+    //    if (cordinates[0] != volunteer.Latitude || cordinates[1] != volunteer.Longitude)
+    //        throw new BO.BlWrongItemException($"not math cordinates");
+    //}
 
     /// <summary>
     /// Calculates the distance between two points (latitude and longitude) in meters.
@@ -574,16 +588,16 @@ internal class VolunteerManager
     /// <param name="lat2">Latitude of the second point</param>
     /// <param name="lon2">Longitude of the second point</param>
     /// <returns>Distance in meters between the two points</returns>
-    internal static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+    internal static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2)
     {
-
-
+        if (lat1 == null || lon1 == null || lat2 == null || lon2 == null)
+            return 0;
 
         //  // Convert latitude and longitude from degrees to radians
-        double lat1Rad = lat1 * (Math.PI / 180);
-        double lon1Rad = lon1 * (Math.PI / 180);
-        double lat2Rad = lat2 * (Math.PI / 180);
-        double lon2Rad = lon2 * (Math.PI / 180);
+        double lat1Rad = (double)lat1 * (Math.PI / 180);
+        double lon1Rad = (double)lon1 * (Math.PI / 180);
+        double lat2Rad = (double)lat2 * (Math.PI / 180);
+        double lon2Rad = (double)lon2 * (Math.PI / 180);
 
 
         const double R = 6371; // Radius of the Earth in kilometers

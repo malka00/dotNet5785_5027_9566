@@ -4,6 +4,7 @@ using BlApi;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 internal class VolunteerImplementation : IVolunteer
 {
@@ -23,11 +24,11 @@ internal class VolunteerImplementation : IVolunteer
     public void Create(BO.Volunteer boVolunteer)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
-        double latitude = coordinate[0];
-        double longitude = coordinate[1];
-        boVolunteer.Latitude = latitude;
-        boVolunteer.Longitude = longitude;
+        //double[] coordinate = VolunteerManager.GetCoordinatesAsync(boVolunteer.FullAddress);
+        //double latitude = coordinate[0];
+        //double longitude = coordinate[1];
+        //boVolunteer.Latitude = latitude;
+        //boVolunteer.Longitude = longitude;
         VolunteerManager.CheckLogic(boVolunteer);
         VolunteerManager.CheckFormat(boVolunteer);
         string password=VolunteerManager.EncryptPassword(boVolunteer.Password);
@@ -42,8 +43,8 @@ internal class VolunteerImplementation : IVolunteer
             boVolunteer.Active,
             password,
             boVolunteer.FullAddress,
-             boVolunteer.Latitude,
-            boVolunteer.Longitude,
+            null,
+           null,
             boVolunteer.MaxReading
             );
 
@@ -56,8 +57,9 @@ internal class VolunteerImplementation : IVolunteer
         {
             throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} already exists", ex);
         }
-
+        VolunteerManager.Observers.NotifyItemUpdated(doVolunteer.Id);  //stage 5
         VolunteerManager.Observers.NotifyListUpdated(); //stage 5 
+        _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(doVolunteer);
     }
 
     public bool CanDelete(int id)
@@ -148,9 +150,9 @@ internal class VolunteerImplementation : IVolunteer
         if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and does not correct or not manager");
         
-            double[] coordinate = VolunteerManager.GetCoordinates(boVolunteer.FullAddress);
-            boVolunteer.Latitude = coordinate[0];
-            boVolunteer.Longitude = coordinate[1];
+            //double[] coordinate = VolunteerManager.GetCoordinatesAsync(boVolunteer.FullAddress);
+            //boVolunteer.Latitude = coordinate[0];
+            //boVolunteer.Longitude = coordinate[1];
         
         if (boVolunteer.Id != doVolunteer.Id)
         {
@@ -177,14 +179,14 @@ internal class VolunteerImplementation : IVolunteer
       boVolunteer.Active,
       VolunteerManager.EncryptPassword(boVolunteer.Password),
       boVolunteer.FullAddress,
-      boVolunteer.Latitude,
-      boVolunteer.Longitude,
+      null,null,
       boVolunteer.MaxReading
       );
         try
         {
             lock (AdminManager.BlMutex) //stage 7
                 _dal.Volunteer.Update(volunteerUpdate);
+          
         }
         catch (DO.DalExistException ex)
         {
@@ -192,6 +194,13 @@ internal class VolunteerImplementation : IVolunteer
         }
         VolunteerManager.Observers.NotifyItemUpdated(volunteerUpdate.Id);  //stage 5
         VolunteerManager.Observers.NotifyListUpdated();  //stage 5
-    }
+        try
+        { 
+        _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(volunteerUpdate); //stage 7
+                                                                                       
+        }
+        catch(Exception ex)
+        {  throw new Exception(ex.Message, ex); }
+            }
 }
 

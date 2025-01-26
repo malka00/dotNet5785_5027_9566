@@ -2,8 +2,7 @@
 using System;
 using Helpers;
 using System.Collections.Generic;
-using BO;
-using DO;
+
 namespace BlImplementation;
 
 /// <summary>
@@ -178,22 +177,23 @@ internal class CallImplementation : ICall
     public void Create(BO.Call boCall)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        double[] coordinate = VolunteerManager.GetCoordinates(boCall.FullAddress);
-        double latitude = coordinate[0];
-        double longitude = coordinate[1];
-        boCall.Latitude = latitude;
-        boCall.Longitude = longitude;
+        //double[] coordinate = VolunteerManager.GetCoordinatesAsync(boCall.FullAddress);
+        //double latitude = coordinate[0];
+        //double longitude = coordinate[1];
+        //boCall.Latitude = latitude;
+        //boCall.Longitude = longitude;
+        DO.Call doCall;
         try
         {
             CallManager.CheckLogic(boCall);
-            DO.Call doCall = new
+             doCall = new
                 (
                 boCall.Id,
                 (DO.CallType)boCall.Type,
                 boCall.Description,
                 boCall.FullAddress,
-                latitude,
-                longitude,
+                null,
+                null,
                 boCall.TimeOpened,
                 boCall.MaxTimeToClose
                 );
@@ -204,7 +204,10 @@ internal class CallImplementation : ICall
         {
             throw new BO.BlAlreadyExistsException($"Student with ID={boCall.Id} already exists", ex);
         }
-        CallManager.Observers.NotifyListUpdated();  //stage 5 
+
+        CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
+        CallManager.Observers.NotifyListUpdated();  //stage 5
+        _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall);
     }
 
     /// <summary>
@@ -267,7 +270,7 @@ internal class CallImplementation : ICall
             allCalls = _dal.Call.ReadAll();
 
         // Retrieve all assignments from the DAL
-        IEnumerable<Assignment>? allAssignments;
+        IEnumerable<DO.Assignment>? allAssignments;
         lock (AdminManager.BlMutex) //stage 7
             allAssignments = _dal.Assignment.ReadAll();
         
@@ -353,11 +356,11 @@ internal class CallImplementation : ICall
     public void Update(BO.Call boCall)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        double[] coordinate = VolunteerManager.GetCoordinates(boCall.FullAddress);
-        double latitude = coordinate[0];
-        double longitude = coordinate[1];
-        boCall.Latitude = latitude;
-        boCall.Longitude = longitude;
+        //double[] coordinate = VolunteerManager.GetCoordinatesAsync(boCall.FullAddress);
+        //double latitude = coordinate[0];
+        //double longitude = coordinate[1];
+        //boCall.Latitude = latitude;
+        //boCall.Longitude = longitude;
         CallManager.CheckLogic(boCall);
         DO.Call doCall = new
                     (
@@ -365,8 +368,8 @@ internal class CallImplementation : ICall
                     (DO.CallType)boCall.Type,
                     boCall.Description,
                     boCall.FullAddress,
-                    boCall.Latitude,
-                    boCall.Longitude,
+                    null,
+                    null,
                     boCall.TimeOpened,
                     boCall.MaxTimeToClose
                     );
@@ -381,6 +384,7 @@ internal class CallImplementation : ICall
         }
         CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
         CallManager.Observers.NotifyListUpdated();  //stage 5
+        _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall);
     }
 }
 
