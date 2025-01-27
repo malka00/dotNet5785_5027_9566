@@ -478,17 +478,27 @@ internal class VolunteerManager
             throw new BO.BlWrongItemException($"Password{password} must contain at least one digit.");
     }
 
-    internal static async Task updateCoordinatesForVolunteerAddressAsync(DO.Volunteer doVolunteer)
+    internal static async Task updateCoordinatesForVolunteerAddressAsync(DO.Volunteer doVolunteer, string address)
     {
         if (doVolunteer.FullAddress is not null)
         {
+            double[] coordinates;
+            //try
+            //{
+                coordinates = await Tools.GetCoordinatesAsync(address);
+            //}
+            //catch(BO.BlWrongInputException ex)
+            //{ throw new BO.BlWrongInputException(ex.Message); }
           
-                double[] coordinates = await GetCoordinatesAsync(doVolunteer.FullAddress);
-            
-         
+            if (coordinates == null || coordinates.Length != 2)
+            {
+                throw new BO.BlWrongInputException("Failed to update coordinates due to invalid address.");
+            }
+
             if (coordinates is not null)
             {
                 doVolunteer = doVolunteer with { Latitude = coordinates[0], Longitude = coordinates[1] };
+               
                 lock (AdminManager.BlMutex)
                     s_dal.Volunteer.Update(doVolunteer);
                 Observers.NotifyListUpdated();
@@ -506,67 +516,12 @@ internal class VolunteerManager
     /// 
 
 
-    public static async Task<double[]> GetCoordinatesAsync(string address)
-    {
-        if (string.IsNullOrWhiteSpace(address))
-        {
-            throw new ArgumentException("Address cannot be empty or null.", nameof(address));
-        }
-
-        string apiKey = "pk.51229b895167367503aba7d1c5dd9afc"; // מפתח API
-        string url = $"https://us1.locationiq.com/v1/search.php?key={apiKey}&q={Uri.EscapeDataString(address)}&format=json";
-
-        try
-        {
-            HttpWebRequest request =  (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-
-            Thread.Sleep(500);
-
-            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
-            {
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception($"Error in request: {response.StatusCode}");
-                }
-
-                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-                {
-                    string jsonResponse = reader.ReadToEnd();
-                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                    var results = JsonSerializer.Deserialize<LocationResult[]>(jsonResponse, options);
-
-                    if (results == null || results.Length == 0)
-                    {
-                        throw new BO.BlWrongInputException("No coordinates found for the given address.");
-                    }
-                    if (results.Length > 1) { throw new BO.BlWrongInputException("No spesific address."); }
-
-                    return new double[] { double.Parse(results[0].Lat), double.Parse(results[0].Lon) };
-                }
-            }
-        }
-        catch (WebException ex) when (ex.Response is HttpWebResponse httpResponse)
-        {
-            throw new Exception($"HTTP Error: {(int)httpResponse.StatusCode} {httpResponse.StatusDescription}");
-            // throw new BO.BlWrongInputException ("The address is not good");
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"General error: {ex.Message}");
-        }
-    }
+   
 
     /// <summary>
     /// Class to represent the structure of the geocoding response(latitude and longitude)
     /// </summary>
-    private class LocationResult
-    {
-        // Latitude as string in the JSON response
-        public string Lat { get; set; }
-        // Longitude as string in the JSON response
-        public string Lon { get; set; }
-    }
+  
 
     /// <summary>
     /// The function checks if the coordinates of the address provided for the volunteer match the coordinates calculated based on the full address.

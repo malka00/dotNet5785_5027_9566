@@ -59,7 +59,7 @@ internal class VolunteerImplementation : IVolunteer
         }
         VolunteerManager.Observers.NotifyItemUpdated(doVolunteer.Id);  //stage 5
         VolunteerManager.Observers.NotifyListUpdated(); //stage 5 
-        _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(doVolunteer);
+        _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(doVolunteer, boVolunteer.FullAddress);
     }
 
     public bool CanDelete(int id)
@@ -147,6 +147,9 @@ internal class VolunteerImplementation : IVolunteer
            doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
            ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         }
+        var task=VolunteerManager.updateCoordinatesForVolunteerAddressAsync(doVolunteer, boVolunteer.FullAddress); // תחילת חישוב אסינכרוני
+
+
         if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and does not correct or not manager");
         
@@ -192,15 +195,25 @@ internal class VolunteerImplementation : IVolunteer
         {
             throw new BO.BlAlreadyExistsException($"Volunteer with ID={boVolunteer.Id} not exists", ex);
         }
+
+       
         VolunteerManager.Observers.NotifyItemUpdated(volunteerUpdate.Id);  //stage 5
         VolunteerManager.Observers.NotifyListUpdated();  //stage 5
         try
-        { 
-        _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(volunteerUpdate); //stage 7
-                                                                                       
+        {
+            Task.WaitAll(task);
         }
-        catch(Exception ex)
-        {  throw new Exception(ex.Message, ex); }
-            }
+        catch (BO.BlWrongInputException ex) { throw new BO.BlWrongInputException(ex.Message); }
+        catch (Exception ex) { throw new BO.BlWrongInputException(ex.Message); }
+
+        //try
+        //{
+
+        //    _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(volunteerUpdate, boVolunteer.FullAddress); //stage 7
+
+        //}
+        //catch(Exception ex)
+        //{  throw new Exception(ex.Message, ex); }
+    }
 }
 

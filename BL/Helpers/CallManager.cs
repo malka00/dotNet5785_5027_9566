@@ -21,7 +21,7 @@ internal class CallManager
         if (doCall.FullAddress is not null)
         {
 
-            double[] coordinates = await VolunteerManager.GetCoordinatesAsync(doCall.FullAddress);
+            double[] coordinates = await Tools.GetCoordinatesAsync(doCall.FullAddress);
 
 
             if (coordinates is not null)

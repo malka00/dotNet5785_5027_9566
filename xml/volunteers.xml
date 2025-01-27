@@ -153,20 +153,6 @@
     <latitude>31.796294</latitude>
   </Volunteer>
   <Volunteer>
-    <ID>207669508</ID>
-    <fullName>Yossi Levy</fullName>
-    <phone>0529876543</phone>
-    <email>yossi@example.com</email>
-    <password>D4e5F6</password>
-    <isActive>true</isActive>
-    <role>Volunteer</role>
-    <distance>Aerial</distance>
-    <address>bit hadfus 34567898  ,Jerusalem, Israel</address>
-    <longitude>35.215315</longitude>
-    <latitude>31.759595</latitude>
-    <maxDistance>86</maxDistance>
-  </Volunteer>
-  <Volunteer>
     <ID>207926692</ID>
     <fullName>Dan Mizrahi</fullName>
     <phone>0556789123</phone>
@@ -227,5 +213,17 @@
     <distance>Aerial</distance>
     <address>Agripas St 10, Jerusalem, Israel</address>
     <maxDistance>53</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>207669508</ID>
+    <fullName>Yossi Levy</fullName>
+    <phone>0529876543</phone>
+    <email>yossi@example.com</email>
+    <password>D4e5F6</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>bit hadfus 34567898  ,Jerusalem, Israel</address>
+    <maxDistance>86</maxDistance>
   </Volunteer>
 </ArrayOfVolunteer>

@@ -107,6 +107,10 @@ namespace PL.Volunteer
                     MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
+                catch (BO.BlWrongInputException ex)
+                {
+                    MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
                 catch (BO.BlDoesNotExistException ex)
                 {
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
