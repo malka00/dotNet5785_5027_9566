@@ -110,31 +110,7 @@ internal class VolunteerImplementation : IVolunteer
 
     public BO.Volunteer Read(int id)
     {
-        DO.Volunteer doVolunteer;
-        lock (AdminManager.BlMutex)//stage 7
-             doVolunteer = _dal.Volunteer.Read(id) ??throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
-
-        return new()
-        {
-            Id = id,
-            Email = doVolunteer.Email,
-            MaxReading = doVolunteer.MaxReading,
-            FullName = doVolunteer.FullName,
-            PhoneNumber = doVolunteer.PhoneNumber,
-            TypeDistance = (BO.Distance)doVolunteer.TypeDistance,
-            Job = (BO.Role)doVolunteer.Job,
-            Active = doVolunteer.Active,
-            Password =VolunteerManager.DecryptPassword( doVolunteer.Password),
-            FullAddress = doVolunteer.FullAddress,
-            Latitude = doVolunteer.Latitude,
-            Longitude = doVolunteer.Longitude,
-            SumCalls = _dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.Treated),
-                SumCanceled = _dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id &&
-                    (a.TypeEndTreat == DO.TypeEnd.ManagerCancel || a.TypeEndTreat == DO.TypeEnd.SelfCancel)), // ביטול עצמי או מהנל
-                SumExpired = _dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.ExpiredCancel),
-
-         CallIn = VolunteerManager.GetCallIn(doVolunteer),
-        };
+      return VolunteerManager.readHelp(id);
     }
 
     public void Update(int id, BO.Volunteer boVolunteer)

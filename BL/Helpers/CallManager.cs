@@ -280,8 +280,91 @@ internal class CallManager
         // Return the filtered and sorted list of calls.
         return boCallsInList;
     }
+    internal static void CloseTreat(int idVol, int idAssig)
+    {
+        AdminManager.ThrowOnSimulatorIsRunning();
+        // Retrieve the assignment by its ID; throw an exception if not found.
+        DO.Assignment assignmentToClose;
+        lock (AdminManager.BlMutex) //stage 7
+            assignmentToClose = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("There is no assignment with this ID");
 
+        // Check if the volunteer matches the one in the assignment; throw an exception if not.
+        if (assignmentToClose.VolunteerId != idVol)
+        {
+            throw new BO.BlWrongInputException("The volunteer is not treating in this assignment");
+        }
 
+        // Ensure the assignment is still open (not already closed); throw an exception if it is.
+        if (assignmentToClose.TypeEndTreat != null || assignmentToClose.TimeEnd != null)
+            throw new BO.BlDeleteNotPossibleException("The assignment is not open");
+
+        // Update the assignment to mark it as closed, setting end time and status.
+        DO.Assignment assignmentToUP = new DO.Assignment
+        {
+            Id = assignmentToClose.Id,
+            CallId = assignmentToClose.CallId,
+            VolunteerId = assignmentToClose.VolunteerId,
+            TimeStart = assignmentToClose.TimeStart,
+            TimeEnd = AdminManager.Now,
+            TypeEndTreat = DO.TypeEnd.Treated,
+        };
+
+        try
+        {
+            // Attempt to update the assignment in the database.
+            lock (AdminManager.BlMutex) //stage 7
+                   s_dal.Assignment.Update(assignmentToUP);
+            VolunteerManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(assignmentToClose.CallId);
+
+        }
+        catch (DO.DalExistException ex)
+        {
+            // Handle error if updating the assignment fails.
+            throw new BO.BlDeleteNotPossibleException("Cannot update in DO");
+        }
+    }
+   internal static void CancelTreatHelp(int idVol, int idAssig)
+    { 
+    AdminManager.ThrowOnSimulatorIsRunning();
+        DO.Assignment assigmnetToCancel = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
+    bool ismanager = false;
+        if (assigmnetToCancel.VolunteerId != idVol)
+        {
+            if (s_dal.Volunteer.Read(idVol).Job == DO.Role.Boss)
+                ismanager = true;
+            else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager or not in this call");
+        }
+        if (assigmnetToCancel.TypeEndTreat != null ||/* (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > AdminManager.Now)||*/ assigmnetToCancel.TimeEnd != null)
+            throw new BO.BlDeleteNotPossibleException("The assigmnet not in treat");
+
+        DO.Assignment assigmnetToUP = new DO.Assignment
+        {
+            Id = assigmnetToCancel.Id,
+            CallId = assigmnetToCancel.CallId,
+            VolunteerId = assigmnetToCancel.VolunteerId,
+            TimeStart = assigmnetToCancel.TimeStart,
+            TimeEnd = AdminManager.Now,
+            TypeEndTreat = ismanager ? DO.TypeEnd.ManagerCancel : DO.TypeEnd.SelfCancel,
+
+        };
+        try
+        {
+            s_dal.Assignment.Update(assigmnetToUP);
+            VolunteerManager.Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            CallManager.Observers.NotifyListUpdated();
+            CallManager.Observers.NotifyItemUpdated(assigmnetToCancel.CallId);
+
+        }
+        catch (DO.DalExistException ex)
+        {
+            throw new BO.BlDeleteNotPossibleException("can not delete in DO");
+        }
+}
+   
     ///// <summary>
     ///// Converts an object of type DO.Call to an object of type BO.CallInList
     ///// </summary>

@@ -46,23 +46,37 @@ internal class VolunteerManager
 
                 if (openCallInListsToChose != null && openCallInListsToChose.Count > 0)
                 {
+                    //choose random call for volunteer
                     var randomIndex = s_rand.Next(openCallInListsToChose.Count);
                     var chosenCall = openCallInListsToChose[randomIndex];
 
                     CallManager.ChoseForTreatHelp(volunteer.Id, chosenCall.Id);
                 }
-                else    //there is call in treat
+            }
+
+            else if (volunteer.IdCall != null)    //there is call in treat
+            {
+                var callin = readHelp(volunteer.Id).CallIn!;
+                if ((AdminManager.Now - callin.StartTreat) >= TimeSpan.FromHours(3))
                 {
-                    //var callIn = GetCallIn();
+                    CallManager.ChoseForTreatHelp(volunteer.Id, callin.IdCall);
+                }
+                else
+                {
+                    int probability1 = s_rand.Next(1, 101); // מספר אקראי בין 1 ל-100
 
-                    //if (s_dal.Config.Clock- callIn.StartTreat)
-
+                    if (probability1 <= 10) // הסתברות של 10%
+                    {
+                        // ביטול הטיפול
+                        CallManager.CancelTreatHelp(volunteer.Id, callin.Id);
+                    }
                 }
             }
+            
         }
     }
 
-        internal static IEnumerable<BO.VolunteerInList> GetVolunteerListHelp(bool? active, BO.EVolunteerInList? sortBy)
+    internal static IEnumerable<BO.VolunteerInList> GetVolunteerListHelp(bool? active, BO.EVolunteerInList? sortBy)
         {
             IEnumerable<DO.Volunteer> volunteers;
             lock (AdminManager.BlMutex)
@@ -148,10 +162,36 @@ internal class VolunteerManager
             CType = ctype
         };
     }
+    internal static BO.Volunteer readHelp(int id)
+    {
+        DO.Volunteer doVolunteer;
+        lock (AdminManager.BlMutex)//stage 7
+            doVolunteer = s_dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+        lock (AdminManager.BlMutex)//stage 7
+            return new()
+        {
+            Id = id,
+            Email = doVolunteer.Email,
+            MaxReading = doVolunteer.MaxReading,
+            FullName = doVolunteer.FullName,
+            PhoneNumber = doVolunteer.PhoneNumber,
+            TypeDistance = (BO.Distance)doVolunteer.TypeDistance,
+            Job = (BO.Role)doVolunteer.Job,
+            Active = doVolunteer.Active,
+            Password = VolunteerManager.DecryptPassword(doVolunteer.Password),
+            FullAddress = doVolunteer.FullAddress,
+            Latitude = doVolunteer.Latitude,
+            Longitude = doVolunteer.Longitude,
+            SumCalls = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.Treated),
+            SumCanceled = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id &&
+                (a.TypeEndTreat == DO.TypeEnd.ManagerCancel || a.TypeEndTreat == DO.TypeEnd.SelfCancel)), // ביטול עצמי או מהנל
+            SumExpired = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.ExpiredCancel),
 
+            CallIn = VolunteerManager.GetCallIn(doVolunteer),
+        };
+    }
 
-
-    internal static string EncryptPassword(string password)
+internal static string EncryptPassword(string password)
     {
         int shift = 3;
         StringBuilder encryptedPassword = new StringBuilder();
@@ -522,18 +562,6 @@ internal class VolunteerManager
     /// Class to represent the structure of the geocoding response(latitude and longitude)
     /// </summary>
   
-
-    /// <summary>
-    /// The function checks if the coordinates of the address provided for the volunteer match the coordinates calculated based on the full address.
-    /// </summary>
-    /// <param name="volunteer"></param>
-    /// <exception cref="BO.BlWrongItemException"></exception>
-    //internal static void CheckAddress(BO.Volunteer volunteer)
-    //{
-    //    double[] cordinates = GetCoordinatesAsync(volunteer.FullAddress);
-    //    if (cordinates[0] != volunteer.Latitude || cordinates[1] != volunteer.Longitude)
-    //        throw new BO.BlWrongItemException($"not math cordinates");
-    //}
 
     /// <summary>
     /// Calculates the distance between two points (latitude and longitude) in meters.
