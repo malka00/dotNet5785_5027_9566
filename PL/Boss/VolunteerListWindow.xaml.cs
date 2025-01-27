@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL.Volunteer
 {
@@ -41,7 +42,7 @@ namespace PL.Volunteer
         }
 
         private void VolunteerSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        { QueryVolunteerList();}
+        { queryVolunteerList();}
 
         private void VolunteerFilter(object sender, SelectionChangedEventArgs e)
         {
@@ -49,17 +50,28 @@ namespace PL.Volunteer
             VolunteerList = s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
         }
 
-        private void QueryVolunteerList()
+        private void queryVolunteerList()
         => VolunteerList = (VolunteerInList == BO.EVolunteerInList.Id) ?
         s_bl?.Volunteers.GetVolunteerList(null, null)! : s_bl?.Volunteers.GetVolunteerList(null, VolunteerInList)!;
 
-        private void VolunteerListObserver() => QueryVolunteerList();
- 
+        
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+        private void volunteerListObserver() //stage 7
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    queryVolunteerList();
+                });
+        }
+
+
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
-            => s_bl.Volunteers.AddObserver(VolunteerListObserver);
+            => s_bl.Volunteers.AddObserver(volunteerListObserver);
 
         private void Window_Closed(object sender, EventArgs e)
-            => s_bl.Volunteers.RemoveObserver(VolunteerListObserver);
+            => s_bl.Volunteers.RemoveObserver(volunteerListObserver);
 
         private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

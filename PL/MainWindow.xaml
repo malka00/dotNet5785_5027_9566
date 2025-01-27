@@ -197,6 +197,27 @@
                                 Click="btnUpdateMaxRange_Click"/>
                     </StackPanel>
                 </Border>
+
+                <!-- Simulator -->
+                <Border Background="White" 
+                        BorderBrush="#DDDDDD" 
+                        BorderThickness="1" 
+                        CornerRadius="45"
+                        Padding="15"
+                        Margin="0,15">
+                    <StackPanel>
+                        <Label   Content="Enter time to simulate (in minute)"
+                                 FontWeight="Bold"/>
+                        <TextBox Text="{Binding Interval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Padding="5"
+                                 Margin="0,5"
+                                 TextChanged="TextBox_TextChanged"/>
+                        <Button  Content="{Binding IsSimulatorRunning, Converter={StaticResource ConverterSimulatorState}}"
+                                 Style="{StaticResource ModernButton}"
+                                 Click="btnSimulator_Click"/>
+                    </StackPanel>
+                </Border>
+
             </StackPanel>
         </Grid>
 

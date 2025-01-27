@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace PL.Volunteer
@@ -56,23 +57,32 @@ namespace PL.Volunteer
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             ManagerId = bossId;
-            s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
+            s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, volunteerObserver);
         }
 
-        private void VolunteerObserver() 
+       
+
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+
+        private void volunteerObserver() //stage 7
         {
-                int id = CurrentVolunteer!.Id;
-                CurrentVolunteer = null;
-                CurrentVolunteer = s_bl.Volunteers.Read(id);
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    int id = CurrentVolunteer!.Id;
+                    CurrentVolunteer = null;
+                    CurrentVolunteer = s_bl.Volunteers.Read(id);
+                });
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e) 
         {
             if (CurrentVolunteer!.Id != 0)
-                s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
+                s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, volunteerObserver);
         }
         private void Window_Closed(object sender, EventArgs e) 
         {
-            s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
+            s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, volunteerObserver);
         }
 
         public BO.Volunteer? CurrentVolunteer

@@ -1,13 +1,14 @@
 ﻿using PL.Volunteer;
 using System;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace PL.Volunteer
 {
     public partial class VolunteerWindow : Window
     {
+        
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
         public BO.Volunteer? CurrentVolunteer
         {
             get { return (BO.Volunteer?)GetValue(CurrentVolunteerProperty); }
@@ -42,58 +43,68 @@ namespace PL.Volunteer
             }
 
             this.DataContext = this;
-            s_bl.Volunteers.AddObserver(UserId, VolunteerObserver);
+            s_bl.Volunteers.AddObserver(UserId, volunteerObserver);
             //if(Call != null)
             if (CurrentVolunteer.CallIn != null)
-                s_bl.Calls.AddObserver(UserId, CallObserver);
+                s_bl.Calls.AddObserver(UserId, callObserver);
             InitializeComponent();
         }
 
 
-        private void CallObserver()
-            => QueryCall();
-
-        private void QueryVolunteer()
+        private void queryVolunteer()
         { CurrentVolunteer = s_bl.Volunteers.Read(UserId); }
-
-        private void QueryCall()
+        private void queryCall()
         {
-            QueryVolunteer();
+            queryVolunteer();
             if (CurrentVolunteer.CallIn != null)
             {
                 if (CurrentVolunteer.CallIn == null)
                 {
-                    s_bl.Calls.RemoveObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
+                    s_bl.Calls.RemoveObserver(CurrentVolunteer.CallIn.IdCall, callObserver);
 
                 }
 
             }
             if (CurrentVolunteer.CallIn != null)
             {
-                s_bl.Calls.AddObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
+                s_bl.Calls.AddObserver(CurrentVolunteer.CallIn.IdCall, callObserver);
             }
         }
 
-        private void VolunteerObserver()
+        private volatile DispatcherOperation? _observerCallOperation = null; //stage 7
+        private void callObserver() //stage 7
         {
-            QueryCall();
+            if (_observerCallOperation is null || _observerCallOperation.Status == DispatcherOperationStatus.Completed)
+                _observerCallOperation = Dispatcher.BeginInvoke(() =>
+                { 
+                    queryCall();
+                });
         }
-       
-      
+
+        private volatile DispatcherOperation? _observerVolunteerOperation = null; //stage 7
+        private void volunteerObserver() //stage 7
+        {
+            if (_observerVolunteerOperation is null || _observerVolunteerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerVolunteerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    queryCall();
+                });
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (CurrentVolunteer!.Id != 0)
-                s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, VolunteerObserver);
+                s_bl.Volunteers.AddObserver(CurrentVolunteer!.Id, volunteerObserver);
             if (CurrentVolunteer.CallIn != null)
-                s_bl.Calls.AddObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
+                s_bl.Calls.AddObserver(CurrentVolunteer.CallIn.IdCall, callObserver);
 
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, VolunteerObserver);
+            s_bl.Volunteers.RemoveObserver(CurrentVolunteer!.Id, volunteerObserver);
             if (CurrentVolunteer.CallIn != null)
-                s_bl.Calls.RemoveObserver(CurrentVolunteer.CallIn.IdCall, CallObserver);
+                s_bl.Calls.RemoveObserver(CurrentVolunteer.CallIn.IdCall, callObserver);
 
         }
 

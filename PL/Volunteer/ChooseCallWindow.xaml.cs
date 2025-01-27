@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace PL.Volunteer
 {
@@ -53,21 +54,27 @@ namespace PL.Volunteer
         }
 
         private void CallSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        { QueryCallList(); }
+        { queryCallList(); }
 
-        private void QueryCallList()
+        private void queryCallList()
         => OpenCallList = (OpenCallInList == BO.EOpenCallInList.Id) ?
         s_bl?.Calls.GetOpenCall(VolunteerId, null, null)! : s_bl?.Calls.GetOpenCall(VolunteerId, TypeCallInList, OpenCallInList)!;
 
-        private void CallListObserver() => QueryCallList();
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+        private void callListObserver() //stage 7
+        {
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    queryCallList();
+                });
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-            => s_bl.Calls.AddObserver(CallListObserver);
+            => s_bl.Calls.AddObserver(callListObserver);
 
         private void Window_Closed(object sender, EventArgs e)
-            => s_bl.Calls.RemoveObserver(CallListObserver);
-
-    
+            => s_bl.Calls.RemoveObserver(callListObserver);
 
         private void BtnChoose_Click(object sender, RoutedEventArgs e)
         {
@@ -99,9 +106,6 @@ namespace PL.Volunteer
             }
             this.Close();
         }
-
-        
-
         private void mouseEnterLeft(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show(SelectedCall.Description, $"Description {SelectedCall.Id}", MessageBoxButton.OK);

@@ -13,8 +13,6 @@
         <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
         <local:ConvertIsCanDeletCall x:Key="ConvertIsCanDeletCallKey"/>
         <local:ConvertIsCanDeletVolunteer x:Key="ConvertIsCanDeletVolunteerKey"/>
-
-
         <local:ConvertIsCallInProsses x:Key="ConvertIsCallInProssesKey"/>
         <local:BoolConvertIsCallInProsses x:Key="BoolConvertIsCallInProssesKey"/>
         <local:ConvertUpdateToTrue x:Key="ConvertUpdateToTrueKey"/>
@@ -22,5 +20,6 @@
         <local:BooleanToVisibility x:Key="BooleanToVisibilityKey"/>
         <local:ConvertStatusOrTypeToEnum x:Key="ConvertStatusOrTypeToEnumKey"/>
         <local:ClosedCallColection x:Key="ClosedCallColectionKey"/>
+        <local:ConverterSimulatorState x:Key="ConverterSimulatorStateKey"/>
     </Application.Resources>
 </Application>

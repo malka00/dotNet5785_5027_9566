@@ -61,8 +61,7 @@ namespace PL.Volunteer
             ClosedCallInList = (BO.EClosedCallInList)(((ComboBox)sender).SelectedItem);
             ClosedCallList = s_bl?.Calls.GetClosedCall(IdVolunteer, TypeCallInList, ClosedCallInList)!;
         }
-       
-
+      
         private void queryClosedCallList()
     => ClosedCallList = s_bl?.Calls.GetClosedCall(IdVolunteer, TypeCallInList, ClosedCallInList)!;
 

@@ -1,10 +1,8 @@
-﻿using PL.Volunteer;
-using PL;
-using System.ComponentModel;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
+using PL.Volunteer;
 
 namespace PL
 {
@@ -31,6 +29,23 @@ namespace PL
         }
         public static readonly DependencyProperty MaxRangeProperty =
         DependencyProperty.Register("MaxRange", typeof(TimeSpan), typeof(MainWindow));
+
+        public int Interval               //simulator
+        {
+            get { return (int)GetValue(IntervalProperty); }
+            set { SetValue(IntervalProperty, value); }
+        }
+        public static readonly DependencyProperty IntervalProperty =
+        DependencyProperty.Register("Interval", typeof(int), typeof(MainWindow));
+
+        public bool IsSimulatorRunning     //state of simulator
+        {
+            get { return (bool)GetValue(IsSimulatorRunningProperty); }
+            set { SetValue(IsSimulatorRunningProperty, value); }
+        }
+        public static readonly DependencyProperty IsSimulatorRunningProperty =
+        DependencyProperty.Register("IsSimulatorRunning", typeof(bool), typeof(MainWindow));
+
 
         public int[] CountCall
         {
@@ -78,14 +93,30 @@ namespace PL
         {
             s_bl.Admin.setMaxRange(MaxRange);
         }
-        private void clockObserver()
+       
+        private volatile DispatcherOperation? _observerClockOperation = null; //stage 7
+
+        private void clockObserver() //stage 7
         {
-            CurrentTime = s_bl.Admin.GetClock();
+            if (_observerClockOperation is null || _observerClockOperation.Status == DispatcherOperationStatus.Completed)
+                _observerClockOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    CurrentTime = s_bl.Admin.GetClock();
+                });
         }
-        private void configObserver()
+
+    
+        private volatile DispatcherOperation? _observerConfigOperation = null; //stage 7
+
+        private void configObserver() //stage 7
         {
-            MaxRange = s_bl.Admin.GetMaxRange();
+            if (_observerConfigOperation is null || _observerConfigOperation.Status == DispatcherOperationStatus.Completed)
+                _observerConfigOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    MaxRange = s_bl.Admin.GetMaxRange();
+                });
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MaxRange = s_bl.Admin.GetMaxRange();
@@ -190,5 +221,13 @@ namespace PL
             this.Close();
         }
 
+      
+
+       
+        private void btnSimulator_Click(object sender, RoutedEventArgs e)
+        {
+            //s_bl.Admin.StartSimulator(Interval); //stage 7
+          
+        }
     }
 }

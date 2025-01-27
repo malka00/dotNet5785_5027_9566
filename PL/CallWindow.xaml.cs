@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
 
@@ -60,8 +61,6 @@ namespace PL
         public static readonly DependencyProperty IsTextBoxVisibleProperty =
             DependencyProperty.Register("IsTextBoxVisible", typeof(bool), typeof(CallWindow), new PropertyMetadata(false));
 
-
-
         public CallWindow(int id = 0)
         {
             ButtonText = id == 0 ? "Add" : "Update";
@@ -81,27 +80,30 @@ namespace PL
                 MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
-            s_bl.Calls.AddObserver(CurrentCall!.Id, CallObserver);
+            s_bl.Calls.AddObserver(CurrentCall!.Id, callObserver);
             InitializeComponent();
         }
 
-        private void CallObserver()
+        private volatile DispatcherOperation? _observerOperation = null; //stage 7
+        private void callObserver() //stage 7
         {
-            int id = CurrentCall!.Id;
-            CurrentCall = null;
-            CurrentCall = s_bl.Calls.Read(id);
+            if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+                _observerOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    int id = CurrentCall!.Id;
+                    CurrentCall = null;
+                    CurrentCall = s_bl.Calls.Read(id);
+                });
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (CurrentCall!.Id != 0)
-                s_bl.Calls.AddObserver(CurrentCall!.Id, CallObserver);
+                s_bl.Calls.AddObserver(CurrentCall!.Id, callObserver);
         }
         private void Window_Closed(object sender, EventArgs e)
         {
-            s_bl.Calls.RemoveObserver(CurrentCall!.Id, CallObserver);
+            s_bl.Calls.RemoveObserver(CurrentCall!.Id, callObserver);
         }
-
-    
         private void buttonAddUpdate_Click(object sender, RoutedEventArgs e)
         {
             if (ButtonText == "Add")
@@ -141,7 +143,6 @@ namespace PL
                 }
 
         }
-
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             var CallInListWindow = System.Windows.Application.Current.MainWindow;
@@ -151,8 +152,6 @@ namespace PL
             }
             this.Close();
         }
-
-
     }
 }
 

@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using BO;
 using PL.Volunteer;
 
@@ -50,7 +51,7 @@ public partial class CallInListWindow : Window
     }
 
     private void CallSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    { QueryCallList(); }
+    { queryCallList(); }
 
     private void CallFilter(object sender, SelectionChangedEventArgs e)
     {
@@ -58,17 +59,26 @@ public partial class CallInListWindow : Window
         CallList = s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, CallInList)!;
     }
 
-    private void QueryCallList()
+
+    private void queryCallList()
     => CallList = (CallInList == BO.ECallInList.Id) ?
     s_bl?.Calls.GetCallInLists(null, null, null)! : s_bl?.Calls.GetCallInLists(BO.ECallInList.Status, StatusCallInList, CallInList)!;
 
-    private void CallListObserver() => QueryCallList();
+    private volatile DispatcherOperation? _observerOperation = null; //stage 7
+    private void callListObserver() //stage 7
+    {
+        if (_observerOperation is null || _observerOperation.Status == DispatcherOperationStatus.Completed)
+            _observerOperation = Dispatcher.BeginInvoke(() =>
+            {
+                queryCallList();
+            });
+    }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
-        => s_bl.Calls.AddObserver(CallListObserver);
+        => s_bl.Calls.AddObserver(callListObserver);
 
     private void Window_Closed(object sender, EventArgs e)
-        => s_bl.Calls.RemoveObserver(CallListObserver);
+        => s_bl.Calls.RemoveObserver(callListObserver);
 
     private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
