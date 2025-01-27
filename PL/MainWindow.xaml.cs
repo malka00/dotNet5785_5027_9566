@@ -226,7 +226,7 @@ namespace PL
        
         private void btnSimulator_Click(object sender, RoutedEventArgs e)
         {
-            //s_bl.Admin.StartSimulator(Interval); //stage 7
+            s_bl.Admin.StartSimulator(Interval); //stage 7
           
         }
     }

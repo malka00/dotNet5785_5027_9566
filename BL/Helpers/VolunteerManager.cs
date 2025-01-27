@@ -231,6 +231,8 @@ internal static string EncryptPassword(string password)
     /// <returns></returns>
     /// <exception cref="BO.BlWrongInputException"></exception>
     internal static BO.CallInProgress GetCallIn(DO.Volunteer doVolunteer)
+    
+    
     {
         List<DO.Assignment> assignments;
         lock (AdminManager.BlMutex)//stage 7
@@ -244,7 +246,7 @@ internal static string EncryptPassword(string password)
         //double[] cordinate = GetCoordinatesAsync(doVolunteer.FullAddress);
         //double latitude = cordinate[0];
         //double longitude = cordinate[1];
-        AdminImplementation admin = new AdminImplementation();
+  //      AdminImplementation admin = new AdminImplementation();
         BO.StatusTreat status = CallManager.GetCallStatus(callTreat);
 
         return new()

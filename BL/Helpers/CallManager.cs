@@ -37,7 +37,6 @@ internal class CallManager
 
     internal static void ChoseForTreatHelp(int idVol, int idCall)
     {
-        AdminManager.ThrowOnSimulatorIsRunning();
         // Retrieve volunteer and call; throw exception if not found.
         DO.Volunteer vol;
         lock (AdminManager.BlMutex) //stage 7
@@ -280,9 +279,8 @@ internal class CallManager
         // Return the filtered and sorted list of calls.
         return boCallsInList;
     }
-    internal static void CloseTreat(int idVol, int idAssig)
+    internal static void CloseTreatHelp(int idVol, int idAssig)
     {
-        AdminManager.ThrowOnSimulatorIsRunning();
         // Retrieve the assignment by its ID; throw an exception if not found.
         DO.Assignment assignmentToClose;
         lock (AdminManager.BlMutex) //stage 7
@@ -328,7 +326,6 @@ internal class CallManager
     }
    internal static void CancelTreatHelp(int idVol, int idAssig)
     { 
-    AdminManager.ThrowOnSimulatorIsRunning();
         DO.Assignment assigmnetToCancel = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
     bool ismanager = false;
         if (assigmnetToCancel.VolunteerId != idVol)
@@ -560,20 +557,23 @@ internal class CallManager
         {
             calls = s_dal.Call.ReadAll().ToList();
              boCalls = from dCall in calls
-                                           where (dCall.MaxTimeToClose == null ? true : dCall.MaxTimeToClose < s_dal.Config.Clock)
-                                           select (convertDOtoBO(dCall));
+                           //where (dCall.MaxTimeToClose == null ? true : dCall.MaxTimeToClose < s_dal.Config.Clock)
+                       where dCall.MaxTimeToClose != null && dCall.MaxTimeToClose < s_dal.Config.Clock
+                                 select (convertDOtoBO(dCall));
+
+           
+         
         }
         Assignment? assignment;
         foreach (BO.Call call in boCalls)
         {
             if (call.AssignmentsToCalls == null)
             {
+                assignmentUpdated = true; //stage 5
                 lock (AdminManager.BlMutex)
                     s_dal.Assignment.Create(new DO.Assignment(0, call.Id, 0, s_dal.Config.Clock, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
+                  Observers.NotifyItemUpdated(call.Id); //stage 5
             }
-            
-
-
             else
             {
                 var lastAss = call.AssignmentsToCalls.OrderByDescending(a => a.StartTreat).First();
@@ -585,12 +585,17 @@ internal class CallManager
 
                     lock (AdminManager.BlMutex)
                         s_dal.Assignment.Update(new DO.Assignment(assignment.Id, assignment.CallId, assignment.VolunteerId, lastAss.StartTreat, s_dal.Config.Clock, DO.TypeEnd.ExpiredCancel));
-                    Observers.NotifyItemUpdated(assignment.Id); //stage 5
+                    Observers.NotifyItemUpdated(call.Id); //stage 5
+                    VolunteerManager.Observers.NotifyItemUpdated(assignment.VolunteerId); //stage 5
                 }
                 
             }
         }
-        if(assignmentUpdated)
+        if (assignmentUpdated)
+        {
             Observers.NotifyListUpdated();
+            VolunteerManager.Observers.NotifyListUpdated();
+        }
+        //  Observers.NotifyListUpdated(assignment.Id);
     }
 }
