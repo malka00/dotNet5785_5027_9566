@@ -39,35 +39,35 @@ public static class Initialization
 
         string[] addresses =
         {
-        "King George St 20, Jerusalem, Israel",
-        "bit hadfus 7  ,Jerusalem, Israel",
-        "Agripas St 10, Jerusalem, Israel",
-        "Hapalmach St 25, Jerusalem, Israel",
-        "Emek Refaim St 43, Jerusalem, Israel",
-        "Hapisga St 18, Jerusalem, Israel",
-        "Hillel St 7, Jerusalem, Israel",
+        "King George  20, Jerusalem, Israel",
+        "מכון טל ",
+        "Agripas  10, Jerusalem, Israel",
+        "Hapalmach  25, Jerusalem, Israel",
+        "Emek Refaim 43, Jerusalem, Israel",
+        "hapisga 6,  Jerusalem, Israel",
+        "Hillel  7, Jerusalem, Israel",
         "Derech Hebron 105, Jerusalem, Israel",
-        "Bezalel St 12, Jerusalem, Israel",
-        "HaNeviim St 29, Jerusalem, Israel",
-        "Shivtei Israel St 15, Jerusalem, Israel",
-        "Azza St 50, Jerusalem, Israel",
-        "Kriyat Hayuvel St 5, Jerusalem, Israel",
-        "Prophets St 23, Jerusalem, Israel",
-        "Ben Yehuda St 1, Jerusalem, Israel"
+        "Bezalel 12, Jerusalem, Israel",
+        "HaNeviim 29, Jerusalem, Israel",
+        "Shivtei Israel  15, Jerusalem, Israel",
+        "Aza 50, Jerusalem, Israel",
+        "כנפי נשרים 15  ירושלים",
+        "בית וגן 20 ירושלים",
+        "Shivtei Israel  10,  Jerusalem, Israel"
         };
 
         double[] longitudes = new double[]
         {
         35.2193, 35.189689, 35.2129, 35.2065, 35.2117,
         35.212416, 35.2142, 35.2156, 35.2150, 35.2175,
-        35.2214, 35.2123, 35.18130622417343, 35.2191, 35.2203
+        35.2214, 35.2123,  35.1837336,  35.1838085, 35.2250006
         };
 
         double[] latitudes = new double[]
         {
         31.7784, 31.78542, 31.7801, 31.7642, 31.7655,
         31.751709, 31.7809, 31.7515, 31.7812, 31.7837,
-        31.7849, 31.7698, 31.770868836791788, 31.7815, 31.7822
+        31.7849, 31.7698, 31.7873914, 31.7707007, 31.7804057
         };
 
         string[] passwords =
@@ -123,8 +123,8 @@ public static class Initialization
         //    managerId = s_rand.Next(100000000, 1000000000);
         //while (s_dal!.Volunteer.Read(managerId) != null);
 
-        s_dal!.Volunteer.Create(new Volunteer(326209566, "Malka Haupt", "0501111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "D4567", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
-        s_dal!.Volunteer.Create(new Volunteer(214425027, "Efrat Sharabi ", "0501111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "D4567", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
+        s_dal!.Volunteer.Create(new Volunteer(326209566, "Malka Haupt", "0501111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "D4567", "hapisga 16,  Jerusalem, Israel", 31.7692558, 35.1824528));
+        s_dal!.Volunteer.Create(new Volunteer(214425027, "Efrat Sharabi ", "0501111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "D4567", "hapisga 16,  Jerusalem, Israel", 31.7692558, 35.1824528));
 
     }
 

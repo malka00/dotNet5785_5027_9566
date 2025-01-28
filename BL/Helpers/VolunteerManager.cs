@@ -167,6 +167,7 @@ internal class VolunteerManager
         DO.Volunteer doVolunteer;
         lock (AdminManager.BlMutex)//stage 7
             doVolunteer = s_dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+    
         lock (AdminManager.BlMutex)//stage 7
             return new()
         {
@@ -553,10 +554,11 @@ internal class VolunteerManager
     /// <param name="lat2">Latitude of the second point</param>
     /// <param name="lon2">Longitude of the second point</param>
     /// <returns>Distance in meters between the two points</returns>
+    /// <returns>Distance in meters between the two points</returns>
     internal static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2)
     {
         if (lat1 == null || lon1 == null || lat2 == null || lon2 == null)
-            throw new BO.BlWrongInputException("there is null cordinate");
+          return 0;
 
         //  // Convert latitude and longitude from degrees to radians
         double lat1Rad = (double)lat1 * (Math.PI / 180);

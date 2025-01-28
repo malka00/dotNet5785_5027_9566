@@ -12,7 +12,31 @@ using BO;
 
 namespace PL
 {
+    //convert for null courdinats
+    public class ConverterThreeValueNullToColor : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+           // if (values.Length < 3) return Brushes.Black;
 
+            object firstValue = values[0];
+            object secondValue = values[1];
+            object thirdValue = values[2];
+
+            if (firstValue != null && (secondValue == null || thirdValue == null))
+            {
+                return Brushes.Red;
+            }
+
+            return Brushes.White;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
 
     public class BoolConvertIsCallInProsses : IValueConverter
     {

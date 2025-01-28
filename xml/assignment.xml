@@ -801,14 +801,6 @@
     <TypeEndTreat>SelfCancel</TypeEndTreat>
   </Assignment>
   <Assignment>
-    <Id>1111</Id>
-    <CallId>1042</CallId>
-    <VolunteerId>326209566</VolunteerId>
-    <TimeStart>2025-01-29T04:42:57</TimeStart>
-    <TimeEnd xsi:nil="true" />
-    <TypeEndTreat xsi:nil="true" />
-  </Assignment>
-  <Assignment>
     <Id>1110</Id>
     <CallId>1013</CallId>
     <VolunteerId>209606318</VolunteerId>
@@ -991,5 +983,13 @@
     <TimeStart>2025-01-29T06:12:57</TimeStart>
     <TimeEnd>2025-01-29T06:12:57</TimeEnd>
     <TypeEndTreat>SelfCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1111</Id>
+    <CallId>1042</CallId>
+    <VolunteerId>326209566</VolunteerId>
+    <TimeStart>2025-01-29T04:42:57</TimeStart>
+    <TimeEnd>2025-01-29T06:12:57</TimeEnd>
+    <TypeEndTreat>Treated</TypeEndTreat>
   </Assignment>
 </ArrayOfAssignment>
