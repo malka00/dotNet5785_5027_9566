@@ -22,5 +22,6 @@
         <local:ClosedCallColection x:Key="ClosedCallColectionKey"/>
         <local:ConverterSimulatorState x:Key="ConverterSimulatorStateKey"/>
         <local:InverseBoolConverter x:Key="InverseBoolConverterKey"/>
+        <local:InverseBooleanConverter x:Key="InverseBooleanConverterKey" />
     </Application.Resources>
 </Application>

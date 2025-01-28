@@ -209,6 +209,25 @@ namespace PL
             throw new NotImplementedException("ConvertBack לא נתמך.");
         }
     }
+
+
+
+    public class InverseBooleanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue)
+            {
+                return !boolValue; // הפיכת הערך הבוליאני
+            }
+            return false; // ברירת מחדל במקרה של שגיאה
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException(); // לא נחוץ במקרה הזה
+        }
+    }
 }
 
 
