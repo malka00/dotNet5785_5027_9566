@@ -30,17 +30,18 @@ internal class VolunteerManager
         Thread.CurrentThread.Name = $"Simulator{++s_simulatorCounter}";
 
         // var volunteerList = volunteerImplementation.GetVolunteerList(true,null);
-        var volunteerlist = GetVolunteerListHelp(true, null).ToList();
+       // var volunteerlist = GetVolunteerListHelp(true, null)/*.ToList()*/;
         double probability = 0.2;
 
         // יצירת מספר אקראי בטווח 0 עד 1
         double randomValue = s_rand.NextDouble(); // מספר בין 0.0 ל-1.0
-
+        var volunteerList = GetVolunteerListHelp(true, null).ToList();
+        int size = volunteerList.Count();
         // בדיקה אם המספר האקראי קטן מההסתברות
-
-        foreach (var volunteer in volunteerlist)
+        for (int i = 0; i <size; i++)
         {
-            if (volunteer.IdCall == null && randomValue < probability)
+            var volunteer = readHelp(volunteerList[i].Id);
+            if (volunteer.CallIn == null && randomValue < probability)
             {
                 var openCallInListsToChose = CallManager.GetOpenCallHelp(volunteer.Id, null, null).ToList();
 
@@ -54,12 +55,12 @@ internal class VolunteerManager
                 }
             }
 
-            else if (volunteer.IdCall != null)    //there is call in treat
+            else if (volunteer.CallIn != null)    //there is call in treat
             {
                 var callin = readHelp(volunteer.Id).CallIn!;
                 if ((AdminManager.Now - callin.StartTreat) >= TimeSpan.FromHours(3))
                 {
-                    CallManager.ChoseForTreatHelp(volunteer.Id, callin.IdCall);
+                    CallManager.CloseTreatHelp(volunteer.Id,callin.Id );
                 }
                 else
                 {

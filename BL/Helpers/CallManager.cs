@@ -44,7 +44,7 @@ internal class CallManager
         BO.Call boCall = ReadHelp(idCall) ?? throw new BO.BlNullPropertyException($"There is no call with this ID {idCall}");
 
         // Check if the call is open; throw exception if not.
-        if (boCall.Status != BO.StatusTreat.Open || boCall.Status == BO.StatusTreat.RiskOpen)
+        if (boCall.Status != BO.StatusTreat.Open && boCall.Status != BO.StatusTreat.RiskOpen)
             throw new BO.BlAlreadyExistsException($"The call is open or expired. IdCall is = {idCall}");
 
         // Create a new assignment for the volunteer and the call.
@@ -325,12 +325,15 @@ internal class CallManager
         }
     }
    internal static void CancelTreatHelp(int idVol, int idAssig)
-    { 
-        DO.Assignment assigmnetToCancel = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
-    bool ismanager = false;
+    {
+        DO.Assignment assigmnetToCancel;
+        lock (AdminManager.BlMutex) //stage 7
+            assigmnetToCancel = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
+        bool ismanager = false;
         if (assigmnetToCancel.VolunteerId != idVol)
         {
-            if (s_dal.Volunteer.Read(idVol).Job == DO.Role.Boss)
+            lock (AdminManager.BlMutex) //stage 7
+                if (s_dal.Volunteer.Read(idVol).Job == DO.Role.Boss)
                 ismanager = true;
             else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager or not in this call");
         }
@@ -345,11 +348,11 @@ internal class CallManager
             TimeStart = assigmnetToCancel.TimeStart,
             TimeEnd = AdminManager.Now,
             TypeEndTreat = ismanager ? DO.TypeEnd.ManagerCancel : DO.TypeEnd.SelfCancel,
-
         };
         try
         {
-            s_dal.Assignment.Update(assigmnetToUP);
+            lock (AdminManager.BlMutex) //stage 7
+                s_dal.Assignment.Update(assigmnetToUP);
             VolunteerManager.Observers.NotifyListUpdated();
             VolunteerManager.Observers.NotifyItemUpdated(idVol);
             CallManager.Observers.NotifyListUpdated();
@@ -379,7 +382,14 @@ internal class CallManager
     /// </summary>
     /// <param name="call"></param>
     /// <returns> bool </returns>
-    internal static bool IsInRisk(DO.Call call) => call!.MaxTimeToClose - s_dal.Config.Clock <= s_dal.Config.RiskRange;
+    
+    
+    internal static bool IsInRisk(DO.Call call)
+    {
+        lock (AdminManager.BlMutex) //stage 7
+            return call!.MaxTimeToClose - s_dal.Config.Clock <= s_dal.Config.RiskRange;
+    }
+    
 
     /// <summary>
     /// Makes a call to all the calls from the data source (the DAL), filters them according to a condition given as a parameter,
@@ -390,7 +400,7 @@ internal class CallManager
     internal static IEnumerable<BO.CallInList> GetCallsInList(Predicate<DO.Call> condition)
     {
         lock (AdminManager.BlMutex)//stage 7
-        return s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
+            return s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
     }
 
     /// <summary>
@@ -400,8 +410,9 @@ internal class CallManager
     /// <returns> BO.StatusTreat </returns>
     internal static BO.StatusTreat GetCallStatus(DO.Call doCall)
     {
-        if (doCall.MaxTimeToClose < s_dal.Config.Clock)
-            return BO.StatusTreat.Expired;
+        lock (AdminManager.BlMutex) //stage 7
+            if (doCall.MaxTimeToClose < s_dal.Config.Clock)
+         return BO.StatusTreat.Expired;
         // var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.TimeStart).FirstOrDefault();
         Assignment? lastAssignment;
         lock (AdminManager.BlMutex)//stage 7

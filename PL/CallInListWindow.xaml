@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="Calls List" Height="640" Width="800"
+        Title="Calls List" Height="640" Width="1000"
         Closed="Window_Closed"
         Loaded="Window_Loaded"
         Background="#F5F5F5">
