@@ -22,16 +22,15 @@ internal class CallManager
         {
 
             double[] coordinates = await Tools.GetCoordinatesAsync(doCall.FullAddress);
-
-
-            if (coordinates is not null)
-            {
-                doCall = doCall with { Latitude = coordinates[0], Longitude = coordinates[1] };
+            if (coordinates==null)
+                doCall = doCall with { Latitude = null, Longitude = null};
+            else
+            doCall = doCall with { Latitude = coordinates[0], Longitude = coordinates[1] };
                 lock (AdminManager.BlMutex)
                     s_dal.Call.Update(doCall);
                 Observers.NotifyListUpdated();
                 Observers.NotifyItemUpdated(doCall.Id);
-            }
+            
         }
     }
 
@@ -94,8 +93,8 @@ internal class CallManager
         IEnumerable<DO.Call> calls;
         lock (AdminManager.BlMutex) //stage 7
             calls = s_dal.Call.ReadAll();
-        double lonVol = (double)volunteer.Longitude;
-        double latVol = (double)volunteer.Latitude;
+        
+     
 
         // Filter for only "Open" or "Risk Open" status
         IEnumerable<BO.OpenCallInList> filteredCalls = from call in allCalls
@@ -111,7 +110,7 @@ internal class CallManager
                                                            MaxTimeToClose = boCall.MaxTimeToClose,
                                                            Status = boCall.Status,
                                                            distanceCallVolunteer = /*volunteer?.FullAddress != null ?*/
-                                                          VolunteerManager.CalculateDistance(latVol, lonVol, (double)boCall.Latitude, (double)boCall.Longitude)/* : 0*/  // Calculate the distance between the volunteer and the call
+                                                          VolunteerManager.CalculateDistance(volunteer.Latitude, volunteer.Longitude, boCall.Latitude, boCall.Longitude) // Calculate the distance between the volunteer and the call
 
                                                        };
         filteredCalls = from call in filteredCalls

@@ -43,10 +43,12 @@ internal static class Tools
 
                     if (results == null || results.Length == 0)
                     {
-                        throw new BO.BlWrongInputException("No coordinates found for the given address.");
+                        return null;
+                      //  throw new BO.BlWrongInputException("No coordinates found for the given address.");
                     }
                     if (results.Length > 1)
-                     throw new BO.BlWrongInputException("No spesific address."); 
+                        return null;
+                  //   throw new BO.BlWrongInputException("No spesific address."); 
                  
                     return new double[] { double.Parse(results[0].Lat), double.Parse(results[0].Lon) };
                 }
