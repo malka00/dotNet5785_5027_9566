@@ -19,6 +19,7 @@
             <Setter Property="Padding" Value="15,8"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
+               
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
@@ -37,6 +38,11 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!-- Time Control Button Style -->
@@ -45,6 +51,11 @@
             <Setter Property="Margin" Value="0,2"/>
             <Setter Property="Width" Value="147"/>
             <Setter Property="Height" Value="32"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="LightGray" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!-- Stats Label Style -->
@@ -100,13 +111,15 @@
                             Background="#FF9800"
                             Margin="5"
                             Height="50"
-                            Click="btnInitDB_Click"/>
+                            Click="btnInitDB_Click"
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
                     <Button Content="Reset DB" 
                             Style="{StaticResource ModernButton}"
                             Background="#F44336"
                             Margin="5"
                             Height="50"
-                            Click="btnResetDB_Click"/>
+                            Click="btnResetDB_Click"
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
                 </UniformGrid>
 
                 <!-- Stats Grid -->
@@ -164,19 +177,24 @@
                 <!-- Time Control Buttons -->
                 <Button Content="Add One Minute" 
                         Style="{StaticResource TimeControlButton}"
-                        Click="btnAddOneMinute_Click"/>
+                        Click="btnAddOneMinute_Click"
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
                 <Button Content="Add One Hour" 
                         Style="{StaticResource TimeControlButton}"
-                        Click="btnAddOneHour_Click"/>
+                        Click="btnAddOneHour_Click"
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
                 <Button Content="Add One Day" 
                         Style="{StaticResource TimeControlButton}"
-                        Click="btnAddOneDay_Click"/>
+                        Click="btnAddOneDay_Click"
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
                 <Button Content="Add One Month" 
                         Style="{StaticResource TimeControlButton}"
-                        Click="btnAddOneMonth_Click"/>
+                        Click="btnAddOneMonth_Click"
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
                 <Button Content="Add One Year" 
                         Style="{StaticResource TimeControlButton}"
-                        Click="btnAddOneYear_Click"/>
+                        Click="btnAddOneYear_Click"
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
 
                 <!-- Risk Time Configuration -->
                 <Border Background="White" 
@@ -195,7 +213,8 @@
                                 IsEnabled="{Binding IsSimulatorRunning,Converter={StaticResource InverseBoolConverterKey}}"/>
                         <Button Content="Update"
                                 Style="{StaticResource ModernButton}"
-                                Click="btnUpdateMaxRange_Click"/>
+                                Click="btnUpdateMaxRange_Click"
+                                 IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
                     </StackPanel>
                 </Border>
 
@@ -210,6 +229,7 @@
                         <Label   Content="Enter time to simulate (in minute)"
                                  FontWeight="Bold"/>
                         <TextBox Text="{Binding Interval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 IsReadOnly="{Binding IsSimulatorRunning}"
                                  Padding="5"
                                  Margin="0,5"
                                  TextChanged="TextBox_TextChanged"/>

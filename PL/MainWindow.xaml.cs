@@ -117,6 +117,15 @@ namespace PL
                 });
         }
 
+        private volatile DispatcherOperation? _observerCallOperation = null; //stage 7
+        private void callObserver()
+        {
+            if (_observerCallOperation is null || _observerCallOperation.Status == DispatcherOperationStatus.Completed)
+                _observerCallOperation = Dispatcher.BeginInvoke(() =>
+                {
+                    CountCall = s_bl.Calls.CountCall();
+                });
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MaxRange = s_bl.Admin.GetMaxRange();
@@ -126,6 +135,7 @@ namespace PL
 
             s_bl.Admin.AddClockObserver(clockObserver);
             s_bl.Admin.AddConfigObserver(configObserver);
+            s_bl.Calls.AddObserver(callObserver);
 
         }
         private void Window_Closed(object sender, EventArgs e)
@@ -133,6 +143,11 @@ namespace PL
             s_bl.Admin.RemoveClockObserver(clockObserver);
             s_bl.Admin.RemoveConfigObserver(configObserver);
             IsOpen = false;
+            if(IsSimulatorRunning)
+            {
+                s_bl.Admin.StopSimulator(); // עצירת סימולטור
+                IsSimulatorRunning = false; // עדכון מצב
+            }
         }
 
 

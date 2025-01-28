@@ -72,8 +72,7 @@ internal class VolunteerManager
                         CallManager.CancelTreatHelp(volunteer.Id, callin.Id);
                     }
                 }
-            }
-            
+            } 
         }
     }
 
