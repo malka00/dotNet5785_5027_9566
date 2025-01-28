@@ -58,12 +58,12 @@ namespace PL
         public int Id { get; set; }
 
         public static bool IsOpen { get; set; } = false;
-      
+
         public MainWindow(int bossId)
         {
             if (IsOpen)
-                throw  new Exception("There already is one manager in the system");
-            else IsOpen=true;
+                throw new Exception("There already is one manager in the system");
+            else IsOpen = true;
             Id = bossId;
             InitializeComponent();
         }
@@ -93,7 +93,7 @@ namespace PL
         {
             s_bl.Admin.setMaxRange(MaxRange);
         }
-       
+
         private volatile DispatcherOperation? _observerClockOperation = null; //stage 7
 
         private void clockObserver() //stage 7
@@ -105,7 +105,7 @@ namespace PL
                 });
         }
 
-    
+
         private volatile DispatcherOperation? _observerConfigOperation = null; //stage 7
 
         private void configObserver() //stage 7
@@ -139,8 +139,8 @@ namespace PL
         private void ButtonVolunteer_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerListWindow(Id) { Owner = this }.Show();
-          //  new VolunteerListWindow(Id).Show();
-          }
+            //  new VolunteerListWindow(Id).Show();
+        }
 
 
         private void btnInitDB_Click(object sender, RoutedEventArgs e)
@@ -201,7 +201,7 @@ namespace PL
         private void ButtonCall_Click(object sender, RoutedEventArgs e)
         {
             new CallInListWindow(Id) { Owner = this }.Show();
-          //  new CallInListWindow(Id).Show();
+            //  new CallInListWindow(Id).Show();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -209,25 +209,35 @@ namespace PL
 
             var managerWindow = Application.Current.Windows.OfType<ManagerWindow>().FirstOrDefault();
 
-         
+
             if (managerWindow != null)
             {
                 managerWindow.Show();
             }
             else
-            
-               new ManagerWindow(Id).Show();
-                
+
+                new ManagerWindow(Id).Show();
+
             this.Close();
         }
 
-      
 
-       
+
+
         private void btnSimulator_Click(object sender, RoutedEventArgs e)
         {
-            //s_bl.Admin.StartSimulator(Interval); //stage 7
-          
+            if (IsSimulatorRunning)
+            {
+                s_bl.Admin.StopSimulator(); // עצירת סימולטור
+                IsSimulatorRunning = false; // עדכון מצב
+            }
+            else
+            {
+                s_bl.Admin.StartSimulator(Interval); // הפעלת סימולטור
+                IsSimulatorRunning = true; // עדכון מצב
+            }
         }
     }
+
+
 }

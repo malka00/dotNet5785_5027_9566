@@ -10,33 +10,6 @@ internal static class Tools
 {
    
 
-
-    //public static async Task<bool> IsAddressValidAsync(string address)
-    //{
-    //    if (string.IsNullOrWhiteSpace(address))
-    //        throw new ArgumentException("Address cannot be null or empty.");
-
-    //    string query = $"{BaseUrl}?q={Uri.EscapeDataString(address)}&api_key={ApiKey}";
-
-    //    try
-    //    {
-    //        // ביצוע בקשה אסינכרונית עם ConfigureAwait(false) כדי למנוע בעיות עם UI thread
-    //        HttpResponseMessage response = await client.GetAsync(query).ConfigureAwait(false);
-
-    //        // החזרת True אם הסטטוס הצליח (2xx)
-    //        bool isValid = response.IsSuccessStatusCode;
-
-    //        Console.WriteLine($"Response Status Code: {response.StatusCode}");
-    //        return isValid;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        // הדפסת השגיאה אם יש חריגה
-    //        Console.WriteLine($"Error: {ex.Message}");
-    //        return false; // במקרה של שגיאה מחזירים false
-    //    }
-    //}
-
     
     public static async Task<double[]> GetCoordinatesAsync(string address)
     {

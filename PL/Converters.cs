@@ -12,7 +12,7 @@ using BO;
 
 namespace PL
 {
-    
+
 
     public class BoolConvertIsCallInProsses : IValueConverter
     {
@@ -23,14 +23,14 @@ namespace PL
                 return false;
             }
 
-            if (value is BO.Volunteer myValue) 
+            if (value is BO.Volunteer myValue)
             {
-                return myValue.CallIn == null&& myValue.Active;
+                return myValue.CallIn == null && myValue.Active;
 
-             
+
             }
             return true;
-         
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -81,7 +81,7 @@ namespace PL
         {
             if (value == null)
             {
-                return Visibility.Collapsed; ; 
+                return Visibility.Collapsed; ;
             }
             return Visibility.Visible;
         }
@@ -97,7 +97,7 @@ namespace PL
         {
             if (value is string buttonText)
             {
-                return buttonText == "Update"; 
+                return buttonText == "Update";
             }
             return false;
         }
@@ -139,10 +139,10 @@ namespace PL
             return Visibility.Collapsed;
         }
 
-    
+
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-          
+
             if (value is Visibility visibility && visibility == Visibility.Visible)
             {
                 return true;
@@ -155,31 +155,31 @@ namespace PL
 
 
 
- 
 
-        public class ConvertStatusOrTypeToEnum : IValueConverter
+
+    public class ConvertStatusOrTypeToEnum : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                if (value == null)
-                    return null;
-                if (value.ToString() == "Status")
-                {
-                    return Enum.GetValues(typeof(StatusTreat));
-                }
-                else if (value.ToString() == "CallType")
-                {
-                    return Enum.GetValues(typeof(CallType));
-                }
-
-                return null; 
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            {
+            if (value == null)
                 return null;
+            if (value.ToString() == "Status")
+            {
+                return Enum.GetValues(typeof(StatusTreat));
             }
+            else if (value.ToString() == "CallType")
+            {
+                return Enum.GetValues(typeof(CallType));
+            }
+
+            return null;
         }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 
     public class ConverterSimulatorState : IValueConverter
     {
@@ -193,7 +193,22 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    public class InverseBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool booleanValue)
+            {
+                return !booleanValue;
+            }
+            return false; // ערך ברירת מחדל במקרה שהקלט אינו בוליאני
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException("ConvertBack לא נתמך.");
+        }
+    }
 }
 
 

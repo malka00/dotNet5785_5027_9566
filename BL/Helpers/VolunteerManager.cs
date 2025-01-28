@@ -191,7 +191,7 @@ internal class VolunteerManager
         };
     }
 
-internal static string EncryptPassword(string password)
+    internal static string EncryptPassword(string password)
     {
         int shift = 3;
         StringBuilder encryptedPassword = new StringBuilder();

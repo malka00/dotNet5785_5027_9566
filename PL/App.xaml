@@ -21,5 +21,6 @@
         <local:ConvertStatusOrTypeToEnum x:Key="ConvertStatusOrTypeToEnumKey"/>
         <local:ClosedCallColection x:Key="ClosedCallColectionKey"/>
         <local:ConverterSimulatorState x:Key="ConverterSimulatorStateKey"/>
+        <local:InverseBoolConverter x:Key="InverseBoolConverterKey"/>
     </Application.Resources>
 </Application>

@@ -191,7 +191,8 @@
                         <TextBox Text="{Binding MaxRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Padding="5"
                                 Margin="0,5"
-                                TextChanged="TextBox_TextChanged"/>
+                                TextChanged="TextBox_TextChanged"
+                                IsEnabled="{Binding IsSimulatorRunning,Converter={StaticResource InverseBoolConverterKey}}"/>
                         <Button Content="Update"
                                 Style="{StaticResource ModernButton}"
                                 Click="btnUpdateMaxRange_Click"/>
@@ -212,7 +213,7 @@
                                  Padding="5"
                                  Margin="0,5"
                                  TextChanged="TextBox_TextChanged"/>
-                        <Button  Content="{Binding IsSimulatorRunning, Converter={StaticResource ConverterSimulatorState}}"
+                        <Button  Content="{Binding IsSimulatorRunning, Converter={StaticResource ConverterSimulatorStateKey}}"
                                  Style="{StaticResource ModernButton}"
                                  Click="btnSimulator_Click"/>
                     </StackPanel>
