@@ -33,7 +33,9 @@ internal class CallImplementation : ICall
     /// <exception cref="BO.BlDeleteNotPossibleException"></exception>
     public void CancelTreat(int idVol, int idAssig)
     {
-       CallManager.CancelTreatHelp(idVol, idAssig);
+        AdminManager.ThrowOnSimulatorIsRunning();
+
+        CallManager.CancelTreatHelp(idVol, idAssig);
         
     }
 
@@ -46,6 +48,8 @@ internal class CallImplementation : ICall
     /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public void ChoseForTreat(int idVol, int idCall)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
+
         CallManager.ChoseForTreatHelp(idVol,idCall);
     }
 
@@ -58,7 +62,9 @@ internal class CallImplementation : ICall
     /// <exception cref="BO.BlWrongInputException"></exception>
     public void CloseTreat(int idVol, int idAssig)
     {
-       CallManager.ChoseForTreatHelp(idVol, idAssig);
+        AdminManager.ThrowOnSimulatorIsRunning();
+
+        CallManager.CloseTreatHelp(idVol, idAssig);
     }
 
     /// <summary>
