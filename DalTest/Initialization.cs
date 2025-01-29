@@ -356,22 +356,27 @@ public static class Initialization
             DateTime RandomStart = start.AddMinutes(s_rand.Next(0, totalMinutesInLastDay));
             DateTime? RandomEnd = null;
 
-            if (i % 10 == 0)
+            //if (i % 5 == 0)
+            //{
+            //    //calls that have passed the time
+            //    int maxRange = (int)(s_dal!.Config.Clock - RandomStart).TotalMinutes;
+            //    if (maxRange > 0) 
+            //        RandomEnd = RandomStart.AddMinutes(s_rand.Next(1, maxRange + 1));
+            //}
+            //else
+            if(i% 5==0) 
             {
-                //calls that have passed the time
-                int maxRange = (int)(s_dal!.Config.Clock - RandomStart).TotalMinutes;
-                if (maxRange > 0) 
-                    RandomEnd = RandomStart.AddMinutes(s_rand.Next(1, maxRange + 1));
+                int maxDurationMinutes = s_rand.Next(1, 180);
+                RandomEnd = RandomStart.AddMinutes(maxDurationMinutes);
             }
             else
-            {
                 if (s_rand.Next(2) == 1)
                 {
      
                     int maxDurationMinutes = s_rand.Next(1, 1441);
                     RandomEnd = RandomStart.AddMinutes(maxDurationMinutes);
                 }
-            }
+            
             s_dal.Call.Create(new Call(0, cType, nDescription, addresses[i], latitudes[i], longitudes[i], RandomStart, RandomEnd));
         }
 

@@ -28,6 +28,8 @@ internal class AdminImplementation : IAdmin
         //Initialization.Do();
         //ClockManager.UpdateClock(ClockManager.Now);
         AdminManager.MaxRange= time;
+        VolunteerManager.Observers.NotifyListUpdated();
+        CallManager.Observers.NotifyListUpdated();
     }
 
     public void ForwardClock(BO.TimeUnit unit)
@@ -43,6 +45,8 @@ internal class AdminImplementation : IAdmin
             BO.TimeUnit.YEAR => AdminManager.Now.AddYears(1),
             _ => DateTime.MinValue
         });
+        VolunteerManager.Observers.NotifyListUpdated();
+        CallManager.Observers.NotifyListUpdated();
     }
 
 

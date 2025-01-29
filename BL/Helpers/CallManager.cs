@@ -11,6 +11,7 @@ namespace Helpers;
 /// <summary>
 /// Auxiliary functions for the implementation of the call
 /// </summary>
+/// </summary>
 internal class CallManager
 {
     private static IDal s_dal = Factory.Get;   //stage 4

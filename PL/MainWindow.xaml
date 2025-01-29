@@ -141,6 +141,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <!-- Headers -->
@@ -168,6 +169,10 @@
 
                         <TextBlock Text="Risk Open" Grid.Row="5"/>
                         <TextBlock Text="{Binding CountCall[5]}" Grid.Row="5" Grid.Column="1"/>
+
+
+                        <TextBlock Text="Risk treat" Grid.Row="6"/>
+                        <TextBlock Text="{Binding CountCall[6]}" Grid.Row="6" Grid.Column="1"/>
                     </Grid>
                 </Border>
             </StackPanel>

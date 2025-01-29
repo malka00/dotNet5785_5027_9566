@@ -197,7 +197,15 @@
                              Grid.Row="3" Grid.Column="3"
                              Height="60"
                              TextWrapping="Wrap"
-                             AcceptsReturn="True"/>
+                             AcceptsReturn="True">
+                        <TextBox.Background>
+                            <MultiBinding Converter="{StaticResource ConverterThreeValueNullToColorKey}">
+                                <Binding Path="CurrentVolunteer.FullAddress" />
+                                <Binding Path="CurrentVolunteer.Latitude" />
+                                <Binding Path="CurrentVolunteer.Longitude" />
+                            </MultiBinding>
+                        </TextBox.Background>
+                    </TextBox>
 
                     <Label Content="Max Reading:" Style="{StaticResource ModernLabel}" Grid.Row="4" Grid.Column="2"/>
                     <TextBox Text="{Binding CurrentVolunteer.MaxReading, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
