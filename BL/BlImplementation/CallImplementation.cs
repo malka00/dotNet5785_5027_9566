@@ -132,7 +132,7 @@ internal class CallImplementation : ICall
         }
         catch (DO.DalExistException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Student with ID={boCall.Id} already exists", ex);
+            throw new BO.BlAlreadyExistsException($"Call with ID={boCall.Id} already exists", ex);
         }
 
         CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
