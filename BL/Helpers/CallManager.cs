@@ -29,8 +29,8 @@ internal class CallManager
             doCall = doCall with { Latitude = coordinates[0], Longitude = coordinates[1] };
             lock (AdminManager.BlMutex)
                     s_dal.Call.Update(doCall);
-                Observers.NotifyListUpdated();
-                Observers.NotifyItemUpdated(doCall.Id);
+           Observers.NotifyListUpdated();
+          Observers.NotifyItemUpdated(doCall.Id);
             
         }
     }
@@ -435,7 +435,9 @@ internal class CallManager
     /// <returns> BO.StatusTreat </returns>
     internal static BO.StatusTreat GetCallStatus(DO.Call doCall)
     {
+        DateTime now;
         lock (AdminManager.BlMutex) //stage 7
+            now = s_dal.Config.Clock;
             if (doCall.MaxTimeToClose < s_dal.Config.Clock)
          return BO.StatusTreat.Expired;
         // var lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == doCall.Id).OrderByDescending(a => a.TimeStart).FirstOrDefault();
