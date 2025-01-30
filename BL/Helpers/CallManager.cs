@@ -40,7 +40,9 @@ internal class CallManager
         // Retrieve volunteer and call; throw exception if not found.
         DO.Volunteer vol;
         lock (AdminManager.BlMutex) //stage 7
-            vol = s_dal.Volunteer.Read(idVol) ?? throw new BO.BlNullPropertyException($"There is no volunteer with this ID {idVol}");
+            vol = s_dal.Volunteer.Read(idVol);       
+        if (vol==null)
+            throw new BO.BlNullPropertyException($"There is no volunteer with this ID {idVol}");
         BO.Call boCall = ReadHelp(idCall) ?? throw new BO.BlNullPropertyException($"There is no call with this ID {idCall}");
 
         // Check if the call is open; throw exception if not.
@@ -159,12 +161,25 @@ internal class CallManager
 
         DO.Call? doCall;
         lock (AdminManager.BlMutex) //stage 7
-            doCall = s_dal.Call.Read(id) ?? throw new BO.BlDoesNotExistException($"Call with ID={id} does Not exist");
+            doCall = s_dal.Call.Read(id);
+        if (doCall==null)
+            throw new BO.BlDoesNotExistException($"Call with ID={id} does Not exist");
 
+        List<BO.CallAssignInList>? assignmentsToCalls;
         lock (AdminManager.BlMutex) //stage 7
         {
-            return new()
+            assignmentsToCalls = dataOfAssignments.Any() ? dataOfAssignments.Select(assign => new BO.CallAssignInList
             {
+                VolunteerId = assign.VolunteerId,
+                VolunteerName = s_dal.Volunteer.Read(assign.VolunteerId)?.FullName,
+                StartTreat = assign.TimeStart,
+                TimeClose = assign.TimeEnd,
+                TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
+            }).ToList() : null;  
+        }
+
+        return new()
+        {
                 Id = id,
                 Type = (BO.CallType)doCall.Type,
                 Description = doCall.Description,
@@ -174,27 +189,19 @@ internal class CallManager
                 TimeOpened = doCall.TimeOpened,
                 MaxTimeToClose = doCall.MaxTimeToClose,
                 Status = CallManager.GetCallStatus(doCall),
-                AssignmentsToCalls = dataOfAssignments.Any()
-   ? dataOfAssignments.Select(assign => new BO.CallAssignInList
-   {
-       VolunteerId = assign.VolunteerId,
-       VolunteerName = s_dal.Volunteer.Read(assign.VolunteerId)?.FullName,
-       StartTreat = assign.TimeStart,
-       TimeClose = assign.TimeEnd,
-       TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
-   }).ToList()
-   : null,
-
-            };
-        }
+                AssignmentsToCalls = assignmentsToCalls
+        };
     }
+    
 
     internal static IEnumerable<BO.CallInList> GetCallInListsHelp(BO.ECallInList? filter, object? obj, BO.ECallInList? sortBy)
     {
         IEnumerable<DO.Call> calls;
         lock (AdminManager.BlMutex) //stage 7
             // Retrieve all calls from the database, or throw an exception if none exist.
-            calls = s_dal.Call.ReadAll() ?? throw new BO.BlNullPropertyException("There are no calls in the database");
+            calls = s_dal.Call.ReadAll();
+                if(calls==null)
+            throw new BO.BlNullPropertyException("There are no calls in the database");
 
         // Convert all DO calls to BO calls in list.
         IEnumerable<BO.CallInList> boCallsInList;
@@ -284,7 +291,9 @@ internal class CallManager
         // Retrieve the assignment by its ID; throw an exception if not found.
         DO.Assignment assignmentToClose;
         lock (AdminManager.BlMutex) //stage 7
-            assignmentToClose = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("There is no assignment with this ID");
+            assignmentToClose = s_dal.Assignment.Read(idAssig);
+        if (assignmentToClose==null)
+            throw new BO.BlDeleteNotPossibleException("There is no assignment with this ID");
 
         // Check if the volunteer matches the one in the assignment; throw an exception if not.
         if (assignmentToClose.VolunteerId != idVol)
@@ -336,7 +345,9 @@ internal class CallManager
     {
         DO.Assignment assignmentToCancel;
         lock (AdminManager.BlMutex) //stage 7
-            assignmentToCancel = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
+            assignmentToCancel = s_dal.Assignment.Read(idAssig);
+        if(assignmentToCancel==null)
+            throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
 
 
         //Checks whether the canceler is the owner of the assignment 
@@ -411,8 +422,10 @@ internal class CallManager
     /// <returns> CallInList </returns>
     internal static IEnumerable<BO.CallInList> GetCallsInList(Predicate<DO.Call> condition)
     {
+        IEnumerable<BO.CallInList> callsInRisk;
         lock (AdminManager.BlMutex)//stage 7
-            return s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
+            callsInRisk= s_dal.Call.ReadAll(call => condition(call)).Select(call => GetCallsInList(call));
+        return callsInRisk;
     }
 
     /// <summary>
@@ -508,25 +521,23 @@ internal class CallManager
         TimeSpan? timeLeft;
         lock (AdminManager.BlMutex)
              timeLeft = (doCall.MaxTimeToClose != null && doCall.MaxTimeToClose >= s_dal.Config.Clock && status != BO.StatusTreat.Closed) ? doCall.MaxTimeToClose - s_dal.Config.Clock : null;
+
+        string? lastVolunteer;
         lock (AdminManager.BlMutex)
+            lastVolunteer = (lastAssignmentsForCall != null) ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName: null;
+
             return new()
             {
                 Id = (lastAssignmentsForCall == null) ? null : lastAssignmentsForCall.Id,
                 CallId = doCall.Id,
                 Type = (BO.CallType)doCall.Type,
                 TimeOpened = doCall.TimeOpened,
-
                 TimeLeft = timeLeft,
-                LastVolunteer = (lastAssignmentsForCall != null)
-          ? s_dal.Volunteer.Read(lastAssignmentsForCall.VolunteerId)?.FullName
-          : null,
-
+                LastVolunteer = lastVolunteer,
                 TotalTime = status == BO.StatusTreat.Closed ? lastAssignmentsForCall.TimeEnd - doCall.TimeOpened : null,
                 // Status = GetCallStatus(doCall),
                 Status = status,
                 SumAssignment = (assignmentsForCall == null) ? 0 : assignmentsForCall.Count()
-
-
             };
     }
 
@@ -539,12 +550,25 @@ internal class CallManager
     {
         Func<DO.Assignment, bool> func;
         IEnumerable<DO.Assignment> dataOfAssignments;
-        lock (AdminManager.BlMutex)
-        {
-            func = item => item.CallId == doCall.Id;
-            dataOfAssignments = s_dal.Assignment.ReadAll(func);
 
-            return new()
+        func = item => item.CallId == doCall.Id;
+        List<BO.CallAssignInList>? assignmentsToCalls;
+        lock (AdminManager.BlMutex)      //stage 7
+        {
+           dataOfAssignments = s_dal.Assignment.ReadAll(func);
+           
+            assignmentsToCalls = dataOfAssignments.Any()
+          ? dataOfAssignments.Select(assign => new BO.CallAssignInList
+          {
+              VolunteerId = assign.VolunteerId,
+              VolunteerName = s_dal.Volunteer.Read(assign.VolunteerId)?.FullName,
+              StartTreat = assign.TimeStart,
+              TimeClose = assign.TimeEnd,
+              TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
+          }).ToList(): null;
+        }
+
+        return new()
             {
                 Id = doCall.Id,
                 Type = (BO.CallType)doCall.Type,
@@ -555,20 +579,10 @@ internal class CallManager
                 TimeOpened = doCall.TimeOpened,
                 MaxTimeToClose = doCall.MaxTimeToClose,
                 Status = GetCallStatus(doCall),
-                AssignmentsToCalls = dataOfAssignments.Any()
-            ? dataOfAssignments.Select(assign => new BO.CallAssignInList
-            {
-                VolunteerId = assign.VolunteerId,
-                VolunteerName = s_dal.Volunteer.Read(assign.VolunteerId)?.FullName,
-                StartTreat = assign.TimeStart,
-                TimeClose = assign.TimeEnd,
-                TypeEndTreat = assign.TypeEndTreat == null ? null : (BO.TypeEnd)assign.TypeEndTreat,
-            }).ToList()
-            : null,
-
+                AssignmentsToCalls = assignmentsToCalls,
             };
-        }
     }
+    
 
     /// <summary>
     /// The `UpdateExpiredCalls` function is responsible for updating the status of expired calls (calls whose maximum time to close has passed).

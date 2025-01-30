@@ -1,443 +1,503 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCall xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<Call>
-		<Id>1000</Id>
-		<Type>Puncture</Type>
-		<Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
-		<FullAddress> David Hamelekh 30, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7733536</Latitude>
-		<Longitude>35.2222988</Longitude>
-		<TimeOpened>2025-01-29T04:29:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T05:10:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1001</Id>
-		<Type>Cables</Type>
-		<Description>Battery drained in the middle of a long bridge, customer needs immediate help.</Description>
-		<FullAddress>Keren Hayesod 10, Jerusalem, Israel</FullAddress>
-		<Latitude>31.8001486</Latitude>
-		<Longitude>35.1420228</Longitude>
-		<TimeOpened>2025-01-28T22:34:12</TimeOpened>
-		<MaxTimeToClose>2025-01-28T23:25:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1002</Id>
-		<Type>Cables</Type>
-		<Description>Dead battery at a theme park parking lot, family stranded with children.</Description>
-		<FullAddress>HaRav Kook 8, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7839</Latitude>
-		<Longitude>35.215</Longitude>
-		<TimeOpened>2025-01-29T03:10:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1003</Id>
-		<Type>Puncture</Type>
-		<Description>Severe puncture in the rear left tire, located in a high-traffic area.</Description>
-		<FullAddress>Strauss 3, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7843</Latitude>
-		<Longitude>35.2174</Longitude>
-		<TimeOpened>2025-01-29T12:56:12</TimeOpened>
-		<MaxTimeToClose>2025-01-30T03:25:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1004</Id>
-		<Type>LockedCar</Type>
-		<Description>Keys locked inside the vehicle; customer is at a gas station.</Description>
-		<FullAddress>Radak 9, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7785</Latitude>
-		<Longitude>35.2132</Longitude>
-		<TimeOpened>2025-01-29T07:56:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1005</Id>
-		<Type>Cables</Type>
-		<Description>Battery failed at a rural farm, customer requires assistance urgently.</Description>
-		<FullAddress>Bezalel 30, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7803</Latitude>
-		<Longitude>35.2165</Longitude>
-		<TimeOpened>2025-01-29T04:37:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T05:26:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1006</Id>
-		<Type>Puncture</Type>
-		<Description>Tire burst on a major highway, requiring immediate assistance.</Description>
-		<FullAddress>Shmuel HaNagid 16, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7809</Latitude>
-		<Longitude>35.2138</Longitude>
-		<TimeOpened>2025-01-29T11:03:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1007</Id>
-		<Type>Cables</Type>
-		<Description>Engine won’t start in an underground garage after leaving lights on.</Description>
-		<FullAddress>רבי ישראל נאג'רה 26 ירושלים ישראל</FullAddress>
-		<Latitude>31.7894182</Latitude>
-		<Longitude>35.1911328</Longitude>
-		<TimeOpened>2025-01-29T16:25:12</TimeOpened>
-		<MaxTimeToClose>2025-01-30T05:02:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1008</Id>
-		<Type>LockedCar</Type>
-		<Description>Child accidentally locked inside the car; urgent assistance needed.</Description>
-		<FullAddress>Shivtei Israel 28, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7825</Latitude>
-		<Longitude>35.2241</Longitude>
-		<TimeOpened>2025-01-29T18:13:12</TimeOpened>
-		<MaxTimeToClose>2025-01-30T12:33:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1009</Id>
-		<Type>Puncture</Type>
-		<Description>Front right tire has a slow leak; customer noticed deflation after parking.</Description>
-		<FullAddress>עוזיאל 35 ירושלים ישראל</FullAddress>
-		<Latitude>31.7700112</Latitude>
-		<Longitude>35.1850035</Longitude>
-		<TimeOpened>2025-01-28T19:58:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T15:31:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1010</Id>
-		<Type>Cables</Type>
-		<Description>Vehicle stranded on a snowy mountain pass, jump-start cables required.</Description>
-		<FullAddress>Rabbi Akiva 12, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7812</Latitude>
-		<Longitude>35.2123</Longitude>
-		<TimeOpened>2025-01-29T04:17:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T05:40:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1011</Id>
-		<Type>Cables</Type>
-		<Description>Customer left the air conditioning running, now needs cable assistance in a desert area.</Description>
-		<FullAddress>Haneviim 47, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7828</Latitude>
-		<Longitude>35.2202</Longitude>
-		<TimeOpened>2025-01-28T21:33:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T11:48:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1012</Id>
-		<Type>Puncture</Type>
-		<Description>Flat tire detected while parked in a shopping center parking lot.</Description>
-		<FullAddress>Yemin Moshe 10, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7695</Latitude>
-		<Longitude>35.2214</Longitude>
-		<TimeOpened>2025-01-29T01:36:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T18:44:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1013</Id>
-		<Type>Cables</Type>
-		<Description>Dead battery at a hotel driveway, guest stranded before checkout.</Description>
-		<FullAddress>Yoel Moshe Salomon 15, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7809598</Latitude>
-		<Longitude>35.2198634</Longitude>
-		<TimeOpened>2025-01-28T22:53:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T12:55:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1014</Id>
-		<Type>Cables</Type>
-		<Description>Battery failure during a road trip, customer stuck at a scenic overlook.</Description>
-		<FullAddress>באזל 10 ירושלים</FullAddress>
-		<Latitude>31.7840322</Latitude>
-		<Longitude>35.1927668</Longitude>
-		<TimeOpened>2025-01-29T16:08:12</TimeOpened>
-		<MaxTimeToClose>2025-01-30T07:08:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1015</Id>
-		<Type>Puncture</Type>
-		<Description>Vehicle with a blown rear right tire near a school zone.</Description>
-		<FullAddress>Beit Hakerem 20, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7687</Latitude>
-		<Longitude>35.2025</Longitude>
-		<TimeOpened>2025-01-29T04:03:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T04:34:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1016</Id>
-		<Type>LockedCar</Type>
-		<Description>Locked car with keys inside at a remote parking lot.</Description>
-		<FullAddress>Givat Shaul 19, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7945</Latitude>
-		<Longitude>35.1965</Longitude>
-		<TimeOpened>2025-01-29T02:49:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T09:09:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1017</Id>
-		<Type>Cables</Type>
-		<Description>Vehicle won’t start after fishing trip, stranded near a remote lake.</Description>
-		<FullAddress>אליעזר הלוי 7, ירושלים </FullAddress>
-		<Latitude>31.7844766</Latitude>
-		<Longitude>35.193053</Longitude>
-		<TimeOpened>2025-01-29T16:17:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T23:06:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1018</Id>
-		<Type>Puncture</Type>
-		<Description>Multiple punctures in both rear tires, stranded in an industrial area.</Description>
-		<FullAddress>Emek Refaim 9, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7684</Latitude>
-		<Longitude>35.2151</Longitude>
-		<TimeOpened>2025-01-29T12:29:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T20:46:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1019</Id>
-		<Type>Cables</Type>
-		<Description>Car battery died at a golf course parking lot, jump-start needed urgently.</Description>
-		<FullAddress>Aza 45, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7699</Latitude>
-		<Longitude>35.2124</Longitude>
-		<TimeOpened>2025-01-28T20:56:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T03:05:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1020</Id>
-		<Type>LockedCar</Type>
-		<Description>Customer left keys in trunk, car is locked in a shopping mall lot.</Description>
-		<FullAddress>Har HaTsofim 15, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7706324</Latitude>
-		<Longitude>35.2123254</Longitude>
-		<TimeOpened>2025-01-29T14:18:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T16:27:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1021</Id>
-		<Type>Puncture</Type>
-		<Description>Emergency - tire went flat on a rainy day in an unlit area.</Description>
-		<FullAddress>שמריהו לוין 55 ירושלים</FullAddress>
-		<Latitude>31.7683803</Latitude>
-		<Longitude>35.1732123</Longitude>
-		<TimeOpened>2025-01-29T13:30:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T15:08:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1022</Id>
-		<Type>Cables</Type>
-		<Description>Customer’s battery failed at a local park during a picnic, needs help.</Description>
-		<FullAddress>Nablus Rd 15, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7915</Latitude>
-		<Longitude>35.2315</Longitude>
-		<TimeOpened>2025-01-29T06:29:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1023</Id>
-		<Type>Cables</Type>
-		<Description>Dead battery after a football game, stranded near the stadium exit.</Description>
-		<FullAddress>חברון 51 ירושלים</FullAddress>
-		<Latitude>31.7643213</Latitude>
-		<Longitude>35.2255189</Longitude>
-		<TimeOpened>2025-01-29T01:10:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T23:05:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1024</Id>
-		<Type>Puncture</Type>
-		<Description>Flat front tire, customer has no spare available.</Description>
-		<FullAddress>HaPalmach 15, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7687</Latitude>
-		<Longitude>35.2064</Longitude>
-		<TimeOpened>2025-01-28T22:02:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1025</Id>
-		<Type>Cables</Type>
-		<Description>Battery drained in heavy fog, car stuck on a rural highway.</Description>
-		<FullAddress>Lincoln 7, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7802</Latitude>
-		<Longitude>35.2237</Longitude>
-		<TimeOpened>2025-01-29T07:33:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T09:21:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1026</Id>
-		<Type>Cables</Type>
-		<Description>Vehicle won’t start after leaving hazard lights on, parked on a quiet street.</Description>
-		<FullAddress>ברוך דובדבני 15 ירושלים</FullAddress>
-		<Latitude>31.7805</Latitude>
-		<Longitude>35.2208</Longitude>
-		<TimeOpened>2025-01-29T01:21:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1027</Id>
-		<Type>Puncture</Type>
-		<Description>Rear tire appears punctured from debris, located near a construction site.</Description>
-		<FullAddress>דיסקין 7 ירושלים ישראל</FullAddress>
-		<Latitude>31.761432</Latitude>
-		<Longitude>35.1917498</Longitude>
-		<TimeOpened>2025-01-29T04:31:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T07:26:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1028</Id>
-		<Type>LockedCar</Type>
-		<Description>Keys locked in vehicle with engine running, parked at an office complex.</Description>
-		<FullAddress>Alkalai 10, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7760007</Latitude>
-		<Longitude>35.2103608</Longitude>
-		<TimeOpened>2025-01-29T08:10:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T16:18:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1029</Id>
-		<Type>Cables</Type>
-		<Description>Dead battery at a university campus, urgent assistance requested.</Description>
-		<FullAddress>Ramban 13, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7801</Latitude>
-		<Longitude>35.2081</Longitude>
-		<TimeOpened>2025-01-29T06:54:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1030</Id>
-		<Type>Puncture</Type>
-		<Description>Customer suspects a nail puncture, vehicle stopped by a rural road.</Description>
-		<FullAddress>מרדכי בן הלל 10 ירושלים</FullAddress>
-		<Latitude>31.7821</Latitude>
-		<Longitude>35.2079</Longitude>
-		<TimeOpened>2025-01-29T04:03:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T04:21:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1031</Id>
-		<Type>Cables</Type>
-		<Description>Battery failure at a movie theater parking lot, customer stranded late at night.</Description>
-		<FullAddress>HaRav Herzog 5, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7817481</Latitude>
-		<Longitude>35.2174742</Longitude>
-		<TimeOpened>2025-01-29T04:58:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1032</Id>
-		<Type>LockedCar</Type>
-		<Description>Customer locked out of car after leaving keys on the seat.</Description>
-		<FullAddress>אגרון 18 ירושלים</FullAddress>
-		<Latitude>31.7698338</Latitude>
-		<Longitude>35.2110343</Longitude>
-		<TimeOpened>2025-01-29T08:06:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1033</Id>
-		<Type>Puncture</Type>
-		<Description>Slow deflation on both front tires, customer requests immediate help.</Description>
-		<FullAddress>Givon 3, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7766198</Latitude>
-		<Longitude>35.2200697</Longitude>
-		<TimeOpened>2025-01-29T07:19:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T14:52:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1034</Id>
-		<Type>Cables</Type>
-		<Description>Car won’t start after a rainy night, parked near a construction site.</Description>
-		<FullAddress>בצלאל 19 ירושלים</FullAddress>
-		<Latitude>31.7784</Latitude>
-		<Longitude>35.1963</Longitude>
-		<TimeOpened>2025-01-29T05:02:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T05:13:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1035</Id>
-		<Type>Cables</Type>
-		<Description>Battery died while waiting in a ferry line, assistance needed immediately.</Description>
-		<FullAddress>בית וגן 14 ירושלים</FullAddress>
-		<Latitude>31.7814544</Latitude>
-		<Longitude>35.2114904</Longitude>
-		<TimeOpened>2025-01-28T19:42:12</TimeOpened>
-		<MaxTimeToClose>2025-01-28T21:12:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1036</Id>
-		<Type>Puncture</Type>
-		<Description>Rear left tire went flat while driving, customer safely parked.</Description>
-		<FullAddress>Harav Shach 9, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7712662</Latitude>
-		<Longitude>35.1837672</Longitude>
-		<TimeOpened>2025-01-29T07:03:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1037</Id>
-		<Type>Cables</Type>
-		<Description>Engine won’t start after customer left headlights on in a supermarket parking lot.</Description>
-		<FullAddress>מגרש הרוסים ירושלים</FullAddress>
-		<Latitude>31.7623</Latitude>
-		<Longitude>35.2159</Longitude>
-		<TimeOpened>2025-01-29T08:41:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T08:55:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1038</Id>
-		<Type>Cables</Type>
-		<Description>Dead battery on a remote hiking trail parking area, customer stranded with no signal.</Description>
-		<FullAddress>Shaarei Tsedek 1, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7813648</Latitude>
-		<Longitude>35.223003</Longitude>
-		<TimeOpened>2025-01-29T08:47:12</TimeOpened>
-		<MaxTimeToClose>2025-01-30T07:02:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1039</Id>
-		<Type>Puncture</Type>
-		<Description>Tire deflation due to hitting a pothole, in a crowded downtown area.</Description>
-		<FullAddress>Givat Mordechai 12, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7981</Latitude>
-		<Longitude>35.221</Longitude>
-		<TimeOpened>2025-01-29T14:01:12</TimeOpened>
-		<MaxTimeToClose>2025-01-30T12:45:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1040</Id>
-		<Type>LockedCar</Type>
-		<Description>Locked vehicle outside a stadium, customer unable to access the car.</Description>
-		<FullAddress>יצחק רפאל 15 ירושלים</FullAddress>
-		<Latitude>31.7742</Latitude>
-		<Longitude>35.2342</Longitude>
-		<TimeOpened>2025-01-29T17:05:12</TimeOpened>
-		<MaxTimeToClose>2025-01-29T17:53:12</MaxTimeToClose>
-	</Call>
-	<Call>
-		<Id>1041</Id>
-		<Type>Cables</Type>
-		<Description>Battery dead, requires jump-start cables near a busy intersection.</Description>
-		<FullAddress>Sanhedria 14, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7219788</Latitude>
-		<Longitude>35.2158382</Longitude>
-		<TimeOpened>2025-01-29T09:54:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1042</Id>
-		<Type>Puncture</Type>
-		<Description>Front tire completely flat, vehicle blocking entrance to an office complex.</Description>
-		<FullAddress>Bar Ilan 27, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7591</Latitude>
-		<Longitude>35.2236</Longitude>
-		<TimeOpened>2025-01-29T18:01:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
-	<Call>
-		<Id>1043</Id>
-		<Type>Cables</Type>
-		<Description>Customer stranded with a weak battery, needs cables urgently.</Description>
-		<FullAddress>Shmuel Hanavi 50, Jerusalem, Israel</FullAddress>
-		<Latitude>31.7545</Latitude>
-		<Longitude>35.2087</Longitude>
-		<TimeOpened>2025-01-29T05:22:12</TimeOpened>
-		<MaxTimeToClose xsi:nil="true" />
-	</Call>
+  <Call>
+    <Id>1000</Id>
+    <Type>Puncture</Type>
+    <Description>Flat tire on the driver's side front wheel, car parked on a narrow roadside.</Description>
+    <FullAddress> David Hamelekh 30, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7733536</Latitude>
+    <Longitude>35.2222988</Longitude>
+    <TimeOpened>2025-01-30T13:04:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T13:31:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1001</Id>
+    <Type>Cables</Type>
+    <Description>Battery drained in the middle of a long bridge, customer needs immediate help.</Description>
+    <FullAddress>Keren Hayesod 10, Jerusalem, Israel</FullAddress>
+    <Latitude>31.8001486</Latitude>
+    <Longitude>35.1420228</Longitude>
+    <TimeOpened>2025-01-30T03:44:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T18:38:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1002</Id>
+    <Type>Cables</Type>
+    <Description>Dead battery at a theme park parking lot, family stranded with children.</Description>
+    <FullAddress>HaRav Kook 8, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7839</Latitude>
+    <Longitude>35.215</Longitude>
+    <TimeOpened>2025-01-30T00:09:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1003</Id>
+    <Type>Puncture</Type>
+    <Description>Severe puncture in the rear left tire, located in a high-traffic area.</Description>
+    <FullAddress>Strauss 3, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7843</Latitude>
+    <Longitude>35.2174</Longitude>
+    <TimeOpened>2025-01-30T13:36:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1004</Id>
+    <Type>LockedCar</Type>
+    <Description>Keys locked inside the vehicle; customer is at a gas station.</Description>
+    <FullAddress>Radak 9, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7785</Latitude>
+    <Longitude>35.2132</Longitude>
+    <TimeOpened>2025-01-30T08:06:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T09:20:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1005</Id>
+    <Type>Cables</Type>
+    <Description>Battery failed at a rural farm, customer requires assistance urgently.</Description>
+    <FullAddress>Bezalel 30, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7803</Latitude>
+    <Longitude>35.2165</Longitude>
+    <TimeOpened>2025-01-30T04:13:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T05:29:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1006</Id>
+    <Type>Puncture</Type>
+    <Description>Tire burst on a major highway, requiring immediate assistance.</Description>
+    <FullAddress>Shmuel HaNagid 16, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7809</Latitude>
+    <Longitude>35.2138</Longitude>
+    <TimeOpened>2025-01-30T12:11:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1007</Id>
+    <Type>Cables</Type>
+    <Description>Engine won’t start in an underground garage after leaving lights on.</Description>
+    <FullAddress>רבי ישראל נאג'רה 26 ירושלים ישראל</FullAddress>
+    <Latitude>31.7894182</Latitude>
+    <Longitude>35.1911328</Longitude>
+    <TimeOpened>2025-01-30T08:43:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1008</Id>
+    <Type>LockedCar</Type>
+    <Description>Child accidentally locked inside the car; urgent assistance needed.</Description>
+    <FullAddress>Shivtei Israel 28, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7825</Latitude>
+    <Longitude>35.2241</Longitude>
+    <TimeOpened>2025-01-30T16:32:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1009</Id>
+    <Type>Puncture</Type>
+    <Description>Front right tire has a slow leak; customer noticed deflation after parking.</Description>
+    <FullAddress>עוזיאל 35 ירושלים ישראל</FullAddress>
+    <Latitude>31.7700112</Latitude>
+    <Longitude>35.1850035</Longitude>
+    <TimeOpened>2025-01-30T06:26:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T00:14:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1010</Id>
+    <Type>Cables</Type>
+    <Description>Vehicle stranded on a snowy mountain pass, jump-start cables required.</Description>
+    <FullAddress>Rabbi Akiva 12, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7812</Latitude>
+    <Longitude>35.2123</Longitude>
+    <TimeOpened>2025-01-30T11:39:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T13:20:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1011</Id>
+    <Type>Cables</Type>
+    <Description>Customer left the air conditioning running, now needs cable assistance in a desert area.</Description>
+    <FullAddress>Haneviim 47, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7828</Latitude>
+    <Longitude>35.2202</Longitude>
+    <TimeOpened>2025-01-30T14:26:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1012</Id>
+    <Type>Puncture</Type>
+    <Description>Flat tire detected while parked in a shopping center parking lot.</Description>
+    <FullAddress>Yemin Moshe 10, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7695</Latitude>
+    <Longitude>35.2214</Longitude>
+    <TimeOpened>2025-01-30T18:08:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T09:24:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1013</Id>
+    <Type>Cables</Type>
+    <Description>Dead battery at a hotel driveway, guest stranded before checkout.</Description>
+    <FullAddress>Yoel Moshe Salomon 15, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7809598</Latitude>
+    <Longitude>35.2198634</Longitude>
+    <TimeOpened>2025-01-30T16:29:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T06:22:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1014</Id>
+    <Type>Cables</Type>
+    <Description>Battery failure during a road trip, customer stuck at a scenic overlook.</Description>
+    <FullAddress>באזל 10 ירושלים</FullAddress>
+    <Latitude>31.7840322</Latitude>
+    <Longitude>35.1927668</Longitude>
+    <TimeOpened>2025-01-30T10:17:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T00:34:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1015</Id>
+    <Type>Puncture</Type>
+    <Description>Vehicle with a blown rear right tire near a school zone.</Description>
+    <FullAddress>Beit Hakerem 20, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7687</Latitude>
+    <Longitude>35.2025</Longitude>
+    <TimeOpened>2025-01-30T17:46:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T19:19:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1016</Id>
+    <Type>LockedCar</Type>
+    <Description>Locked car with keys inside at a remote parking lot.</Description>
+    <FullAddress>Givat Shaul 19, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7945</Latitude>
+    <Longitude>35.1965</Longitude>
+    <TimeOpened>2025-01-30T02:17:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1017</Id>
+    <Type>Cables</Type>
+    <Description>Vehicle won’t start after fishing trip, stranded near a remote lake.</Description>
+    <FullAddress>אליעזר הלוי 7, ירושלים </FullAddress>
+    <Latitude>31.7844766</Latitude>
+    <Longitude>35.193053</Longitude>
+    <TimeOpened>2025-01-30T19:35:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T12:38:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1018</Id>
+    <Type>Puncture</Type>
+    <Description>Multiple punctures in both rear tires, stranded in an industrial area.</Description>
+    <FullAddress>Emek Refaim 9, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7684</Latitude>
+    <Longitude>35.2151</Longitude>
+    <TimeOpened>2025-01-30T17:52:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T22:04:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1019</Id>
+    <Type>Cables</Type>
+    <Description>Car battery died at a golf course parking lot, jump-start needed urgently.</Description>
+    <FullAddress>Aza 45, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7699</Latitude>
+    <Longitude>35.2124</Longitude>
+    <TimeOpened>2025-01-30T00:23:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T12:42:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1020</Id>
+    <Type>LockedCar</Type>
+    <Description>Customer left keys in trunk, car is locked in a shopping mall lot.</Description>
+    <FullAddress>Har HaTsofim 15, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7706324</Latitude>
+    <Longitude>35.2123254</Longitude>
+    <TimeOpened>2025-01-30T08:27:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T09:12:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1021</Id>
+    <Type>Puncture</Type>
+    <Description>Emergency - tire went flat on a rainy day in an unlit area.</Description>
+    <FullAddress>שמריהו לוין 55 ירושלים</FullAddress>
+    <Latitude>31.7683803</Latitude>
+    <Longitude>35.1732123</Longitude>
+    <TimeOpened>2025-01-30T05:24:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T22:45:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1022</Id>
+    <Type>Cables</Type>
+    <Description>Customer’s battery failed at a local park during a picnic, needs help.</Description>
+    <FullAddress>Nablus Rd 15, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7915</Latitude>
+    <Longitude>35.2315</Longitude>
+    <TimeOpened>2025-01-30T14:20:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1023</Id>
+    <Type>Cables</Type>
+    <Description>Dead battery after a football game, stranded near the stadium exit.</Description>
+    <FullAddress>חברון 51 ירושלים</FullAddress>
+    <Latitude>31.7643213</Latitude>
+    <Longitude>35.2255189</Longitude>
+    <TimeOpened>2025-01-30T11:05:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T09:16:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1024</Id>
+    <Type>Puncture</Type>
+    <Description>Flat front tire, customer has no spare available.</Description>
+    <FullAddress>HaPalmach 15, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7687</Latitude>
+    <Longitude>35.2064</Longitude>
+    <TimeOpened>2025-01-30T07:13:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1025</Id>
+    <Type>Cables</Type>
+    <Description>Battery drained in heavy fog, car stuck on a rural highway.</Description>
+    <FullAddress>Lincoln 7, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7802</Latitude>
+    <Longitude>35.2237</Longitude>
+    <TimeOpened>2025-01-30T03:29:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T04:11:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1026</Id>
+    <Type>Cables</Type>
+    <Description>Vehicle won’t start after leaving hazard lights on, parked on a quiet street.</Description>
+    <FullAddress>ברוך דובדבני 15 ירושלים</FullAddress>
+    <Latitude>31.7805</Latitude>
+    <Longitude>35.2208</Longitude>
+    <TimeOpened>2025-01-30T17:25:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1027</Id>
+    <Type>Puncture</Type>
+    <Description>Rear tire appears punctured from debris, located near a construction site.</Description>
+    <FullAddress>דיסקין 7 ירושלים ישראל</FullAddress>
+    <Latitude>31.761432</Latitude>
+    <Longitude>35.1917498</Longitude>
+    <TimeOpened>2025-01-30T08:43:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T08:36:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1028</Id>
+    <Type>LockedCar</Type>
+    <Description>Keys locked in vehicle with engine running, parked at an office complex.</Description>
+    <FullAddress>Alkalai 10, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7760007</Latitude>
+    <Longitude>35.2103608</Longitude>
+    <TimeOpened>2025-01-30T03:42:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1029</Id>
+    <Type>Cables</Type>
+    <Description>Dead battery at a university campus, urgent assistance requested.</Description>
+    <FullAddress>Ramban 13, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7801</Latitude>
+    <Longitude>35.2081</Longitude>
+    <TimeOpened>2025-01-29T22:26:17</TimeOpened>
+    <MaxTimeToClose>2025-01-29T23:47:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1030</Id>
+    <Type>Puncture</Type>
+    <Description>Customer suspects a nail puncture, vehicle stopped by a rural road.</Description>
+    <FullAddress>מרדכי בן הלל 10 ירושלים</FullAddress>
+    <Latitude>31.7821</Latitude>
+    <Longitude>35.2079</Longitude>
+    <TimeOpened>2025-01-30T01:55:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T04:38:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1031</Id>
+    <Type>Cables</Type>
+    <Description>Battery failure at a movie theater parking lot, customer stranded late at night.</Description>
+    <FullAddress>HaRav Herzog 5, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7817481</Latitude>
+    <Longitude>35.2174742</Longitude>
+    <TimeOpened>2025-01-30T15:42:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1032</Id>
+    <Type>LockedCar</Type>
+    <Description>Customer locked out of car after leaving keys on the seat.</Description>
+    <FullAddress>אגרון 18 ירושלים</FullAddress>
+    <Latitude>31.7698338</Latitude>
+    <Longitude>35.2110343</Longitude>
+    <TimeOpened>2025-01-30T13:15:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T19:03:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1033</Id>
+    <Type>Puncture</Type>
+    <Description>Slow deflation on both front tires, customer requests immediate help.</Description>
+    <FullAddress>Givon 3, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7766198</Latitude>
+    <Longitude>35.2200697</Longitude>
+    <TimeOpened>2025-01-30T12:00:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T09:35:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1034</Id>
+    <Type>Cables</Type>
+    <Description>Car won’t start after a rainy night, parked near a construction site.</Description>
+    <FullAddress>בצלאל 19 ירושלים</FullAddress>
+    <Latitude>31.7784</Latitude>
+    <Longitude>35.1963</Longitude>
+    <TimeOpened>2025-01-30T18:23:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T14:31:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1035</Id>
+    <Type>Cables</Type>
+    <Description>Battery died while waiting in a ferry line, assistance needed immediately.</Description>
+    <FullAddress>בית וגן 14 ירושלים</FullAddress>
+    <Latitude>31.7814544</Latitude>
+    <Longitude>35.2114904</Longitude>
+    <TimeOpened>2025-01-30T06:35:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T08:54:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1036</Id>
+    <Type>Puncture</Type>
+    <Description>Rear left tire went flat while driving, customer safely parked.</Description>
+    <FullAddress>Harav Shach 9, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7712662</Latitude>
+    <Longitude>35.1837672</Longitude>
+    <TimeOpened>2025-01-30T12:51:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1037</Id>
+    <Type>Cables</Type>
+    <Description>Engine won’t start after customer left headlights on in a supermarket parking lot.</Description>
+    <FullAddress>מגרש הרוסים ירושלים</FullAddress>
+    <Latitude>31.7623</Latitude>
+    <Longitude>35.2159</Longitude>
+    <TimeOpened>2025-01-30T00:37:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T20:41:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1038</Id>
+    <Type>Cables</Type>
+    <Description>Dead battery on a remote hiking trail parking area, customer stranded with no signal.</Description>
+    <FullAddress>Shaarei Tsedek 1, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7813648</Latitude>
+    <Longitude>35.223003</Longitude>
+    <TimeOpened>2025-01-30T14:42:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1039</Id>
+    <Type>Puncture</Type>
+    <Description>Tire deflation due to hitting a pothole, in a crowded downtown area.</Description>
+    <FullAddress>Givat Mordechai 12, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7981</Latitude>
+    <Longitude>35.221</Longitude>
+    <TimeOpened>2025-01-30T00:26:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1040</Id>
+    <Type>LockedCar</Type>
+    <Description>Locked vehicle outside a stadium, customer unable to access the car.</Description>
+    <FullAddress>יצחק רפאל 15 ירושלים</FullAddress>
+    <Latitude>31.7742</Latitude>
+    <Longitude>35.2342</Longitude>
+    <TimeOpened>2025-01-29T22:26:17</TimeOpened>
+    <MaxTimeToClose>2025-01-29T23:19:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1041</Id>
+    <Type>Cables</Type>
+    <Description>Battery dead, requires jump-start cables near a busy intersection.</Description>
+    <FullAddress>Sanhedria 14, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7219788</Latitude>
+    <Longitude>35.2158382</Longitude>
+    <TimeOpened>2025-01-30T15:00:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T05:18:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1042</Id>
+    <Type>Puncture</Type>
+    <Description>Front tire completely flat, vehicle blocking entrance to an office complex.</Description>
+    <FullAddress>Bar Ilan 27, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7591</Latitude>
+    <Longitude>35.2236</Longitude>
+    <TimeOpened>2025-01-30T02:31:17</TimeOpened>
+    <MaxTimeToClose>2025-01-31T01:35:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1043</Id>
+    <Type>Cables</Type>
+    <Description>Customer stranded with a weak battery, needs cables urgently.</Description>
+    <FullAddress>Shmuel Hanavi 50, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7545</Latitude>
+    <Longitude>35.2087</Longitude>
+    <TimeOpened>2025-01-30T19:11:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1044</Id>
+    <Type>LockedCar</Type>
+    <Description>Customer left keys inside, vehicle parked near a hospital entrance.</Description>
+    <FullAddress>Malha  7, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7695</Latitude>
+    <Longitude>35.2381</Longitude>
+    <TimeOpened>2025-01-30T07:50:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1045</Id>
+    <Type>Puncture</Type>
+    <Description>Flat tire discovered after vehicle was parked overnight.</Description>
+    <FullAddress>Pisgat Ze'ev Blvd 6, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7514658</Latitude>
+    <Longitude>35.1829753</Longitude>
+    <TimeOpened>2025-01-30T14:06:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T15:23:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1046</Id>
+    <Type>Cables</Type>
+    <Description>Dead battery in a dark area, customer requests cable assistance.</Description>
+    <FullAddress>מלחה 13 ירושלים</FullAddress>
+    <Latitude>31.7947</Latitude>
+    <Longitude>35.2485718</Longitude>
+    <TimeOpened>2025-01-30T13:08:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
+  <Call>
+    <Id>1047</Id>
+    <Type>Cables</Type>
+    <Description>Battery failure near a crowded shopping area, needs jump-start.</Description>
+    <FullAddress>צפת 15 ירושלים</FullAddress>
+    <Latitude>31.7514658</Latitude>
+    <Longitude>35.1829753</Longitude>
+    <TimeOpened>2025-01-30T08:04:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T17:18:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1048</Id>
+    <Type>Puncture</Type>
+    <Description>Large puncture on rear tire, parked near a recreational park.</Description>
+    <FullAddress>Ha'Arazim 3, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7795649</Latitude>
+    <Longitude>35.2116742</Longitude>
+    <TimeOpened>2025-01-30T11:30:17</TimeOpened>
+    <MaxTimeToClose>2025-01-30T21:00:17</MaxTimeToClose>
+  </Call>
+  <Call>
+    <Id>1049</Id>
+    <Type>Cables</Type>
+    <Description>Engine won’t start due to battery; customer needs cable connection.</Description>
+    <FullAddress>Ramot Forest, Jerusalem, Israel</FullAddress>
+    <Latitude>31.7803494</Latitude>
+    <Longitude>35.1873538</Longitude>
+    <TimeOpened>2025-01-29T22:39:17</TimeOpened>
+    <MaxTimeToClose xsi:nil="true" />
+  </Call>
 </ArrayOfCall>
