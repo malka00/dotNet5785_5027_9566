@@ -76,6 +76,8 @@ internal class VolunteerManager
         }
     }
 
+  
+ 
     internal static IEnumerable<BO.VolunteerInList> GetVolunteerListHelp(bool? active, BO.EVolunteerInList? sortBy)
     {
         IEnumerable<DO.Volunteer> volunteers;
@@ -533,8 +535,9 @@ internal class VolunteerManager
 
     internal static async Task updateCoordinatesForVolunteerAddressAsync(DO.Volunteer doVolunteer, string address)
     {
-        if (doVolunteer.FullAddress is not null)
-        {
+        if (address == null)
+            address = "";
+       
             double[] coordinates;
 
             coordinates = await Tools.GetCoordinatesAsync(address);
@@ -551,7 +554,7 @@ internal class VolunteerManager
             Observers.NotifyListUpdated();
             Observers.NotifyItemUpdated(doVolunteer.Id);
 
-        }
+        
         
     
     }

@@ -62,6 +62,12 @@ internal class VolunteerImplementation : IVolunteer
         _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(doVolunteer, boVolunteer.FullAddress);
     }
 
+
+    /// <summary>
+    /// check whether the volunteer can be deleted
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>bool</returns>
     public bool CanDelete(int id)
     {
         return (Read(id).CallIn == null) && (Read(id).SumCalls == 0);

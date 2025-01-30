@@ -12,7 +12,7 @@
     <address>King George  20, Jerusalem, Israel</address>
     <longitude>35.2193</longitude>
     <latitude>31.7784</latitude>
-    <maxDistance>61</maxDistance>
+    <maxDistance>69</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207669508</ID>
@@ -26,7 +26,21 @@
     <address>מכון טל </address>
     <longitude>35.189689</longitude>
     <latitude>31.78542</latitude>
-    <maxDistance>17</maxDistance>
+    <maxDistance>79</maxDistance>
+  </Volunteer>
+  <Volunteer>
+    <ID>207733817</ID>
+    <fullName>Oren Alon</fullName>
+    <phone>0534567890</phone>
+    <email>oren@example.com</email>
+    <password>Khoor8</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>Agripas  10, Jerusalem, Israel</address>
+    <longitude>35.2129</longitude>
+    <latitude>31.7801</latitude>
+    <maxDistance>95</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207862384</ID>
@@ -40,7 +54,7 @@
     <address>Hapalmach  25, Jerusalem, Israel</address>
     <longitude>35.2065</longitude>
     <latitude>31.7642</latitude>
-    <maxDistance>45</maxDistance>
+    <maxDistance>35</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207926692</ID>
@@ -54,7 +68,7 @@
     <address>Emek Refaim 43, Jerusalem, Israel</address>
     <longitude>35.2117</longitude>
     <latitude>31.7655</latitude>
-    <maxDistance>85</maxDistance>
+    <maxDistance>92</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208317958</ID>
@@ -68,7 +82,7 @@
     <address>hapisga 6,  Jerusalem, Israel</address>
     <longitude>35.212416</longitude>
     <latitude>31.751709</latitude>
-    <maxDistance>44</maxDistance>
+    <maxDistance>92</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208448738</ID>
@@ -82,7 +96,7 @@
     <address>Hillel  7, Jerusalem, Israel</address>
     <longitude>35.2142</longitude>
     <latitude>31.7809</latitude>
-    <maxDistance>99</maxDistance>
+    <maxDistance>61</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208731323</ID>
@@ -96,7 +110,7 @@
     <address>Derech Hebron 105, Jerusalem, Israel</address>
     <longitude>35.2156</longitude>
     <latitude>31.7515</latitude>
-    <maxDistance>68</maxDistance>
+    <maxDistance>55</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208749978</ID>
@@ -110,7 +124,7 @@
     <address>Bezalel 12, Jerusalem, Israel</address>
     <longitude>35.215</longitude>
     <latitude>31.7812</latitude>
-    <maxDistance>47</maxDistance>
+    <maxDistance>7</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209184217</ID>
@@ -124,7 +138,7 @@
     <address>HaNeviim 29, Jerusalem, Israel</address>
     <longitude>35.2175</longitude>
     <latitude>31.7837</latitude>
-    <maxDistance>71</maxDistance>
+    <maxDistance>39</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209307123</ID>
@@ -138,7 +152,7 @@
     <address>Shivtei Israel  15, Jerusalem, Israel</address>
     <longitude>35.2214</longitude>
     <latitude>31.7849</latitude>
-    <maxDistance>55</maxDistance>
+    <maxDistance>25</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209314277</ID>
@@ -152,7 +166,7 @@
     <address>Aza 50, Jerusalem, Israel</address>
     <longitude>35.2123</longitude>
     <latitude>31.7698</latitude>
-    <maxDistance>70</maxDistance>
+    <maxDistance>83</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209567445</ID>
@@ -166,7 +180,7 @@
     <address>כנפי נשרים 15  ירושלים</address>
     <longitude>35.1837336</longitude>
     <latitude>31.7873914</latitude>
-    <maxDistance>36</maxDistance>
+    <maxDistance>50</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209567890</ID>
@@ -180,7 +194,7 @@
     <address>בית וגן 20 ירושלים</address>
     <longitude>35.1838085</longitude>
     <latitude>31.7707007</latitude>
-    <maxDistance>76</maxDistance>
+    <maxDistance>87</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209606318</ID>
@@ -194,7 +208,7 @@
     <address>Shivtei Israel  10,  Jerusalem, Israel</address>
     <longitude>35.2250006</longitude>
     <latitude>31.7804057</latitude>
-    <maxDistance>96</maxDistance>
+    <maxDistance>68</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>326209566</ID>
@@ -223,18 +237,14 @@
     <latitude>31.7692558</latitude>
   </Volunteer>
   <Volunteer>
-    <ID>207733817</ID>
-    <fullName>Oren Alon</fullName>
-    <phone>0534567890</phone>
-    <email>oren@example.com</email>
-    <password>Khoor8</password>
+    <ID>212075444</ID>
+    <fullName>hgfcvbhjn mkjhugtfc</fullName>
+    <phone>0586526683</phone>
+    <email>efrat@gmail.com</email>
+    <password>D4567</password>
     <isActive>true</isActive>
     <role>Volunteer</role>
     <distance>Aerial</distance>
-    <address>קרית משה 14, ירושלים
-</address>
-    <longitude>35.195329</longitude>
-    <latitude>31.7860998</latitude>
-    <maxDistance>13</maxDistance>
+    <address>juhygbjn</address>
   </Volunteer>
 </ArrayOfVolunteer>

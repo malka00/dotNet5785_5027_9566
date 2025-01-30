@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Net;
 using System.Net.NetworkInformation;
 using BlImplementation;
 using BO;
@@ -17,20 +18,24 @@ internal class CallManager
     private static IDal s_dal = Factory.Get;   //stage 4
 
     internal static ObserverManager Observers = new(); //stage 5 
-    internal static async Task updateCoordinatesForCallsAddressAsync(DO.Call doCall)
+    internal static async Task updateCoordinatesForCallsAddressAsync(DO.Call doCall, string newAddress)
     {
-        if (doCall.FullAddress is not null)
-        {
-            double[] coordinates = await Tools.GetCoordinatesAsync(doCall.FullAddress);
-            if (coordinates==null)
-                doCall = doCall with { Latitude = null, Longitude = null};
-            else
+        if (newAddress == null)
+            newAddress = "";
+
+        double[] coordinates;
+
+        coordinates = await Tools.GetCoordinatesAsync(newAddress);
+        if (coordinates == null || coordinates.Length != 2)
+              doCall = doCall with { Latitude = null, Longitude = null};
+        else
             doCall = doCall with { Latitude = coordinates[0], Longitude = coordinates[1] };
-            lock (AdminManager.BlMutex)
+            
+        lock (AdminManager.BlMutex)
                     s_dal.Call.Update(doCall);
                 Observers.NotifyListUpdated();
                 Observers.NotifyItemUpdated(doCall.Id);    
-        }
+        
     }
 
     internal static void ChoseForTreatHelp(int idVol, int idCall)

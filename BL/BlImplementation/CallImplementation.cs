@@ -138,7 +138,7 @@ internal class CallImplementation : ICall
             doCall= _dal.Call.ReadAll().OrderByDescending(x => x.Id).First();
        CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
         CallManager.Observers.NotifyListUpdated();  //stage 5
-       _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall);
+       _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall, boCall.FullAddress);
     }
 
     /// <summary>
@@ -308,8 +308,7 @@ internal class CallImplementation : ICall
         {
             lock (AdminManager.BlMutex) //stage 7
                 _dal.Call.Update(doCall);
-            lock (AdminManager.BlMutex) //stage 7
-              doCall=  _dal.Call.ReadAll().OrderByDescending(s=>s.Id).First();
+   
         }
         catch (DO.DalDeleteImpossible ex)
         {
@@ -317,7 +316,7 @@ internal class CallImplementation : ICall
         }
         CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
         CallManager.Observers.NotifyListUpdated();  //stage 5
-        _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall);
+        _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall, boCall.FullAddress);
     }
 }
 
