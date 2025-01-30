@@ -174,7 +174,7 @@ internal class VolunteerImplementation : IVolunteer
        
         VolunteerManager.Observers.NotifyItemUpdated(volunteerUpdate.Id);  //stage 5
         VolunteerManager.Observers.NotifyListUpdated();  //stage 5
-         _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(volunteerUpdate, boVolunteer.FullAddress); //stage 7
+        _= VolunteerManager.updateCoordinatesForVolunteerAddressAsync(volunteerUpdate, boVolunteer.FullAddress); //stage 7
 
        
     }

@@ -138,7 +138,15 @@
                     <Label Content="Address:" Style="{StaticResource ModernLabel}" Grid.Row="3"/>
                     <TextBox Text="{Binding CurrentCall.FullAddress, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                              Style="{StaticResource ModernTextBox}"
-                             Grid.Row="3" Grid.Column="1"/>
+                             Grid.Row="3" Grid.Column="1">
+                        <TextBox.Background>
+                            <MultiBinding Converter="{StaticResource ConverterThreeValueNullToColorKey}">
+                                <Binding Path="CurrentCall.FullAddress" />
+                                <Binding Path="CurrentCall.Latitude" />
+                                <Binding Path="CurrentCall.Longitude" />
+                            </MultiBinding>
+                        </TextBox.Background>
+                    </TextBox>
 
                     <!-- Time Opened -->
                     <Label Content="Time Opened:" Style="{StaticResource ModernLabel}" Grid.Row="4"/>

@@ -140,6 +140,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <!-- Headers -->
@@ -154,19 +155,23 @@
 
                         <!-- Stats Rows -->
                         <TextBlock Text="Open" Grid.Row="1"/>
-                        <TextBlock Text="{Binding CountCall[0]}" Grid.Row="1" Grid.Column="1"/>
+                        <TextBlock Text="{Binding CountCall[1]}" Grid.Row="1" Grid.Column="1"/>
 
                         <TextBlock Text="Treat" Grid.Row="2"/>
-                        <TextBlock Text="{Binding CountCall[1]}" Grid.Row="2" Grid.Column="1"/>
+                        <TextBlock Text="{Binding CountCall[2]}" Grid.Row="2" Grid.Column="1"/>
 
                         <TextBlock Text="Close" Grid.Row="3"/>
-                        <TextBlock Text="{Binding CountCall[2]}" Grid.Row="3" Grid.Column="1"/>
+                        <TextBlock Text="{Binding CountCall[3]}" Grid.Row="3" Grid.Column="1"/>
 
                         <TextBlock Text="Expired" Grid.Row="4"/>
-                        <TextBlock Text="{Binding CountCall[3]}" Grid.Row="4" Grid.Column="1"/>
+                        <TextBlock Text="{Binding CountCall[4]}" Grid.Row="4" Grid.Column="1"/>
 
                         <TextBlock Text="Risk Open" Grid.Row="5"/>
-                        <TextBlock Text="{Binding CountCall[4]}" Grid.Row="5" Grid.Column="1"/>
+                        <TextBlock Text="{Binding CountCall[5]}" Grid.Row="5" Grid.Column="1"/>
+
+
+                        <TextBlock Text="Risk treat" Grid.Row="6"/>
+                        <TextBlock Text="{Binding CountCall[6]}" Grid.Row="6" Grid.Column="1"/>
                     </Grid>
                 </Border>
             </StackPanel>
