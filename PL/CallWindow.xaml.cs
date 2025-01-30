@@ -66,7 +66,19 @@ namespace PL
             ButtonText = id == 0 ? "Add" : "Update";
             try
             {
-                CurrentCall = (id != 0) ? s_bl.Calls.Read(id)! : new BO.Call() { Id = 0, Type = BO.CallType.None, Description = "", FullAddress = "", Latitude =0, Longitude = 0, TimeOpened = DateTime.Now };
+                CurrentCall = (id != 0) ? s_bl.Calls.Read(id)! : new BO.Call()
+                {
+                    Id = 0,
+                    Type = BO.CallType.None,
+                    Description = "",
+                    FullAddress = "",
+                    Latitude = 0,
+                    Longitude = 0,
+                    TimeOpened = s_bl.Admin.GetClock(),
+                    MaxTimeToClose = null,
+                };
+                
+
                 Status = id == 0 ?BO.StatusTreat.Open: CurrentCall.Status;
             }
             catch (BO.BlDoesNotExistException ex)

@@ -27,7 +27,7 @@ internal class CallManager
                 doCall = doCall with { Latitude = null, Longitude = null};
             else
             doCall = doCall with { Latitude = coordinates[0], Longitude = coordinates[1] };
-                lock (AdminManager.BlMutex)
+            lock (AdminManager.BlMutex)
                     s_dal.Call.Update(doCall);
                 Observers.NotifyListUpdated();
                 Observers.NotifyItemUpdated(doCall.Id);
@@ -459,6 +459,8 @@ internal class CallManager
     /// </summary>
     internal static void CheckLogic(BO.Call boCall)
     {
+        if(boCall.Type==BO.CallType.None)
+            throw new BO.BlDeleteNotPossibleException("Type can not be  None  please enter type");
           //  CheckAddress(boCall);
             if (/*(boCall.MaxTimeToClose <= AdminManager.Now) ||*/ (boCall.MaxTimeToClose <= boCall.TimeOpened))
                 throw new BO.BlWrongItemException("Time to close must be after time open");
