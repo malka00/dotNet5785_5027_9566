@@ -167,6 +167,7 @@ internal class VolunteerManager
         DO.Volunteer doVolunteer;
         lock (AdminManager.BlMutex)//stage 7
             doVolunteer = s_dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+    
         lock (AdminManager.BlMutex)//stage 7
             return new()
         {
@@ -525,45 +526,25 @@ internal class VolunteerManager
         if (doVolunteer.FullAddress is not null)
         {
             double[] coordinates;
-            //try
-            //{
+           
                 coordinates = await Tools.GetCoordinatesAsync(address);
-            //}
-            //catch(BO.BlWrongInputException ex)
-            //{ throw new BO.BlWrongInputException(ex.Message); }
-          
-            if (coordinates == null || coordinates.Length != 2)
-            {
-                throw new BO.BlWrongInputException("Failed to update coordinates due to invalid address.");
-            }
 
-            if (coordinates is not null)
-            {
-                doVolunteer = doVolunteer with { Latitude = coordinates[0], Longitude = coordinates[1] };
+
+            if (coordinates == null || coordinates.Length != 2)
+                //throw new BO.BlWrongInputException("Failed to update coordinates due to invalid address.");
+                doVolunteer = doVolunteer with { Latitude = null, Longitude = null };
+            else
+            doVolunteer = doVolunteer with { Latitude = coordinates[0], Longitude = coordinates[1] };
                
-                lock (AdminManager.BlMutex)
+             lock (AdminManager.BlMutex)
                     s_dal.Volunteer.Update(doVolunteer);
                 Observers.NotifyListUpdated();
                 Observers.NotifyItemUpdated(doVolunteer.Id);
-            }
+            
         }
     }
 
-    /// <summary>
-    /// This method takes an address as input and returns an array with the latitude and longitude.
-    /// The request is synchronous, meaning it waits for the response before continuing.
-    /// </summary>
-    /// <param name="address">The address to be geocoded</param>
-    /// <returns>A double array containing the latitude and longitude</returns>
-    /// 
-
-
-   
-
-    /// <summary>
-    /// Class to represent the structure of the geocoding response(latitude and longitude)
-    /// </summary>
-  
+ 
 
     /// <summary>
     /// Calculates the distance between two points (latitude and longitude) in meters.
@@ -573,10 +554,11 @@ internal class VolunteerManager
     /// <param name="lat2">Latitude of the second point</param>
     /// <param name="lon2">Longitude of the second point</param>
     /// <returns>Distance in meters between the two points</returns>
+    /// <returns>Distance in meters between the two points</returns>
     internal static double CalculateDistance(double? lat1, double? lon1, double? lat2, double? lon2)
     {
         if (lat1 == null || lon1 == null || lat2 == null || lon2 == null)
-            return 0;
+          return 0;
 
         //  // Convert latitude and longitude from degrees to radians
         double lat1Rad = (double)lat1 * (Math.PI / 180);

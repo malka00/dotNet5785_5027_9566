@@ -39,35 +39,35 @@ public static class Initialization
 
         string[] addresses =
         {
-        "King George St 20, Jerusalem, Israel",
-        "bit hadfus 7  ,Jerusalem, Israel",
-        "Agripas St 10, Jerusalem, Israel",
-        "Hapalmach St 25, Jerusalem, Israel",
-        "Emek Refaim St 43, Jerusalem, Israel",
-        "Hapisga St 18, Jerusalem, Israel",
-        "Hillel St 7, Jerusalem, Israel",
+        "King George  20, Jerusalem, Israel",
+        "מכון טל ",
+        "Agripas  10, Jerusalem, Israel",
+        "Hapalmach  25, Jerusalem, Israel",
+        "Emek Refaim 43, Jerusalem, Israel",
+        "hapisga 6,  Jerusalem, Israel",
+        "Hillel  7, Jerusalem, Israel",
         "Derech Hebron 105, Jerusalem, Israel",
-        "Bezalel St 12, Jerusalem, Israel",
-        "HaNeviim St 29, Jerusalem, Israel",
-        "Shivtei Israel St 15, Jerusalem, Israel",
-        "Azza St 50, Jerusalem, Israel",
-        "Kriyat Hayuvel St 5, Jerusalem, Israel",
-        "Prophets St 23, Jerusalem, Israel",
-        "Ben Yehuda St 1, Jerusalem, Israel"
+        "Bezalel 12, Jerusalem, Israel",
+        "HaNeviim 29, Jerusalem, Israel",
+        "Shivtei Israel  15, Jerusalem, Israel",
+        "Aza 50, Jerusalem, Israel",
+        "כנפי נשרים 15  ירושלים",
+        "בית וגן 20 ירושלים",
+        "Shivtei Israel  10,  Jerusalem, Israel"
         };
 
         double[] longitudes = new double[]
         {
         35.2193, 35.189689, 35.2129, 35.2065, 35.2117,
         35.212416, 35.2142, 35.2156, 35.2150, 35.2175,
-        35.2214, 35.2123, 35.18130622417343, 35.2191, 35.2203
+        35.2214, 35.2123,  35.1837336,  35.1838085, 35.2250006
         };
 
         double[] latitudes = new double[]
         {
         31.7784, 31.78542, 31.7801, 31.7642, 31.7655,
         31.751709, 31.7809, 31.7515, 31.7812, 31.7837,
-        31.7849, 31.7698, 31.770868836791788, 31.7815, 31.7822
+        31.7849, 31.7698, 31.7873914, 31.7707007, 31.7804057
         };
 
         string[] passwords =
@@ -123,8 +123,8 @@ public static class Initialization
         //    managerId = s_rand.Next(100000000, 1000000000);
         //while (s_dal!.Volunteer.Read(managerId) != null);
 
-        s_dal!.Volunteer.Create(new Volunteer(326209566, "Malka Haupt", "0501111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "D4567", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
-        s_dal!.Volunteer.Create(new Volunteer(214425027, "Efrat Sharabi ", "0501111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "D4567", "Harounoff  street 2, Jerusalem, Israel", 31.796294, 35.218994));
+        s_dal!.Volunteer.Create(new Volunteer(326209566, "Malka Haupt", "0501111111", "admin@example.com",Distance.Aerial, Role.Boss, true, "D4567", "hapisga 16,  Jerusalem, Israel", 31.7692558, 35.1824528));
+        s_dal!.Volunteer.Create(new Volunteer(214425027, "Efrat Sharabi ", "0501111111", "admin@example.com", Distance.Aerial, Role.Boss, true, "D4567", "hapisga 16,  Jerusalem, Israel", 31.7692558, 35.1824528));
 
     }
 
@@ -233,73 +233,74 @@ public static class Initialization
 "Battery failure on a scenic route, customer stranded with no nearby help."
 
         };
-  
-    string[] addresses = new string[]
-    {
-        "King David St 15, Jerusalem, Israel",
-        "Keren Hayesod St 24, Jerusalem, Israel",
-        "HaRav Kook St 8, Jerusalem, Israel",
-        "Strauss St 3, Jerusalem, Israel",
-        "Radak St 9, Jerusalem, Israel",
-        "Bezalel St 30, Jerusalem, Israel",
-        "Shmuel HaNagid St 16, Jerusalem, Israel",
-        "David HaMelech St 4, Jerusalem, Israel",
-        "Shivtei Israel St 28, Jerusalem, Israel",
-        "HaMesila Park, Jerusalem, Israel",
-        "Rabbi Akiva St 12, Jerusalem, Israel",
-        "Haneviim St 47, Jerusalem, Israel",
-        "Yemin Moshe St 10, Jerusalem, Israel",
-        "Yoel Moshe Salomon St 18, Jerusalem, Israel",
-        "HaOren St 5, Jerusalem, Israel",
-        "Beit Hakerem St 20, Jerusalem, Israel",
-        "Givat Shaul St 19, Jerusalem, Israel",
-        "Shlomo Zalman Shragai St 8, Jerusalem, Israel",
-        "Emek Refaim St 9, Jerusalem, Israel",
-        "Azza St 45, Jerusalem, Israel",
-        "Derech Har HaTsofim 15, Jerusalem, Israel",
-        "Mount Scopus Campus, Jerusalem, Israel",
-        "Nablus Rd 15, Jerusalem, Israel",
-        "Hebron Rd 76, Jerusalem, Israel",
-        "HaPalmach St 15, Jerusalem, Israel",
-        "Lincoln St 7, Jerusalem, Israel",
-        "Duvdevani St 6, Jerusalem, Israel",
-        "Diskin St 16, Jerusalem, Israel",
-        "Alkalai St 10, Jerusalem, Israel",
-        "Ramban St 13, Jerusalem, Israel",
-        "Mordechai Ben Hillel St 10, Jerusalem, Israel",
-        "HaRav Herzog St 52, Jerusalem, Israel",
-        "Gershon Agron St 10, Jerusalem, Israel",
-        "Givon St 3, Jerusalem, Israel",
-        "Golda Meir Blvd 75, Jerusalem, Israel",
-        "Lev Ram Blvd 2, Jerusalem, Israel",
-        "Harav Shach St 9, Jerusalem, Israel",
-        "Kiryat HaLeom, Jerusalem, Israel",
-        "Shaarei Tsedek St 1, Jerusalem, Israel",
-        "Givat Mordechai St 12, Jerusalem, Israel",
-        "Bayit Vegan St 8, Jerusalem, Israel",
-        "Sanhedria St 14, Jerusalem, Israel",
-        "Bar Ilan St 27, Jerusalem, Israel",
-        "Shmuel Hanavi St 50, Jerusalem, Israel",
-        "Malha Rd 7, Jerusalem, Israel",
-        "Pisgat Ze'ev Blvd 6, Jerusalem, Israel",
-        "Teddy Stadium, Jerusalem, Israel",
-        "Zahal St 5, Jerusalem, Israel",
-        "Ha'Arazim Blvd 3, Jerusalem, Israel",
-        "Ramot Forest, Jerusalem, Israel",
-        "Yirmiyahu Street, Jerusalem,Israel"
-    };
+
+        string[] addresses = new string[]
+      {
+    " David Hamelekh 30, Jerusalem, Israel",
+    "Keren Hayesod 10, Jerusalem, Israel",
+    "HaRav Kook 8, Jerusalem, Israel",
+    "Strauss 3, Jerusalem, Israel",
+    "Radak 9, Jerusalem, Israel",
+    "Bezalel 30, Jerusalem, Israel",
+    "Shmuel HaNagid 16, Jerusalem, Israel",
+    "רבי ישראל נאג'רה 26 ירושלים ישראל",
+    "Shivtei Israel 28, Jerusalem, Israel",
+    "עוזיאל 35 ירושלים ישראל",/*10*/
+    "Rabbi Akiva 12, Jerusalem, Israel",
+    "Haneviim 47, Jerusalem, Israel",
+    "Yemin Moshe 10, Jerusalem, Israel",
+    "Yoel Moshe Salomon 15, Jerusalem, Israel",
+    "באזל 10 ירושלים",
+    "Beit Hakerem 20, Jerusalem, Israel",
+    "Givat Shaul 19, Jerusalem, Israel",
+    "אליעזר הלוי 7, ירושלים ",
+    "Emek Refaim 9, Jerusalem, Israel",
+    "Aza 45, Jerusalem, Israel",/*20*/
+    "Har HaTsofim 15, Jerusalem, Israel",
+    "שמריהו לוין 55 ירושלים",
+    "Nablus Rd 15, Jerusalem, Israel",
+    "חברון 51 ירושלים",/*25*/
+    "HaPalmach 15, Jerusalem, Israel",
+    "Lincoln 7, Jerusalem, Israel",
+    "ברוך דובדבני 15 ירושלים",
+    "דיסקין 7 ירושלים ישראל",
+    "Alkalai 10, Jerusalem, Israel",/*30*/
+    "Ramban 13, Jerusalem, Israel",
+    "מרדכי בן הלל 10 ירושלים",
+    "HaRav Herzog 5, Jerusalem, Israel",
+    "אגרון 18 ירושלים",
+    "Givon 3, Jerusalem, Israel",/*35*/
+    "בצלאל 19 ירושלים",
+    "בית וגן 14 ירושלים",
+    "Harav Shach 9, Jerusalem, Israel",
+    "מגרש הרוסים ירושלים",
+    "Shaarei Tsedek 1, Jerusalem, Israel",/*40*/
+    "Givat Mordechai 12, Jerusalem, Israel",
+    "יצחק רפאל 15 ירושלים",
+    "Sanhedria 14, Jerusalem, Israel",
+    "Bar Ilan 27, Jerusalem, Israel",
+    "Shmuel Hanavi 50, Jerusalem, Israel",/*45*/
+    "Malha  7, Jerusalem, Israel",
+    "Pisgat Ze'ev Blvd 6, Jerusalem, Israel",
+    "מלחה 13 ירושלים",
+    "צפת 15 ירושלים",
+    "Ha'Arazim 3, Jerusalem, Israel",
+    "Ramot Forest, Jerusalem, Israel",
+    "Yirmiyahu Street, Jerusalem, Israel"
+      };
+
         double[] longitudes = new double[]
         {
-        35.2252, 35.2168, 35.2150, 35.2174, 35.2132,
-        35.2165, 35.2138, 35.2245, 35.2241, 35.2206,
-        35.2123, 35.2202, 35.2214, 35.2155, 35.2198,
-        35.2025, 35.1965, 35.1942, 35.2151, 35.2124,
-        35.2387, 35.2421, 35.2315, 35.2092, 35.2064,
-        35.2237, 35.2208, 35.2103, 35.2127, 35.2081,
-        35.2079, 35.2145, 35.2045, 35.2120, 35.1963,
-        35.2112, 35.2008, 35.2159, 35.2235, 35.2210,
-        35.2342, 35.2149, 35.2236, 35.2087, 35.2381,
-        35.2201, 35.2357, 35.2289, 35.2325, 35.207448
+        35.2222988,  35.1420228, 35.2150, 35.2174, 35.2132,
+        35.2165, 35.2138,  35.1911328, 35.2241, 35.1850035,
+        35.2123, 35.2202, 35.2214,  35.2198634, 35.1927668,
+        35.2025, 35.1965, 35.193053, 35.2151, 35.2124,
+       35.2123254,  35.1732123, 35.2315, 35.2255189, 35.2064,/*25*/
+        35.2237, 35.2208,  35.1917498,  35.2103608, 35.2081,
+        35.2079, 35.2174742, 35.2110343, 35.2200697, 35.1963,/*35*/
+        35.2114904,35.1837672, 35.2159,  35.223003, 35.2210,
+        35.2342, 35.2158382, 35.2236, 35.2087, 35.2381,/*45*/
+         35.1829753,  35.2485718, 35.1829753,  35.2116742, 35.1873538
         };
 
 
@@ -307,16 +308,16 @@ public static class Initialization
 
         double[] latitudes = new double[]
     {
-      31.7767, 31.7745, 31.7839, 31.7843, 31.7785,
-      31.7803, 31.7809, 31.7763, 31.7825, 31.7694,
-      31.7812, 31.7828, 31.7695, 31.7823, 31.7604,
-      31.7687, 31.7945, 31.7893, 31.7684, 31.7699,
-      31.8005, 31.8017, 31.7915, 31.7473, 31.7687,
-      31.7802, 31.7805, 31.7772, 31.7794, 31.7801,
-      31.7821, 31.7741, 31.7897, 31.7685, 31.7784,
-      31.7695, 31.7982, 31.7623, 31.7598, 31.7981,
-      31.7742, 31.8012, 31.7591, 31.7545, 31.7695,
-      31.7901, 31.7947, 31.8014, 31.7903, 31.792351
+       31.7733536, 31.8001486, 31.7839, 31.7843, 31.7785,
+      31.7803, 31.7809, 31.7894182, 31.7825,  31.7700112,
+      31.7812, 31.7828, 31.7695, 31.7809598, 31.7840322,
+      31.7687, 31.7945, 31.7844766, 31.7684, 31.7699,
+      31.7706324, 31.7683803, 31.7915, 31.7643213, 31.7687,/*25*/
+      31.7802, 31.7805,31.761432, 31.7760007, 31.7801,
+      31.7821, 31.7817481, 31.7698338, 31.7766198, 31.7784,/*35*/
+      31.7814544, 31.7712662, 31.7623, 31.7813648, 31.7981,
+      31.7742, 31.7219788, 31.7591, 31.7545, 31.7695,
+      31.7514658, 31.7947, 31.7514658, 31.7795649, 31.7803494
     };
 
         int p = 0, l = 0, c = 0;

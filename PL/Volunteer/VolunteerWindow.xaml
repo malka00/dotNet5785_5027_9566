@@ -101,7 +101,15 @@
                     <!-- Address -->
                     <DockPanel Margin="0,5">
                         <Label Content="Address:" Style="{StaticResource ModernLabel}" Width="120"/>
-                        <TextBox Text="{Binding CurrentVolunteer.FullAddress}" Style="{StaticResource ModernTextBox}"/>
+                        <TextBox Text="{Binding CurrentVolunteer.FullAddress}" Style="{StaticResource ModernTextBox}">
+                            <TextBox.Background>
+                                <MultiBinding Converter="{StaticResource ConverterThreeValueNullToColorKey}">
+                                    <Binding Path="CurrentVolunteer.FullAddress" />
+                                    <Binding Path="CurrentVolunteer.Latitude" />
+                                    <Binding Path="CurrentVolunteer.Longitude" />
+                                </MultiBinding>
+                            </TextBox.Background>
+                        </TextBox>
                     </DockPanel>
 
                     <!-- Role -->

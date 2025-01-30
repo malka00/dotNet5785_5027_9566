@@ -123,8 +123,7 @@ internal class VolunteerImplementation : IVolunteer
            doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
            ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
         }
-        var task=VolunteerManager.updateCoordinatesForVolunteerAddressAsync(doVolunteer, boVolunteer.FullAddress); // תחילת חישוב אסינכרוני
-
+       
 
         if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and does not correct or not manager");
@@ -175,21 +174,9 @@ internal class VolunteerImplementation : IVolunteer
        
         VolunteerManager.Observers.NotifyItemUpdated(volunteerUpdate.Id);  //stage 5
         VolunteerManager.Observers.NotifyListUpdated();  //stage 5
-        try
-        {
-            Task.WaitAll(task);
-        }
-        catch (BO.BlWrongInputException ex) { throw new BO.BlWrongInputException(ex.Message); }
-        catch (Exception ex) { throw new BO.BlWrongInputException(ex.Message); }
+         _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(volunteerUpdate, boVolunteer.FullAddress); //stage 7
 
-        //try
-        //{
-
-        //    _ = VolunteerManager.updateCoordinatesForVolunteerAddressAsync(volunteerUpdate, boVolunteer.FullAddress); //stage 7
-
-        //}
-        //catch(Exception ex)
-        //{  throw new Exception(ex.Message, ex); }
+       
     }
 }
 
