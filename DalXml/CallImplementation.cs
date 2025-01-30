@@ -23,8 +23,8 @@ namespace Dal
                 Type = CallType.TryParse<CallType>((string?)s.Element("Type"), out CallType type) ? type : throw new FormatException("Can't convert Type"),
                 Description = (string?)s.Element("Description") ?? "",
                 FullAddress = (string?)s.Element("FullAddress") ?? throw new FormatException("Can't convert FullAddress"),
-                Latitude = double.TryParse((string?)s.Element("Latitude"), out double latitude) ? latitude : throw new FormatException("Can't convert Latitude"),
-                Longitude = double.TryParse((string?)s.Element("Longitude"), out double longitude) ? longitude : throw new FormatException("Can't convert Longitude"),
+                Latitude = double.TryParse((string?)s.Element("Latitude"), out double latitude) ? latitude : null,/* throw new FormatException("Can't convert Latitude"),*/
+                Longitude = double.TryParse((string?)s.Element("Longitude"), out double longitude) ? longitude : null/*throw new FormatException("Can't convert Longitude")*/,
                 TimeOpened = DateTime.TryParse((string?)s.Element("TimeOpened"), out DateTime timeOpened) ? timeOpened : throw new FormatException("Can't convert TimeOpened"),
                 MaxTimeToClose = DateTime.TryParse((string?)s.Element("MaxTimeToClose"), out DateTime maxTimeToClose) ? maxTimeToClose : null,
             };  

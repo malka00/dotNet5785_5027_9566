@@ -134,10 +134,11 @@ internal class CallImplementation : ICall
         {
             throw new BO.BlAlreadyExistsException($"Call with ID={boCall.Id} already exists", ex);
         }
-
-        CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
+        lock (AdminManager.BlMutex)
+            doCall= _dal.Call.ReadAll().OrderByDescending(x => x.Id).First();
+       CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
         CallManager.Observers.NotifyListUpdated();  //stage 5
-       // _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall);
+       _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall);
     }
 
     /// <summary>
