@@ -97,8 +97,9 @@ internal class VolunteerImplementation : IVolunteer
     {
         DO.Volunteer volunteer;
         lock (AdminManager.BlMutex) //stage 7
-            volunteer = _dal.Volunteer.Read(usingName) ?? throw new BO.BlNullPropertyException("the volunteer is null");
-        
+            volunteer = _dal.Volunteer.Read(usingName);
+        if (volunteer == null)
+            throw new BO.BlNullPropertyException("the volunteer is null");
         if (volunteer.Password != password) throw new BO.BlWrongInputException("The password do not match");
         return (BO.Role)volunteer.Job;
     }
@@ -120,10 +121,13 @@ internal class VolunteerImplementation : IVolunteer
         DO.Volunteer ismanager;
         lock (AdminManager.BlMutex) //stage 7
         {
-           doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
-           ismanager = _dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+           doVolunteer = _dal.Volunteer.Read(boVolunteer.Id) ;
+           ismanager = _dal.Volunteer.Read(id);
         }
-       
+        if (doVolunteer == null)
+            throw new BO.BlWrongInputException($"Volunteer with ID={boVolunteer.Id} does Not exist");
+        if (ismanager == null)
+             throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
 
         if (ismanager.Job != DO.Role.Boss && boVolunteer.Id != id)
             throw new BO.BlWrongInputException("id and does not correct or not manager");

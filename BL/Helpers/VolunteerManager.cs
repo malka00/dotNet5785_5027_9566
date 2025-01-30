@@ -81,8 +81,9 @@ internal class VolunteerManager
         IEnumerable<DO.Volunteer> volunteers;
         lock (AdminManager.BlMutex)
             // Retrieve all volunteers from the data layer
-            volunteers = s_dal.Volunteer.ReadAll().ToList() ?? throw new BO.BlNullPropertyException("There are not volunteers int database");
-
+            volunteers = s_dal.Volunteer.ReadAll().ToList();
+        if(volunteers==null)
+            throw new BO.BlNullPropertyException("There are not volunteers int database");
         // Convert IEnumerable<DO.Volunteer> to IEnumerable<BO.VolunteerInList>
         // Using the 'convertDOToBOInList' method to map each DO.Volunteer to BO.VolunteerInList
         IEnumerable<BO.VolunteerInList> boVolunteersInList = volunteers
@@ -127,13 +128,16 @@ internal class VolunteerManager
     internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
     {
         List<DO.Assignment> assignments;
+
         lock (AdminManager.BlMutex) //stage 7
             assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
-        int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
-        int sumCanceld = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
-        int sumExpired = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
-        // idCall = call.Count(ass => ass.TimeEnd == null);
-        var assignmentToCallID = assignments.Find(ass => ass.TimeEnd == null);
+            int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
+            int sumCanceld = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
+            int sumExpired = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
+            // idCall = call.Count(ass => ass.TimeEnd == null);
+        
+            var assignmentToCallID = assignments.Find(ass => ass.TimeEnd == null);
+        
         int? idCall;
         BO.CallType ctype;
         if (assignmentToCallID != null && assignmentToCallID.TimeEnd == null)
@@ -165,11 +169,18 @@ internal class VolunteerManager
     internal static BO.Volunteer readHelp(int id)
     {
         DO.Volunteer doVolunteer;
+        int sumCalls, sumCanceled, sumExpired;
         lock (AdminManager.BlMutex)//stage 7
+        {
             doVolunteer = s_dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+            sumCalls = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.Treated);
+            sumCanceled = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id &&
+                    (a.TypeEndTreat == DO.TypeEnd.ManagerCancel || a.TypeEndTreat == DO.TypeEnd.SelfCancel)); // ביטול עצמי או מהנל
+            sumExpired = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
 
-        lock (AdminManager.BlMutex)//stage 7
-            return new()
+        }
+
+        return new()
             {
                 Id = id,
                 Email = doVolunteer.Email,
@@ -179,16 +190,15 @@ internal class VolunteerManager
                 TypeDistance = (BO.Distance)doVolunteer.TypeDistance,
                 Job = (BO.Role)doVolunteer.Job,
                 Active = doVolunteer.Active,
-                Password = VolunteerManager.DecryptPassword(doVolunteer.Password),
+                Password = DecryptPassword(doVolunteer.Password),
                 FullAddress = doVolunteer.FullAddress,
                 Latitude = doVolunteer.Latitude,
                 Longitude = doVolunteer.Longitude,
-                SumCalls = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.Treated),
-                SumCanceled = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id &&
-                    (a.TypeEndTreat == DO.TypeEnd.ManagerCancel || a.TypeEndTreat == DO.TypeEnd.SelfCancel)), // ביטול עצמי או מהנל
-                SumExpired = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.ExpiredCancel),
 
-                CallIn = VolunteerManager.GetCallIn(doVolunteer),
+                SumCalls = sumCalls,
+                SumCanceled = sumCanceled, // ביטול עצמי או מהנל
+                SumExpired = sumExpired,
+                CallIn = GetCallIn(doVolunteer),
             };
     }
 
