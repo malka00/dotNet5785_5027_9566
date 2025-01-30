@@ -64,6 +64,7 @@ namespace PL
         public CallWindow(int id = 0)
         {
             ButtonText = id == 0 ? "Add" : "Update";
+            InitializeComponent();
             try
             {
                 CurrentCall = (id != 0) ? s_bl.Calls.Read(id)! : new BO.Call()
@@ -93,7 +94,6 @@ namespace PL
             }
 
             s_bl.Calls.AddObserver(CurrentCall!.Id, callObserver);
-            InitializeComponent();
         }
 
         private volatile DispatcherOperation? _observerOperation = null; //stage 7

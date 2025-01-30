@@ -21,7 +21,6 @@ internal class CallManager
     {
         if (doCall.FullAddress is not null)
         {
-
             double[] coordinates = await Tools.GetCoordinatesAsync(doCall.FullAddress);
             if (coordinates==null)
                 doCall = doCall with { Latitude = null, Longitude = null};
@@ -30,8 +29,7 @@ internal class CallManager
             lock (AdminManager.BlMutex)
                     s_dal.Call.Update(doCall);
                 Observers.NotifyListUpdated();
-                Observers.NotifyItemUpdated(doCall.Id);
-            
+                Observers.NotifyItemUpdated(doCall.Id);    
         }
     }
 

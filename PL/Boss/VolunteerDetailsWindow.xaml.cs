@@ -112,10 +112,10 @@ namespace PL.Volunteer
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             else
-                try { 
-                s_bl.Volunteers.Update(ManagerId, CurrentVolunteer!);
+                try 
+                { 
+                    s_bl.Volunteers.Update(ManagerId, CurrentVolunteer!);
                     MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully updated!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                  
                 }
                 catch (BO.BlWrongInputException ex)
                 {

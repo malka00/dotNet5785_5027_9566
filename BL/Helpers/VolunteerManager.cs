@@ -552,7 +552,10 @@ internal class VolunteerManager
             Observers.NotifyItemUpdated(doVolunteer.Id);
 
         }
+        
+    
     }
+    
 
 
 
