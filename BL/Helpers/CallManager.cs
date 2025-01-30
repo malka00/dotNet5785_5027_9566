@@ -324,42 +324,56 @@ internal class CallManager
             throw new BO.BlDeleteNotPossibleException("Cannot update in DO");
         }
     }
-   internal static void CancelTreatHelp(int idVol, int idAssig)
+
+
+    /// <summary>
+    /// A method to cancel call treatment
+    /// </summary>
+    /// <param name="idVol"></param>
+    /// <param name="idAssig"></param>
+    /// <exception cref="BO.BlDeleteNotPossibleException"></exception>
+    internal static void CancelTreatHelp(int idVol, int idAssig)
     {
-        DO.Assignment assigmnetToCancel;
+        DO.Assignment assignmentToCancel;
         lock (AdminManager.BlMutex) //stage 7
-            assigmnetToCancel = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
-        bool ismanager = false;
-        if (assigmnetToCancel.VolunteerId != idVol)
+            assignmentToCancel = s_dal.Assignment.Read(idAssig) ?? throw new BO.BlDeleteNotPossibleException("there is no assigment with this ID");
+
+
+        //Checks whether the canceler is the owner of the assignment 
+        //If not - checks whether the canceler is a manager
+        bool isManager = false;
+        if (assignmentToCancel.VolunteerId != idVol)
         {
             lock (AdminManager.BlMutex) //stage 7
                 if (s_dal.Volunteer.Read(idVol).Job == DO.Role.Boss)
-                ismanager = true;
-            else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager or not in this call");
+                    isManager = true;
+                else throw new BO.BlDeleteNotPossibleException("the volunteer is not manager and also dont treat in this call");
         }
-        if (assigmnetToCancel.TypeEndTreat != null ||/* (_dal.Call.Read(assigmnetToCancel.CallId).MaxTimeToClose > AdminManager.Now)||*/ assigmnetToCancel.TimeEnd != null)
-            throw new BO.BlDeleteNotPossibleException("The assigmnet not in treat");
 
-        DO.Assignment assigmnetToUP = new DO.Assignment
+        //Checking that the assignment has not already been closed/cancelled.
+        if (assignmentToCancel.TypeEndTreat != null || assignmentToCancel.TimeEnd != null)
+            throw new BO.BlDeleteNotPossibleException("The assignment has already been closed");
+
+        //Creating a new assignment to update
+        DO.Assignment assignmentToUP = new DO.Assignment
         {
-            Id = assigmnetToCancel.Id,
-            CallId = assigmnetToCancel.CallId,
-            VolunteerId = assigmnetToCancel.VolunteerId,
-            TimeStart = assigmnetToCancel.TimeStart,
+            Id = idAssig,
+            CallId = assignmentToCancel.CallId,
+            VolunteerId = assignmentToCancel.VolunteerId,
+            TimeStart = assignmentToCancel.TimeStart,
             TimeEnd = AdminManager.Now,
-            TypeEndTreat = ismanager ? DO.TypeEnd.ManagerCancel : DO.TypeEnd.SelfCancel,
+            TypeEndTreat = isManager ? DO.TypeEnd.ManagerCancel : DO.TypeEnd.SelfCancel,
         };
         try
         {
             lock (AdminManager.BlMutex) //stage 7
-                s_dal.Assignment.Update(assigmnetToUP);
+                s_dal.Assignment.Update(assignmentToUP);
             VolunteerManager.Observers.NotifyListUpdated();
-            VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            //VolunteerManager.Observers.NotifyItemUpdated(idVol);
             CallManager.Observers.NotifyListUpdated();
-            CallManager.Observers.NotifyItemUpdated(assigmnetToCancel.CallId);
-
+            CallManager.Observers.NotifyItemUpdated(assignmentToCancel.CallId);
         }
-        catch (DO.DalExistException ex)
+        catch (DO.DalDeleteImpossible ex)
         {
             throw new BO.BlDeleteNotPossibleException("can not delete in DO");
         }
@@ -382,8 +396,6 @@ internal class CallManager
     /// </summary>
     /// <param name="call"></param>
     /// <returns> bool </returns>
-    
-    
     internal static bool IsInRisk(DO.Call call)
     {
         lock (AdminManager.BlMutex) //stage 7

@@ -99,6 +99,5 @@ namespace BO
         public BLTemporaryNotAvailableException(string message, Exception innerException)
                 : base(message, innerException) { }
     }
-
 }
 

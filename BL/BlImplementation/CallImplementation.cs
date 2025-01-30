@@ -132,7 +132,7 @@ internal class CallImplementation : ICall
         }
         catch (DO.DalExistException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Student with ID={boCall.Id} already exists", ex);
+            throw new BO.BlAlreadyExistsException($"Call with ID={boCall.Id} already exists", ex);
         }
         lock (AdminManager.BlMutex)
             doCall= _dal.Call.ReadAll().OrderByDescending(x => x.Id).First();

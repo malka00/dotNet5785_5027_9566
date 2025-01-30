@@ -40,7 +40,7 @@
     <address>Agripas  10, Jerusalem, Israel</address>
     <longitude>35.2129</longitude>
     <latitude>31.7801</latitude>
-    <maxDistance>54</maxDistance>
+    <maxDistance>51</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207862384</ID>
@@ -54,7 +54,7 @@
     <address>Hapalmach  25, Jerusalem, Israel</address>
     <longitude>35.2065</longitude>
     <latitude>31.7642</latitude>
-    <maxDistance>95</maxDistance>
+    <maxDistance>55</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>207926692</ID>
@@ -68,7 +68,7 @@
     <address>Emek Refaim 43, Jerusalem, Israel</address>
     <longitude>35.2117</longitude>
     <latitude>31.7655</latitude>
-    <maxDistance>36</maxDistance>
+    <maxDistance>78</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208317958</ID>
@@ -82,7 +82,7 @@
     <address>hapisga 6,  Jerusalem, Israel</address>
     <longitude>35.212416</longitude>
     <latitude>31.751709</latitude>
-    <maxDistance>72</maxDistance>
+    <maxDistance>48</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208448738</ID>
@@ -96,7 +96,7 @@
     <address>Hillel  7, Jerusalem, Israel</address>
     <longitude>35.2142</longitude>
     <latitude>31.7809</latitude>
-    <maxDistance>63</maxDistance>
+    <maxDistance>69</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208731323</ID>
@@ -110,7 +110,7 @@
     <address>Derech Hebron 105, Jerusalem, Israel</address>
     <longitude>35.2156</longitude>
     <latitude>31.7515</latitude>
-    <maxDistance>52</maxDistance>
+    <maxDistance>88</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>208749978</ID>
@@ -124,7 +124,7 @@
     <address>Bezalel 12, Jerusalem, Israel</address>
     <longitude>35.215</longitude>
     <latitude>31.7812</latitude>
-    <maxDistance>20</maxDistance>
+    <maxDistance>90</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209184217</ID>
@@ -138,7 +138,7 @@
     <address>HaNeviim 29, Jerusalem, Israel</address>
     <longitude>35.2175</longitude>
     <latitude>31.7837</latitude>
-    <maxDistance>76</maxDistance>
+    <maxDistance>33</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209307123</ID>
@@ -152,7 +152,7 @@
     <address>Shivtei Israel  15, Jerusalem, Israel</address>
     <longitude>35.2214</longitude>
     <latitude>31.7849</latitude>
-    <maxDistance>61</maxDistance>
+    <maxDistance>89</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209314277</ID>
@@ -166,7 +166,7 @@
     <address>Aza 50, Jerusalem, Israel</address>
     <longitude>35.2123</longitude>
     <latitude>31.7698</latitude>
-    <maxDistance>52</maxDistance>
+    <maxDistance>84</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209567445</ID>
@@ -180,7 +180,7 @@
     <address>כנפי נשרים 15  ירושלים</address>
     <longitude>35.1837336</longitude>
     <latitude>31.7873914</latitude>
-    <maxDistance>84</maxDistance>
+    <maxDistance>56</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209567890</ID>
@@ -194,7 +194,7 @@
     <address>בית וגן 20 ירושלים</address>
     <longitude>35.1838085</longitude>
     <latitude>31.7707007</latitude>
-    <maxDistance>71</maxDistance>
+    <maxDistance>50</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>209606318</ID>
@@ -208,7 +208,7 @@
     <address>Shivtei Israel  10,  Jerusalem, Israel</address>
     <longitude>35.2250006</longitude>
     <latitude>31.7804057</latitude>
-    <maxDistance>41</maxDistance>
+    <maxDistance>16</maxDistance>
   </Volunteer>
   <Volunteer>
     <ID>326209566</ID>

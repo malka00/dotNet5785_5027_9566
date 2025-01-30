@@ -80,6 +80,7 @@ public partial class CallInListWindow : Window
     private void Window_Closed(object sender, EventArgs e)
         => s_bl.Calls.RemoveObserver(callListObserver);
 
+
     private void dtgList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
         if (SelectedCall?.CallId != null) // בדיקה אם SelectedCall ו-Id אינם null
