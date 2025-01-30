@@ -345,6 +345,38 @@
     <TypeEndTreat>SelfCancel</TypeEndTreat>
   </Assignment>
   <Assignment>
+    <Id>1097</Id>
+    <CallId>1001</CallId>
+    <VolunteerId>208317958</VolunteerId>
+    <TimeStart>2025-01-29T03:32:57</TimeStart>
+    <TimeEnd>2025-01-29T04:22:57</TimeEnd>
+    <TypeEndTreat>SelfCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1104</Id>
+    <CallId>1047</CallId>
+    <VolunteerId>209567445</VolunteerId>
+    <TimeStart>2025-01-29T04:02:57</TimeStart>
+    <TimeEnd>2025-01-29T04:22:57</TimeEnd>
+    <TypeEndTreat>SelfCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1105</Id>
+    <CallId>1024</CallId>
+    <VolunteerId>209606318</VolunteerId>
+    <TimeStart>2025-01-29T04:02:57</TimeStart>
+    <TimeEnd>2025-01-29T04:22:57</TimeEnd>
+    <TypeEndTreat>SelfCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
+    <Id>1083</Id>
+    <CallId>1013</CallId>
+    <VolunteerId>207669508</VolunteerId>
+    <TimeStart>2025-01-29T01:52:57</TimeStart>
+    <TimeEnd>2025-01-29T04:42:57</TimeEnd>
+    <TypeEndTreat>SelfCancel</TypeEndTreat>
+  </Assignment>
+  <Assignment>
     <Id>1048</Id>
     <CallId>1001</CallId>
     <VolunteerId>207733817</VolunteerId>
