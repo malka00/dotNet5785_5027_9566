@@ -5,10 +5,6 @@ using DalApi;
 namespace Helpers;
 
 
-
-
-
-
 /// <summary>
 /// Internal BL manager for all Application's Clock logic policies
 /// </summary>
@@ -42,16 +38,22 @@ internal static class AdminManager //stage 4
     /// </summary>
     internal static DateTime Now { get => s_dal.Config.Clock; } //stage 4
 
+    /// <summary>
+    /// system reset
+    /// </summary>
     internal static void ResetDB() //stage 4
     {
         lock (BlMutex) //stage 7
         {
             s_dal.ResetDB();
-            AdminManager.UpdateClock(AdminManager.Now); //stage 5 - needed since we want the label on Pl to be updated
+            AdminManager.UpdateClock(AdminManager.Now);  //stage 5 - needed since we want the label on Pl to be updated
             AdminManager.MaxRange = AdminManager.MaxRange; // stage 5 - needed to update PL 
         }
     }
 
+    /// <summary>
+    /// System initialization
+    /// </summary>
     internal static void InitializeDB() //stage 4
     {
         lock (BlMutex) //stage 7
@@ -62,7 +64,8 @@ internal static class AdminManager //stage 4
         }
     }
 
-    private static Task? _periodicTask = null;
+
+    private static Task? _periodicTask = null; 
 
     /// <summary>
     /// Method to perform application's clock from any BL class as may be required
@@ -110,14 +113,21 @@ internal static class AdminManager //stage 4
     /// 
     private static volatile bool s_stop = false;
 
-
-    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7                                                 
+    /// <summary>
+    /// Throws an exception if the simulator is in progress
+    /// </summary>
+    /// <exception cref="BO.BLTemporaryNotAvailableException"></exception>
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7                                           
     public static void ThrowOnSimulatorIsRunning()
     {
         if (s_thread is not null)
             throw new BO.BLTemporaryNotAvailableException("Cannot perform the operation since Simulator is running");
     }
 
+    /// <summary>
+    /// Running the simulator treadmill
+    /// </summary>
+    /// <param name="interval"></param>
     [MethodImpl(MethodImplOptions.Synchronized)] //stage 7                                                 
     internal static void Start(int interval)
     {
@@ -130,6 +140,9 @@ internal static class AdminManager //stage 4
         }
     }
 
+    /// <summary>
+    /// Stopping the simulator
+    /// </summary>
     [MethodImpl(MethodImplOptions.Synchronized)] //stage 7                                                 
     internal static void Stop()
     {
@@ -144,6 +157,9 @@ internal static class AdminManager //stage 4
 
     private static Task? _simulateTask = null;
 
+    /// <summary>
+    /// A function that runs the clock and updates everything according to the time
+    /// </summary>
     private static void clockRunner()
     {
         while (!s_stop)
@@ -156,8 +172,6 @@ internal static class AdminManager //stage 4
             if (_simulateTask is null || _simulateTask.IsCompleted)//stage 7
                    _simulateTask = Task.Run(() => VolunteerManager.SimulateVolunteerActivity());
 
-            //etc...
-
             try
             {
                 Thread.Sleep(1000); // 1 second
@@ -166,6 +180,5 @@ internal static class AdminManager //stage 4
         }
     }
     #endregion Stage 7 base
-
 }
 

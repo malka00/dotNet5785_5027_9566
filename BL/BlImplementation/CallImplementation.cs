@@ -34,9 +34,7 @@ internal class CallImplementation : ICall
     public void CancelTreat(int idVol, int idAssig)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-
         CallManager.CancelTreatHelp(idVol, idAssig);
-        
     }
 
     /// <summary>
@@ -49,7 +47,6 @@ internal class CallImplementation : ICall
     public void ChoseForTreat(int idVol, int idCall)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-
         CallManager.ChoseForTreatHelp(idVol,idCall);
     }
 
@@ -63,16 +60,16 @@ internal class CallImplementation : ICall
     public void CloseTreat(int idVol, int idAssig)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-
         CallManager.CloseTreatHelp(idVol, idAssig);
     }
 
     /// <summary>
-    ///The function counts how many calls exist for each status defined in the BO.StatusTreat enum and returns an array with the count for each status.
+    /// The function counts how many calls exist for each status defined in the BO.StatusTreat enum and returns an array with the count for each status.
     /// </summary>
     /// <returns> int[] </returns>
     public int[] CountCall()
     {
+        // Reading all calls from the data source
         IEnumerable<DO.Call>? calls;
         lock (AdminManager.BlMutex) //stage 7
             calls = _dal.Call.ReadAll() ?? Enumerable.Empty<DO.Call>();
@@ -89,6 +86,7 @@ internal class CallImplementation : ICall
                             group call by status into groupedCalls
                             select new { Status = groupedCalls.Key, Count = groupedCalls.Count() };
 
+        // Updating the array according to the number of calls in each status
         foreach (var group in groupedCounts)
         {
             int statusIndex = (int)group.Status; // Explicitly cast the Enum to int
@@ -107,27 +105,24 @@ internal class CallImplementation : ICall
     public void Create(BO.Call boCall)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        //double[] coordinate = VolunteerManager.GetCoordinatesAsync(boCall.FullAddress);
-        //double latitude = coordinate[0];
-        //double longitude = coordinate[1];
-        //boCall.Latitude = latitude;
-        //boCall.Longitude = longitude;
+
+        // Creates a call of type DO
         DO.Call doCall;
+        CallManager.CheckLogic(boCall);
+        doCall = new
+           (
+           boCall.Id,
+           (DO.CallType)boCall.Type,
+           boCall.Description,
+           boCall.FullAddress,
+           null,
+           null,
+           boCall.TimeOpened,
+           boCall.MaxTimeToClose
+           );
         try
         {
-            CallManager.CheckLogic(boCall);
-             doCall = new
-                (
-                boCall.Id,
-                (DO.CallType)boCall.Type,
-                boCall.Description,
-                boCall.FullAddress,
-                null,
-                null,
-                boCall.TimeOpened,
-                boCall.MaxTimeToClose
-                );
-            lock (AdminManager.BlMutex) //stage 7
+           lock (AdminManager.BlMutex) //stage 7
                 _dal.Call.Create(doCall);
         }
         catch (DO.DalExistException ex)
@@ -136,7 +131,7 @@ internal class CallImplementation : ICall
         }
         lock (AdminManager.BlMutex)
             doCall= _dal.Call.ReadAll().OrderByDescending(x => x.Id).First();
-       CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
+        CallManager.Observers.NotifyItemUpdated(doCall.Id);  //stage 5
         CallManager.Observers.NotifyListUpdated();  //stage 5
        _ = CallManager.updateCoordinatesForCallsAddressAsync(doCall, boCall.FullAddress);
     }
@@ -149,15 +144,14 @@ internal class CallImplementation : ICall
         AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
-            if ((Read(id).Status == BO.StatusTreat.Open)&&(Read(id).AssignmentsToCalls ==null))
+            // Checks that the call has an open status and has never been assigned to any volunteer
+            if ((Read(id).Status == BO.StatusTreat.Open)&&(Read(id).AssignmentsToCalls == null))
             {
                 lock (AdminManager.BlMutex) //stage 7
                     _dal.Call.Delete(id);
             }
             else
-            {
-                throw new BO.BlDeleteNotPossibleException($"Call {id} can not be deleted");
-            }
+                throw new BO.BlDeleteNotPossibleException($"Call {id} can not be deleted"); 
         }
         catch (DO.DalExistException ex)
         {
@@ -166,7 +160,12 @@ internal class CallImplementation : ICall
         CallManager.Observers.NotifyListUpdated();  //stage 5 
     }
 
-    public  bool CanDelete(int id)
+    /// <summary>
+    /// Returns whether a reading can be deleted - for addition
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns> bool </returns>
+    public bool CanDelete(int id)
     {
         return (Read(id).Status == BO.StatusTreat.Open) && (Read(id).AssignmentsToCalls == null);
     }
@@ -249,10 +248,8 @@ internal class CallImplementation : ICall
             };
         }
         else
-        {
-            filteredCalls = filteredCalls.OrderBy(c => c.Id);
-        }
-
+           filteredCalls = filteredCalls.OrderBy(c => c.Id);
+        
         return filteredCalls;
     }
 
@@ -263,10 +260,8 @@ internal class CallImplementation : ICall
     /// <param name="id"></param>
     /// <param name="type"></param>
     /// <param name="sortBy"></param>
-    /// <returns></returns>
+    /// <returns> IEnumerable<BO.OpenCallInList> </returns>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
-
-
     public IEnumerable<BO.OpenCallInList> GetOpenCall(int id, BO.CallType? type, BO.EOpenCallInList? sortBy)
     {
         return CallManager.GetOpenCallHelp(id, type, sortBy);
@@ -287,11 +282,8 @@ internal class CallImplementation : ICall
     public void Update(BO.Call boCall)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
-        //double[] coordinate = VolunteerManager.GetCoordinatesAsync(boCall.FullAddress);
-        //double latitude = coordinate[0];
-        //double longitude = coordinate[1];
-        //boCall.Latitude = latitude;
-        //boCall.Longitude = longitude;
+
+        // // Creates a call of type DO
         CallManager.CheckLogic(boCall);
         DO.Call doCall = new
                     (
@@ -308,7 +300,6 @@ internal class CallImplementation : ICall
         {
             lock (AdminManager.BlMutex) //stage 7
                 _dal.Call.Update(doCall);
-   
         }
         catch (DO.DalDeleteImpossible ex)
         {

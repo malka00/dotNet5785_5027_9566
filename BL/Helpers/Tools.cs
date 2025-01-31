@@ -8,9 +8,6 @@ namespace Helpers;
 
 internal static class Tools
 {
-   
-
-    
     public static async Task<double[]> GetCoordinatesAsync(string address)
     {
         if (string.IsNullOrWhiteSpace(address))

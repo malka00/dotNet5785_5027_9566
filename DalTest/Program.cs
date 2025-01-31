@@ -21,6 +21,7 @@ public enum OPTION
     CONFIG_MENU,
     RESET_DB
 }
+
 /// <summary>
 /// Optional actions
 /// </summary>
@@ -34,6 +35,7 @@ public enum CRUD
     DELETE,
     DELETE_ALL
 }
+
 /// <summary>
 /// Actions on the watch
 /// </summary>
@@ -52,6 +54,7 @@ public enum CONFIG
     initialization,
     RESET_CONFIG,
 }
+
 /// <summary>
 /// Clock update operations
 /// </summary>

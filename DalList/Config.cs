@@ -11,7 +11,6 @@ internal static class Config
     internal const int startAssignmentID=1000;
     private static int nextAssignmentID = startAssignmentID;
     internal static int NextAssignmentID { [MethodImpl(MethodImplOptions.Synchronized)] get => nextAssignmentID++; }
-
     
     internal static DateTime Clock { [MethodImpl(MethodImplOptions.Synchronized)] get; [MethodImpl(MethodImplOptions.Synchronized)] set; } = DateTime.Now;
  

@@ -24,30 +24,38 @@ internal class VolunteerManager
     private static readonly Random s_rand = new();
     private static int s_simulatorCounter = 0;
 
+    internal static ObserverManager Observers = new(); //stage 5 
+
+    /// <summary>
+    /// The simulator method - assigns calls for volunteers and cancels/closes calls
+    /// </summary>
     internal static void SimulateVolunteerActivity() //stage 7
     {
-        // var volunteerImplementation = new VolunteerImplementation();
+        // Setting a name for the Thread
         Thread.CurrentThread.Name = $"Simulator{++s_simulatorCounter}";
 
-        // var volunteerList = volunteerImplementation.GetVolunteerList(true,null);
-        // var volunteerlist = GetVolunteerListHelp(true, null)/*.ToList()*/;
         double probability = 0.2;
 
-        // יצירת מספר אקראי בטווח 0 עד 1
-        double randomValue = s_rand.NextDouble(); // מספר בין 0.0 ל-1.0
+        // Generate a random number in the range 0 to 1
+        double randomValue = s_rand.NextDouble();
+
+        // Accepts all active volunteers and their quantity
         var volunteerList = GetVolunteerListHelp(true, null).ToList();
         int size = volunteerList.Count();
-        // בדיקה אם המספר האקראי קטן מההסתברות
+
+        // Checking if the random number is less than the probability
         for (int i = 0; i < size; i++)
         {
             var volunteer = readHelp(volunteerList[i].Id);
+
+            // If the volunteer has no treatment at the moment and is in probability
             if (volunteer.CallIn == null && randomValue < probability)
             {
                 var openCallInListsToChose = CallManager.GetOpenCallHelp(volunteer.Id, null, null).ToList();
 
+                // choose random call for volunteer
                 if (openCallInListsToChose != null && openCallInListsToChose.Count > 0)
                 {
-                    //choose random call for volunteer
                     var randomIndex = s_rand.Next(openCallInListsToChose.Count);
                     var chosenCall = openCallInListsToChose[randomIndex];
 
@@ -55,47 +63,48 @@ internal class VolunteerManager
                 }
             }
 
-            else if (volunteer.CallIn != null)    //there is call in treat
+            // there is call in treat
+            else if (volunteer.CallIn != null)
             {
                 var callin = readHelp(volunteer.Id).CallIn!;
+
+                // Closing the treatment if more than 3 hours have passed
                 if ((AdminManager.Now - callin.StartTreat) >= TimeSpan.FromHours(3))
-                {
                     CallManager.CloseTreatHelp(volunteer.Id, callin.Id);
-                }
+
+                // We will cancel the treatment with a probability of 10 percent
                 else
                 {
-                    int probability1 = s_rand.Next(1, 101); // מספר אקראי בין 1 ל-100
-
-                    if (probability1 <= 10) // הסתברות של 10%
-                    {
-                        // ביטול הטיפול
+                    int probability1 = s_rand.Next(1, 101);
+                    if (probability1 <= 10)
                         CallManager.CancelTreatHelp(volunteer.Id, callin.Id);
-                    }
                 }
             }
         }
     }
 
-  
- 
+    /// <summary>
+    /// Returns a list of volunteers and sorts by the selected value. Filter active volunteers if desired
+    /// </summary>
+    /// <param name="active"></param>
+    /// <param name="sortBy"></param>
+    /// <returns> IEnumerable<BO.VolunteerInList>  </returns>
+    /// <exception cref="BO.BlNullPropertyException"></exception>
     internal static IEnumerable<BO.VolunteerInList> GetVolunteerListHelp(bool? active, BO.EVolunteerInList? sortBy)
     {
+        // Retrieve all volunteers from the data layer
         IEnumerable<DO.Volunteer> volunteers;
         lock (AdminManager.BlMutex)
-            // Retrieve all volunteers from the data layer
             volunteers = s_dal.Volunteer.ReadAll().ToList();
-        if(volunteers==null)
-            throw new BO.BlNullPropertyException("There are not volunteers int database");
-        // Convert IEnumerable<DO.Volunteer> to IEnumerable<BO.VolunteerInList>
+        if (volunteers == null)
+            throw new BO.BlNullPropertyException("There are no volunteers in database");
+
         // Using the 'convertDOToBOInList' method to map each DO.Volunteer to BO.VolunteerInList
-        IEnumerable<BO.VolunteerInList> boVolunteersInList = volunteers
-            .Select(doVolunteer => VolunteerManager.convertDOToBOInList(doVolunteer));
+        IEnumerable<BO.VolunteerInList> boVolunteersInList = volunteers.Select(doVolunteer => VolunteerManager.convertDOToBOInList(doVolunteer));
 
         // If an 'active' filter is provided, filter the volunteers based on their active status
         // Otherwise, keep all volunteers without filtering
-        var filteredVolunteers = active.HasValue
-              ? boVolunteersInList.Where(v => v.Active == active)
-              : boVolunteersInList;
+        var filteredVolunteers = active.HasValue ? boVolunteersInList.Where(v => v.Active == active) : boVolunteersInList;
 
         // If a 'sortBy' criteria is provided, sort the filtered volunteers by the selected property
         var sortedVolunteers = sortBy.HasValue
@@ -118,10 +127,6 @@ internal class VolunteerManager
         return sortedVolunteers;
     }
 
-
-
-    internal static ObserverManager Observers = new(); //stage 5 
-
     /// <summary>
     /// func for convert DO.volunteer for BO.VolunteerInList
     /// </summary>
@@ -129,17 +134,19 @@ internal class VolunteerManager
     /// <returns> BO.VolunteerInList </returns>
     internal static BO.VolunteerInList convertDOToBOInList(DO.Volunteer doVolunteer)
     {
+        // Reading all assignments by volunteer ID
         List<DO.Assignment> assignments;
-
         lock (AdminManager.BlMutex) //stage 7
             assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
-            int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
-            int sumCanceld = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
-            int sumExpired = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
-            // idCall = call.Count(ass => ass.TimeEnd == null);
-        
-            var assignmentToCallID = assignments.Find(ass => ass.TimeEnd == null);
-        
+       
+        // Values ​​for assignments quantities by each type
+        int sumCalls = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.Treated);
+        int sumCanceld = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.SelfCancel);
+        int sumExpired = assignments.Count(ass => ass.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
+
+        // Finding a call he is currently handling - if any
+        var assignmentToCallID = assignments.Find(ass => ass.TimeEnd == null);
+
         int? idCall;
         BO.CallType ctype;
         if (assignmentToCallID != null && assignmentToCallID.TimeEnd == null)
@@ -151,11 +158,12 @@ internal class VolunteerManager
             ctype = (BO.CallType)call.Type;
         }
         else
-
         {
             idCall = null;
             ctype = BO.CallType.None;
         }
+
+        // Returning an object of type BO
         return new()
         {
             Id = doVolunteer.Id,
@@ -168,42 +176,59 @@ internal class VolunteerManager
             CType = ctype
         };
     }
+
+    /// <summary>
+    /// Method for calling a single volunteer by ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns> BO.Volunteer </returns>
+    /// <exception cref="BO.BlWrongInputException"></exception>
     internal static BO.Volunteer readHelp(int id)
     {
         DO.Volunteer doVolunteer;
         int sumCalls, sumCanceled, sumExpired;
-        lock (AdminManager.BlMutex)//stage 7
+
+        // The volunteer's reading from the Dal layer
+        lock (AdminManager.BlMutex)   //stage 7
+             doVolunteer = s_dal.Volunteer.Read(id);
+        if (doVolunteer == null)
+            throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
+        
+        lock (AdminManager.BlMutex)
         {
-            doVolunteer = s_dal.Volunteer.Read(id) ?? throw new BO.BlWrongInputException($"Volunteer with ID={id} does Not exist");
             sumCalls = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.Treated);
             sumCanceled = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id &&
-                    (a.TypeEndTreat == DO.TypeEnd.ManagerCancel || a.TypeEndTreat == DO.TypeEnd.SelfCancel)); // ביטול עצמי או מהנל
+                    (a.TypeEndTreat == DO.TypeEnd.ManagerCancel || a.TypeEndTreat == DO.TypeEnd.SelfCancel));
             sumExpired = s_dal.Assignment.ReadAll().Count(a => a.VolunteerId == doVolunteer.Id && a.TypeEndTreat == DO.TypeEnd.ExpiredCancel);
-
         }
 
+        // Returning an object of type BO
         return new()
-            {
-                Id = id,
-                Email = doVolunteer.Email,
-                MaxReading = doVolunteer.MaxReading,
-                FullName = doVolunteer.FullName,
-                PhoneNumber = doVolunteer.PhoneNumber,
-                TypeDistance = (BO.Distance)doVolunteer.TypeDistance,
-                Job = (BO.Role)doVolunteer.Job,
-                Active = doVolunteer.Active,
-                Password = DecryptPassword(doVolunteer.Password),
-                FullAddress = doVolunteer.FullAddress,
-                Latitude = doVolunteer.Latitude,
-                Longitude = doVolunteer.Longitude,
-
-                SumCalls = sumCalls,
-                SumCanceled = sumCanceled, // ביטול עצמי או מהנל
-                SumExpired = sumExpired,
-                CallIn = GetCallIn(doVolunteer),
-            };
+        {
+            Id = id,
+            Email = doVolunteer.Email,
+            MaxReading = doVolunteer.MaxReading,
+            FullName = doVolunteer.FullName,
+            PhoneNumber = doVolunteer.PhoneNumber,
+            TypeDistance = (BO.Distance)doVolunteer.TypeDistance,
+            Job = (BO.Role)doVolunteer.Job,
+            Active = doVolunteer.Active,
+            Password = DecryptPassword(doVolunteer.Password),
+            FullAddress = doVolunteer.FullAddress,
+            Latitude = doVolunteer.Latitude,
+            Longitude = doVolunteer.Longitude,
+            SumCalls = sumCalls,
+            SumCanceled = sumCanceled, 
+            SumExpired = sumExpired,
+            CallIn = GetCallIn(doVolunteer),
+        };
     }
 
+    /// <summary>
+    /// Password encryption method
+    /// </summary>
+    /// <param name="password"></param>
+    /// <returns> string </returns>
     internal static string EncryptPassword(string password)
     {
         int shift = 3;
@@ -219,6 +244,11 @@ internal class VolunteerManager
         return encryptedPassword.ToString();
     }
 
+    /// <summary>
+    /// Converts an encrypted password to the real password
+    /// </summary>
+    /// <param name="encryptedPassword"></param>
+    /// <returns> tring </returns>
     internal static string DecryptPassword(string encryptedPassword)
     {
         int shift = 3;
@@ -235,6 +265,7 @@ internal class VolunteerManager
         return decryptedPassword.ToString();
     }
 
+
     /// <summary>
     /// The GetCallIn function takes an object of type DO.Volunteer and returns an object of type BO.CallInProgress. 
     /// It is responsible for searching and creating information about a call in which the volunteer is currently involved in treatment, 
@@ -244,24 +275,29 @@ internal class VolunteerManager
     /// <returns></returns>
     /// <exception cref="BO.BlWrongInputException"></exception>
     internal static BO.CallInProgress GetCallIn(DO.Volunteer doVolunteer)
-
-
     {
+        // Reads all the assignments of the current volunteer
         List<DO.Assignment> assignments;
         lock (AdminManager.BlMutex)//stage 7
             assignments = s_dal.Assignment.ReadAll(ass => ass.VolunteerId == doVolunteer.Id).ToList();
-        DO.Assignment? assignmentTreat = assignments.Find(ass => /*ass.TimeEnd == null ||*/ ass.TypeEndTreat == null);
+
+        // Finds the assignment he is currently handling
+        DO.Assignment? assignmentTreat = assignments.Find(ass =>  ass.TypeEndTreat == null);
+
+        // If there is no assignment in his care at the moment, return Null
         if (assignmentTreat == null) { return null; }
+
+        // Finds the identification number of the call currently being processed
         DO.Call? callTreat;
         lock (AdminManager.BlMutex)//stage 7
             callTreat = s_dal.Call.Read(assignmentTreat.CallId);
-        if (callTreat == null) { throw new BO.BlWrongInputException($"there is no call with this DI {assignmentTreat.CallId}"); }
-        //double[] cordinate = GetCoordinatesAsync(doVolunteer.FullAddress);
-        //double latitude = cordinate[0];
-        //double longitude = cordinate[1];
-        //      AdminImplementation admin = new AdminImplementation();
+        if (callTreat == null) 
+            throw new BO.BlWrongInputException($"there is no call with this DI {assignmentTreat.CallId}");
+
+        // Finds the status of the call currently being processed
         BO.StatusTreat status = CallManager.GetCallStatus(callTreat);
 
+        // Returns the volunteer plus a callin field 
         return new()
         {
             Id = assignmentTreat.Id,
@@ -273,7 +309,6 @@ internal class VolunteerManager
             MaxTimeToClose = callTreat.MaxTimeToClose,
             StartTreat = assignmentTreat.TimeStart,
             distanceCallVolunteer = CalculateDistance(callTreat.Latitude, callTreat.Longitude, doVolunteer.Latitude, doVolunteer.Longitude),
-            //Status = status,
             Status = (callTreat.MaxTimeToClose - AdminManager.Now <= s_dal.Config.RiskRange ? BO.StatusTreat.TreatInRisk : BO.StatusTreat.TreatInRisk),
         };
     }
@@ -301,7 +336,7 @@ internal class VolunteerManager
         /// </summary>
         if (string.IsNullOrWhiteSpace(boVolunteer.FullName) || !Regex.IsMatch(boVolunteer.FullName, @"^[a-zA-Z\s]+$"))
         {
-            throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null, empty, or contain invalid characters.");
+            throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null, empty, or contain invalid characters");
         }
 
         /// <summary>
@@ -310,7 +345,7 @@ internal class VolunteerManager
         /// </summary>
         if (string.IsNullOrWhiteSpace(boVolunteer.FullName))
         {
-            throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null or empty.");
+            throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} cannot be null or empty");
         }
 
         /// <summary>
@@ -318,7 +353,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.FullName.Any(c => !Char.IsLetter(c) && !Char.IsWhiteSpace(c)))
         {
-            throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} contains invalid characters.");
+            throw new BO.BlWrongItemException($"FullName {boVolunteer.FullName} contains invalid characters");
         }
         /// <summary>
         /// Validate the Email field.
@@ -326,7 +361,7 @@ internal class VolunteerManager
         /// </summary>
         if (!Regex.IsMatch(boVolunteer.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
-            throw new BO.BlWrongItemException("Invalid Email format.");
+            throw new BO.BlWrongItemException("Invalid Email format");
         }
 
         /// <summary>
@@ -337,7 +372,7 @@ internal class VolunteerManager
         {
             if (!double.TryParse(boVolunteer.MaxReading.Value.ToString(), out double maxReadingValue) || maxReadingValue <= 0)
             {
-                throw new BO.BlWrongItemException($"MaxReading {boVolunteer.MaxReading} must be a positive number.");
+                throw new BO.BlWrongItemException($"MaxReading {boVolunteer.MaxReading} must be a positive number");
             }
         }
 
@@ -347,7 +382,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Latitude.HasValue && (boVolunteer.Latitude.Value < -90 || boVolunteer.Latitude.Value > 90))
         {
-            throw new BO.BlWrongItemException("Latitude must be between -90 and 90.");
+            throw new BO.BlWrongItemException("Latitude must be between -90 and 90");
         }
 
         /// <summary>
@@ -356,12 +391,8 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Longitude.HasValue && (boVolunteer.Longitude.Value < -180 || boVolunteer.Longitude.Value > 180))
         {
-            throw new BO.BlWrongItemException($"Longitude {boVolunteer.Longitude} must be between -180 and 180.");
+            throw new BO.BlWrongItemException($"Longitude {boVolunteer.Longitude} must be between -180 and 180");
         }
-
-        /// <summary>
-        /// Add any additional validation checks here if needed in the future.
-        /// </summary>
     }
 
     /// <summary>
@@ -372,22 +403,18 @@ internal class VolunteerManager
     /// <exception cref="BO.BlWrongItemException"></exception>
     internal static void CheckLogic(BO.Volunteer boVolunteer)
     {
-        //try
-        //{
         CheckId(boVolunteer.Id);
         CheckPhoneNumber(boVolunteer.PhoneNumber);
         CheckEmail(boVolunteer.Email);
         CheckPassword(boVolunteer.Password);
-        // CheckAddress(boVolunteer);
         CheckActive(boVolunteer);
-
-        //}
-        //catch (BO.BlWrongItemException ex)
-        //{
-        //    throw new BO.BlWrongItemException($"the item have logic problem", ex);
-        //}
     }
 
+    /// <summary>
+    /// A volunteer tester who has a call in his care will not be inactive
+    /// </summary>
+    /// <param name="volunteer"></param>
+    /// <exception cref="BO.BlWrongItemException"></exception>
     internal static void CheckActive(BO.Volunteer volunteer)
     {
         if (!volunteer.Active && (volunteer.CallIn != null))
@@ -533,34 +560,34 @@ internal class VolunteerManager
             throw new BO.BlWrongItemException($"Password{password} must contain at least one digit.");
     }
 
+    /// <summary>
+    /// A method for updating the longitude and latitude of a volunteer's address
+    /// </summary>
+    /// <param name="doVolunteer"></param>
+    /// <param name="address"></param>
+    /// <returns></returns>
     internal static async Task updateCoordinatesForVolunteerAddressAsync(DO.Volunteer doVolunteer, string address)
     {
         if (address == null)
             address = "";
-       
-            double[] coordinates;
 
-            coordinates = await Tools.GetCoordinatesAsync(address);
+        double[] coordinates;
 
+        // A call to an asynchronous method that will calculate coordinates at the same time as the function continues
+        coordinates = await Tools.GetCoordinatesAsync(address);
 
-            if (coordinates == null || coordinates.Length != 2)
-                //throw new BO.BlWrongInputException("Failed to update coordinates due to invalid address.");
-                doVolunteer = doVolunteer with { Latitude = null, Longitude = null };
-            else
-                doVolunteer = doVolunteer with { Latitude = coordinates[0], Longitude = coordinates[1] };
+        // Entering the values ​​obtained
+        if (coordinates == null || coordinates.Length != 2)
+            doVolunteer = doVolunteer with { Latitude = null, Longitude = null };
+        else
+            doVolunteer = doVolunteer with { Latitude = coordinates[0], Longitude = coordinates[1] };
 
-            lock (AdminManager.BlMutex)
-                s_dal.Volunteer.Update(doVolunteer);
-            Observers.NotifyListUpdated();
-            Observers.NotifyItemUpdated(doVolunteer.Id);
-
-        
-        
-    
+        // Volunteer update
+        lock (AdminManager.BlMutex)
+            s_dal.Volunteer.Update(doVolunteer);
+        Observers.NotifyListUpdated();
+        Observers.NotifyItemUpdated(doVolunteer.Id);
     }
-    
-
-
 
     /// <summary>
     /// Calculates the distance between two points (latitude and longitude) in meters.
@@ -576,12 +603,11 @@ internal class VolunteerManager
         if (lat1 == null || lon1 == null || lat2 == null || lon2 == null)
             return 0;
 
-        //  // Convert latitude and longitude from degrees to radians
+        // Convert latitude and longitude from degrees to radians
         double lat1Rad = (double)lat1 * (Math.PI / 180);
         double lon1Rad = (double)lon1 * (Math.PI / 180);
         double lat2Rad = (double)lat2 * (Math.PI / 180);
         double lon2Rad = (double)lon2 * (Math.PI / 180);
-
 
         const double R = 6371; // Radius of the Earth in kilometers
 

@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace DO;
 
 /// <summary>
@@ -11,6 +10,7 @@ public enum Role
     Volunteer,   
     Boss         
 }
+
 /// <summary>
 /// Enum definition for the distance type
 /// </summary>

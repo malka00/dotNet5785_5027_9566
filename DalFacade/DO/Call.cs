@@ -24,14 +24,13 @@ public record Call
         double? Longitude,
         DateTime TimeOpened,
         DateTime? MaxTimeToClose
-  )
-
+)
 
 /// <summary>
 /// Default constructor for Call with default values
 /// </summary>
 {
-    public Call() : this(0, default(CallType), "", "", null, null, DateTime.MinValue,null) { }
+    public Call() : this(0, default(CallType), "", "", null, null, DateTime.MinValue, null) { }
 }
 
 
