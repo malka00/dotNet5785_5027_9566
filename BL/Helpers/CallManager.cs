@@ -481,8 +481,8 @@ internal class CallManager
     /// <returns> BO.StatusTreat </returns>
     internal static BO.StatusTreat GetCallStatus(DO.Call doCall)
     {
-        // Checking if the call has expired
         lock (AdminManager.BlMutex) //stage 7
+            now = s_dal.Config.Clock;
             if (doCall.MaxTimeToClose < s_dal.Config.Clock)
                 return BO.StatusTreat.Expired;
 
