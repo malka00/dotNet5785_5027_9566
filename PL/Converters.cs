@@ -155,50 +155,6 @@ namespace PL
         }
     }
 
-  
-    //public class ConvertUpdateToVisible : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        if (value is string buttonText)
-    //        {
-    //            return buttonText == "Update" ? Visibility.Visible : Visibility.Collapsed;
-    //        }
-    //        return Visibility.Collapsed;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
-   
-
-    //public class BooleanToVisibility : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        if (value is bool boolValue && boolValue)
-    //        {
-    //            return Visibility.Visible;
-    //        }
-    //        return Visibility.Collapsed;
-    //    }
-
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-
-    //        if (value is Visibility visibility && visibility == Visibility.Visible)
-    //        {
-    //            return true;
-    //        }
-    //        return false;
-    //    }
-
-    //}
-
     /// <summary>
     /// A function that is used to return a collection of values ​​from an Enum (counter class) based on a value selected for sorting ("Status" or "CallType").
     /// </summary>

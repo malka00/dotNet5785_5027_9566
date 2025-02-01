@@ -229,7 +229,7 @@
                         Padding="15"
                         Margin="0,15">
                     <StackPanel>
-                        <Label   Content="Enter time to simulate (in minute)"
+                        <Label   Content="Enter time for simulation (in minutes)"
                                  FontWeight="Bold"/>
                         <TextBox Text="{Binding Interval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  IsReadOnly="{Binding IsSimulatorRunning}"

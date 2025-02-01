@@ -101,7 +101,7 @@ namespace PL.Volunteer
                 try {
                     s_bl.Volunteers.Create(CurrentVolunteer!);
                     MessageBox.Show($"Volunteer {CurrentVolunteer?.Id} was successfully added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                   
+                   this.Close();
                 }
                 catch (BO.BlAlreadyExistsException ex)
                 {
@@ -129,6 +129,7 @@ namespace PL.Volunteer
                 {
                     MessageBox.Show(ex.Message, "Operation Fail", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -549,7 +549,7 @@ internal class CallManager
             assignmentsForCall = s_dal.Assignment.ReadAll(a => a.CallId == doCall.Id);
 
         // Setting the last assignment
-        var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.TimeStart).FirstOrDefault();
+        var lastAssignmentsForCall = assignmentsForCall.OrderByDescending(item => item.Id).FirstOrDefault();
 
         // Determining the call status
         BO.StatusTreat status = GetCallStatus(doCall);

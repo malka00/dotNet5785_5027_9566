@@ -128,7 +128,6 @@ public static class Initialization
 
     }
 
-
     /// <summary>
     /// A function that creates 50 diverse readings according to the requirements.
     ///In the function we created arrays for addresses, longitudes and street, as well as arrays for describing the case according to the type of case
@@ -391,15 +390,40 @@ public static class Initialization
         {
             //Assigning a volunteer to a task
             int randVolunteer = s_rand.Next(s_dal!.Volunteer.ReadAll().Count());
-             Volunteer volunteerToAssign = s_dal.Volunteer.ReadAll().OrderBy(v => s_rand.Next()).First();
+            Volunteer volunteerToAssign = s_dal.Volunteer.ReadAll().OrderBy(v => s_rand.Next()).First();
+            
             //call number ID
             int randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count() - 15);
             Call callToAssig = s_dal.Call.ReadAll().OrderBy(v => s_rand.Next()).First();
-            while (callToAssig.TimeOpened > s_dal!.Config!.Clock)
+
+            DO.Assignment? lastAssignment = null;
+
+            // Validate that the volunteer does not have an open assignment
+            if (s_dal.Assignment.ReadAll(ass => ass.VolunteerId == volunteerToAssign.Id && ass.TimeEnd == null).Any())
             {
-                randCAll = s_rand.Next(s_dal.Call!.ReadAll().Count() - 15);
-                callToAssig = s_dal.Call.ReadAll().OrderBy(v => s_rand.Next()).First();
+                i--; // Adjust the loop counter to retry this iteration
+                continue; ; // Skip this iteration if the volunteer has an open assignment
             }
+
+            // Select a valid call
+            do
+            {
+                int randCall = s_rand.Next(s_dal.Call.ReadAll().Count() - 15);
+                callToAssig = s_dal.Call.ReadAll().ElementAt(randCall);
+
+                // Fetch the most recent assignment for the call, ordered by assignment ID
+                lastAssignment = s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.Id)
+                                .OrderByDescending(ass => ass.Id).FirstOrDefault();
+
+            }
+            while (
+            callToAssig.TimeOpened > s_dal.Config.Clock || // Call opened in the future
+            (lastAssignment != null && lastAssignment.TypeEndTreat == TypeEnd.Treated) || // Call already treated
+            (lastAssignment != null && lastAssignment.TimeEnd == null) || // Call still being processed
+            (lastAssignment != null && lastAssignment.TypeEndTreat == TypeEnd.ExpiredCancel) || // Call has expired
+            s_dal.Assignment.ReadAll(ass => ass.CallId == callToAssig.Id && ass.TimeEnd == null).Any() // Call already has an open assignment
+        );
+
             TypeEnd? finish = null;
             DateTime? finishTime = null;
             if (callToAssig.MaxTimeToClose != null && callToAssig.MaxTimeToClose >= s_dal!.Config?.Clock)
@@ -416,16 +440,19 @@ public static class Initialization
                         finish = TypeEnd.Treated;
                         finishTime = s_dal!.Config!.Clock;
                         break;
-                    case 1: finish = TypeEnd.SelfCancel;
+                    case 1:
+                        finish = TypeEnd.SelfCancel;
                         finishTime = s_dal.Config.Clock;
                         break;
-                    case 2: finish = TypeEnd.ManagerCancel;
+                    case 2:
+                        finish = TypeEnd.ManagerCancel;
                         finishTime = s_dal.Config.Clock; break;
                 }
             }
             s_dal.Assignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssign.Id, s_dal!.Config!.Clock, finishTime, finish));
         }
     }
+
 
     //public static void Do(IStudent? dalStudent, ICourse? dalCourse, ILink? dalStudentInCourse, IConfig? dalConfig) // stage 1
     //public static void Do(IDal dal)  //stage 2
