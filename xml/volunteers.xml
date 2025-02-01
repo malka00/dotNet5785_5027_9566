@@ -236,4 +236,18 @@
     <longitude>35.1824528</longitude>
     <latitude>31.7692558</latitude>
   </Volunteer>
+  <Volunteer>
+    <ID>212075444</ID>
+    <fullName>ih u hiuk</fullName>
+    <phone>0547906600</phone>
+    <email>irfhfe@gmail.com</email>
+    <password>D4567</password>
+    <isActive>true</isActive>
+    <role>Volunteer</role>
+    <distance>Aerial</distance>
+    <address>דוד אלעזר 1 גבעת שמואל</address>
+    <longitude>34.846131246750154</longitude>
+    <latitude>32.0801235</latitude>
+    <maxDistance>5</maxDistance>
+  </Volunteer>
 </ArrayOfVolunteer>

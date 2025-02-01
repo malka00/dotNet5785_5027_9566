@@ -24,9 +24,16 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        public string Password { get; set; }
+        string Id
+        {
+            get => (string)GetValue(IdProperty);
+            init => SetValue(IdProperty, value);
+        }
+        public static readonly DependencyProperty IdProperty =
+         DependencyProperty.Register(nameof(Id), typeof(string), typeof(EnterWindow));
 
-        public int Id { get; set; }
+      public  string Password { get; set; }
+       
 
         public EnterWindow()
         {
@@ -57,7 +64,7 @@ namespace PL
             BO.Volunteer currentVolunteer = null;
             try
             {
-                currentVolunteer = s_bl.Volunteers.Read(Id);
+                currentVolunteer = s_bl.Volunteers.ReadString(Id);
             }
             catch (BO.BlDoesNotExistException ex)
             {
@@ -72,15 +79,16 @@ namespace PL
 
             if (currentVolunteer != null)
             {
+                int.TryParse(Id, out int numericId);
                 if (currentVolunteer!.Password != Password)
                     MessageBox.Show("wrong password!", "Error", MessageBoxButton.OK);
                 else
                 {
                     MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
                     if (currentVolunteer.Job == BO.Role.Boss)
-                        new ManagerWindow(Id).Show();
+                        new ManagerWindow(numericId).Show();
                     else
-                        new VolunteerWindow(Id).Show();
+                        new VolunteerWindow(numericId).Show();
                 }
             }
         }
@@ -101,7 +109,7 @@ namespace PL
                 BO.Volunteer currentVolunteer = null;
                 try
                 {
-                    currentVolunteer = s_bl.Volunteers.Read(Id);
+                    currentVolunteer = s_bl.Volunteers.ReadString(Id);
                 }
                 catch (BO.BlDoesNotExistException ex)
                 {
@@ -121,10 +129,11 @@ namespace PL
                     else
                     {
                         MessageBox.Show("WELLCOME TO SYSTEM", "WellCome");
-                        if (currentVolunteer.Job == BO.Role.Boss)
+                        int.TryParse(Id, out int numericId);
+                        if (currentVolunteer.Job == BO.Role.Boss) 
                             try
                             {
-                                new ManagerWindow(Id).Show();
+                                new ManagerWindow(numericId).Show();
                             }
                             catch (Exception ex)
                             {
@@ -133,11 +142,13 @@ namespace PL
 
 
                         else
-                            new VolunteerWindow(Id).Show();
+                            new VolunteerWindow(numericId).Show();
 
                     }
                 }
             }
         }
+
+       
     }
 }

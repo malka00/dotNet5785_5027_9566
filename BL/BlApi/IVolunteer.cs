@@ -53,8 +53,8 @@ public interface IVolunteer: IObservable
     ///    - The data layer throws an exception that is caught here.
     ///    - A new exception of type <see cref="BO.BlDoesNotExistException"/> is thrown to the presentation layer.
     /// </remarks>
+    BO.Volunteer ReadString(string id);
     BO.Volunteer Read(int id);
-
     /// <summary>
     /// Updates the details of an existing volunteer.
     /// </summary>

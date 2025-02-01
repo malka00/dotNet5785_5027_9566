@@ -328,7 +328,7 @@ internal class VolunteerManager
         /// </summary>
         if (boVolunteer.Id <= 0 || boVolunteer.Id.ToString().Length < 8 || boVolunteer.Id.ToString().Length > 9)
         {
-            throw new BO.BlWrongItemException($"Invalid ID {boVolunteer.Id}. It must be 8-9 digits.");
+            throw new BO.BlWrongItemException($"Invalid ID. It must be 8-9 digits.");
         }
         /// <summary>
         /// Validate the FullName field.
@@ -435,7 +435,7 @@ internal class VolunteerManager
         // Ensure the ID is exactly 9 digits long
         if (idString.Length != 9)
         {
-            throw new BO.BlWrongItemException($"this ID {id} does not posssible");
+            throw new BO.BlWrongItemException($"this ID  does not posssible");
         }
 
         int sum = 0;
@@ -465,7 +465,7 @@ internal class VolunteerManager
         //check id digit
         if (sum % 10 != 0)
         {
-            throw new BO.BlWrongItemException($"this ID {id} does not posssible");
+            throw new BO.BlWrongItemException($"this ID  does not posssible");
         }
     }
 

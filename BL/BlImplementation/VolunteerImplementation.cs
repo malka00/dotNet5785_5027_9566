@@ -75,7 +75,8 @@ internal class VolunteerImplementation : IVolunteer
     /// <returns>bool</returns>
     public bool CanDelete(int id)
     {
-        return (Read(id).CallIn == null) && (Read(id).SumCalls == 0);
+        var volunteer = VolunteerManager.readHelp(id);
+        return (volunteer.CallIn == null) && (volunteer.SumCalls == 0);
     }
 
     /// <summary>
@@ -153,6 +154,21 @@ internal class VolunteerImplementation : IVolunteer
     /// </summary>
     /// <param name="id"></param>
     /// <returns> BO.Volunteer </returns>
+    public BO.Volunteer ReadString(string id)
+    {
+        if(id==null)
+            throw new BO.BlWrongInputException("You didn't enter ID");
+        if (id.Length != 9)
+            throw new BO.BlWrongInputException("ID must contain exactly 9 characters.");
+
+        if (!id.All(char.IsDigit))
+            throw new BO.BlWrongInputException("ID must contain only digits.");
+
+        if (!int.TryParse(id, out int numericId))
+            throw new BO.BlWrongInputException("ID is too large to be stored as an integer.");
+        return VolunteerManager.readHelp(numericId);
+    }
+
     public BO.Volunteer Read(int id)
     {
         return VolunteerManager.readHelp(id);

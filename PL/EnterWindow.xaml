@@ -51,7 +51,7 @@
            FontSize="16" Foreground="#555555" Margin="10,0,0,5" />
 
             <!-- ID TextBox -->
-            <TextBox Text="{Binding Path=Id, Mode=OneWayToSource}" 
+            <TextBox Text="{Binding Path=Id}" 
              Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" 
              Width="340" Height="30" FontSize="14" FontFamily="Segoe UI" 
              Background="#FFFFFF" Foreground="#333333" 
