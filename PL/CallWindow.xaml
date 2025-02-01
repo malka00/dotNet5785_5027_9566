@@ -181,15 +181,16 @@
             <!-- Assignments List -->
 
             <!-- Original Back Button -->
-            <Button HorizontalAlignment="Left" 
-                    Margin="14,255,0,0" 
-                    VerticalAlignment="Bottom" 
-                    Click="btnBack_Click">
+            <Button Style="{StaticResource ModernButton}" 
+           Background="#757575"
+           HorizontalAlignment="Left" 
+           VerticalAlignment="Bottom" 
+           Margin="20"
+           Click="btnBack_Click">
                 <Path Data="M10,0 L0,10 L10,20 L10,14 L20,14 L20,6 L10,6 Z" 
-                      Fill="Black" 
-                      Width="20" 
-                      Height="20" 
-                      VerticalAlignment="Center"/>
+             Fill="White" 
+             Width="17" 
+             Height="20"/>
             </Button>
         </Grid>
     </DockPanel>

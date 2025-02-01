@@ -111,14 +111,14 @@
                             Margin="5"
                             Height="50"
                             Click="btnInitDB_Click"
-                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
                     <Button Content="Reset DB" 
                             Style="{StaticResource ModernButton}"
                             Background="#F44336"
                             Margin="5"
                             Height="50"
                             Click="btnResetDB_Click"
-                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                            IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
                 </UniformGrid>
 
                 <!-- Stats Grid -->
@@ -182,23 +182,23 @@
                 <Button Content="Add One Minute" 
                         Style="{StaticResource TimeControlButton}"
                         Click="btnAddOneMinute_Click"
-                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
                 <Button Content="Add One Hour" 
                         Style="{StaticResource TimeControlButton}"
                         Click="btnAddOneHour_Click"
-                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
                 <Button Content="Add One Day" 
                         Style="{StaticResource TimeControlButton}"
                         Click="btnAddOneDay_Click"
-                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
                 <Button Content="Add One Month" 
                         Style="{StaticResource TimeControlButton}"
                         Click="btnAddOneMonth_Click"
-                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
                 <Button Content="Add One Year" 
                         Style="{StaticResource TimeControlButton}"
                         Click="btnAddOneYear_Click"
-                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                        IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
 
                 <!-- Risk Time Configuration -->
                 <Border Background="White" 
@@ -218,7 +218,7 @@
                         <Button Content="Update"
                                 Style="{StaticResource ModernButton}"
                                 Click="btnUpdateMaxRange_Click"
-                                 IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBooleanConverterKey}}"/>
+                                IsEnabled="{Binding IsSimulatorRunning, Converter={StaticResource InverseBoolConverterKey}}"/>
                     </StackPanel>
                 </Border>
 
