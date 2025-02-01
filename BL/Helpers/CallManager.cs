@@ -425,7 +425,7 @@ internal class CallManager
             lock (AdminManager.BlMutex) //stage 7
                 s_dal.Assignment.Update(assignmentToUP);
             VolunteerManager.Observers.NotifyListUpdated();
-            // VolunteerManager.Observers.NotifyItemUpdated(idVol);
+            VolunteerManager.Observers.NotifyItemUpdated(assignmentToCancel.VolunteerId);
             CallManager.Observers.NotifyListUpdated();
             CallManager.Observers.NotifyItemUpdated(assignmentToCancel.CallId);
         }
