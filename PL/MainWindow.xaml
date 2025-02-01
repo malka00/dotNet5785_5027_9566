@@ -19,24 +19,27 @@
             <Setter Property="Padding" Value="15,8"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
-
-
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                CornerRadius="4"
-                                Padding="{TemplateBinding Padding}">
+                        CornerRadius="4"
+                        Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
                             </Border.Effect>
                         </Border>
                         <ControlTemplate.Triggers>
+
+                            <!-- Change color on mouseover -->
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#1976D2"/>
                             </Trigger>
+
+                            <!-- When the button is inactive, change the background to gray and change the transparency -->
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="LightGray" />
+                                <Setter Property="Background" Value="#A0A0A0"/>
+                                <Setter Property="Opacity" Value="0.5"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -44,17 +47,13 @@
             </Setter>
         </Style>
 
+
         <!-- Time Control Button Style -->
         <Style x:Key="TimeControlButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
             <Setter Property="Background" Value="#4CAF50"/>
             <Setter Property="Margin" Value="0,2"/>
             <Setter Property="Width" Value="147"/>
             <Setter Property="Height" Value="32"/>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="LightGray" />
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <!-- Stats Label Style -->
