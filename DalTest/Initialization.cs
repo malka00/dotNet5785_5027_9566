@@ -321,7 +321,7 @@ public static class Initialization
 
         int p = 0, l = 0, c = 0;
         ///created 50 readings
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 49; i++)
         {
             CallType cType; 
             string nDescription;
@@ -365,7 +365,7 @@ public static class Initialization
             //else
             if(i% 5==0) 
             {
-                int maxDurationMinutes = s_rand.Next(1, 180);
+                int maxDurationMinutes = s_rand.Next(1, 60);
                 RandomEnd = RandomStart.AddMinutes(maxDurationMinutes);
             }
             else
@@ -378,7 +378,7 @@ public static class Initialization
             
             s_dal.Call.Create(new Call(0, cType, nDescription, addresses[i], latitudes[i], longitudes[i], RandomStart, RandomEnd));
         }
-
+        s_dal.Call.Create(new Call(0, CallType.Cables, "the car donrt have powr", addresses[49], latitudes[49], longitudes[49], s_dal.Config.Clock, s_dal.Config.Clock.AddMinutes(60)));
     }
 
     /// <summary>
@@ -447,6 +447,7 @@ public static class Initialization
                     case 2:
                         finish = TypeEnd.ManagerCancel;
                         finishTime = s_dal.Config.Clock; break;
+                    //default: break;
                 }
             }
             s_dal.Assignment?.Create(new Assignment(0, callToAssig.Id, volunteerToAssign.Id, s_dal!.Config!.Clock, finishTime, finish));

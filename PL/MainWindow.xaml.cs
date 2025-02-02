@@ -132,6 +132,7 @@ namespace PL
             CurrentTime = s_bl.Admin.GetClock();
             MaxRange = s_bl.Admin.GetMaxRange();
             CountCall = s_bl.Calls.CountCall();
+            Interval = 20;
 
             s_bl.Admin.AddClockObserver(clockObserver);
             s_bl.Admin.AddConfigObserver(configObserver);
