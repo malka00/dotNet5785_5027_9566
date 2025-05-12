@@ -431,16 +431,6 @@
     <MaxTimeToClose xsi:nil="true" />
   </Call>
   <Call>
-    <Id>1043</Id>
-    <Type>Cables</Type>
-    <Description>Customer stranded with a weak battery, needs cables urgently.</Description>
-    <FullAddress>Shmuel Hanavi 50, Jerusalem, Israel</FullAddress>
-    <Latitude>31.7545</Latitude>
-    <Longitude>35.2087</Longitude>
-    <TimeOpened>2025-02-02T08:15:34</TimeOpened>
-    <MaxTimeToClose xsi:nil="true" />
-  </Call>
-  <Call>
     <Id>1044</Id>
     <Type>LockedCar</Type>
     <Description>Customer left keys inside, vehicle parked near a hospital entrance.</Description>

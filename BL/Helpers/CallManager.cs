@@ -630,6 +630,7 @@ internal class CallManager
     /// <summary>
     /// The `UpdateExpiredCalls` function is responsible for updating the status of expired calls (calls whose maximum time to close has passed).
     /// </summary>
+   
     internal static void UpdateExpiredCalls()
     {
         bool assignmentUpdated = false; //stage 5
