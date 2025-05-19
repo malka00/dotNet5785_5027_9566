@@ -3,41 +3,41 @@
 
 As part of the course project, we developed a comprehensive system for managing a volunteer-based organization. The system is designed to streamline the handling of service calls and the administration of volunteers. This solution is suitable for various types of volunteer organizations, such as **YEDIDIM - Roadside Assistance**.
 
-## ?? User Roles
+##  User Roles
 The system supports two primary user roles:
-- **????? Manager** – Responsible for overseeing service calls and managing the volunteer database.
-- **????? Volunteer** – Handles service calls and reports updates regarding their status.
+- ** Manager** β€“ Responsible for overseeing service calls and managing the volunteer database.
+- ** Volunteer** β€“ Handles service calls and reports updates regarding their status.
 
 Managers also have the option to operate as regular volunteers, based on their preferences.
 
-## ?? CManagement
+##  CManagement
 - Managers can create new service calls of different types.
 - Each call includes a defined maximum resolution time.
 - Managers can specify a risk time window, beyond which a call is considered at risk of not being resolved on time.
 - Calls that exceed their resolution time without being handled are marked as expired.
 - The system maintains a complete assignment history for each call, including all volunteers who were assigned or released the call.
 
-## ????? Volunteer 
+##  Volunteer 
 - Once a volunteer selects a call, it is marked as assigned to them.
 - Volunteers can report a successful resolution or choose to cancel the assignment.
 - If a volunteer cancels an assignment, the call becomes available for others to handle.
 - Volunteers can update their address and define their maximum preferred distance for receiving calls.
 
-## ?? Technologies
+##  Technologies
 - **Programming Language:** C#
 - **Development Framework:** WPF (.NET)
 - **Data Management:** XML files
 - **Algorithms:** Queue management, date/time calculations, and range evaluations
 - **Concurrency:** Asynchronous task and process handling
 
-## ?? System Clock
+##  System Clock
 To simulate real-time progression, the system uses an internal logical clock that operates independently from the actual system time.
 
-## ?? System Architecture
+##  System Architecture
 The project is implemented based on the Layered Architecture Model, including the following layers:
-- **Presentation Layer** – User interface developed using WPF.
-- **Business Logic Layer (BL)** – Contains the logic for managing calls, scheduling, and volunteer data.
-- **Data Access Layer (DAL)** – Handles reading and writing of data to XML files, including system clock updates.
+- **Presentation Layer** β€“ User interface developed using WPF.
+- **Business Logic Layer (BL)** β€“ Contains the logic for managing calls, scheduling, and volunteer data.
+- **Data Access Layer (DAL)** β€“ Handles reading and writing of data to XML files, including system clock updates.
 
 ## Written By:
 - [Efrat Sharabi](https://github.com/efratsharabi1)
@@ -52,29 +52,29 @@ The project is implemented based on the Layered Architecture Model, including th
 
 - 
 
-# README - ϊερτεϊ εωιτεψιν ατψειχθ
+# README - ΓΊΓ¥Γ±Γ΄Γ¥ΓΊ Γ¥ΓΉΓ©Γ΄Γ¥ΓΈΓ©Γ­ Γ΅Γ΄ΓΈΓ¥Γ©Γ·Γ¨
 
-## ϊερτεϊ εωιτεψιν αχεγ
+## ΓΊΓ¥Γ±Γ΄Γ¥ΓΊ Γ¥ΓΉΓ©Γ΄Γ¥ΓΈΓ©Γ­ Γ΅Γ·Γ¥Γ£
 
-| **ϊερτϊ** | **τιψεθ (διλο δχεγ ωμ δϊερτϊ ξετις ατψειχθ)**  | **πιχεγ ωδεφς αξρξκ δψωξι** |
+| **ΓΊΓ¥Γ±Γ΄ΓΊ** | **Γ΄Γ©ΓΈΓ¥Γ¨ (Γ¤Γ©Γ«Γ― Γ¤Γ·Γ¥Γ£ ΓΉΓ¬ Γ¤ΓΊΓ¥Γ±Γ΄ΓΊ Γ®Γ¥Γ΄Γ©Γ² Γ΅Γ΄ΓΈΓ¥Γ©Γ·Γ¨)**  | **Γ°Γ©Γ·Γ¥Γ£ ΓΉΓ¤Γ¥Γ¶Γ² Γ΅Γ®Γ±Γ®Γª Γ¤ΓΈΓΉΓ®Γ©** |
 |------------|-------------------------------------------------|-----------------------------|
-| **λτϊεψ Enter** | ξρκ λπιρδ ψΰωι |  1 |
-| **TryParse** | αωλαϊ δ-DAL |  1 |
-| **δερτϊ ϊλεπδ - ριρξΰ** | αιωεϊ `volunteer`, λπιρδ μξςψλϊ  | 2 |
-| **δφτπϊ δριρξΰ** | `VolunteerManager` |  2 |
-| **ϊφεβδ βψτιϊ ΰιπθψΰχθιαιϊ** (ωιπει φαςιν αξχψδ ωμ χμθ μΰ ϊχιο) | αδλπρϊ λϊεαϊ μΰ πλεπδ - φας ΰγεν. ξρκ ξϊπγα, ξρκ χψιΰδ  | 1 |
-| **ΰιιχεο (icon)** | αλμ δξρλιν  | 1 |
-| **θψιβψ ξΰτιιπιν** | ξρκ ξπδμ - αηιψδ μΰιζδ ξρκ μμλϊ; ξρκ ψΰωι - λτϊεψιν ξωπιν φας λωδν μΰ ξΰετωψιν | 1 |
-| **ωιξεω α- `IMultiValueConverter`** | αδλπρϊ λϊεαϊ μΰ πλεπδ - φας ΰγεν. ξρκ ξϊπγα, ξρκ χψιΰδ  | 1 |
-| **δζπϊ ριρξΰ αξρκ δλπιρδ** | αδζπϊ δριρξΰ γψκ δξρκ - δριρξΰ μΰ ξεφβϊ ΰμΰ ξετιςεϊ λπχεγεϊ | 1 |
-| **δλτϊεψ μξηιχϊ χψιΰδ ιετις ψχ ΰν ΰτωψ μξηεχ ΰϊ δχψιΰδ** | ξρκ πιδεμ χψιΰεϊ |  2 |
-| **δλτϊεψ μξηιχϊ ξϊπγα ιετις ψχ ΰν ΰτωψ μξηεχ ΰϊ δξϊπγα** | ξρκ πιδεμ ξϊπγαιν |  2 |
-| **αγιχδ ωδριρξΰ ηζχδ** | ξρκ δερτϊ ξϊπγα | 1 |
-| **δερτϊ λτϊεψ ΰηεψδ** | αλμ δξρλιν | 1 |
-| **θψιβψ ϊλεπδ** | ξρκ ξϊπγα - λτϊεψ αηιψϊ χψιΰδ | 1 |
-| **βψτιχδ (drawing, shapes)** | ξρκ αηιψδ ωμ ξπδμ | 1 |
+| **Γ«Γ΄ΓΊΓ¥ΓΈ Enter** | Γ®Γ±Γª Γ«Γ°Γ©Γ±Γ¤ ΓΈΓ ΓΉΓ© |  1 |
+| **TryParse** | Γ΅ΓΉΓ«Γ΅ΓΊ Γ¤-DAL |  1 |
+| **Γ¤Γ¥Γ±Γ΄ΓΊ ΓΊΓ«Γ¥Γ°Γ¤ - Γ±Γ©Γ±Γ®Γ ** | Γ΅Γ©ΓΉΓ¥ΓΊ `volunteer`, Γ«Γ°Γ©Γ±Γ¤ Γ¬Γ®Γ²ΓΈΓ«ΓΊ  | 2 |
+| **Γ¤Γ¶Γ΄Γ°ΓΊ Γ¤Γ±Γ©Γ±Γ®Γ ** | `VolunteerManager` |  2 |
+| **ΓΊΓ¶Γ¥ΓΆΓ¤ ΓΆΓΈΓ΄Γ©ΓΊ Γ Γ©Γ°Γ¨ΓΈΓ Γ·Γ¨Γ©Γ΅Γ©ΓΊ** (ΓΉΓ©Γ°Γ¥Γ© Γ¶Γ΅Γ²Γ©Γ­ Γ΅Γ®Γ·ΓΈΓ¤ ΓΉΓ¬ Γ·Γ¬Γ¨ Γ¬Γ  ΓΊΓ·Γ©Γ―) | Γ΅Γ¤Γ«Γ°Γ±ΓΊ Γ«ΓΊΓ¥Γ΅ΓΊ Γ¬Γ  Γ°Γ«Γ¥Γ°Γ¤ - Γ¶Γ΅Γ² Γ Γ£Γ¥Γ­. Γ®Γ±Γª Γ®ΓΊΓ°Γ£Γ΅, Γ®Γ±Γª Γ·ΓΈΓ©Γ Γ¤  | 1 |
+| **Γ Γ©Γ©Γ·Γ¥Γ― (icon)** | Γ΅Γ«Γ¬ Γ¤Γ®Γ±Γ«Γ©Γ­  | 1 |
+| **Γ¨ΓΈΓ©ΓΆΓΈ Γ®Γ Γ΄Γ©Γ©Γ°Γ©Γ­** | Γ®Γ±Γª Γ®Γ°Γ¤Γ¬ - Γ΅Γ§Γ©ΓΈΓ¤ Γ¬Γ Γ©Γ¦Γ¤ Γ®Γ±Γª Γ¬Γ¬Γ«ΓΊ; Γ®Γ±Γª ΓΈΓ ΓΉΓ© - Γ«Γ΄ΓΊΓ¥ΓΈΓ©Γ­ Γ®ΓΉΓ°Γ©Γ­ Γ¶Γ΅Γ² Γ«ΓΉΓ¤Γ­ Γ¬Γ  Γ®Γ Γ¥Γ΄ΓΉΓΈΓ©Γ­ | 1 |
+| **ΓΉΓ©Γ®Γ¥ΓΉ Γ΅- `IMultiValueConverter`** | Γ΅Γ¤Γ«Γ°Γ±ΓΊ Γ«ΓΊΓ¥Γ΅ΓΊ Γ¬Γ  Γ°Γ«Γ¥Γ°Γ¤ - Γ¶Γ΅Γ² Γ Γ£Γ¥Γ­. Γ®Γ±Γª Γ®ΓΊΓ°Γ£Γ΅, Γ®Γ±Γª Γ·ΓΈΓ©Γ Γ¤  | 1 |
+| **Γ¤Γ¦Γ°ΓΊ Γ±Γ©Γ±Γ®Γ  Γ΅Γ®Γ±Γª Γ¤Γ«Γ°Γ©Γ±Γ¤** | Γ΅Γ¤Γ¦Γ°ΓΊ Γ¤Γ±Γ©Γ±Γ®Γ  Γ£ΓΈΓª Γ¤Γ®Γ±Γª - Γ¤Γ±Γ©Γ±Γ®Γ  Γ¬Γ  Γ®Γ¥Γ¶ΓΆΓΊ Γ Γ¬Γ  Γ®Γ¥Γ΄Γ©Γ²Γ¥ΓΊ Γ«Γ°Γ·Γ¥Γ£Γ¥ΓΊ | 1 |
+| **Γ¤Γ«Γ΄ΓΊΓ¥ΓΈ Γ¬Γ®Γ§Γ©Γ·ΓΊ Γ·ΓΈΓ©Γ Γ¤ Γ©Γ¥Γ΄Γ©Γ² ΓΈΓ· Γ Γ­ Γ Γ΄ΓΉΓΈ Γ¬Γ®Γ§Γ¥Γ· Γ ΓΊ Γ¤Γ·ΓΈΓ©Γ Γ¤** | Γ®Γ±Γª Γ°Γ©Γ¤Γ¥Γ¬ Γ·ΓΈΓ©Γ Γ¥ΓΊ |  2 |
+| **Γ¤Γ«Γ΄ΓΊΓ¥ΓΈ Γ¬Γ®Γ§Γ©Γ·ΓΊ Γ®ΓΊΓ°Γ£Γ΅ Γ©Γ¥Γ΄Γ©Γ² ΓΈΓ· Γ Γ­ Γ Γ΄ΓΉΓΈ Γ¬Γ®Γ§Γ¥Γ· Γ ΓΊ Γ¤Γ®ΓΊΓ°Γ£Γ΅** | Γ®Γ±Γª Γ°Γ©Γ¤Γ¥Γ¬ Γ®ΓΊΓ°Γ£Γ΅Γ©Γ­ |  2 |
+| **Γ΅Γ£Γ©Γ·Γ¤ ΓΉΓ¤Γ±Γ©Γ±Γ®Γ  Γ§Γ¦Γ·Γ¤** | Γ®Γ±Γª Γ¤Γ¥Γ±Γ΄ΓΊ Γ®ΓΊΓ°Γ£Γ΅ | 1 |
+| **Γ¤Γ¥Γ±Γ΄ΓΊ Γ«Γ΄ΓΊΓ¥ΓΈ Γ Γ§Γ¥ΓΈΓ¤** | Γ΅Γ«Γ¬ Γ¤Γ®Γ±Γ«Γ©Γ­ | 1 |
+| **Γ¨ΓΈΓ©ΓΆΓΈ ΓΊΓ«Γ¥Γ°Γ¤** | Γ®Γ±Γª Γ®ΓΊΓ°Γ£Γ΅ - Γ«Γ΄ΓΊΓ¥ΓΈ Γ΅Γ§Γ©ΓΈΓΊ Γ·ΓΈΓ©Γ Γ¤ | 1 |
+| **ΓΆΓΈΓ΄Γ©Γ·Γ¤ (drawing, shapes)** | Γ®Γ±Γª Γ΅Γ§Γ©ΓΈΓ¤ ΓΉΓ¬ Γ®Γ°Γ¤Γ¬ | 1 |
 
-## δςψεϊ
-- λμ δϊερτεϊ παγχε επερτε αδϊΰξδ μξςψλϊ.
+## Γ¤Γ²ΓΈΓ¥ΓΊ
+- Γ«Γ¬ Γ¤ΓΊΓ¥Γ±Γ΄Γ¥ΓΊ Γ°Γ΅Γ£Γ·Γ¥ Γ¥Γ°Γ¥Γ±Γ΄Γ¥ Γ΅Γ¤ΓΊΓ Γ®Γ¤ Γ¬Γ®Γ²ΓΈΓ«ΓΊ.
 
 
